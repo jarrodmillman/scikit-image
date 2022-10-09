@@ -462,8 +462,7 @@ class deprecated:
         if self.removed_version is not None:
             rmv_msg = f' and will be removed in version {self.removed_version}'
 
-        msg = (f'Function ``{func.__name__}`` is deprecated' +
-               rmv_msg + '.' + alt_msg)
+        msg = f'Function ``{func.__name__}`` is deprecated{rmv_msg}.{alt_msg}'
 
         @functools.wraps(func)
         def wrapped(*args, **kwargs):

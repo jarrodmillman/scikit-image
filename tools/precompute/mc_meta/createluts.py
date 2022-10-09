@@ -103,7 +103,7 @@ def get_table(lines1, needle, i):
     array = eval(code)
     array64 = base64.encodebytes(array.tostring()).decode('utf-8')
     # Reverse: bytes = base64.decodebytes(text.encode('utf-8'))
-    text = f'{name} = {str(array.shape)}, ""\"\n{array64}"""'
+    text = f'{name} = {array.shape}, """\n{array64}"""'
 
     # Build actual lines
     lines2 = []

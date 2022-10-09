@@ -135,8 +135,7 @@ def require(name, version=None):
             if is_installed(name, version):
                 return obj(*args, **kwargs)
             else:
-                msg = '"%s" in "%s" requires "%s'
-                msg = msg % (obj, obj.__module__, name)
+                msg = f'"{obj}" in "{obj.__module__}" requires "{name}'
                 if not version is None:
                     msg += f" {version}"
                 raise ImportError(msg + '"')
