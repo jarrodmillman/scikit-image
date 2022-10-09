@@ -162,7 +162,7 @@ class LineModelND(BaseModel):
 
         if direction[axis] == 0:
             # line parallel to axis
-            raise ValueError('Line parallel to axis %s' % axis)
+            raise ValueError(f'Line parallel to axis {axis}')
 
         l = (x - origin[axis]) / direction[axis]
         data = origin + l[..., np.newaxis] * direction

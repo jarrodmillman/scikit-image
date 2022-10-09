@@ -42,7 +42,7 @@ def cython(pyx_files, working_path=''):
     try:
         from Cython import __version__
         if version.parse(__version__) < version.parse(CYTHON_VERSION):
-            raise RuntimeError('Cython >= %s needed to build scikit-image' % CYTHON_VERSION)
+            raise RuntimeError(f'Cython >= {CYTHON_VERSION} needed to build scikit-image')
 
         from Cython.Build import cythonize
     except ImportError:
@@ -82,7 +82,7 @@ def process_tempita_pyx(fromfile):
                                               encoding=sys.getdefaultencoding())
     pyxcontent = template.substitute()
     if not fromfile.endswith('.pyx.in'):
-        raise ValueError("Unexpected extension of %s." % fromfile)
+        raise ValueError(f"Unexpected extension of {fromfile}.")
 
     pyxfile = os.path.splitext(fromfile)[0]    # split off the .in ending
     with open(pyxfile, "w") as f:

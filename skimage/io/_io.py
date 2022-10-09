@@ -139,7 +139,7 @@ def imsave(fname, arr, plugin=None, check_contrast=True, **plugin_args):
              'img_as_ubyte.' % fname, stacklevel=2)
         arr = arr.astype('uint8') * 255
     if check_contrast and is_low_contrast(arr):
-        warn('%s is a low contrast image' % fname)
+        warn(f'{fname} is a low contrast image')
     return call_plugin('imsave', fname, arr, plugin=plugin, **plugin_args)
 
 

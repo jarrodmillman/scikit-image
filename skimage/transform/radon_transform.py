@@ -249,11 +249,11 @@ def iradon(radon_image, theta=None, output_size=None,
 
     interpolation_types = ('linear', 'nearest', 'cubic')
     if interpolation not in interpolation_types:
-        raise ValueError("Unknown interpolation: %s" % interpolation)
+        raise ValueError(f"Unknown interpolation: {interpolation}")
 
     filter_types = ('ramp', 'shepp-logan', 'cosine', 'hamming', 'hann', None)
     if filter_name not in filter_types:
-        raise ValueError("Unknown filter: %s" % filter_name)
+        raise ValueError(f"Unknown filter: {filter_name}")
 
     radon_image = convert_to_float(radon_image, preserve_range)
     dtype = radon_image.dtype

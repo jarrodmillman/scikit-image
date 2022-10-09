@@ -134,7 +134,7 @@ def pil_to_ndarray(image, dtype=None, img_num=None):
     elif frames:
         return frames[0]
     elif img_num:
-        raise IndexError('Could not find image  #%s' % img_num)
+        raise IndexError(f'Could not find image  #{img_num}')
 
 
 def _palette_is_grayscale(pil_image):
@@ -262,7 +262,7 @@ def imsave(fname, arr, format_str=None, **kwargs):
         arr = arr.astype(np.uint8)
 
     if arr.ndim not in (2, 3):
-        raise ValueError("Invalid shape for image array: %s" % (arr.shape, ))
+        raise ValueError(f"Invalid shape for image array: {arr.shape}")
 
     if arr.ndim == 3:
         if arr.shape[2] not in (3, 4):
