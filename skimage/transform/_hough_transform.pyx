@@ -5,10 +5,9 @@
 import numpy as np
 
 cimport numpy as cnp
-
-from cpython.mem cimport PyMem_Malloc, PyMem_Free
+from cpython.mem cimport PyMem_Free, PyMem_Malloc
+from libc.math cimport M_PI, atan2, ceil, fabs, sqrt
 from libc.stdlib cimport abs
-from libc.math cimport fabs, sqrt, ceil, atan2, M_PI
 
 from ..draw import circle_perimeter
 

@@ -4,8 +4,8 @@ Specific images
 ===============
 
 """
-import matplotlib.pyplot as plt
 import matplotlib
+import matplotlib.pyplot as plt
 
 from skimage import data
 

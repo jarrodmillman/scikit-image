@@ -14,6 +14,7 @@ one.
 
 cimport numpy as cnp
 from libc.math cimport exp, pow
+
 cnp.import_array()
 
 

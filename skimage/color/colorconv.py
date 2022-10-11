@@ -54,7 +54,6 @@ from warnings import warn
 import numpy as np
 from scipy import linalg
 
-
 from .._shared.utils import (_supported_float_type, channel_as_last_axis,
                              identity, reshape_nd, slice_at_axis)
 from ..util import dtype, dtype_limits

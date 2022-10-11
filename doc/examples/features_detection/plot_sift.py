@@ -29,10 +29,9 @@ References
 """
 import matplotlib.pyplot as plt
 
-from skimage import data
-from skimage import transform
+from skimage import data, transform
 from skimage.color import rgb2gray
-from skimage.feature import match_descriptors, plot_matches, SIFT
+from skimage.feature import SIFT, match_descriptors, plot_matches
 
 img1 = rgb2gray(data.astronaut())
 img2 = transform.rotate(img1, 180)

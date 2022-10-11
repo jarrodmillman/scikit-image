@@ -1,10 +1,10 @@
-import pytest
 import numpy as np
-from skimage import data
-from skimage.measure._label import _label_bool, label
-from skimage.measure._ccomp import label_cython as clabel
+import pytest
 
+from skimage import data
 from skimage._shared import testing
+from skimage.measure._ccomp import label_cython as clabel
+from skimage.measure._label import _label_bool, label
 
 # In this testsuite, we ensure that the results provided by
 # label_cython are identical to the one from _label_bool,

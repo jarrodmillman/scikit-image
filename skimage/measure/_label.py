@@ -1,6 +1,7 @@
 from scipy import ndimage
-from ._ccomp import label_cython as clabel
+
 from .._shared.utils import deprecate_kwarg
+from ._ccomp import label_cython as clabel
 
 
 def _label_bool(image, background=None, return_num=False, connectivity=None):

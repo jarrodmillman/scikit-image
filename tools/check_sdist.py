@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 import os
 import sys
+import tarfile
 from argparse import ArgumentParser
 from pathlib import Path
-import tarfile
 
 parser = ArgumentParser(description='Check a created sdist')
 parser.add_argument('sdist_name', type=str, nargs=1,

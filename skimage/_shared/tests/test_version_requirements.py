@@ -3,8 +3,9 @@
 """
 import numpy as np
 from numpy.testing import assert_equal
-from skimage._shared import version_requirements as version_req
+
 from skimage._shared import testing
+from skimage._shared import version_requirements as version_req
 
 
 def test_get_module_version():

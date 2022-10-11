@@ -3,7 +3,9 @@
 #cython: nonecheck=False
 #cython: wraparound=False
 import numpy as np
+
 cimport numpy as cnp
+
 cnp.import_array()
 
 cdef extern from "numpy/npy_math.h":

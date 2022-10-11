@@ -12,19 +12,18 @@ degraded version of it.
 .. [1] https://en.wikipedia.org/wiki/Histogram_equalization
 """
 
-import matplotlib.pyplot as plt
+import imageio as io
 import matplotlib.patches as patches
+import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib import cm, colors
 from mpl_toolkits.mplot3d import Axes3D
 
-import numpy as np
 from skimage import exposure, util
-import imageio as io
-
+from skimage.data import cells3d
 
 # Prepare data and apply histogram equalization
 
-from skimage.data import cells3d
 
 im_orig = util.img_as_float(cells3d()[:, 1, :, :])  # grab just the nuclei
 
@@ -51,14 +50,14 @@ clip_limit = 0.9
 
 # Perform histogram equalization
 im_orig_he, im_degraded_he = \
-    [exposure.equalize_hist(im)
-     for im in [im_orig, im_degraded]]
+    (exposure.equalize_hist(im)
+     for im in [im_orig, im_degraded])
 
 im_orig_ahe, im_degraded_ahe = \
-    [exposure.equalize_adapthist(im,
+    (exposure.equalize_adapthist(im,
                                  kernel_size=kernel_size,
                                  clip_limit=clip_limit)
-     for im in [im_orig, im_degraded]]
+     for im in [im_orig, im_degraded])
 
 
 # Define functions to help plot the data

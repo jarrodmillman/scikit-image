@@ -1,14 +1,12 @@
-
 from itertools import chain
 from operator import add
 
 import numpy as np
 
-from ._haar import haar_like_feature_coord_wrapper
-from ._haar import haar_like_feature_wrapper
 from ..color import gray2rgb
 from ..draw import rectangle
 from ..util import img_as_float
+from ._haar import haar_like_feature_coord_wrapper, haar_like_feature_wrapper
 
 FEATURE_TYPE = ('type-2-x', 'type-2-y',
                 'type-3-x', 'type-3-y',

@@ -1,10 +1,12 @@
-from itertools import combinations_with_replacement
 import itertools
-import numpy as np
-from skimage import filters, feature
-from skimage.util.dtype import img_as_float32
-from skimage._shared import utils
 from concurrent.futures import ThreadPoolExecutor
+from itertools import combinations_with_replacement
+
+import numpy as np
+
+from skimage import feature, filters
+from skimage._shared import utils
+from skimage.util.dtype import img_as_float32
 
 
 def _texture_filter(gaussian_filtered):

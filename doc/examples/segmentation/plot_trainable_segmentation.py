@@ -16,11 +16,13 @@ segmentation").
 .. [2] https://www.ilastik.org/documentation/pixelclassification/pixelclassification
 .. [3] https://imagej.net/Trainable_Weka_Segmentation#Training_features_.282D.29
 """
-import numpy as np
-import matplotlib.pyplot as plt
-from skimage import data, segmentation, feature, future
-from sklearn.ensemble import RandomForestClassifier
 from functools import partial
+
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.ensemble import RandomForestClassifier
+
+from skimage import data, feature, future, segmentation
 
 full_img = data.skin()
 

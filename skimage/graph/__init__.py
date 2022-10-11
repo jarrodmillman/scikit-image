@@ -1,7 +1,7 @@
-from ._graph import pixel_graph, central_pixel
+from ._graph import central_pixel, pixel_graph
+from .mcp import (MCP, MCP_Connect, MCP_Flexible, MCP_Geometric,
+                  route_through_array)
 from .spath import shortest_path
-from .mcp import MCP, MCP_Geometric, MCP_Connect, MCP_Flexible, route_through_array
-
 
 __all__ = [
         'pixel_graph',

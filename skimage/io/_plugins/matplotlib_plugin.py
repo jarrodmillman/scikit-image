@@ -1,12 +1,13 @@
 from collections import namedtuple
+from math import ceil, floor
+
+import matplotlib.image
 import numpy as np
 from mpl_toolkits.axes_grid1 import make_axes_locatable
-import matplotlib.image
-from ...util import dtype as dtypes
-from ...exposure import is_low_contrast
-from ..._shared.utils import warn
-from math import floor, ceil
 
+from ..._shared.utils import warn
+from ...exposure import is_low_contrast
+from ...util import dtype as dtypes
 
 _default_colormap = 'gray'
 _nonstandard_colormap = 'viridis'

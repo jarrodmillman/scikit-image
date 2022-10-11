@@ -29,10 +29,7 @@ case of irregular mask.
 
 import matplotlib.pyplot as plt
 
-from skimage import data
-from skimage import color
-from skimage import morphology
-from skimage import segmentation
+from skimage import color, data, morphology, segmentation
 
 # Input data
 img = data.immunohistochemistry()

@@ -1,17 +1,17 @@
 import functools
-from math import ceil
 import numbers
+from math import ceil
 
-import scipy.stats
 import numpy as np
 import pywt
+import scipy.stats
 
-from ..util.dtype import img_as_float
+from .. import color
 from .._shared import utils
 from .._shared.utils import _supported_float_type, warn
-from ._denoise_cy import _denoise_bilateral, _denoise_tv_bregman
-from .. import color
 from ..color.colorconv import ycbcr_from_rgb
+from ..util.dtype import img_as_float
+from ._denoise_cy import _denoise_bilateral, _denoise_tv_bregman
 
 
 def _gaussian_weight(array, sigma_squared, *, dtype=float):

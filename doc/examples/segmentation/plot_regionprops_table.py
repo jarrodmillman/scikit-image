@@ -21,7 +21,6 @@ import seaborn as sns
 
 from skimage import data, measure
 
-
 fractions = np.linspace(0.05, 0.5, 10)
 
 #####################################################################

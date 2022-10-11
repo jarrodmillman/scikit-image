@@ -10,7 +10,7 @@ from .._shared.utils import deprecate_kwarg
 from ..util import crop
 from ._flood_fill_cy import _flood_fill_equal, _flood_fill_tolerance
 from ._util import (_offsets_to_raveled_neighbors, _resolve_neighborhood,
-                    _set_border_values,)
+                    _set_border_values)
 
 
 @deprecate_kwarg(kwarg_mapping={'selem': 'footprint'}, removed_version="1.0",

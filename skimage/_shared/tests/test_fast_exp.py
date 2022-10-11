@@ -1,5 +1,6 @@
-from ..fast_exp import fast_exp
 import numpy as np
+
+from ..fast_exp import fast_exp
 
 
 def test_fast_exp():

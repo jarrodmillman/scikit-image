@@ -22,8 +22,8 @@ factors given as a parameter to the function.
 
 import matplotlib.pyplot as plt
 
-from skimage import data, color
-from skimage.transform import rescale, resize, downscale_local_mean
+from skimage import color, data
+from skimage.transform import downscale_local_mean, rescale, resize
 
 image = color.rgb2gray(data.astronaut())
 

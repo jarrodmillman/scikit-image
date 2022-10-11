@@ -1,8 +1,9 @@
-from numpy.testing import assert_array_equal
 import numpy as np
-from skimage.future import graph
-from skimage import segmentation, data
+from numpy.testing import assert_array_equal
+
+from skimage import data, segmentation
 from skimage._shared import testing
+from skimage.future import graph
 
 
 def max_edge(g, src, dst, n):

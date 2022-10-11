@@ -4,7 +4,7 @@ http://www.mathworks.com/matlabcentral/fileexchange/18401-efficient-subpixel-ima
 """
 
 import numpy as np
-from scipy.fft import fftn, ifftn, fftfreq
+from scipy.fft import fftfreq, fftn, ifftn
 
 from ._masked_phase_cross_correlation import _masked_phase_cross_correlation
 

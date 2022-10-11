@@ -11,10 +11,10 @@ between two regions is the average value of the corresponding pixels in
 ``edge_map`` along their shared boundary.
 
 """
-from skimage.future import graph
-from skimage import data, segmentation, color, filters, io
 from matplotlib import pyplot as plt
 
+from skimage import color, data, filters, io, segmentation
+from skimage.future import graph
 
 img = data.coffee()
 gimg = color.rgb2gray(img)

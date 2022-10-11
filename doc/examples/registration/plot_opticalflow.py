@@ -1,4 +1,3 @@
-# coding: utf-8
 """Registration using optical flow
 ==================================
 
@@ -18,10 +17,11 @@ in the constructed RGB image.
 """
 import numpy as np
 from matplotlib import pyplot as plt
+
 from skimage.color import rgb2gray
 from skimage.data import stereo_motorcycle, vortex
+from skimage.registration import optical_flow_ilk, optical_flow_tvl1
 from skimage.transform import warp
-from skimage.registration import optical_flow_tvl1, optical_flow_ilk
 
 # --- Load the sequence
 image0, image1, disp = stereo_motorcycle()

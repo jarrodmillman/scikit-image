@@ -9,7 +9,6 @@ from scipy import ndimage as ndi
 from skimage._shared._warnings import expected_warnings
 from skimage.feature import peak
 
-
 np.random.seed(21)
 
 

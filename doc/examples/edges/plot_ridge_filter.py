@@ -40,10 +40,10 @@ References
        :DOI:`10.1007/978-3-319-16811-1_40`
 """
 
-from skimage import data
-from skimage import color
-from skimage.filters import meijering, sato, frangi, hessian
 import matplotlib.pyplot as plt
+
+from skimage import color, data
+from skimage.filters import frangi, hessian, meijering, sato
 
 
 def original(image, **kwargs):

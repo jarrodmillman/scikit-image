@@ -6,20 +6,25 @@
 
 
 import numpy as np
+
 cimport numpy as cnp
 cimport safe_openmp as openmp
-from safe_openmp cimport have_openmp
-from libc.stdlib cimport malloc, free
+from libc.stdlib cimport free, malloc
 from libcpp.vector cimport vector
+from safe_openmp cimport have_openmp
+
+from skimage._shared.interpolation cimport fmax, fmin, round
 from skimage._shared.transform cimport integrate
 
-from skimage._shared.interpolation cimport round, fmax, fmin
+import xml.etree.ElementTree as ET
 
 from cython.parallel import prange
+
 from ..color import rgb2gray
 from ..transform import integral_image
-import xml.etree.ElementTree as ET
+
 from ._texture cimport _multiblock_lbp
+
 import math
 
 cnp.import_array()

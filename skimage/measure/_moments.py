@@ -1,7 +1,9 @@
+import itertools
+
 import numpy as np
+
 from .._shared.utils import _supported_float_type, check_nD
 from . import _moments_cy
-import itertools
 
 
 def moments_coords(coords, order=3):

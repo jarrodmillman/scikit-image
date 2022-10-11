@@ -1,4 +1,4 @@
-from ._mcp import MCP, MCP_Geometric, MCP_Connect, MCP_Flexible
+from ._mcp import MCP, MCP_Connect, MCP_Flexible, MCP_Geometric
 
 
 def route_through_array(array, start, end, fully_connected=True,

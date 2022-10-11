@@ -12,13 +12,12 @@ employing the very efficient Hamming distance metric for matching. As such, it
 is preferred for real-time applications.
 
 """
-from skimage import data
-from skimage import transform
-from skimage.feature import (match_descriptors, corner_harris,
-                             corner_peaks, ORB, plot_matches)
-from skimage.color import rgb2gray
 import matplotlib.pyplot as plt
 
+from skimage import data, transform
+from skimage.color import rgb2gray
+from skimage.feature import (ORB, corner_harris, corner_peaks,
+                             match_descriptors, plot_matches)
 
 img1 = rgb2gray(data.astronaut())
 img2 = transform.rotate(img1, 180)

@@ -40,12 +40,12 @@ References
        :DOI:`10.1109/TIP.2014.2336551`
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
-from skimage.morphology import max_tree
 import networkx as nx
+import numpy as np
+from matplotlib.lines import Line2D
 
+from skimage.morphology import max_tree
 
 #####################################################################
 # Before we start : a few helper functions

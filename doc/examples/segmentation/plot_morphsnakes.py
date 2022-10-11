@@ -47,13 +47,14 @@ References
 
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+
 from skimage import data, img_as_float
-from skimage.segmentation import (morphological_chan_vese,
-                                  morphological_geodesic_active_contour,
+from skimage.segmentation import (checkerboard_level_set,
                                   inverse_gaussian_gradient,
-                                  checkerboard_level_set)
+                                  morphological_chan_vese,
+                                  morphological_geodesic_active_contour)
 
 
 def store_evolution_in(lst):

@@ -2,32 +2,31 @@
 Testing utilities.
 """
 
+import functools
 import os
 import re
 import struct
 import threading
-import functools
+import warnings
 from tempfile import NamedTemporaryFile
 
 import numpy as np
 from numpy import testing
-from numpy.testing import (assert_array_equal, assert_array_almost_equal,
-                           assert_array_less, assert_array_almost_equal_nulp,
-                           assert_equal, TestCase, assert_allclose,
-                           assert_almost_equal, assert_, assert_warns,
-                           assert_no_warnings)
-
-import warnings
+from numpy.testing import (TestCase, assert_, assert_allclose,
+                           assert_almost_equal, assert_array_almost_equal,
+                           assert_array_almost_equal_nulp, assert_array_equal,
+                           assert_array_less, assert_equal, assert_no_warnings,
+                           assert_warns)
 
 from .. import data, io
 from ..data._fetchers import _fetch
-from ..util import img_as_uint, img_as_float, img_as_int, img_as_ubyte
+from ..util import img_as_float, img_as_int, img_as_ubyte, img_as_uint
 from ._warnings import expected_warnings
-
 
 SKIP_RE = re.compile(r"(\s*>>>.*?)(\s*)#\s*skip\s+if\s+(.*)$")
 
 import pytest
+
 skipif = pytest.mark.skipif
 xfail = pytest.mark.xfail
 parametrize = pytest.mark.parametrize
@@ -205,7 +204,7 @@ def setup_test():
     warnings.simplefilter('default')
 
     if _error_on_warnings:
-        from scipy import signal, ndimage, special, optimize, linalg
+        from scipy import linalg, ndimage, optimize, signal, special
         from scipy.io import loadmat
 
         np.random.seed(0)

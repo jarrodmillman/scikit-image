@@ -21,7 +21,7 @@ https://en.wikipedia.org/wiki/Color_difference
 import numpy as np
 
 from .._shared.utils import _supported_float_type
-from .colorconv import lab2lch, _cart2polar_2pi
+from .colorconv import _cart2polar_2pi, lab2lch
 
 
 def _float_inputs(lab1, lab2, allow_float32=True):

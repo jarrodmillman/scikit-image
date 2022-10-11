@@ -1,7 +1,7 @@
-import time
 import random
-import skimage.graph.heap as heap
+import time
 
+import skimage.graph.heap as heap
 from skimage._shared.testing import test_parallel
 
 

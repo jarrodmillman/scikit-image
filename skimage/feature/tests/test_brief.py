@@ -1,10 +1,10 @@
-import pytest
 import numpy as np
+import pytest
 
-from skimage._shared.testing import assert_array_equal
 from skimage import data
-from skimage.feature import BRIEF, corner_peaks, corner_harris
 from skimage._shared import testing
+from skimage._shared.testing import assert_array_equal
+from skimage.feature import BRIEF, corner_harris, corner_peaks
 
 
 def test_color_image_unsupported_error():

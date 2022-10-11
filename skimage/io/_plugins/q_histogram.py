@@ -1,7 +1,6 @@
 import numpy as np
-
-from qtpy.QtGui import QPainter, QColor
-from qtpy.QtWidgets import QWidget, QGridLayout, QFrame
+from qtpy.QtGui import QColor, QPainter
+from qtpy.QtWidgets import QFrame, QGridLayout, QWidget
 
 from .util import histograms
 

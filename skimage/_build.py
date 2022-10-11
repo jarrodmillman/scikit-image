@@ -1,7 +1,8 @@
-import sys
 import os
-from packaging import version
+import sys
 from multiprocessing import cpu_count
+
+from packaging import version
 
 CYTHON_VERSION = '0.23.4'
 

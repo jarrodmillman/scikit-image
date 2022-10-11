@@ -1,6 +1,7 @@
 import numpy as np
-from skimage._shared.utils import safe_as_int
+
 from skimage._shared import testing
+from skimage._shared.utils import safe_as_int
 
 
 def test_int_cast_not_possible():

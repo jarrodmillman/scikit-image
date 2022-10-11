@@ -8,13 +8,11 @@ The CENSURE feature detector is a scale-invariant center-surround detector
 implementation.
 """
 
-from skimage import data
-from skimage import transform
-from skimage.feature import CENSURE
-from skimage.color import rgb2gray
-
 import matplotlib.pyplot as plt
 
+from skimage import data, transform
+from skimage.color import rgb2gray
+from skimage.feature import CENSURE
 
 img_orig = rgb2gray(data.astronaut())
 tform = transform.AffineTransform(scale=(1.5, 1.5), rotation=0.5,
@@ -41,6 +39,6 @@ ax[1].set_title('Transformed Image')
 
 for a in ax:
     a.axis('off')
-    
+
 plt.tight_layout()
 plt.show()

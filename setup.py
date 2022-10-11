@@ -1,16 +1,17 @@
 #! /usr/bin/env python
 
+import builtins
 import os
+import shutil
 import sys
 import tempfile
-import shutil
-import builtins
 import textwrap
-from numpy.distutils.command.build_ext import build_ext as npy_build_ext
 
 import setuptools
+from numpy.distutils.command.build_ext import build_ext as npy_build_ext
 from setuptools.command.build_py import build_py
 from setuptools.command.sdist import sdist
+
 try:
     from setuptools.errors import CompileError, LinkError
 except ImportError:
@@ -84,7 +85,7 @@ class ConditionalOpenMP(pythran_build_ext[npy_build_ext]):
 
         try:
             os.chdir(tmpdir)
-            with open(fname, 'wt') as fobj:
+            with open(fname, 'w') as fobj:
                 fobj.write(code)
             try:
                 objects = cc.compile([fname],
@@ -124,7 +125,7 @@ class ConditionalOpenMP(pythran_build_ext[npy_build_ext]):
                 ext.extra_compile_args += compile_flags
                 ext.extra_link_args += link_flags
 
-        super(ConditionalOpenMP, self).build_extensions()
+        super().build_extensions()
 
 
 with open('skimage/__init__.py', encoding='utf-8') as fid:
@@ -176,8 +177,8 @@ if __name__ == "__main__":
         # test if build dependencies exist.
         # if not, some commands are still viable.
         # note: this must be kept in sync with pyproject.toml
-        from numpy.distutils.core import setup
         import cython
+        from numpy.distutils.core import setup
         extra = {'configuration': configuration}
         cmdclass['build_ext'] = ConditionalOpenMP
     except ImportError:

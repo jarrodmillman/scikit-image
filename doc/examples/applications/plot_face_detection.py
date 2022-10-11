@@ -62,11 +62,11 @@ using `OpenCV train cascade utility
 <https://docs.opencv.org/2.4/doc/user_guide/ug_traincascade.html>`_.
 """
 
-from skimage import data
-from skimage.feature import Cascade
-
 import matplotlib.pyplot as plt
 from matplotlib import patches
+
+from skimage import data
+from skimage.feature import Cascade
 
 # Load the trained file from the module root.
 trained_file = data.lbp_frontal_face_cascade_filename()

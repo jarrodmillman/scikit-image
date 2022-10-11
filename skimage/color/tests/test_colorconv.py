@@ -9,6 +9,7 @@ Authors
 """
 
 import colorsys
+
 import numpy as np
 import pytest
 from numpy.testing import (assert_almost_equal, assert_array_almost_equal,
@@ -18,26 +19,15 @@ from skimage import data
 from skimage._shared._warnings import expected_warnings
 from skimage._shared.testing import fetch
 from skimage._shared.utils import _supported_float_type, slice_at_axis
-from skimage.color import (rgb2hsv, hsv2rgb,
-                           rgb2xyz, xyz2rgb,
-                           rgb2hed, hed2rgb,
-                           separate_stains,
-                           combine_stains,
-                           rgb2rgbcie, rgbcie2rgb,
-                           convert_colorspace,
-                           rgb2gray, gray2rgb,
-                           xyz2lab, lab2xyz,
-                           lab2rgb, rgb2lab,
-                           xyz2luv, luv2xyz,
-                           luv2rgb, rgb2luv,
-                           lab2lch, lch2lab,
-                           rgb2yuv, yuv2rgb,
-                           rgb2yiq, yiq2rgb,
-                           rgb2ypbpr, ypbpr2rgb,
-                           rgb2ycbcr, ycbcr2rgb,
-                           rgb2ydbdr, ydbdr2rgb,
-                           rgba2rgb, gray2rgba)
-from skimage.util import img_as_float, img_as_ubyte, img_as_float32
+from skimage.color import (combine_stains, convert_colorspace, gray2rgb,
+                           gray2rgba, hed2rgb, hsv2rgb, lab2lch, lab2rgb,
+                           lab2xyz, lch2lab, luv2rgb, luv2xyz, rgb2gray,
+                           rgb2hed, rgb2hsv, rgb2lab, rgb2luv, rgb2rgbcie,
+                           rgb2xyz, rgb2ycbcr, rgb2ydbdr, rgb2yiq, rgb2ypbpr,
+                           rgb2yuv, rgba2rgb, rgbcie2rgb, separate_stains,
+                           xyz2lab, xyz2luv, xyz2rgb, ycbcr2rgb, ydbdr2rgb,
+                           yiq2rgb, ypbpr2rgb, yuv2rgb)
+from skimage.util import img_as_float, img_as_float32, img_as_ubyte
 
 
 class TestColorconv():

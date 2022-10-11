@@ -27,21 +27,17 @@ References
 import sys
 from time import time
 
-import numpy as np
 import matplotlib.pyplot as plt
-
+import numpy as np
 from dask import delayed
-
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score
+from sklearn.model_selection import train_test_split
 
 from skimage.data import lfw_subset
+from skimage.feature import (draw_haar_like_feature, haar_like_feature,
+                             haar_like_feature_coord)
 from skimage.transform import integral_image
-from skimage.feature import haar_like_feature
-from skimage.feature import haar_like_feature_coord
-from skimage.feature import draw_haar_like_feature
-
 
 ###########################################################################
 # The procedure to extract the Haar-like features from an image is relatively
@@ -130,8 +126,8 @@ cdf_feature_importances /= cdf_feature_importances[-1]  # divide by max value
 sig_feature_count = np.count_nonzero(cdf_feature_importances < 0.7)
 sig_feature_percent = round(sig_feature_count /
                             len(cdf_feature_importances) * 100, 1)
-print((f'{sig_feature_count} features, or {sig_feature_percent}%, '
-       f'account for 70% of branch points in the random forest.'))
+print(f'{sig_feature_count} features, or {sig_feature_percent}%, '
+       f'account for 70% of branch points in the random forest.')
 
 # Select the determined number of most informative features
 feature_coord_sel = feature_coord[idx_sorted[:sig_feature_count]]
@@ -162,13 +158,13 @@ time_subs_train = time() - t_start
 
 auc_subs_features = roc_auc_score(y_test, clf.predict_proba(X_test)[:, 1])
 
-summary = ((f'Computing the full feature set took '
+summary = (f'Computing the full feature set took '
             f'{time_full_feature_comp:.3f}s, '
             f'plus {time_full_train:.3f}s training, '
             f'for an AUC of {auc_full_features:.2f}. '
             f'Computing the restricted feature set took '
             f'{time_subs_feature_comp:.3f}s, plus {time_subs_train:.3f}s '
-            f'training, for an AUC of {auc_subs_features:.2f}.'))
+            f'training, for an AUC of {auc_subs_features:.2f}.')
 
 print(summary)
 plt.show()

@@ -1,7 +1,7 @@
 # Generate a javascript snippet that links to a random gallery example
 
-import os
 import glob
+import os
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
 example_dir = os.path.join(base_dir, 'auto_examples')

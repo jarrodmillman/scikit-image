@@ -1,5 +1,6 @@
-import numpy as np
 import heapq
+
+import numpy as np
 
 
 def _revalidate_node_edges(rag, node, heap_list):

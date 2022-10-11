@@ -1,5 +1,6 @@
 import numpy as np
-from skimage.graph._graph import pixel_graph, central_pixel
+
+from skimage.graph._graph import central_pixel, pixel_graph
 
 mask = np.array([[1, 0, 0], [0, 1, 1], [0, 1, 0]], dtype=bool)
 image = np.random.default_rng().random(mask.shape)

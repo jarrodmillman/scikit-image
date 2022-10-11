@@ -1,9 +1,9 @@
 import numpy as np
-from skimage.segmentation import join_segmentations, relabel_sequential
+import pytest
 
 from skimage._shared import testing
 from skimage._shared.testing import assert_array_equal
-import pytest
+from skimage.segmentation import join_segmentations, relabel_sequential
 
 
 def test_join_segmentations():

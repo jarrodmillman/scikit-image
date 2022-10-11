@@ -3,12 +3,14 @@
 #cython: nonecheck=False
 #cython: wraparound=False
 import numpy as np
+
 cimport numpy as cnp
-from .._shared.interpolation cimport (nearest_neighbor_interpolation,
+
+from .._shared.fused_numerics cimport np_floats
+from .._shared.interpolation cimport (bicubic_interpolation,
                                       bilinear_interpolation,
                                       biquadratic_interpolation,
-                                      bicubic_interpolation)
-from .._shared.fused_numerics cimport np_floats
+                                      nearest_neighbor_interpolation)
 
 cnp.import_array()
 

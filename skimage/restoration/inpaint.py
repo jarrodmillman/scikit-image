@@ -1,10 +1,11 @@
 import numpy as np
-from scipy import sparse
-from scipy.sparse.linalg import spsolve
 import scipy.ndimage as ndi
+from scipy import sparse
 from scipy.ndimage import laplace
+from scipy.sparse.linalg import spsolve
 
 import skimage
+
 from .._shared import utils
 from ..measure import label
 from ._inpaint import _build_matrix_inner

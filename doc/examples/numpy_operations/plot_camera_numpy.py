@@ -6,9 +6,10 @@ This script illustrates how to use basic NumPy operations, such as slicing,
 masking and fancy indexing, in order to modify the pixel values of an image.
 """
 
-import numpy as np
-from skimage import data
 import matplotlib.pyplot as plt
+import numpy as np
+
+from skimage import data
 
 camera = data.camera()
 camera[:10] = 0

@@ -8,9 +8,9 @@ Reference: Canny, J., A Computational Approach To Edge Detection, IEEE Trans.
 import numpy as np
 import scipy.ndimage as ndi
 
-from ..util.dtype import dtype_limits
 from .._shared.filters import gaussian
 from .._shared.utils import _supported_float_type, check_nD
+from ..util.dtype import dtype_limits
 from ._canny_cy import _nonmaximum_suppression_bilinear
 
 

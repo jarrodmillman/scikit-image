@@ -21,12 +21,12 @@ are corrupted.
        :DOI:`10.1109/TIP.2011.2181402`
 
 """
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+from scipy import ndimage as ndi
 
 from skimage import data, draw
 from skimage.registration import phase_cross_correlation
-from scipy import ndimage as ndi
 
 #############################################
 # Define areas of the image which are invalid.

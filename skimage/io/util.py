@@ -1,12 +1,10 @@
-import urllib.parse
-import urllib.request
-from urllib.error import URLError, HTTPError
-
 import os
 import re
 import tempfile
+import urllib.parse
+import urllib.request
 from contextlib import contextmanager
-
+from urllib.error import HTTPError, URLError
 
 URL_REGEX = re.compile(r'http://|https://|ftp://|file://|file:\\')
 

@@ -1,5 +1,6 @@
-from . cimport _mcp
 from libc.math cimport fabs
+
+from . cimport _mcp
 
 
 cdef class MCP_Diff(_mcp.MCP):

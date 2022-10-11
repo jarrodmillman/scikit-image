@@ -15,6 +15,7 @@ edges.
 """
 
 import matplotlib.pyplot as plt
+
 from skimage import data, filters
 
 fig, ax = plt.subplots(nrows=2, ncols=2)

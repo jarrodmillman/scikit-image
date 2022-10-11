@@ -10,10 +10,11 @@ than the size of the dilation. Locations where the original image is equal to th
 dilated image are returned as local maxima.
 
 """
-from scipy import ndimage as ndi
 import matplotlib.pyplot as plt
-from skimage.feature import peak_local_max
+from scipy import ndimage as ndi
+
 from skimage import data, img_as_float
+from skimage.feature import peak_local_max
 
 im = img_as_float(data.coins())
 

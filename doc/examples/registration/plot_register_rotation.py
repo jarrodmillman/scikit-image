@@ -32,12 +32,12 @@ images that also have a translation offset.
 # these images into polar space, the rotation difference becomes a simple
 # translation difference that can be recovered by phase correlation.
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from skimage import data
 from skimage.registration import phase_cross_correlation
-from skimage.transform import warp_polar, rotate, rescale
+from skimage.transform import rescale, rotate, warp_polar
 from skimage.util import img_as_float
 
 radius = 705
@@ -133,9 +133,10 @@ print(f'Recovered value for scaling difference: {shift_scale}')
 # In this next example, we first show how the above approaches fail when two
 # images differ by rotation, scaling, and translation.
 
-from skimage.color import rgb2gray
-from skimage.filters import window, difference_of_gaussians
 from scipy.fft import fft2, fftshift
+
+from skimage.color import rgb2gray
+from skimage.filters import difference_of_gaussians, window
 
 angle = 24
 scale = 1.4

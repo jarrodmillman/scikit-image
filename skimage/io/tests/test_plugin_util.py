@@ -1,8 +1,8 @@
 import numpy as np
-from skimage.io._plugins.util import prepare_for_display, WindowManager
 
 from skimage._shared import testing
-from skimage._shared.testing import assert_array_equal, TestCase
+from skimage._shared.testing import TestCase, assert_array_equal
+from skimage.io._plugins.util import WindowManager, prepare_for_display
 
 np.random.seed(0)
 

@@ -1,16 +1,15 @@
+import inspect
 import sys
 import warnings
-import inspect
 
 import numpy as np
 import pytest
 
 from skimage._shared import testing
-from skimage._shared.utils import (check_nD, deprecate_kwarg,
+from skimage._shared.utils import (_supported_float_type,
                                    _validate_interpolation_order,
-                                   change_default_value, remove_arg,
-                                   _supported_float_type,
-                                   channel_as_last_axis)
+                                   change_default_value, channel_as_last_axis,
+                                   check_nD, deprecate_kwarg, remove_arg)
 from skimage.feature import hog
 from skimage.transform import pyramid_gaussian
 

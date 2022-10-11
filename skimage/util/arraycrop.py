@@ -3,8 +3,9 @@ The arraycrop module contains functions to crop values from the edges of an
 n-dimensional array.
 """
 
-import numpy as np
 from numbers import Integral
+
+import numpy as np
 
 __all__ = ['crop']
 

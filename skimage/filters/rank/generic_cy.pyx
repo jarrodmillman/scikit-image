@@ -4,13 +4,11 @@
 #cython: wraparound=False
 
 cimport numpy as cnp
-from libc.math cimport log, exp
-
-from .core_cy cimport dtype_t, dtype_t_out, _core
-
-from .core_cy_3d cimport _core_3D
+from libc.math cimport exp, log
 
 from ..._shared.interpolation cimport round
+from .core_cy cimport _core, dtype_t, dtype_t_out
+from .core_cy_3d cimport _core_3D
 
 cnp.import_array()
 

@@ -10,9 +10,10 @@ until no highly similar region pairs remain.
 
 """
 
-from skimage import data, io, segmentation, color
-from skimage.future import graph
 import numpy as np
+
+from skimage import color, data, io, segmentation
+from skimage.future import graph
 
 
 def _weight_mean_color(graph, src, dst, n):

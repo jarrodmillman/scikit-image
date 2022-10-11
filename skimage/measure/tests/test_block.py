@@ -1,8 +1,8 @@
 import numpy as np
-from skimage.measure import block_reduce
 
 from skimage._shared import testing
 from skimage._shared.testing import assert_equal
+from skimage.measure import block_reduce
 
 
 def test_block_reduce_sum():

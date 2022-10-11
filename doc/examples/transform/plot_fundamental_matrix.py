@@ -3,12 +3,12 @@
 Fundamental matrix estimation
 =============================
 
-This example demonstrates how to robustly estimate 
-`epipolar geometry <https://en.wikipedia.org/wiki/Epipolar_geometry>` 
+This example demonstrates how to robustly estimate
+`epipolar geometry <https://en.wikipedia.org/wiki/Epipolar_geometry>`
 (the geometry of stereo vision) between two views using sparse ORB feature
 correspondences.
 
-The `fundamental matrix <https://en.wikipedia.org/wiki/Fundamental_matrix_(computer_vision)>`_ 
+The `fundamental matrix <https://en.wikipedia.org/wiki/Fundamental_matrix_(computer_vision)>`_
 relates corresponding points between a pair of
 uncalibrated images. The matrix transforms homogeneous image points in one image
 to epipolar lines in the other image.
@@ -19,13 +19,14 @@ enables projective 3D reconstruction of the captured scene. If the calibration
 is known, estimating the essential matrix enables metric 3D reconstruction of
 the captured scene.
 """
+import matplotlib.pyplot as plt
 import numpy as np
+
 from skimage import data
 from skimage.color import rgb2gray
-from skimage.feature import match_descriptors, ORB, plot_matches
+from skimage.feature import ORB, match_descriptors, plot_matches
 from skimage.measure import ransac
 from skimage.transform import FundamentalMatrixTransform
-import matplotlib.pyplot as plt
 
 img_left, img_right, groundtruth_disp = data.stereo_motorcycle()
 img_left, img_right = map(rgb2gray, (img_left, img_right))

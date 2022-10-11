@@ -8,13 +8,12 @@ This example shows how to approximate (Douglas-Peucker algorithm) and subdivide
 
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from skimage.draw import ellipse
-from skimage.measure import find_contours, approximate_polygon, \
-    subdivide_polygon
-
+from skimage.measure import (approximate_polygon, find_contours,
+                             subdivide_polygon)
 
 hand = np.array([[1.64516129, 1.16145833],
                  [1.64516129, 1.59375],

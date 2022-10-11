@@ -5,13 +5,14 @@
 -->
 
 ## Way to reproduce
+
 ```python
 # Place the full code we need to recreate your issue here
 # upload all necessary images to github too!
 ```
 
-
 ## Version information
+
 ```python
 # Paste the output of the following python commands
 from __future__ import print_function

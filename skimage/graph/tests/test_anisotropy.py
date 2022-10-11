@@ -1,8 +1,7 @@
 import numpy as np
+
 import skimage.graph.mcp as mcp
-
 from skimage._shared.testing import assert_array_equal
-
 
 a = np.ones((8, 8), dtype=np.float32)
 
@@ -39,7 +38,7 @@ def test_anisotropy():
             # Trace vertically
             m2 = mcp.MCP_Geometric(a, sampling=sampling, fully_connected=True)
             costs2, traceback = m2.find_costs(seeds_for_vertcal)
-            
+
             # Check
             assert_array_equal(costs1, horizontal_ramp * sx)
             assert_array_equal(costs2, vertical_ramp * sy)

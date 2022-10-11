@@ -1,8 +1,7 @@
 import numpy as np
 
-from ..util.dtype import dtype_range, dtype_limits
 from .._shared import utils
-
+from ..util.dtype import dtype_limits, dtype_range
 
 __all__ = ['histogram', 'cumulative_distribution', 'equalize_hist',
            'rescale_intensity', 'adjust_gamma', 'adjust_log', 'adjust_sigmoid']

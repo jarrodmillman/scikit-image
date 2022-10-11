@@ -6,8 +6,8 @@ General-purpose images
 The title of each image indicates the name of the function.
 
 """
-import matplotlib.pyplot as plt
 import matplotlib
+import matplotlib.pyplot as plt
 import numpy as np
 
 from skimage import data

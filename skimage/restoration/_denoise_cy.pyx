@@ -4,11 +4,14 @@
 #cython: wraparound=False
 
 cimport numpy as cnp
+
 import numpy as np
-from libc.math cimport exp, fabs, sqrt
+
 from libc.float cimport DBL_MAX
-from .._shared.interpolation cimport get_pixel3d
+from libc.math cimport exp, fabs, sqrt
+
 from .._shared.fused_numerics cimport np_floats
+from .._shared.interpolation cimport get_pixel3d
 
 cnp.import_array()
 

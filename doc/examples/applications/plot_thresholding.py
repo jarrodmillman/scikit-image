@@ -49,7 +49,6 @@ plt.show()
 
 from skimage.filters import threshold_mean
 
-
 image = data.camera()
 thresh = threshold_mean(image)
 binary = image > thresh
@@ -77,7 +76,6 @@ plt.show()
 # repeatedly until there are only two peaks in the histogram.
 
 from skimage.filters import threshold_minimum
-
 
 image = data.camera()
 
@@ -112,7 +110,6 @@ plt.show()
 #
 
 from skimage.filters import threshold_otsu
-
 
 image = data.camera()
 thresh = threshold_otsu(image)
@@ -154,8 +151,7 @@ plt.show()
 # of the local neighborhood minus an offset value.
 #
 
-from skimage.filters import threshold_otsu, threshold_local
-
+from skimage.filters import threshold_local, threshold_otsu
 
 image = data.page()
 
@@ -193,10 +189,9 @@ plt.show()
 # The example compares the local threshold with the global threshold.
 #
 
+from skimage.filters import rank, threshold_otsu
 from skimage.morphology import disk
-from skimage.filters import threshold_otsu, rank
 from skimage.util import img_as_ubyte
-
 
 img = img_as_ubyte(data.page())
 

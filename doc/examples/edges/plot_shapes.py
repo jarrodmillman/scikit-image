@@ -18,14 +18,12 @@ Anti-aliased drawing for:
 
 """
 import math
-import numpy as np
+
 import matplotlib.pyplot as plt
+import numpy as np
 
-from skimage.draw import (line, polygon, disk,
-                          circle_perimeter,
-                          ellipse, ellipse_perimeter,
-                          bezier_curve)
-
+from skimage.draw import (bezier_curve, circle_perimeter, disk, ellipse,
+                          ellipse_perimeter, line, polygon)
 
 fig, (ax1, ax2) = plt.subplots(ncols=2, nrows=1, figsize=(10, 6))
 
@@ -76,8 +74,7 @@ ax1.set_title('No anti-aliasing')
 ax1.axis('off')
 
 
-from skimage.draw import line_aa, circle_perimeter_aa
-
+from skimage.draw import circle_perimeter_aa, line_aa
 
 img = np.zeros((100, 100), dtype=np.double)
 

@@ -12,16 +12,15 @@ steps are applied:
 4. Measure image regions to filter small objects
 """
 
-import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+import matplotlib.pyplot as plt
 
 from skimage import data
+from skimage.color import label2rgb
 from skimage.filters import threshold_otsu
-from skimage.segmentation import clear_border
 from skimage.measure import label, regionprops
 from skimage.morphology import closing, square
-from skimage.color import label2rgb
-
+from skimage.segmentation import clear_border
 
 image = data.coins()[50:-50, 50:-50]
 

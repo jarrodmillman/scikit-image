@@ -4,11 +4,11 @@
 #cython: cdivision=True
 
 import numpy as np
+
 cimport numpy as cnp
 
 from .._shared.fast_exp cimport _fast_exp
 from .._shared.fused_numerics cimport np_floats
-
 
 cnp.import_array()
 

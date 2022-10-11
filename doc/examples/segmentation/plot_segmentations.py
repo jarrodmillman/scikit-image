@@ -86,11 +86,11 @@ more regularly shaped. [5]_
 import matplotlib.pyplot as plt
 import numpy as np
 
-from skimage.data import astronaut
 from skimage.color import rgb2gray
+from skimage.data import astronaut
 from skimage.filters import sobel
-from skimage.segmentation import felzenszwalb, slic, quickshift, watershed
-from skimage.segmentation import mark_boundaries
+from skimage.segmentation import (felzenszwalb, mark_boundaries, quickshift,
+                                  slic, watershed)
 from skimage.util import img_as_float
 
 img = img_as_float(astronaut()[::2, ::2])

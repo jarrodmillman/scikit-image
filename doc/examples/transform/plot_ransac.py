@@ -85,8 +85,8 @@ plt.show()
 import numpy as np
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-from skimage.measure import LineModelND, ransac
 
+from skimage.measure import LineModelND, ransac
 
 # generate coordinates of line
 point = np.array([0, 0, 0], dtype='float')

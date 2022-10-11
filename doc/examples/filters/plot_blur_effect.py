@@ -20,14 +20,11 @@ re-blurring filter. This no-reference perceptual blur metric is described in
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import scipy.ndimage as ndi
-
 import plotly
 import plotly.express as px
-from skimage import (
-    color, data, measure
-)
+import scipy.ndimage as ndi
 
+from skimage import color, data, measure
 
 #####################################################################
 # Generate series of increasingly blurred images

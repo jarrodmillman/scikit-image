@@ -5,13 +5,15 @@ import numpy as np
 import scipy.ndimage as ndi
 
 import skimage
+from skimage import color, data, restoration
 from skimage.data import camera
-from skimage import restoration, data, color
 from skimage.morphology import binary_dilation
+
 try:
     from skimage.morphology import disk
 except ImportError:
     from skimage.morphology import circle as disk
+
 from . import _channel_kwarg, _skip_slow
 
 # inspect signature to automatically handle API changes across versions
@@ -118,7 +120,7 @@ class DeconvolutionSuite:
                                     **rl_iter_kwarg)
 
 
-class RollingBall(object):
+class RollingBall:
     """Benchmark Rolling Ball algorithm."""
 
     timeout = 120
@@ -171,7 +173,7 @@ class RollingBall(object):
     time_rollingball_threads.param_names = ["threads"]
 
 
-class Inpaint(object):
+class Inpaint:
     """Benchmark inpainting algorithm."""
 
     def setup(self):

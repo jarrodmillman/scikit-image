@@ -1,9 +1,8 @@
 import numpy as np
-from skimage.measure import find_contours
-
-from skimage._shared.testing import assert_array_equal
 import pytest
 
+from skimage._shared.testing import assert_array_equal
+from skimage.measure import find_contours
 
 a = np.ones((8, 8), dtype=np.float32)
 a[1:-1, 1] = 0

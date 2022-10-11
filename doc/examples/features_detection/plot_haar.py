@@ -21,11 +21,10 @@ References
 
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
-from skimage.feature import haar_like_feature_coord
-from skimage.feature import draw_haar_like_feature
+from skimage.feature import draw_haar_like_feature, haar_like_feature_coord
 
 ###############################################################################
 # Different types of Haar-like feature descriptors

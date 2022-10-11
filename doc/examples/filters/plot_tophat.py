@@ -13,11 +13,10 @@ defined as the difference between the input image and its
 
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
-from skimage import data
-from skimage import color, morphology
+from skimage import color, data, morphology
 
 image = color.rgb2gray(data.hubble_deep_field())[:500, :500]
 

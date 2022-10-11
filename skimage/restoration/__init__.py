@@ -2,16 +2,15 @@
 
 """
 
-from .deconvolution import wiener, unsupervised_wiener, richardson_lucy
-from .unwrap import unwrap_phase
-from ._denoise import (denoise_tv_chambolle, denoise_tv_bregman,
-                       denoise_bilateral, denoise_wavelet, estimate_sigma)
 from ._cycle_spin import cycle_spin
-from .non_local_means import denoise_nl_means
+from ._denoise import (denoise_bilateral, denoise_tv_bregman,
+                       denoise_tv_chambolle, denoise_wavelet, estimate_sigma)
+from .deconvolution import richardson_lucy, unsupervised_wiener, wiener
 from .inpaint import inpaint_biharmonic
 from .j_invariant import calibrate_denoiser
-from .rolling_ball import rolling_ball, ball_kernel, ellipsoid_kernel
-
+from .non_local_means import denoise_nl_means
+from .rolling_ball import ball_kernel, ellipsoid_kernel, rolling_ball
+from .unwrap import unwrap_phase
 
 __all__ = ['wiener',
            'unsupervised_wiener',

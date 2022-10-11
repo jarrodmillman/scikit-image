@@ -29,14 +29,15 @@ References
 https://github.com/scikit-image/scikit-image/issues/3404
 https://github.com/scikit-image/scikit-image/issues/3405
 """
-import os
 import argparse
-from datetime import datetime
-from collections import OrderedDict
+import os
 import string
+from collections import OrderedDict
+from datetime import datetime
 from warnings import warn
 
 from github import Github
+
 try:
     from tqdm import tqdm
 except ImportError:
@@ -89,7 +90,7 @@ all_commits = list(tqdm(repository.get_commits(sha=args.to_commit,
                                                since=previous_tag_date),
                         desc=f'Getting all commits between {args.from_commit} '
                              f'and {args.to_commit}'))
-all_hashes = set(c.sha for c in all_commits)
+all_hashes = {c.sha for c in all_commits}
 
 authors = set()
 reviewers = set()

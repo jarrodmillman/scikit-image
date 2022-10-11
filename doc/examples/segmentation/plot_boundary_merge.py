@@ -14,9 +14,10 @@ For an example of how to construct region boundary based RAGs, see
 
 """
 
-from skimage import data, segmentation, filters, color
-from skimage.future import graph
 from matplotlib import pyplot as plt
+
+from skimage import color, data, filters, segmentation
+from skimage.future import graph
 
 
 def weight_boundary(graph, src, dst, n):

@@ -19,12 +19,11 @@ the template.
        Magic.
 
 """
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from skimage import data
 from skimage.feature import match_template
-
 
 image = data.coins()
 coin = image[170:220, 75:130]

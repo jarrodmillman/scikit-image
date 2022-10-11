@@ -1,7 +1,7 @@
 import numpy as np
-from skimage.util._map_array import map_array, ArrayMap
 
 from skimage._shared import testing
+from skimage.util._map_array import ArrayMap, map_array
 
 
 def test_map_array_incorrect_output_shape():
@@ -50,4 +50,3 @@ def test_arraymap_bool_index():
     positive[0] = False
     m[positive] += 1
     assert np.all(m[image] >= 1)
-

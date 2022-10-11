@@ -2,8 +2,8 @@ import base64
 
 import numpy as np
 
-from . import _marching_cubes_lewiner_luts as mcluts
 from . import _marching_cubes_lewiner_cy
+from . import _marching_cubes_lewiner_luts as mcluts
 
 
 def marching_cubes(volume, level=None, *, spacing=(1., 1., 1.),

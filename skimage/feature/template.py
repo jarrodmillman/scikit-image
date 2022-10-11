@@ -3,7 +3,7 @@ import math
 import numpy as np
 from scipy.signal import fftconvolve
 
-from .._shared.utils import check_nD, _supported_float_type
+from .._shared.utils import _supported_float_type, check_nD
 
 
 def _window_sum_2d(image, window_shape):

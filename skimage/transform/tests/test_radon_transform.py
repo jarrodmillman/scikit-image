@@ -8,8 +8,7 @@ from skimage._shared._warnings import expected_warnings
 from skimage._shared.testing import test_parallel
 from skimage._shared.utils import _supported_float_type, convert_to_float
 from skimage.data import shepp_logan_phantom
-from skimage.transform import radon, iradon, iradon_sart, rescale
-
+from skimage.transform import iradon, iradon_sart, radon, rescale
 
 PHANTOM = shepp_logan_phantom()[::2, ::2]
 PHANTOM = rescale(PHANTOM, 0.5, order=1,

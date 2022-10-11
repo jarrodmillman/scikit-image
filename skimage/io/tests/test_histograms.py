@@ -1,7 +1,7 @@
 import numpy as np
-from skimage.io._plugins._histograms import histograms
 
-from skimage._shared.testing import assert_array_equal, assert_equal, TestCase
+from skimage._shared.testing import TestCase, assert_array_equal, assert_equal
+from skimage.io._plugins._histograms import histograms
 
 
 class TestHistogram(TestCase):

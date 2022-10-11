@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # skimage documentation build configuration file, created by
 # sphinx-quickstart on Sat Aug 22 13:00:30 2009.
@@ -11,11 +10,14 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys
 import os
-import skimage
-from sphinx_gallery.sorting import ExplicitOrder
+import sys
 from warnings import filterwarnings
+
+from sphinx_gallery.sorting import ExplicitOrder
+
+import skimage
+
 filterwarnings('ignore', message="Matplotlib is currently using agg",
                category=UserWarning)
 
@@ -138,6 +140,7 @@ pygments_style = 'sphinx'
 #------------------------------------------------------------------------
 
 from packaging.version import parse
+
 v = parse(release)
 if v.release is None:
     raise ValueError(
@@ -152,8 +155,10 @@ else:
 
 # set plotly renderer to capture _repr_html_ for sphinx-gallery
 import plotly.io as pio
+
 pio.renderers.default = 'sphinx_gallery_png'
 from plotly.io._sg_scraper import plotly_sg_scraper
+
 image_scrapers = ('matplotlib', plotly_sg_scraper,)
 
 sphinx_gallery_conf = {
@@ -198,6 +203,7 @@ sphinx_gallery_conf = {
 }
 
 from sphinx_gallery.utils import _has_optipng
+
 if _has_optipng():
     # This option requires optipng to compress images
     # Optimization level between 0-7
@@ -300,8 +306,8 @@ latex_font_size = '10pt'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'scikit-image.tex', u'The scikit-image Documentation',
-   u'scikit-image development team', 'manual'),
+  ('index', 'scikit-image.tex', 'The scikit-image Documentation',
+   'scikit-image development team', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -401,7 +407,7 @@ intersphinx_mapping = {
 # ----------------------------------------------------------------------------
 
 import inspect
-from os.path import relpath, dirname
+from os.path import dirname, relpath
 
 
 # Function courtesy of NumPy to return URLs containing line numbers

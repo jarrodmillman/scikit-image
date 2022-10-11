@@ -5,7 +5,9 @@ Cython implementation of a binary min heap.
 """
 # cython specific imports
 import cython
-from libc.stdlib cimport malloc, free
+
+from libc.stdlib cimport free, malloc
+
 
 cdef extern from "pyport.h":
   cnp.float64_t Py_HUGE_VAL

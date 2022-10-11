@@ -1,5 +1,5 @@
-import inspect
 import functools
+import inspect
 import sys
 import warnings
 from collections.abc import Iterable
@@ -9,7 +9,6 @@ import scipy
 from numpy.lib import NumpyVersion
 
 from ._warnings import all_warnings, warn
-
 
 __all__ = ['deprecated', 'get_bound_method_class', 'all_warnings',
            'safe_as_int', 'check_shape_equality', 'check_nD', 'warn',
@@ -743,10 +742,10 @@ def _to_ndimage_mode(mode):
                                  wrap='wrap')
     if mode not in mode_translation_dict:
         raise ValueError(
-            (f"Unknown mode: '{mode}', or cannot translate mode. The "
+            f"Unknown mode: '{mode}', or cannot translate mode. The "
              f"mode should be one of 'constant', 'edge', 'symmetric', "
              f"'reflect', or 'wrap'. See the documentation of numpy.pad for "
-             f"more info."))
+             f"more info.")
     return _fix_ndimage_mode(mode_translation_dict[mode])
 
 

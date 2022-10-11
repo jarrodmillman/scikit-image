@@ -12,9 +12,8 @@ This example shows how to easily compare two images with various approaches.
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 
-from skimage import data, transform, exposure
+from skimage import data, exposure, transform
 from skimage.util import compare_images
-
 
 img1 = data.coins()
 img1_equalized = exposure.equalize_hist(img1)

@@ -13,10 +13,10 @@ References
        IEEE Transactions on, vol. 22, no. 8, pp. 888-905, August 2000.
 """
 
-from skimage import data, segmentation, color
-from skimage.future import graph
 from matplotlib import pyplot as plt
 
+from skimage import color, data, segmentation
+from skimage.future import graph
 
 img = data.coffee()
 

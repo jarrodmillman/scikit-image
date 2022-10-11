@@ -27,10 +27,10 @@ should not be used in production code, as it could change.
        :DOI:`10.1016/S0167-8655(98)00057-9`
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
-from skimage import data
-from skimage import filters
+import numpy as np
+
+from skimage import data, filters
 from skimage.filters.thresholding import _cross_entropy
 
 cell = data.cell()

@@ -6,10 +6,10 @@ production code that will depend on updated skimage versions.
 """
 
 from . import graph
-from .manual_segmentation import manual_polygon_segmentation
-from .manual_segmentation import manual_lasso_segmentation
-from .trainable_segmentation import fit_segmenter, predict_segmenter, TrainableSegmenter
-
+from .manual_segmentation import (manual_lasso_segmentation,
+                                  manual_polygon_segmentation)
+from .trainable_segmentation import (TrainableSegmenter, fit_segmenter,
+                                     predict_segmenter)
 
 __all__ = [
     "graph",

@@ -1,9 +1,11 @@
-import os
-import numpy as np
-from skimage.transform import SimilarityTransform, warp, resize_local_mean
-import warnings
 import functools
 import inspect
+import os
+import warnings
+
+import numpy as np
+
+from skimage.transform import SimilarityTransform, resize_local_mean, warp
 
 try:
     from skimage.util.dtype import _convert as convert

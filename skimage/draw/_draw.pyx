@@ -3,10 +3,12 @@
 #cython: nonecheck=False
 #cython: wraparound=False
 import math
+
 import numpy as np
 
 cimport numpy as cnp
-from libc.math cimport sqrt, sin, cos, floor, ceil, fabs
+from libc.math cimport ceil, cos, fabs, floor, sin, sqrt
+
 from .._shared.geometry cimport point_in_polygon
 
 cnp.import_array()

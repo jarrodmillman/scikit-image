@@ -17,8 +17,7 @@ lighting).
 
 import matplotlib.pyplot as plt
 
-from skimage import data
-from skimage import exposure
+from skimage import data, exposure
 from skimage.exposure import match_histograms
 
 reference = data.coffee()

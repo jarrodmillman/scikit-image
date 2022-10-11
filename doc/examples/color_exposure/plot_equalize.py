@@ -22,9 +22,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
-from skimage import data, img_as_float
-from skimage import exposure
-
+from skimage import data, exposure, img_as_float
 
 matplotlib.rcParams['font.size'] = 8
 

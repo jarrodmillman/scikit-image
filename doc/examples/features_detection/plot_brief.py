@@ -11,13 +11,12 @@ provide rotation-invariance. Scale-invariance can be achieved by detecting and
 extracting features at different scales.
 
 """
-from skimage import data
-from skimage import transform
-from skimage.feature import (match_descriptors, corner_peaks, corner_harris,
-                             plot_matches, BRIEF)
-from skimage.color import rgb2gray
 import matplotlib.pyplot as plt
 
+from skimage import data, transform
+from skimage.color import rgb2gray
+from skimage.feature import (BRIEF, corner_harris, corner_peaks,
+                             match_descriptors, plot_matches)
 
 img1 = rgb2gray(data.astronaut())
 tform = transform.AffineTransform(scale=(1.2, 1.2), translation=(0, -100))

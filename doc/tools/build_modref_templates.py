@@ -2,13 +2,12 @@
 """Script to auto-generate our API docs.
 """
 # stdlib imports
-import os, sys
-
-from packaging import version as _version
+import os
+import sys
 
 # local imports
 from apigen import ApiDocWriter
-
+from packaging import version as _version
 
 #*****************************************************************************
 

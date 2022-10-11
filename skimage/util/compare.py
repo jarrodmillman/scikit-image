@@ -1,6 +1,8 @@
-import numpy as np
-from ..util import img_as_float
 from itertools import product
+
+import numpy as np
+
+from ..util import img_as_float
 
 
 def compare_images(image1, image2, method='diff', *, n_tiles=(8, 8)):

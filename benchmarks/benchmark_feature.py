@@ -2,6 +2,7 @@
 # https://asv.readthedocs.io/en/latest/writing_benchmarks.html
 import numpy as np
 from scipy import ndimage as ndi
+
 from skimage import color, data, feature, util
 
 

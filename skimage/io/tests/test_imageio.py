@@ -1,11 +1,11 @@
 from tempfile import NamedTemporaryFile
 
 import numpy as np
-from skimage.io import imread, imsave, use_plugin, reset_plugins
 
 from skimage._shared import testing
-from skimage._shared.testing import assert_array_almost_equal, TestCase, fetch
 from skimage._shared._warnings import expected_warnings
+from skimage._shared.testing import TestCase, assert_array_almost_equal, fetch
+from skimage.io import imread, imsave, reset_plugins, use_plugin
 
 
 def setup():

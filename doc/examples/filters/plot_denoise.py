@@ -40,11 +40,10 @@ noise.
 """
 import matplotlib.pyplot as plt
 
-from skimage.restoration import (denoise_tv_chambolle, denoise_bilateral,
-                                 denoise_wavelet, estimate_sigma)
 from skimage import data, img_as_float
+from skimage.restoration import (denoise_bilateral, denoise_tv_chambolle,
+                                 denoise_wavelet, estimate_sigma)
 from skimage.util import random_noise
-
 
 original = img_as_float(data.chelsea()[100:250, 50:300])
 

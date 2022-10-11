@@ -21,9 +21,8 @@ frequencies remain untouched.
 import matplotlib.pyplot as plt
 
 from skimage import data
-from skimage.morphology import disk
 from skimage.filters import rank
-
+from skimage.morphology import disk
 
 image = data.coins()
 footprint = disk(20)

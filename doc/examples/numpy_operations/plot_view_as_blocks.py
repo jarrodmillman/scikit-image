@@ -14,15 +14,13 @@ with a spline interpolation of order 3 rescaling of the original `astronaut`
 image.
 
 """
-import numpy as np
-from scipy import ndimage as ndi
-from matplotlib import pyplot as plt
 import matplotlib.cm as cm
+import numpy as np
+from matplotlib import pyplot as plt
+from scipy import ndimage as ndi
 
-from skimage import data
-from skimage import color
+from skimage import color, data
 from skimage.util import view_as_blocks
-
 
 # get astronaut from skimage.data in grayscale
 l = color.rgb2gray(data.astronaut())

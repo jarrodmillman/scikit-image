@@ -8,8 +8,8 @@ the ``coins`` image from ``skimage.data``, which shows several coins outlined
 against a darker background.
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from skimage import data
 from skimage.exposure import histogram

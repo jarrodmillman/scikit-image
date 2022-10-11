@@ -9,7 +9,6 @@ from skimage import io
 from skimage._shared.testing import assert_array_equal, fetch
 from skimage.data import data_dir
 
-
 one_by_one_jpeg = (
     b'\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x00\x00\x01'
     b'\x00\x01\x00\x00\xff\xdb\x00C\x00\x03\x02\x02\x02\x02'

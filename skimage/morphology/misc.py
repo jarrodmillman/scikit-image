@@ -1,8 +1,10 @@
 """Miscellaneous morphology functions."""
-import numpy as np
 import functools
+
+import numpy as np
 from scipy import ndimage as ndi
-from .._shared.utils import warn, remove_arg
+
+from .._shared.utils import remove_arg, warn
 
 # Our function names don't exactly correspond to ndimages.
 # This dictionary translates from our names to scipy's.

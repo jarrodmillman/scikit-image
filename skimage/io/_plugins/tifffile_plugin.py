@@ -1,6 +1,7 @@
 __all__ = ['imread', 'imsave']
 
-from tifffile import imwrite as imsave, imread as tifffile_imread
+from tifffile import imread as tifffile_imread
+from tifffile import imwrite as imsave
 
 
 def imread(fname, **kwargs):

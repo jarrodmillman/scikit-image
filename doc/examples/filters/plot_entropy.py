@@ -29,9 +29,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from skimage import data
-from skimage.util import img_as_ubyte
 from skimage.filters.rank import entropy
 from skimage.morphology import disk
+from skimage.util import img_as_ubyte
 
 rng = np.random.default_rng()
 

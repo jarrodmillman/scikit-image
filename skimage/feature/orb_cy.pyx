@@ -5,10 +5,10 @@
 
 import numpy as np
 
-from libc.math cimport sin, cos
+from libc.math cimport cos, sin
 
-from .._shared.interpolation cimport round
 from .._shared.fused_numerics cimport np_floats
+from .._shared.interpolation cimport round
 
 from ._orb_descriptor_positions import POS, POS0, POS1
 

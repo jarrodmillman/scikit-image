@@ -12,6 +12,7 @@ using scikit-image's optional dependency `matplotlib
 
 import matplotlib.pyplot as plt
 import numpy as np
+
 from skimage import data
 
 img = data.cat()

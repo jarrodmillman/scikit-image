@@ -31,15 +31,12 @@ scikit-image.
 
 import matplotlib.pyplot as plt
 import numpy as np
-import plotly.io
 import plotly.express as px
+import plotly.io
 from scipy import ndimage as ndi
 
-from skimage import (
-    filters, measure, morphology, segmentation
-)
+from skimage import filters, measure, morphology, segmentation
 from skimage.data import protein_transport
-
 
 #####################################################################
 # We start with a single cell/nucleus to construct the workflow.

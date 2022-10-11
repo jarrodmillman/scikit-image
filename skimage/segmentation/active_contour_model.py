@@ -2,8 +2,8 @@ import numpy as np
 from scipy.interpolate import RectBivariateSpline
 
 from .._shared.utils import _supported_float_type, deprecate_kwarg
-from ..util import img_as_float
 from ..filters import sobel
+from ..util import img_as_float
 
 
 @deprecate_kwarg({'max_iterations': 'max_num_iter'}, removed_version="1.0",

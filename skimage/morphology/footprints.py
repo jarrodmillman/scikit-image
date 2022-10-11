@@ -5,9 +5,10 @@ from numbers import Integral
 import numpy as np
 from scipy import ndimage as ndi
 
+from skimage import morphology
+
 from .. import draw
 from .._shared.utils import deprecate_kwarg
-from skimage import morphology
 
 # Precomputed ball and disk decompositions were saved as 2D arrays where the
 # radius of the desired decomposition is used to index into the first axis of

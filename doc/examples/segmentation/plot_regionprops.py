@@ -8,6 +8,7 @@ first analyze an image with two ellipses. Below we show how to explore
 interactively the properties of labelled objects.
 """
 import math
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -15,7 +16,6 @@ import pandas as pd
 from skimage.draw import ellipse
 from skimage.measure import label, regionprops, regionprops_table
 from skimage.transform import rotate
-
 
 image = np.zeros((600, 600))
 
@@ -86,6 +86,7 @@ pd.DataFrame(props)
 import plotly
 import plotly.express as px
 import plotly.graph_objects as go
+
 from skimage import data, filters, measure, morphology
 
 img = data.coins()

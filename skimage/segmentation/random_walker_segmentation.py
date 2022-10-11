@@ -9,7 +9,8 @@ significantly the performance.
 """
 
 import numpy as np
-from scipy import sparse, ndimage as ndi
+from scipy import ndimage as ndi
+from scipy import sparse
 
 from .._shared import utils
 from .._shared.utils import warn
@@ -40,9 +41,9 @@ try:
 except ImportError:
     amg_loaded = False
 
-from ..util import img_as_float
-
 from scipy.sparse.linalg import cg, spsolve
+
+from ..util import img_as_float
 
 
 def _make_graph_edges_3d(n_x, n_y, n_z):

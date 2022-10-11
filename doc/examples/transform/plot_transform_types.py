@@ -23,12 +23,11 @@ such transformations for various tasks such as image warping or parameter
 estimation.
 """
 import math
-import numpy as np
-import matplotlib.pyplot as plt
 
-from skimage import data
-from skimage import transform
-from skimage import img_as_float
+import matplotlib.pyplot as plt
+import numpy as np
+
+from skimage import data, img_as_float, transform
 
 ######################################################################
 # Euclidean (rigid) transformation
@@ -61,7 +60,7 @@ ax.imshow(tf_img)
 _ = ax.set_title('Euclidean transformation')
 
 ######################################################################
-# For a rotation around the center of the image, one can 
+# For a rotation around the center of the image, one can
 # compose a translation to change the origin, a rotation, and finally
 # the inverse of the first translation.
 

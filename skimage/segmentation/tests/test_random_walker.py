@@ -4,7 +4,7 @@ from packaging import version
 
 from skimage._shared import testing
 from skimage._shared._warnings import expected_warnings
-from skimage._shared.testing import xfail, arch32
+from skimage._shared.testing import arch32, xfail
 from skimage.segmentation import random_walker
 from skimage.transform import resize
 

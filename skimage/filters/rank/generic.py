@@ -56,7 +56,6 @@ from ...morphology.footprints import _footprint_is_sequence
 from ...util import img_as_ubyte
 from . import generic_cy
 
-
 __all__ = ['autolevel', 'equalize', 'gradient', 'maximum', 'mean',
            'geometric_mean', 'subtract_mean', 'median', 'minimum', 'modal',
            'enhance_contrast', 'pop', 'threshold', 'noise_filter',

@@ -9,7 +9,6 @@ from pytest import raises, warns
 from skimage._shared.testing import expected_warnings
 from skimage.morphology import extrema
 
-
 eps = 1e-12
 
 

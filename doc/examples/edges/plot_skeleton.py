@@ -10,9 +10,10 @@ can be useful for feature extraction, and/or representing an object's topology.
 border pixels are identified and removed on the condition that they do not
 break the connectivity of the corresponding object.
 """
-from skimage.morphology import skeletonize
-from skimage import data
 import matplotlib.pyplot as plt
+
+from skimage import data
+from skimage.morphology import skeletonize
 from skimage.util import invert
 
 # Invert the horse image
@@ -72,6 +73,7 @@ plt.show()
 #
 
 import matplotlib.pyplot as plt
+
 from skimage.morphology import skeletonize
 
 blobs = data.binary_blobs(200, blob_size_fraction=.2,

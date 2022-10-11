@@ -16,9 +16,8 @@ iterations, which needs to be hand-tuned.
 
 .. [2] https://en.wikipedia.org/wiki/Richardson%E2%80%93Lucy_deconvolution
 """
-import numpy as np
 import matplotlib.pyplot as plt
-
+import numpy as np
 from scipy.signal import convolve2d as conv2
 
 from skimage import color, data, restoration

@@ -24,13 +24,12 @@ See Wikipedia_ for more details on the algorithm.
 .. _Wikipedia: https://en.wikipedia.org/wiki/Watershed_(image_processing)
 
 """
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from scipy import ndimage as ndi
 
-from skimage.segmentation import watershed
 from skimage.feature import peak_local_max
-
+from skimage.segmentation import watershed
 
 # Generate an initial image with two overlapping circles
 x, y = np.indices((80, 80))

@@ -1,10 +1,9 @@
 import numpy as np
 import pytest
-from numpy import sqrt, ceil
+from numpy import ceil, sqrt
 from numpy.testing import assert_almost_equal
 
-from skimage import data
-from skimage import img_as_float
+from skimage import data, img_as_float
 from skimage.feature import daisy
 
 

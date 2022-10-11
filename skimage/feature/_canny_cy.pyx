@@ -4,8 +4,8 @@
 #cython: wraparound=False
 
 import numpy as np
-cimport numpy as cnp
 
+cimport numpy as cnp
 from libc.math cimport fabs
 
 from .._shared.fused_numerics cimport np_floats

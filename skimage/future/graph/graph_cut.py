@@ -1,8 +1,8 @@
 import networkx as nx
 import numpy as np
-from . import _ncut
-from . import _ncut_cy
 from scipy.sparse import linalg
+
+from . import _ncut, _ncut_cy
 
 
 def cut_threshold(labels, rag, thresh, in_place=True):

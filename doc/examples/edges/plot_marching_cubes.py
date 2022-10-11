@@ -20,13 +20,12 @@ voxel spacing is not equal for every spatial dimension, through use of the
 `spacing` kwarg.
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 from skimage import measure
 from skimage.draw import ellipsoid
-
 
 # Generate a level set about zero of two identical ellipsoids in 3D
 ellip_base = ellipsoid(6, 10, 16, levelset=True)

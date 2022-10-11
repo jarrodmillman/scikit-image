@@ -15,7 +15,6 @@ import numpy as np
 from skimage.measure import perimeter, perimeter_crofton
 from skimage.transform import rotate
 
-
 # scale parameter can be used to increase the grid size. The resulting curves
 # should be smoothed with higher scales
 scale = 10

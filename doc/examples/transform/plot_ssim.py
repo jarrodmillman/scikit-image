@@ -21,13 +21,12 @@ but with very different mean structural similarity indices.
        Apr. 2004.
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from skimage import data, img_as_float
-from skimage.metrics import structural_similarity as ssim
 from skimage.metrics import mean_squared_error
-
+from skimage.metrics import structural_similarity as ssim
 
 img = img_as_float(data.camera())
 rows, cols = img.shape

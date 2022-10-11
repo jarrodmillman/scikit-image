@@ -6,10 +6,12 @@ for use with data on a n-dimensional lattice.
 """
 import cython
 import numpy as np
-from . import heap
+
 from .._shared.utils import warn
+from . import heap
 
 cimport numpy as cnp
+
 from . cimport heap
 
 cnp.import_array()

@@ -1,13 +1,13 @@
 import os
 
-import numpy as np
 import imageio
-from skimage import data_dir
-from skimage.io.collection import ImageCollection, MultiImage, alphanumeric_key
-from skimage.io import reset_plugins
+import numpy as np
 
+from skimage import data_dir
 from skimage._shared import testing
-from skimage._shared.testing import assert_equal, assert_allclose, fetch
+from skimage._shared.testing import assert_allclose, assert_equal, fetch
+from skimage.io import reset_plugins
+from skimage.io.collection import ImageCollection, MultiImage, alphanumeric_key
 
 
 def test_string_split():

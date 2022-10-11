@@ -4,9 +4,8 @@ import math
 
 import numpy as np
 
-from skimage import data, img_as_float
+from skimage import data, exposure, img_as_float
 from skimage.transform import rescale
-from skimage import exposure
 
 
 class ExposureSuite:

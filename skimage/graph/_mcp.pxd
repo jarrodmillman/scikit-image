@@ -3,8 +3,9 @@ It contains the definitions of the mcp class, such that
 other cython modules can "cimport mcp" and subclass it.
 """
 
-from . cimport heap
 cimport numpy as cnp
+
+from . cimport heap
 
 ctypedef heap.BOOL_T BOOL_T
 ctypedef unsigned char DIM_T
@@ -42,4 +43,3 @@ cdef class MCP:
     cdef FLOAT_T _travel_cost(self, FLOAT_T old_cost, FLOAT_T new_cost, FLOAT_T offset_length)
     cdef void _examine_neighbor(self, INDEX_T index, INDEX_T new_index, FLOAT_T offset_length)
     cdef void _update_node(self, INDEX_T index, INDEX_T new_index, FLOAT_T offset_length)
-

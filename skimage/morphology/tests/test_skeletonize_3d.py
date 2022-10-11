@@ -1,13 +1,12 @@
 import numpy as np
 import scipy.ndimage as ndi
 
-from skimage import io, draw
-from skimage.data import binary_blobs
-from skimage.util import img_as_ubyte
-from skimage.morphology import skeletonize, skeletonize_3d
-
+from skimage import draw, io
 from skimage._shared import testing
-from skimage._shared.testing import assert_equal, assert_, parametrize, fetch
+from skimage._shared.testing import assert_, assert_equal, fetch, parametrize
+from skimage.data import binary_blobs
+from skimage.morphology import skeletonize, skeletonize_3d
+from skimage.util import img_as_ubyte
 
 # basic behavior tests (mostly copied over from 2D skeletonize)
 

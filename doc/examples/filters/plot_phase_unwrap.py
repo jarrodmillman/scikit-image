@@ -13,9 +13,9 @@ skimage. Here we will demonstrate phase unwrapping in the two dimensional case.
 
 import numpy as np
 from matplotlib import pyplot as plt
-from skimage import data, img_as_float, color, exposure
-from skimage.restoration import unwrap_phase
 
+from skimage import color, data, exposure, img_as_float
+from skimage.restoration import unwrap_phase
 
 # Load an image as a floating-point grayscale
 image = color.rgb2gray(img_as_float(data.chelsea()))

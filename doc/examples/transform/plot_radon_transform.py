@@ -59,8 +59,8 @@ original image and its Radon transform, often known as its *sinogram*:
 """
 
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from skimage.data import shepp_logan_phantom
 from skimage.transform import radon, rescale
@@ -102,6 +102,7 @@ plt.show()
 # the filters 'ramp', 'shepp-logan', 'cosine', 'hamming', and 'hann':
 
 import matplotlib.pyplot as plt
+
 from skimage.transform.radon_transform import _get_fourier_filter
 
 filters = ['ramp', 'shepp-logan', 'cosine', 'hamming', 'hann']

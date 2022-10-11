@@ -1,10 +1,9 @@
 import numpy as np
-from skimage.measure import approximate_polygon, subdivide_polygon
-from skimage.measure._polygon import _SUBDIVISION_MASKS
 
 from skimage._shared import testing
 from skimage._shared.testing import assert_array_equal, assert_equal
-
+from skimage.measure import approximate_polygon, subdivide_polygon
+from skimage.measure._polygon import _SUBDIVISION_MASKS
 
 square = np.array([
     [0, 0], [0, 1], [0, 2], [0, 3],

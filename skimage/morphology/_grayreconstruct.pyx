@@ -1,5 +1,6 @@
-cimport numpy as cnp
 cimport cython
+cimport numpy as cnp
+
 cnp.import_array()
 
 

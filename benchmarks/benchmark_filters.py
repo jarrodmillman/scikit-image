@@ -2,7 +2,7 @@
 # https://asv.readthedocs.io/en/latest/writing_benchmarks.html
 import numpy as np
 
-from skimage import data, filters, color
+from skimage import color, data, filters
 from skimage.filters.thresholding import threshold_li
 
 
@@ -30,7 +30,7 @@ class FiltersSobel3D:
         _ = filters.sobel(self.image3d)
 
 
-class MultiOtsu(object):
+class MultiOtsu:
     """Benchmarks for MultiOtsu threshold."""
     param_names = ['classes']
     params = [3, 4, 5]

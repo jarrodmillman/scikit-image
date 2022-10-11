@@ -19,8 +19,11 @@ by 4 values on each side:
 from libc.math cimport ceil, floor
 
 import numpy as np
+
 cimport numpy as np
-from .fused_numerics cimport np_real_numeric, np_floats
+
+from .fused_numerics cimport np_floats, np_real_numeric
+
 
 cdef inline Py_ssize_t round(np_floats r) nogil:
     return <Py_ssize_t>(

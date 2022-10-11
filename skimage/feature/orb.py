@@ -1,16 +1,13 @@
 import numpy as np
 
-from ..feature.util import (FeatureDetector, DescriptorExtractor,
+from .._shared.utils import check_nD
+from ..feature import (corner_fast, corner_harris, corner_orientations,
+                       corner_peaks)
+from ..feature.util import (DescriptorExtractor, FeatureDetector,
                             _mask_border_keypoints,
                             _prepare_grayscale_input_2D)
-
-from ..feature import (corner_fast, corner_orientations, corner_peaks,
-                       corner_harris)
 from ..transform import pyramid_gaussian
-from .._shared.utils import check_nD
-
 from .orb_cy import _orb_loop
-
 
 OFAST_MASK = np.zeros((31, 31))
 OFAST_UMAX = [15, 15, 15, 15, 14, 14, 14, 13, 13, 12, 11, 10, 9, 8, 6, 3]

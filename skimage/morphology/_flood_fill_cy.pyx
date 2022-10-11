@@ -6,6 +6,7 @@
 """Cython code used in _flood_fill.py."""
 
 cimport numpy as cnp
+
 cnp.import_array()
 
 # Must be defined to use QueueWithHistory

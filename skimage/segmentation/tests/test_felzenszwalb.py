@@ -1,12 +1,12 @@
 import numpy as np
-from skimage import data
-from skimage.segmentation import felzenszwalb
 
+from skimage import data
 from skimage._shared import testing
-from skimage._shared.testing import (assert_greater, test_parallel,
-                                     assert_equal, assert_array_equal,
-                                     assert_warns, assert_no_warnings,
-                                     expected_warnings)
+from skimage._shared.testing import (assert_array_equal, assert_equal,
+                                     assert_greater, assert_no_warnings,
+                                     assert_warns, expected_warnings,
+                                     test_parallel)
+from skimage.segmentation import felzenszwalb
 
 
 @test_parallel()

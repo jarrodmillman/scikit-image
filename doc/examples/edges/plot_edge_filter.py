@@ -7,13 +7,12 @@ Edge operators are used in image processing within edge detection algorithms.
 They are discrete differentiation operators, computing an approximation of the
 gradient of the image intensity function.
 """
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from skimage import filters
 from skimage.data import camera
 from skimage.util import compare_images
-
 
 image = camera()
 edge_roberts = filters.roberts(image)

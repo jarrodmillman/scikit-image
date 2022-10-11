@@ -1,8 +1,8 @@
 from skimage.feature import multiscale_basic_features
 
 try:
-    from sklearn.exceptions import NotFittedError
     from sklearn.ensemble import RandomForestClassifier
+    from sklearn.exceptions import NotFittedError
     has_sklearn = True
 except ImportError:
     has_sklearn = False
@@ -11,7 +11,7 @@ except ImportError:
         pass
 
 
-class TrainableSegmenter(object):
+class TrainableSegmenter:
     """Estimator for classifying pixels.
 
     Parameters

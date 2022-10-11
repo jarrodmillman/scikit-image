@@ -1,10 +1,9 @@
 import numpy as np
 import pytest
-from numpy.testing import assert_array_equal, assert_allclose
+from numpy.testing import assert_allclose, assert_array_equal
 
 from skimage._shared.utils import _supported_float_type
 from skimage.segmentation import find_boundaries, mark_boundaries
-
 
 white = (1, 1, 1)
 

@@ -1,7 +1,8 @@
-import numpy as np
 import cython
+import numpy as np
 
 cimport numpy as cnp
+
 from .._shared.fused_numerics cimport np_floats
 
 

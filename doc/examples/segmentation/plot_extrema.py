@@ -9,12 +9,9 @@ local contrast, we use h-maxima.
 """
 import matplotlib.pyplot as plt
 
+from skimage import color, data, exposure
 from skimage.measure import label
-from skimage import data
-from skimage import color
 from skimage.morphology import extrema
-from skimage import exposure
-
 
 color_image = data.hubble_deep_field()
 

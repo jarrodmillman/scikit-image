@@ -4,12 +4,12 @@
 #cython: wraparound=False
 
 import numpy as np
+
 cimport numpy as cnp
+from libc.float cimport DBL_MAX
+from libc.math cimport ceil, exp, sqrt
 
 from .._shared.fused_numerics cimport np_floats
-
-from libc.math cimport exp, sqrt, ceil
-from libc.float cimport DBL_MAX
 
 cnp.import_array()
 

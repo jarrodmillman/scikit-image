@@ -12,6 +12,7 @@ with lower label number.
 """
 import matplotlib.pyplot as plt
 import numpy as np
+
 from skimage import data
 from skimage.color import label2rgb
 from skimage.filters import sobel

@@ -25,9 +25,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 
 from skimage.data import page
-from skimage.filters import (threshold_otsu, threshold_niblack,
+from skimage.filters import (threshold_niblack, threshold_otsu,
                              threshold_sauvola)
-
 
 matplotlib.rcParams['font.size'] = 9
 

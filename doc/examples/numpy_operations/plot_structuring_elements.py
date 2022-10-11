@@ -9,12 +9,12 @@ The title of each plot indicates the call of the function.
 
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 
-from skimage.morphology import (square, rectangle, diamond, disk, cube,
-                                octahedron, ball, octagon, star)
+from skimage.morphology import (ball, cube, diamond, disk, octagon, octahedron,
+                                rectangle, square, star)
 
 # Generate 2D and 3D structuring elements.
 struc_2d = {

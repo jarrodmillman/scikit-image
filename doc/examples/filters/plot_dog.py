@@ -20,9 +20,10 @@ filtering.
 
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.fft import fftn, fftshift
+
 from skimage.data import gravel
 from skimage.filters import difference_of_gaussians, window
-from scipy.fft import fftn, fftshift
 
 image = gravel()
 wimage = image * window('hann', image.shape)  # window image to improve FFT

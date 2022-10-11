@@ -25,13 +25,13 @@ such as the boundaries of the face.
        :DOI:`10.1007/BF00133570`
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
-from skimage.color import rgb2gray
+import numpy as np
+
 from skimage import data
+from skimage.color import rgb2gray
 from skimage.filters import gaussian
 from skimage.segmentation import active_contour
-
 
 img = data.astronaut()
 img = rgb2gray(img)

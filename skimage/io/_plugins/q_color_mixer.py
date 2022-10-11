@@ -1,8 +1,8 @@
 # the module for the qt color_mixer plugin
 from qtpy import QtCore
-from qtpy.QtWidgets import (QWidget, QStackedWidget, QSlider, QGridLayout,
-                            QLabel, QFrame, QComboBox, QRadioButton,
-                            QPushButton)
+from qtpy.QtWidgets import (QComboBox, QFrame, QGridLayout, QLabel,
+                            QPushButton, QRadioButton, QSlider, QStackedWidget,
+                            QWidget)
 
 from .util import ColorMixer
 

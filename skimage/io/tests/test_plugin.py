@@ -1,11 +1,11 @@
 from contextlib import contextmanager
+
 import numpy as np
 import pytest
 
-from skimage._shared._dependency_checks import has_mpl
 from skimage import io
+from skimage._shared._dependency_checks import has_mpl
 from skimage.io import manage_plugins
-
 
 priority_plugin = 'pil'
 
@@ -46,7 +46,7 @@ def test_use_priority():
 
 @pytest.mark.skipif(not has_mpl, reason="matplotlib not installed")
 def test_load_preferred_plugins_all():
-    from skimage.io._plugins import pil_plugin, matplotlib_plugin
+    from skimage.io._plugins import matplotlib_plugin, pil_plugin
 
     with protect_preferred_plugins():
         manage_plugins.preferred_plugins = {'all': ['pil'],
@@ -62,7 +62,7 @@ def test_load_preferred_plugins_all():
 
 @pytest.mark.skipif(not has_mpl, reason="matplotlib not installed")
 def test_load_preferred_plugins_imread():
-    from skimage.io._plugins import pil_plugin, matplotlib_plugin
+    from skimage.io._plugins import matplotlib_plugin, pil_plugin
 
     with protect_preferred_plugins():
         manage_plugins.preferred_plugins['imread'] = ['pil']

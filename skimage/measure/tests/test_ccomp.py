@@ -1,10 +1,9 @@
 import numpy as np
 
-from skimage.measure import label
 import skimage.measure._ccomp as ccomp
-
 from skimage._shared import testing
 from skimage._shared.testing import assert_array_equal
+from skimage.measure import label
 
 BG = 0  # background value
 

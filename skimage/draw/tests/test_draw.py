@@ -1,15 +1,14 @@
 import numpy as np
-from numpy.testing import assert_array_equal, assert_equal, assert_almost_equal
 import pytest
+from numpy.testing import assert_almost_equal, assert_array_equal, assert_equal
 
-from skimage._shared.testing import test_parallel
 from skimage._shared._dependency_checks import has_mpl
-
-from skimage.draw import (set_color, line, line_aa, polygon, polygon_perimeter,
-                          disk, circle_perimeter, circle_perimeter_aa,
-                          ellipse, ellipse_perimeter,
-                          _bezier_segment, bezier_curve, rectangle,
-                          rectangle_perimeter)
+from skimage._shared.testing import test_parallel
+from skimage.draw import (_bezier_segment, bezier_curve, circle_perimeter,
+                          circle_perimeter_aa, disk, ellipse,
+                          ellipse_perimeter, line, line_aa, polygon,
+                          polygon_perimeter, rectangle, rectangle_perimeter,
+                          set_color)
 from skimage.measure import regionprops
 
 

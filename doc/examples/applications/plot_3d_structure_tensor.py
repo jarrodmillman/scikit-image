@@ -19,10 +19,7 @@ import numpy as np
 import plotly.express as px
 import plotly.io
 
-from skimage import (
-    data, feature
-)
-
+from skimage import data, feature
 
 #####################################################################
 # Load image

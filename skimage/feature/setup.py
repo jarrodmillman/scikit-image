@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 
+import logging
 import os
+
+import pythran
+
 from skimage._build import cython
-import pythran, logging
 
 base_path = os.path.abspath(os.path.dirname(__file__))
 

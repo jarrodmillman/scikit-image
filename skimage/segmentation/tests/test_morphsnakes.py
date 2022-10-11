@@ -3,8 +3,7 @@ import pytest
 from numpy.testing import assert_array_equal
 
 from skimage._shared._warnings import expected_warnings
-from skimage.segmentation import (disk_level_set,
-                                  inverse_gaussian_gradient,
+from skimage.segmentation import (disk_level_set, inverse_gaussian_gradient,
                                   morphological_chan_vese,
                                   morphological_geodesic_active_contour)
 

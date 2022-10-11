@@ -1,7 +1,7 @@
 import numpy as np
 
-from .._shared import utils
 from .. import exposure
+from .._shared import utils
 
 __all__ = ['montage']
 
@@ -108,7 +108,7 @@ def montage(arr_in, fill='mean', rescale_intensity=False, grid_shape=None,
     n_images, n_rows, n_cols, n_chan = arr_in.shape
 
     if grid_shape:
-        ntiles_row, ntiles_col = [int(s) for s in grid_shape]
+        ntiles_row, ntiles_col = (int(s) for s in grid_shape)
     else:
         ntiles_row = ntiles_col = int(np.ceil(np.sqrt(n_images)))
 

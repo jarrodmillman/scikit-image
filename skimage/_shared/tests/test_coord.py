@@ -2,7 +2,7 @@ import time
 
 import numpy as np
 import pytest
-from scipy.spatial.distance import pdist, minkowski
+from scipy.spatial.distance import minkowski, pdist
 
 from skimage._shared.coord import ensure_spacing
 

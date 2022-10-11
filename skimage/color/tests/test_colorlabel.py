@@ -2,9 +2,8 @@ import itertools
 
 import numpy as np
 import pytest
-from numpy.testing import (assert_array_almost_equal,
-                           assert_array_equal, assert_no_warnings,
-                           assert_warns)
+from numpy.testing import (assert_array_almost_equal, assert_array_equal,
+                           assert_no_warnings, assert_warns)
 
 from skimage._shared.testing import expected_warnings
 from skimage.color.colorconv import hsv2rgb, rgb2hsv

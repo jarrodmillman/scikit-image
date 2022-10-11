@@ -1,9 +1,10 @@
 import numpy as np
-from skimage.segmentation import quickshift
 
 from skimage._shared import testing
-from skimage._shared.testing import (assert_greater, test_parallel,
-                                     assert_equal, assert_array_equal)
+from skimage._shared.testing import (assert_array_equal, assert_equal,
+                                     assert_greater, test_parallel)
+from skimage.segmentation import quickshift
+
 
 @test_parallel()
 @testing.parametrize('dtype', [np.float32, np.float64])

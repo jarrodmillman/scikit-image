@@ -39,12 +39,13 @@ as they do not posses the desired shape.
        :DOI:`10.1016/0262-8856(92)90076-F`
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 from scipy import ndimage as ndi
-from skimage.feature import shape_index
+
 from skimage.draw import disk
+from skimage.feature import shape_index
 
 
 def create_test_image(

@@ -7,8 +7,8 @@ from contextlib import contextmanager
 
 import numpy as np
 
-from skimage.measure import marching_cubes_classic, marching_cubes_lewiner
 from skimage.draw import ellipsoid
+from skimage.measure import marching_cubes_classic, marching_cubes_lewiner
 
 
 def main(select=3, **kwargs):

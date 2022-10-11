@@ -1,8 +1,9 @@
 from functools import reduce
-import numpy as np
-from ..draw import polygon
-from .._shared.version_requirements import require
 
+import numpy as np
+
+from .._shared.version_requirements import require
+from ..draw import polygon
 
 LEFT_CLICK = 1
 RIGHT_CLICK = 3
@@ -19,9 +20,9 @@ def _mask_from_vertices(vertices, shape, label):
 
 @require("matplotlib", ">=3.3")
 def _draw_polygon(ax, vertices, alpha=0.4):
-    from matplotlib.patches import Polygon
-    from matplotlib.collections import PatchCollection
     import matplotlib.pyplot as plt
+    from matplotlib.collections import PatchCollection
+    from matplotlib.patches import Polygon
 
     polygon = Polygon(vertices, closed=True)
     p = PatchCollection([polygon], match_original=True, alpha=alpha)
@@ -93,7 +94,7 @@ def manual_polygon_segmentation(image, alpha=0.4, return_all=False):
             fig.canvas.draw_idle()
 
     undo_pos = fig.add_axes([0.85, 0.05, 0.075, 0.075])
-    undo_button = matplotlib.widgets.Button(undo_pos, u'\u27F2')
+    undo_button = matplotlib.widgets.Button(undo_pos, '\u27F2')
     undo_button.on_clicked(_undo)
 
     def _extend_polygon(event):
@@ -204,7 +205,7 @@ def manual_lasso_segmentation(image, alpha=0.4, return_all=False):
             fig.canvas.draw_idle()
 
     undo_pos = fig.add_axes([0.85, 0.05, 0.075, 0.075])
-    undo_button = matplotlib.widgets.Button(undo_pos, u'\u27F2')
+    undo_button = matplotlib.widgets.Button(undo_pos, '\u27F2')
     undo_button.on_clicked(_undo)
 
     def _on_lasso_selection(vertices):

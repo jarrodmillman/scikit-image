@@ -1,13 +1,10 @@
 import numpy as np
 import pytest
 
-from skimage.metrics import (adapted_rand_error,
-                             variation_of_information,
-                             contingency_table)
-
-from skimage._shared.testing import (assert_equal,
-                                     assert_almost_equal,
-                                     assert_array_equal)
+from skimage._shared.testing import (assert_almost_equal, assert_array_equal,
+                                     assert_equal)
+from skimage.metrics import (adapted_rand_error, contingency_table,
+                             variation_of_information)
 
 
 def test_contingency_table():
@@ -56,4 +53,3 @@ def test_are():
         adapted_rand_error(im_true, im_test, alpha=1.01)
     with pytest.raises(ValueError):
         adapted_rand_error(im_true, im_test, alpha=-0.01)
-

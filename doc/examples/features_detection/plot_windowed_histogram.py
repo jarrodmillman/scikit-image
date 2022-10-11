@@ -35,15 +35,14 @@ References
        Trans. Image Processing, 16(9):2389-2394, 2007.
 """
 
-import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
+import numpy as np
 
 from skimage import data, transform
-from skimage.util import img_as_ubyte
-from skimage.morphology import disk
 from skimage.filters import rank
-
+from skimage.morphology import disk
+from skimage.util import img_as_ubyte
 
 matplotlib.rcParams['font.size'] = 9
 

@@ -34,12 +34,12 @@ from `skimage.data` for all comparisons.
        Recognition 35 (2002) 527-535, :DOI:`10.1016/S0031-3203(01)00047-4`
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
-from skimage.util import img_as_ubyte
 from skimage import data
 from skimage.exposure import histogram
+from skimage.util import img_as_ubyte
 
 noisy_image = img_as_ubyte(data.camera())
 hist, hist_centers = histogram(noisy_image)
@@ -64,7 +64,7 @@ plt.tight_layout()
 # noise.
 
 from skimage.filters.rank import median
-from skimage.morphology import disk, ball
+from skimage.morphology import ball, disk
 
 rng = np.random.default_rng()
 noise = rng.random(noisy_image.shape)
@@ -373,9 +373,9 @@ plt.tight_layout()
 #
 # .. [5] https://en.wikipedia.org/wiki/Otsu's_method
 
-from skimage.filters.rank import otsu
-from skimage.filters import threshold_otsu
 from skimage import exposure
+from skimage.filters import threshold_otsu
+from skimage.filters.rank import otsu
 
 p8 = data.page()
 
@@ -486,7 +486,7 @@ plt.tight_layout()
 # Here is an example of the classical morphological gray-level filters:
 # opening, closing and morphological gradient.
 
-from skimage.filters.rank import maximum, minimum, gradient
+from skimage.filters.rank import gradient, maximum, minimum
 
 noisy_image = img_as_ubyte(data.camera())
 
@@ -535,11 +535,12 @@ plt.tight_layout()
 #     To better use the available image bit, the function returns 10x entropy
 #     for 8-bit images and 1000x entropy for 16-bit images.
 
+import matplotlib.pyplot as plt
+import numpy as np
+
 from skimage import data
 from skimage.filters.rank import entropy
 from skimage.morphology import disk
-import numpy as np
-import matplotlib.pyplot as plt
 
 image = data.camera()
 
@@ -572,8 +573,9 @@ plt.tight_layout()
 from time import time
 
 from scipy.ndimage import percentile_filter
+
+from skimage.filters.rank import maximum, median
 from skimage.morphology import dilation
-from skimage.filters.rank import median, maximum
 
 
 def exec_and_timeit(func):

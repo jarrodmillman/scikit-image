@@ -22,8 +22,8 @@ pre-defined handlers:
 Below, we demonstrate the use of ``adapt_rgb`` on a couple of gray-scale
 filters:
 """
-from skimage.color.adapt_rgb import adapt_rgb, each_channel, hsv_value
 from skimage import filters
+from skimage.color.adapt_rgb import adapt_rgb, each_channel, hsv_value
 
 
 @adapt_rgb(each_channel)
@@ -41,9 +41,10 @@ def sobel_hsv(image):
 # with both gray-scale and color images. Let's plot the results with a color
 # image:
 
+import matplotlib.pyplot as plt
+
 from skimage import data
 from skimage.exposure import rescale_intensity
-import matplotlib.pyplot as plt
 
 image = data.astronaut()
 

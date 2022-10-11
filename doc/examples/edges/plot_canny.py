@@ -15,12 +15,12 @@ noisier the image, the greater the width), and the low and high threshold for
 the hysteresis thresholding.
 
 """
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from scipy import ndimage as ndi
-from skimage.util import random_noise
-from skimage import feature
 
+from skimage import feature
+from skimage.util import random_noise
 
 # Generate noisy image of a square
 image = np.zeros((128, 128), dtype=float)

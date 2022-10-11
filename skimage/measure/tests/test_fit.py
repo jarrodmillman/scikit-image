@@ -4,9 +4,10 @@ from skimage._shared import testing
 from skimage._shared._warnings import expected_warnings
 from skimage._shared.testing import (arch32, assert_almost_equal,
                                      assert_array_less, assert_equal, xfail)
-from skimage.measure import LineModelND, CircleModel, EllipseModel, ransac
+from skimage.measure import CircleModel, EllipseModel, LineModelND, ransac
 from skimage.measure.fit import _dynamic_max_trials
 from skimage.transform import AffineTransform
+
 
 def test_line_model_predict():
     model = LineModelND()
@@ -394,7 +395,7 @@ def test_ransac_invalid_input():
 
 
 def test_ransac_sample_duplicates():
-    class DummyModel(object):
+    class DummyModel:
 
         """Dummy model to check for duplicates."""
 

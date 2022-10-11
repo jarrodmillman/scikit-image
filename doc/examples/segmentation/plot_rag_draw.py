@@ -7,10 +7,10 @@ This example constructs a Region Adjacency Graph (RAG) and draws it with
 the `rag_draw` method.
 """
 
-from skimage import data, segmentation
-from skimage.future import graph
 from matplotlib import pyplot as plt
 
+from skimage import data, segmentation
+from skimage.future import graph
 
 img = data.coffee()
 labels = segmentation.slic(img, compactness=30, n_segments=400, start_label=1)

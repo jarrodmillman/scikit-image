@@ -2,11 +2,11 @@ import numpy as np
 
 from .._shared import utils
 from .._shared.utils import convert_to_float
-from ._nl_means_denoising import (_nl_means_denoising_2d,
-                                  _nl_means_denoising_3d,
-                                  _fast_nl_means_denoising_2d,
+from ._nl_means_denoising import (_fast_nl_means_denoising_2d,
                                   _fast_nl_means_denoising_3d,
-                                  _fast_nl_means_denoising_4d)
+                                  _fast_nl_means_denoising_4d,
+                                  _nl_means_denoising_2d,
+                                  _nl_means_denoising_3d)
 
 
 @utils.channel_as_last_axis()

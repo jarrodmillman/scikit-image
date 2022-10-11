@@ -2,10 +2,9 @@ import numpy as np
 
 from .._shared._geometry import polygon_clip
 from .._shared.version_requirements import require
-from ._draw import (_coords_inside_image, _line, _line_aa,
-                    _polygon, _ellipse_perimeter,
-                    _circle_perimeter, _circle_perimeter_aa,
-                    _bezier_curve)
+from ._draw import (_bezier_curve, _circle_perimeter, _circle_perimeter_aa,
+                    _coords_inside_image, _ellipse_perimeter, _line, _line_aa,
+                    _polygon)
 
 
 def _ellipse_in_shape(shape, center, radii, rotation=0.):

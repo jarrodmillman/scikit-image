@@ -1,6 +1,5 @@
 import numpy as np
 
-
 __all__ = ['image_stack', 'push', 'pop']
 
 

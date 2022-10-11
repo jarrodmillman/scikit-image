@@ -13,12 +13,11 @@ border to be the pixel values in the original image. These maximal pixels will
 get dilated in order to reconstruct the background image.
 
 """
-import numpy as np
 import matplotlib.pyplot as plt
-
+import numpy as np
 from scipy.ndimage import gaussian_filter
-from skimage import data
-from skimage import img_as_float
+
+from skimage import data, img_as_float
 from skimage.morphology import reconstruction
 
 # Convert to float: Important for subtraction later which won't work with uint8

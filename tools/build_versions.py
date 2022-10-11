@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
-from pathlib import Path
-import pkg_resources
 import re
+from pathlib import Path
+
+import pkg_resources
 
 
 def main():
@@ -10,7 +11,7 @@ def main():
 
     for requirement_file in requirements_dir.glob('*.txt'):
         print(requirement_file.name)
-        with open(str(requirement_file), 'r') as f:
+        with open(str(requirement_file)) as f:
             for req in f:
                 # Remove trailing and leading whitespace.
                 req = req.strip()

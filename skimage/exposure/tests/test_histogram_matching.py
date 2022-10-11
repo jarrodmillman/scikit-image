@@ -1,9 +1,8 @@
 import numpy as np
 import pytest
-from numpy.testing import (assert_almost_equal, assert_array_almost_equal)
+from numpy.testing import assert_almost_equal, assert_array_almost_equal
 
-from skimage import data
-from skimage import exposure
+from skimage import data, exposure
 from skimage._shared.testing import expected_warnings
 from skimage._shared.utils import _supported_float_type
 from skimage.exposure import histogram_matching

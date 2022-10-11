@@ -1,13 +1,13 @@
 import os
 
 import numpy as np
-from skimage.io import use_plugin, reset_plugins
-from skimage.io.collection import MultiImage
+from pytest import fixture
 
 from skimage._shared import testing
-from skimage._shared.testing import assert_equal, assert_allclose
+from skimage._shared.testing import assert_allclose, assert_equal
+from skimage.io import reset_plugins, use_plugin
+from skimage.io.collection import MultiImage
 
-from pytest import fixture
 
 @fixture
 def imgs():

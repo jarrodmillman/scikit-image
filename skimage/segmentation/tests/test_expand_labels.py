@@ -1,13 +1,10 @@
-from scipy import ndimage as ndi
-from skimage import data
-
 import numpy as np
+from scipy import ndimage as ndi
 
-from skimage import measure
-from skimage.segmentation._expand_labels import expand_labels
-
+from skimage import data, measure
 from skimage._shared import testing
 from skimage._shared.testing import assert_array_equal
+from skimage.segmentation._expand_labels import expand_labels
 
 SAMPLE1D = np.array([0, 0, 4, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0])
 SAMPLE1D_EXPANDED_3 = np.array([4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0])
@@ -19,9 +16,9 @@ SAMPLE1D_EXPANDED_3 = np.array([4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 
 # by the scipy.ndimage distance transform, what actually happens
 # is determined by the upstream implementation of the distance
 # tansform, thus we don't give any guarantees for the edge case pixels.
-#  
+#
 # Regardless, it seems prudent to have a test including an edge case
-# so we can detect whether future upstream changes in scipy.ndimage 
+# so we can detect whether future upstream changes in scipy.ndimage
 # modify the behaviour.
 
 EDGECASE1D = np.array([0, 0, 4, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0])
@@ -127,7 +124,7 @@ SAMPLE3D_EXPANDED_2 =np.array(
 SAMPLE_EDGECASE_BEHAVIOUR = np.array([[0, 1, 0, 0], [2, 0, 0, 0], [0, 3, 0, 0]])
 
 @testing.parametrize(
-    "input_array, expected_output, expand_distance", 
+    "input_array, expected_output, expand_distance",
     [
     (SAMPLE1D, SAMPLE1D_EXPANDED_3, 3),
     (SAMPLE2D, SAMPLE2D_EXPANDED_3, 3),
@@ -182,4 +179,3 @@ def test_edge_case_behaviour():
     expanded = expand_labels(SAMPLE_EDGECASE_BEHAVIOUR, 1)
     expanded_transpose = expand_labels(SAMPLE_EDGECASE_BEHAVIOUR.T, 1)
     assert not np.all(expanded == expanded_transpose.T)
-    

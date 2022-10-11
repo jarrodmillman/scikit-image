@@ -1,8 +1,8 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
-from skimage.transform import hough_line
 from skimage.draw import line
+from skimage.transform import hough_line
 
 img = np.zeros((100, 150), dtype=bool)
 img[30, :] = 1

@@ -1,20 +1,20 @@
 import numpy as np
 import pytest
+import scipy.fft as fft
 from numpy.testing import (assert_almost_equal, assert_array_almost_equal,
                            assert_array_equal, assert_array_less, assert_equal)
-from scipy.ndimage import fourier_shift, shift as real_shift
-import scipy.fft as fft
+from scipy.ndimage import fourier_shift
+from scipy.ndimage import shift as real_shift
 
 from skimage._shared.testing import fetch
 from skimage._shared.utils import _supported_float_type
-from skimage.data import camera, brain
-
-
+from skimage.data import brain, camera
 from skimage.io import imread
-from skimage.registration._masked_phase_cross_correlation import (
-    _masked_phase_cross_correlation as masked_register_translation,
-    cross_correlate_masked)
 from skimage.registration import phase_cross_correlation
+from skimage.registration._masked_phase_cross_correlation import \
+    _masked_phase_cross_correlation as masked_register_translation
+from skimage.registration._masked_phase_cross_correlation import \
+    cross_correlate_masked
 
 
 def test_masked_registration_vs_phase_cross_correlation():

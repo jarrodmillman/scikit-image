@@ -1,12 +1,11 @@
-from .draw import (ellipse, set_color, polygon_perimeter,
-                   line, line_aa, polygon, ellipse_perimeter,
-                   circle_perimeter, circle_perimeter_aa,
-                   disk, bezier_curve, rectangle, rectangle_perimeter)
-from .draw3d import ellipsoid, ellipsoid_stats
 from ._draw import _bezier_segment
-from ._random_shapes import random_shapes
 from ._polygon2mask import polygon2mask
-
+from ._random_shapes import random_shapes
+from .draw import (bezier_curve, circle_perimeter, circle_perimeter_aa, disk,
+                   ellipse, ellipse_perimeter, line, line_aa, polygon,
+                   polygon_perimeter, rectangle, rectangle_perimeter,
+                   set_color)
+from .draw3d import ellipsoid, ellipsoid_stats
 from .draw_nd import line_nd
 
 __all__ = ['line',

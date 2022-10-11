@@ -10,14 +10,14 @@ placed in the same segment if and only if it is in the same segment in
 *both* segmentations.
 
 """
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
+from skimage import data
+from skimage.color import label2rgb
 from skimage.filters import sobel
 from skimage.measure import label
-from skimage.segmentation import slic, join_segmentations, watershed
-from skimage.color import label2rgb
-from skimage import data
+from skimage.segmentation import join_segmentations, slic, watershed
 
 coins = data.coins()
 

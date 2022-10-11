@@ -88,9 +88,11 @@ submodules = [
 ]
 
 from ._shared.version_requirements import ensure_python_version
+
 ensure_python_version((3, 7))
 
 from ._shared import lazy
+
 __getattr__, __lazy_dir__, _ = lazy.attach(
     __name__,
     submodules,
@@ -150,21 +152,16 @@ else:
         _raise_build_error(e)
 
     # All skimage root imports go here
-    from .util.dtype import (img_as_float32,
-                             img_as_float64,
-                             img_as_float,
-                             img_as_int,
-                             img_as_uint,
-                             img_as_ubyte,
-                             img_as_bool,
-                             dtype_limits)
+    from .util.dtype import (dtype_limits, img_as_bool, img_as_float,
+                             img_as_float32, img_as_float64, img_as_int,
+                             img_as_ubyte, img_as_uint)
     from .util.lookfor import lookfor
 
 if 'dev' in __version__:
     # Append last commit date and hash to dev version information, if available
 
-    import subprocess
     import os.path
+    import subprocess
 
     try:
         p = subprocess.Popen(
@@ -194,5 +191,6 @@ if 'dev' in __version__:
             __version__ += f'+git{git_date}.{git_hash}'
 
 from skimage._shared.tester import PytestTester  # noqa
+
 test = PytestTester(__name__)
 del PytestTester

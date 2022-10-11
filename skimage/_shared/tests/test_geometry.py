@@ -1,8 +1,8 @@
-import pytest
-from skimage._shared._geometry import polygon_clip, polygon_area
-
 import numpy as np
-from numpy.testing import assert_equal, assert_almost_equal
+import pytest
+from numpy.testing import assert_almost_equal, assert_equal
+
+from skimage._shared._geometry import polygon_area, polygon_clip
 
 pytest.importorskip("matplotlib")
 

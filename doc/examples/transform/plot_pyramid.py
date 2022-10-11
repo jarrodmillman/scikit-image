@@ -11,12 +11,11 @@ detection.
 """
 import math
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from skimage import data
 from skimage.transform import pyramid_gaussian
-
 
 image = data.astronaut()
 rows, cols, dim = image.shape

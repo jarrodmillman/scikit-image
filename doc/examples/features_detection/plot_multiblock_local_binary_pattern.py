@@ -20,9 +20,10 @@ a (9, 9) rectangle and divide it into (3, 3) block, upon which we then apply
 MB-LBP.
 
 """
-from skimage.feature import multiblock_lbp
 import numpy as np
 from numpy.testing import assert_equal
+
+from skimage.feature import multiblock_lbp
 from skimage.transform import integral_image
 
 # Create test matrix where first and fifth rectangles starting
@@ -46,8 +47,9 @@ assert_equal(correct_answer, lbp_code)
 # Now let's apply the operator to a real image and see how the visualization
 # works.
 
-from skimage import data
 from matplotlib import pyplot as plt
+
+from skimage import data
 from skimage.feature import draw_multiblock_lbp
 
 test_img = data.coins()

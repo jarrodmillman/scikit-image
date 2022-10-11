@@ -40,12 +40,11 @@ information was reported by the microscope used to image the cells.
 """
 
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import numpy as np
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 from skimage import exposure, io, util
 from skimage.data import cells3d
-
 
 #####################################################################
 # Load and display 3D images

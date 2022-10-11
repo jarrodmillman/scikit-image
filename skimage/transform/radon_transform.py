@@ -1,14 +1,14 @@
-import numpy as np
-
-from scipy.interpolate import interp1d
-from scipy.constants import golden_ratio
-from scipy.fft import fft, ifft, fftfreq, fftshift
-from ._warps import warp
-from ._radon_transform import sart_projection_update
-from .._shared.utils import convert_to_float
-from warnings import warn
 from functools import partial
+from warnings import warn
 
+import numpy as np
+from scipy.constants import golden_ratio
+from scipy.fft import fft, fftfreq, fftshift, ifft
+from scipy.interpolate import interp1d
+
+from .._shared.utils import convert_to_float
+from ._radon_transform import sart_projection_update
+from ._warps import warp
 
 __all__ = ['radon', 'order_angles_golden_ratio', 'iradon', 'iradon_sart']
 

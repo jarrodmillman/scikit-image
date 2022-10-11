@@ -18,8 +18,8 @@ import numpy as np
 from scipy import ndimage as ndi
 
 from skimage import data
-from skimage.util import img_as_float
 from skimage.filters import gabor_kernel
+from skimage.util import img_as_float
 
 
 def compute_feats(image, kernels):

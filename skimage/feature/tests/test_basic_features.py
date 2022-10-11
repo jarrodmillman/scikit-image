@@ -1,5 +1,5 @@
-import pytest
 import numpy as np
+import pytest
 
 from skimage._shared.testing import expected_warnings
 from skimage.feature import multiscale_basic_features

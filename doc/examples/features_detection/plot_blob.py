@@ -37,12 +37,12 @@ detected accurately. See :py:meth:`skimage.feature.blob_doh` for usage.
 """
 
 from math import sqrt
-from skimage import data
-from skimage.feature import blob_dog, blob_log, blob_doh
-from skimage.color import rgb2gray
 
 import matplotlib.pyplot as plt
 
+from skimage import data
+from skimage.color import rgb2gray
+from skimage.feature import blob_dog, blob_doh, blob_log
 
 image = data.hubble_deep_field()[0:500, 0:500]
 image_gray = rgb2gray(image)

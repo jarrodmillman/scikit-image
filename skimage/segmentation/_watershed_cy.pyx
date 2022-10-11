@@ -1,10 +1,11 @@
 """watershed.pyx - cython implementation of guts of watershed
 """
 import numpy as np
+
+cimport cython
+cimport numpy as cnp
 from libc.math cimport sqrt
 
-cimport numpy as cnp
-cimport cython
 cnp.import_array()
 
 ctypedef cnp.int32_t DTYPE_INT32_t

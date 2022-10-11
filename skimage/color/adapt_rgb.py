@@ -5,7 +5,6 @@ import numpy as np
 from .. import color
 from ..util.dtype import _convert
 
-
 __all__ = ['adapt_rgb', 'hsv_value', 'each_channel']
 
 

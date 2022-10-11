@@ -29,6 +29,7 @@ image = rescale_intensity(image, in_range=(50, 200))
 # setting the mask to the values of the original image.
 
 import numpy as np
+
 from skimage.morphology import reconstruction
 
 seed = np.copy(image)

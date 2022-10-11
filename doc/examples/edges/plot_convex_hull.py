@@ -13,8 +13,8 @@ A good overview of the algorithm is given on `Steve Eddin's blog
 
 import matplotlib.pyplot as plt
 
-from skimage.morphology import convex_hull_image
 from skimage import data, img_as_float
+from skimage.morphology import convex_hull_image
 from skimage.util import invert
 
 # The original image is inverted as the object must be white.

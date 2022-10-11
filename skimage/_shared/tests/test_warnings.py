@@ -1,6 +1,8 @@
 import os
-from skimage._shared._warnings import expected_warnings
+
 import pytest
+
+from skimage._shared._warnings import expected_warnings
 
 
 @pytest.fixture(scope='function')

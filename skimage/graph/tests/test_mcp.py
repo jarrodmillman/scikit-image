@@ -1,10 +1,9 @@
 import numpy as np
+
 import skimage.graph.mcp as mcp
-
-from skimage._shared.testing import (assert_array_equal, assert_almost_equal,
-                                     parametrize)
 from skimage._shared._warnings import expected_warnings
-
+from skimage._shared.testing import (assert_almost_equal, assert_array_equal,
+                                     parametrize)
 
 np.random.seed(0)
 a = np.ones((8, 8), dtype=np.float32)

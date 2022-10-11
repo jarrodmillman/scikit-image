@@ -1,7 +1,8 @@
 import math
+import textwrap
+
 import numpy as np
 from scipy import spatial
-import textwrap
 
 from .._shared.utils import get_bound_method_class, safe_as_int
 
@@ -165,7 +166,7 @@ def _umeyama(src, dst, estimate_scale):
     return T
 
 
-class GeometricTransform(object):
+class GeometricTransform:
     """Base class for geometric transformations.
 
     """

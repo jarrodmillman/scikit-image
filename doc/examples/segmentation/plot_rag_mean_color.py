@@ -8,10 +8,10 @@ which are similar in color. We construct a RAG and define edges as the
 difference in mean color. We then join regions with similar mean color.
 """
 
-from skimage import data, segmentation, color
-from skimage.future import graph
 from matplotlib import pyplot as plt
 
+from skimage import color, data, segmentation
+from skimage.future import graph
 
 img = data.coffee()
 

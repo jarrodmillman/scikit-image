@@ -1,13 +1,13 @@
-
-import numpy as np
-from skimage.restoration import unwrap_phase
 import sys
 
+import numpy as np
+
 from skimage._shared import testing
-from skimage._shared.testing import (assert_array_almost_equal_nulp,
-                                     assert_almost_equal, assert_array_equal,
-                                     assert_, skipif)
 from skimage._shared._warnings import expected_warnings
+from skimage._shared.testing import (assert_, assert_almost_equal,
+                                     assert_array_almost_equal_nulp,
+                                     assert_array_equal, skipif)
+from skimage.restoration import unwrap_phase
 
 
 def assert_phase_almost_equal(a, b, *args, **kwargs):

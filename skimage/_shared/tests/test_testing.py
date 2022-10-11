@@ -1,12 +1,13 @@
 """ Testing decorators module
 """
 
-from numpy.testing import assert_equal
-from skimage._shared.testing import doctest_skip_parser, test_parallel
-from skimage._shared import testing
-
-from skimage._shared._warnings import expected_warnings
 from warnings import warn
+
+from numpy.testing import assert_equal
+
+from skimage._shared import testing
+from skimage._shared._warnings import expected_warnings
+from skimage._shared.testing import doctest_skip_parser, test_parallel
 
 
 def test_skipper():
@@ -121,4 +122,3 @@ def test_expected_warnings_noop():
         # This should behave as a no-op
         with expected_warnings(None):
             warn('Expected warnings test')
-

@@ -25,14 +25,13 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 from skimage import data
-from skimage.util import img_as_float
-from skimage.feature import (corner_harris, corner_subpix, corner_peaks,
-                             plot_matches)
-from skimage.transform import warp, AffineTransform
-from skimage.exposure import rescale_intensity
 from skimage.color import rgb2gray
+from skimage.exposure import rescale_intensity
+from skimage.feature import (corner_harris, corner_peaks, corner_subpix,
+                             plot_matches)
 from skimage.measure import ransac
-
+from skimage.transform import AffineTransform, warp
+from skimage.util import img_as_float
 
 # generate synthetic checkerboard image and add gradient for the later matching
 checkerboard = img_as_float(data.checkerboard())

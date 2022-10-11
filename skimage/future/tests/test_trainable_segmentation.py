@@ -4,11 +4,11 @@ import numpy as np
 import pytest
 from scipy import spatial
 
-from skimage.future import fit_segmenter, predict_segmenter, TrainableSegmenter
 from skimage.feature import multiscale_basic_features
+from skimage.future import TrainableSegmenter, fit_segmenter, predict_segmenter
 
 
-class DummyNNClassifier(object):
+class DummyNNClassifier:
     def fit(self, X, labels):
         self.X = X
         self.labels = labels

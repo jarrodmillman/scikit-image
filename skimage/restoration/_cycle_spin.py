@@ -1,5 +1,7 @@
 from itertools import product
+
 import numpy as np
+
 from .._shared import utils
 from .._shared.utils import warn
 

@@ -3,7 +3,9 @@
 # cython: nonecheck=False
 # cython: wraparound=False
 cimport numpy as cnp
+
 import numpy as np
+
 cnp.import_array()
 
 

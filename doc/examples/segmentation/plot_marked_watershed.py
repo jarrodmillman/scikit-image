@@ -18,15 +18,14 @@ See Wikipedia_ for more details on the algorithm.
 
 """
 
-from scipy import ndimage as ndi
 import matplotlib.pyplot as plt
+from scipy import ndimage as ndi
 
-from skimage.morphology import disk
-from skimage.segmentation import watershed
 from skimage import data
 from skimage.filters import rank
+from skimage.morphology import disk
+from skimage.segmentation import watershed
 from skimage.util import img_as_ubyte
-
 
 image = img_as_ubyte(data.eagle())
 

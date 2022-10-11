@@ -1,13 +1,13 @@
-import numpy as np
 import itertools
-from skimage import (img_as_float, img_as_float32, img_as_float64,
-                     img_as_int, img_as_uint, img_as_ubyte)
-from skimage.util.dtype import _convert
 
-from skimage._shared._warnings import expected_warnings
+import numpy as np
+
+from skimage import (img_as_float, img_as_float32, img_as_float64, img_as_int,
+                     img_as_ubyte, img_as_uint)
 from skimage._shared import testing
+from skimage._shared._warnings import expected_warnings
 from skimage._shared.testing import assert_equal, parametrize
-
+from skimage.util.dtype import _convert
 
 dtype_range = {np.uint8: (0, 255),
                np.uint16: (0, 65535),

@@ -41,9 +41,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pywt
 
-from skimage import (
-    data, restoration, util
-)
+from skimage import data, restoration, util
 
 
 def plot_result(image, background):

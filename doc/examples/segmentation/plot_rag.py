@@ -14,10 +14,11 @@ The example below also shows how to use a custom function to select the larger
 weight instead.
 
 """
-from skimage.future.graph import rag
 import networkx as nx
-from matplotlib import pyplot as plt
 import numpy as np
+from matplotlib import pyplot as plt
+
+from skimage.future.graph import rag
 
 
 def max_edge(g, src, dst, n):

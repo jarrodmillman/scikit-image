@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 from scipy import ndimage as ndi
-from scipy.signal import convolve2d, convolve
+from scipy.signal import convolve, convolve2d
 
 from skimage import restoration, util
 from skimage._shared import filters

@@ -3,10 +3,9 @@ import pytest
 from numpy.testing import assert_almost_equal, assert_equal
 
 from skimage import data
-from skimage._shared.testing import test_parallel, xfail, arch32
+from skimage._shared.testing import arch32, test_parallel, xfail
 from skimage.feature import ORB
 from skimage.util.dtype import _convert
-
 
 img = data.coins()
 

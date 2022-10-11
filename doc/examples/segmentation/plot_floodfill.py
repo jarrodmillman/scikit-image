@@ -16,11 +16,11 @@ First, a basic example where we will change a checkerboard square from white
 to mid-gray.
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
-from skimage import data, filters, color, morphology
-from skimage.segmentation import flood, flood_fill
+import numpy as np
 
+from skimage import color, data, filters, morphology
+from skimage.segmentation import flood, flood_fill
 
 checkers = data.checkerboard()
 

@@ -1,13 +1,12 @@
-from .generic import (autolevel, equalize, gradient, majority, maximum,
-                      mean, geometric_mean, subtract_mean, median, minimum,
-                      modal, enhance_contrast, pop, threshold, noise_filter,
-                      entropy, otsu, sum, windowed_histogram)
-from ._percentile import (autolevel_percentile, gradient_percentile,
-                          mean_percentile, subtract_mean_percentile,
-                          enhance_contrast_percentile, percentile,
-                          pop_percentile, sum_percentile, threshold_percentile)
+from ._percentile import (autolevel_percentile, enhance_contrast_percentile,
+                          gradient_percentile, mean_percentile, percentile,
+                          pop_percentile, subtract_mean_percentile,
+                          sum_percentile, threshold_percentile)
 from .bilateral import mean_bilateral, pop_bilateral, sum_bilateral
-
+from .generic import (autolevel, enhance_contrast, entropy, equalize,
+                      geometric_mean, gradient, majority, maximum, mean,
+                      median, minimum, modal, noise_filter, otsu, pop,
+                      subtract_mean, sum, threshold, windowed_histogram)
 
 __all__ = ['autolevel',
            'autolevel_percentile',

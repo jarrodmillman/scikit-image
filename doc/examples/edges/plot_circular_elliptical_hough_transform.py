@@ -34,15 +34,14 @@ original picture in order to detect centers outside the frame.
 Its size is extended by two times the larger radius.
 
 """
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
-from skimage import data, color
-from skimage.transform import hough_circle, hough_circle_peaks
-from skimage.feature import canny
+from skimage import color, data
 from skimage.draw import circle_perimeter
+from skimage.feature import canny
+from skimage.transform import hough_circle, hough_circle_peaks
 from skimage.util import img_as_ubyte
-
 
 # Load picture and detect edges
 image = img_as_ubyte(data.coins()[160:230, 70:270])
@@ -96,10 +95,10 @@ plt.show()
 
 import matplotlib.pyplot as plt
 
-from skimage import data, color, img_as_ubyte
+from skimage import color, data, img_as_ubyte
+from skimage.draw import ellipse_perimeter
 from skimage.feature import canny
 from skimage.transform import hough_ellipse
-from skimage.draw import ellipse_perimeter
 
 # Load picture, convert to grayscale and detect edges
 image_rgb = data.coffee()[0:220, 160:420]
@@ -117,7 +116,7 @@ result.sort(order='accumulator')
 
 # Estimated parameters for the ellipse
 best = list(result[-1])
-yc, xc, a, b = [int(round(x)) for x in best[1:5]]
+yc, xc, a, b = (int(round(x)) for x in best[1:5])
 orientation = best[5]
 
 # Draw the ellipse on the original image

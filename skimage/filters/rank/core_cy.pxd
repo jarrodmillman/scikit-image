@@ -1,5 +1,4 @@
-from numpy cimport uint8_t, uint16_t, float32_t, float64_t
-
+from numpy cimport float32_t, float64_t, uint8_t, uint16_t
 
 ctypedef fused dtype_t:
     uint8_t

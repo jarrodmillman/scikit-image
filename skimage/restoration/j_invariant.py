@@ -1,5 +1,5 @@
-import itertools
 import functools
+import itertools
 
 import numpy as np
 from scipy import ndimage as ndi
@@ -7,7 +7,6 @@ from scipy import ndimage as ndi
 from .._shared.utils import _supported_float_type
 from ..metrics import mean_squared_error
 from ..util import img_as_float
-
 
 
 def _interpolate_image(image, *, multichannel=False):

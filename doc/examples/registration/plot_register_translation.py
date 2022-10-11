@@ -15,13 +15,13 @@ DFT to achieve arbitrary subpixel precision [1]_.
        156-158 (2008). :DOI:`10.1364/OL.33.000156`
 
 """
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+from scipy.ndimage import fourier_shift
 
 from skimage import data
 from skimage.registration import phase_cross_correlation
 from skimage.registration._phase_cross_correlation import _upsampled_dft
-from scipy.ndimage import fourier_shift
 
 image = data.camera()
 shift = (-22.4, 13.32)

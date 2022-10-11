@@ -18,9 +18,10 @@ This example shows the effect of different radius and amount parameters.
 
 """
 
+import matplotlib.pyplot as plt
+
 from skimage import data
 from skimage.filters import unsharp_mask
-import matplotlib.pyplot as plt
 
 image = data.moon()
 result_1 = unsharp_mask(image, radius=1, amount=1)

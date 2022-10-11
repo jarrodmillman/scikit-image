@@ -1,9 +1,9 @@
-from contextlib import contextmanager
-import sys
-import warnings
-import re
 import functools
 import os
+import re
+import sys
+import warnings
+from contextlib import contextmanager
 
 __all__ = ['all_warnings', 'expected_warnings', 'warn']
 
@@ -44,6 +44,7 @@ def all_warnings():
     # _warnings.py is on the critical import path.
     # Since this is a testing only function, we lazy import inspect.
     import inspect
+
     # Whenever a warning is triggered, Python adds a __warningregistry__
     # member to the *calling* module.  The exercise here is to find
     # and eradicate all those breadcrumbs that were left lying around.

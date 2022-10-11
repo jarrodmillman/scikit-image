@@ -18,11 +18,11 @@ be split between markers on opposite sides.
 import numpy as np
 from scipy import ndimage as ndi
 
-from . import _watershed_cy
+from ..morphology._util import (_offsets_to_raveled_neighbors,
+                                _validate_connectivity)
 from ..morphology.extrema import local_minima
-from ..morphology._util import (_validate_connectivity,
-                                _offsets_to_raveled_neighbors)
 from ..util import crop, regular_seeds
+from . import _watershed_cy
 
 
 def _validate_inputs(image, markers, mask, connectivity):

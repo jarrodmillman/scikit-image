@@ -31,9 +31,8 @@ References
 """
 import matplotlib.pyplot as plt
 
-from skimage.feature import graycomatrix, graycoprops
 from skimage import data
-
+from skimage.feature import graycomatrix, graycoprops
 
 PATCH_SIZE = 21
 

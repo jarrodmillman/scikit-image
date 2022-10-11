@@ -6,7 +6,7 @@
 import numpy as np
 
 cimport numpy as cnp
-from libc.stdlib cimport malloc, free
+from libc.stdlib cimport free, malloc
 
 cnp.import_array()
 

@@ -2,14 +2,15 @@
 
 
 import os
-from glob import glob
 import re
 from collections.abc import Sequence
 from copy import copy
-from packaging import version
+from glob import glob
 
 import numpy as np
-from PIL import Image, __version__ as pil_version
+from packaging import version
+from PIL import Image
+from PIL import __version__ as pil_version
 
 # Check CVE-2021-27921 and others
 if version.parse(pil_version) < version.parse('8.1.2'):
@@ -22,7 +23,6 @@ if version.parse(pil_version) < version.parse('8.1.2'):
          stacklevel=2)
 
 from tifffile import TiffFile
-
 
 __all__ = ['MultiImage', 'ImageCollection', 'concatenate_images',
            'imread_collection_wrapper']
@@ -106,7 +106,7 @@ def _is_multipattern(input_pattern):
     return is_multipattern
 
 
-class ImageCollection(object):
+class ImageCollection:
     """Load and manage a collection of image files.
 
     Parameters
@@ -263,7 +263,7 @@ class ImageCollection(object):
                 try:
                     im = Image.open(fname)
                     im.seek(0)
-                except (IOError, OSError):
+                except OSError:
                     continue
                 i = 0
                 while True:
@@ -484,7 +484,7 @@ class MultiImage(ImageCollection):
         from ._io import imread
 
         self._filename = filename
-        super(MultiImage, self).__init__(filename, conserve_memory,
+        super().__init__(filename, conserve_memory,
                                          load_func=imread, **imread_kwargs)
 
     @property

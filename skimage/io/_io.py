@@ -3,11 +3,10 @@ import pathlib
 import numpy as np
 
 from .._shared.utils import warn
-from ..exposure import is_low_contrast
 from ..color.colorconv import rgb2gray, rgba2rgb
+from ..exposure import is_low_contrast
 from ..io.manage_plugins import call_plugin
 from .util import file_or_url_context
-
 
 __all__ = ['imread', 'imsave', 'imshow', 'show',
            'imread_collection', 'imshow_collection']

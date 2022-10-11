@@ -11,9 +11,8 @@ whether the surrounding points are greater than or less than the central point
 Before trying out LBP on an image, it helps to look at a schematic of LBPs.
 The below code is just used to plot the schematic.
 """
-import numpy as np
 import matplotlib.pyplot as plt
-
+import numpy as np
 
 METHOD = 'uniform'
 plt.rcParams['font.size'] = 9
@@ -81,10 +80,10 @@ for ax, values, name in zip(axes, binary_patterns, titles):
 # image patch and look at the distribution of these LBPs. Lets apply LBP to a
 # brick texture.
 
-from skimage.transform import rotate
-from skimage.feature import local_binary_pattern
 from skimage import data
 from skimage.color import label2rgb
+from skimage.feature import local_binary_pattern
+from skimage.transform import rotate
 
 # settings for LBP
 radius = 3

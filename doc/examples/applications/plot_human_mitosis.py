@@ -21,9 +21,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy import ndimage as ndi
 
-from skimage import (
-    color, feature, filters, measure, morphology, segmentation, util
-)
+from skimage import (color, feature, filters, measure, morphology,
+                     segmentation, util)
 from skimage.data import human_mitosis
 
 image = human_mitosis()

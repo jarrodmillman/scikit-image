@@ -1,12 +1,11 @@
-import numpy as np
 import unittest
-
 from tempfile import NamedTemporaryFile
 
-from skimage.io import imread, imsave, use_plugin, reset_plugins
-from skimage._shared import testing
+import numpy as np
+from pytest import fixture, importorskip, raises
 
-from pytest import importorskip, raises, fixture
+from skimage._shared import testing
+from skimage.io import imread, imsave, reset_plugins, use_plugin
 
 importorskip('SimpleITK')
 

@@ -1,9 +1,10 @@
 import math
 
 import numpy as np
+
 cimport cython
-from libc.math cimport isnan, INFINITY
 from cython.parallel cimport prange
+from libc.math cimport INFINITY, isnan
 
 from .._shared.fused_numerics cimport np_floats
 

@@ -65,27 +65,25 @@ Suggested CSS definitions
     }
 
 """
+import itertools
 import os
 import re
 import shutil
 import token
 import tokenize
 import traceback
-import itertools
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-
-from skimage import io
-from skimage import transform
-from skimage.util.dtype import dtype_range
-
-from notebook_doc import Notebook
-
 from docutils.core import publish_parts
+from notebook_doc import Notebook
 from sphinx.domains.python import PythonDomain
+
+from skimage import io, transform
+from skimage.util.dtype import dtype_range
 
 LITERALINCLUDE = """
 .. literalinclude:: {src_name}
@@ -162,10 +160,10 @@ class Path(str):
         return os.listdir(self)
 
     def format(self, *args, **kwargs):
-        return self.__class__(super(Path, self).format(*args, **kwargs))
+        return self.__class__(super().format(*args, **kwargs))
 
     def __add__(self, other):
-        return self.__class__(super(Path, self).__add__(other))
+        return self.__class__(super().__add__(other))
 
     def __iadd__(self, other):
         return self.__add__(other)
@@ -196,7 +194,7 @@ def generate_example_galleries(app):
     if isinstance(cfg.plot2rst_paths, tuple):
         cfg.plot2rst_paths = [cfg.plot2rst_paths]
     for src_dest in cfg.plot2rst_paths:
-        plot_path, rst_path = [Path(p) for p in src_dest]
+        plot_path, rst_path = (Path(p) for p in src_dest)
         example_dir = doc_src.pjoin(plot_path)
         rst_dir = doc_src.pjoin(rst_path)
         generate_examples_and_gallery(example_dir, rst_dir, cfg)
@@ -399,8 +397,8 @@ def write_example(src_name, src_dir, rst_dir, cfg):
     ref_regexp = re.compile('\n(\\.\\. \\[(\\d+)\\].*(?:\n[ ]{7,8}.*)+)')
     math_role_regexp = re.compile(':math:`(.*?)`')
 
-    text = '\n'.join((content for (cell_type, _, content) in blocks
-                     if cell_type != 'code'))
+    text = '\n'.join(content for (cell_type, _, content) in blocks
+                     if cell_type != 'code')
 
     references = re.findall(ref_regexp, text)
 

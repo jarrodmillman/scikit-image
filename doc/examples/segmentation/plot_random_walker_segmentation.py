@@ -20,13 +20,13 @@ values, and use the random walker for the segmentation.
        Anal. Mach. Intell. 2006 Nov; 28(11):1768-83 :DOI:`10.1109/TPAMI.2006.233`
 
 """
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
-from skimage.segmentation import random_walker
+import skimage
 from skimage.data import binary_blobs
 from skimage.exposure import rescale_intensity
-import skimage
+from skimage.segmentation import random_walker
 
 rng = np.random.default_rng()
 

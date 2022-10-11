@@ -5,18 +5,17 @@ For more images, see
  - http://sipi.usc.edu/database/database.php
 
 """
-import numpy as np
+import os
+import os.path as osp
 import shutil
+
+import numpy as np
 from packaging import version
 
+from .. import __version__
 from ..util.dtype import img_as_bool
 from ._binary_blobs import binary_blobs
-from ._registry import registry, legacy_registry, registry_urls
-
-from .. import __version__
-
-import os.path as osp
-import os
+from ._registry import legacy_registry, registry, registry_urls
 
 legacy_data_dir = osp.abspath(osp.dirname(__file__))
 skimage_distribution_dir = osp.join(legacy_data_dir, '..')
@@ -74,6 +73,7 @@ def _has_hash(path, expected_hash):
 def create_image_fetcher():
     try:
         import pooch
+
         # older versions of Pooch don't have a __version__ attribute
         if not hasattr(pooch, '__version__'):
             retry = {}
@@ -154,6 +154,7 @@ def _skip_pytest_case_requiring_pooch(data_filename):
     if 'PYTEST_CURRENT_TEST' in os.environ:
         # https://docs.pytest.org/en/latest/example/simple.html#pytest-current-test-environment-variable  # noqa
         import pytest
+
         # Pytest skip raises an exception that allows the
         # tests to be skipped
         pytest.skip(f'Unable to download {data_filename}',

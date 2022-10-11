@@ -1,11 +1,11 @@
 import numpy as np
-from skimage._shared.testing import assert_equal
-from skimage import data
-from skimage import transform
-from skimage.color import rgb2gray
-from skimage.feature import (BRIEF, match_descriptors,
-                             corner_peaks, corner_harris)
+
+from skimage import data, transform
 from skimage._shared import testing
+from skimage._shared.testing import assert_equal
+from skimage.color import rgb2gray
+from skimage.feature import (BRIEF, corner_harris, corner_peaks,
+                             match_descriptors)
 
 
 def test_binary_descriptors_unequal_descriptor_sizes_error():

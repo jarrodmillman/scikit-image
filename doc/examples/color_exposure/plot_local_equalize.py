@@ -21,18 +21,15 @@ References
 .. [2] https://en.wikipedia.org/wiki/Adaptive_histogram_equalization
 
 """
-import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
+import numpy as np
 
-from skimage import data
-from skimage.util.dtype import dtype_range
-from skimage.util import img_as_ubyte
-from skimage import exposure
-from skimage.morphology import disk
-from skimage.morphology import ball
+from skimage import data, exposure
 from skimage.filters import rank
-
+from skimage.morphology import ball, disk
+from skimage.util import img_as_ubyte
+from skimage.util.dtype import dtype_range
 
 matplotlib.rcParams['font.size'] = 9
 

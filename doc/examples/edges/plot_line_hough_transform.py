@@ -61,16 +61,14 @@ References
 # Line Hough Transform
 # ====================
 
-import numpy as np
-
-from skimage.transform import hough_line, hough_line_peaks
-from skimage.feature import canny
-from skimage.draw import line
-from skimage import data
-
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib import cm
 
+from skimage import data
+from skimage.draw import line
+from skimage.feature import canny
+from skimage.transform import hough_line, hough_line_peaks
 
 # Constructing test image
 image = np.zeros((200, 200))

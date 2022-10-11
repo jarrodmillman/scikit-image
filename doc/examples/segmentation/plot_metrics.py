@@ -14,22 +14,20 @@ and the variation of information as example metrics, and see how
 affect the different scores.
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from scipy import ndimage as ndi
 
 from skimage import data
-from skimage.metrics import (adapted_rand_error,
-                              variation_of_information)
+from skimage.feature import canny
 from skimage.filters import sobel
 from skimage.measure import label
-from skimage.util import img_as_float
-from skimage.feature import canny
+from skimage.metrics import adapted_rand_error, variation_of_information
 from skimage.morphology import remove_small_objects
-from skimage.segmentation import (morphological_geodesic_active_contour,
-                                  inverse_gaussian_gradient,
-                                  watershed,
-                                  mark_boundaries)
+from skimage.segmentation import (inverse_gaussian_gradient, mark_boundaries,
+                                  morphological_geodesic_active_contour,
+                                  watershed)
+from skimage.util import img_as_float
 
 image = data.coins()
 

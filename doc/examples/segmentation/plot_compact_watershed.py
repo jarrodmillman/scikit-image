@@ -16,10 +16,11 @@ function. To use the compact form, simply pass a ``compactness`` value greater
 than 0.
 """
 
-import numpy as np
-from skimage import data, util, filters, color
-from skimage.segmentation import watershed
 import matplotlib.pyplot as plt
+import numpy as np
+
+from skimage import color, data, filters, util
+from skimage.segmentation import watershed
 
 coins = data.coins()
 edges = filters.sobel(coins)

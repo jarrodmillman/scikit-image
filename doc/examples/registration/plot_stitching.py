@@ -8,9 +8,10 @@ the hypothesis of rigid body motions.
 
 """
 
-from matplotlib import pyplot as plt
 import numpy as np
-from skimage import data, util, transform, feature, measure, filters, metrics
+from matplotlib import pyplot as plt
+
+from skimage import data, feature, filters, measure, metrics, transform, util
 
 
 def match_locations(img0, img1, coords0, coords1, radius=5, sigma=3):

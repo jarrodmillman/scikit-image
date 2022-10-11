@@ -1,10 +1,12 @@
-import numpy as np
-import skimage.data as data
-from skimage.data._fetchers import image_fetcher
-from skimage import io
-from skimage._shared.testing import assert_equal, assert_almost_equal, fetch
 import os
+
+import numpy as np
 import pytest
+
+import skimage.data as data
+from skimage import io
+from skimage._shared.testing import assert_almost_equal, assert_equal, fetch
+from skimage.data._fetchers import image_fetcher
 
 
 def test_data_dir():

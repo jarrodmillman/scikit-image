@@ -26,11 +26,11 @@ inpainting algorithm based on 'biharmonic equation'-assumption [2]_ [3]_ [4]_.
         :DOI:`10.1016/j.acha.2009.04.004`
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from skimage import data
-from skimage.morphology import disk, binary_dilation
+from skimage.morphology import binary_dilation, disk
 from skimage.restoration import inpaint
 
 image_orig = data.astronaut()

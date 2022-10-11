@@ -32,15 +32,14 @@ For simplicity of implementation, all decompositions shown below use only
 odd-sized footprints with their origin located at the center of the footprint.
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib import colors
 from mpl_toolkits.mplot3d import Axes3D
 
 from skimage.morphology import (ball, cube, diamond, disk, ellipse, octagon,
                                 octahedron, rectangle, square)
 from skimage.morphology.footprints import footprint_from_sequence
-
 
 # Generate 2D and 3D structuring elements.
 footprint_dict = {

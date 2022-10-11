@@ -1,14 +1,13 @@
 import functools
+
 import numpy as np
 import pytest
 
 from skimage._shared.testing import assert_, expected_warnings
 from skimage._shared.utils import _supported_float_type
-from skimage.data import binary_blobs
-from skimage.data import camera, chelsea
+from skimage.data import binary_blobs, camera, chelsea
 from skimage.metrics import mean_squared_error as mse
-from skimage.restoration import (calibrate_denoiser,
-                                 denoise_wavelet)
+from skimage.restoration import calibrate_denoiser, denoise_wavelet
 from skimage.restoration.j_invariant import _invariant_denoise
 from skimage.util import img_as_float, random_noise
 

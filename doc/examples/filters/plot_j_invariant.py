@@ -19,14 +19,14 @@ The calibration method is based on the `noise2self` algorithm of [1]_.
 #####################################################################
 # Calibrating a wavelet denoiser
 
+from functools import partial
+
 import numpy as np
 from matplotlib import pyplot as plt
 
 from skimage.data import chelsea
 from skimage.restoration import calibrate_denoiser, denoise_wavelet
-
 from skimage.util import img_as_float, random_noise
-from functools import partial
 
 # rescale_sigma=True required to silence deprecation warnings
 _denoise_wavelet = partial(denoise_wavelet, rescale_sigma=True)

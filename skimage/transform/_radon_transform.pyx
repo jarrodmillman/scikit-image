@@ -4,9 +4,10 @@
 #cython: wraparound=False
 import numpy as np
 
-cimport numpy as cnp
 cimport cython
-from libc.math cimport cos, sin, floor, ceil, sqrt, abs, M_PI
+cimport numpy as cnp
+from libc.math cimport M_PI, abs, ceil, cos, floor, sin, sqrt
+
 from .._shared.fused_numerics cimport np_floats
 
 cnp.import_array()

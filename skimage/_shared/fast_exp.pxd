@@ -3,7 +3,9 @@
 #cython: boundscheck=False
 
 cimport numpy as cnp
+
 from .fused_numerics cimport np_floats
+
 
 cdef extern from "fast_exp.h":
     cnp.float64_t _fast_exp(cnp.float64_t y) nogil

@@ -25,6 +25,7 @@ References
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy import ndimage as ndi
+
 from skimage import color, data, filters, graph, measure, morphology
 
 ###############################################################################

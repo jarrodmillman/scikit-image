@@ -19,20 +19,20 @@ The calibration method is based on the `noise2self` algorithm of [1]_.
 #####################################################################
 # Calibrating a wavelet denoiser
 
-import numpy as np
-from matplotlib import pyplot as plt
-from matplotlib import gridspec
+from functools import partial
 
+import numpy as np
+from matplotlib import gridspec
+from matplotlib import pyplot as plt
+
+from skimage.color import rgb2gray
 from skimage.data import chelsea, hubble_deep_field
 from skimage.metrics import mean_squared_error as mse
 from skimage.metrics import peak_signal_noise_ratio as psnr
-from skimage.restoration import (calibrate_denoiser,
-                                 denoise_wavelet,
-                                 denoise_tv_chambolle, denoise_nl_means,
+from skimage.restoration import (calibrate_denoiser, denoise_nl_means,
+                                 denoise_tv_chambolle, denoise_wavelet,
                                  estimate_sigma)
 from skimage.util import img_as_float, random_noise
-from skimage.color import rgb2gray
-from functools import partial
 
 _denoise_wavelet = partial(denoise_wavelet, rescale_sigma=True)
 

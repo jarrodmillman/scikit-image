@@ -2,21 +2,16 @@ import warnings
 
 import numpy as np
 import pytest
-from numpy.testing import (assert_allclose,
-                           assert_almost_equal,
-                           assert_array_almost_equal,
-                           assert_array_equal,
+from numpy.testing import (assert_allclose, assert_almost_equal,
+                           assert_array_almost_equal, assert_array_equal,
                            assert_equal)
 
-from skimage import data
-from skimage import exposure
-from skimage import util
+from skimage import data, exposure, util
+from skimage._shared._warnings import expected_warnings
+from skimage._shared.utils import _supported_float_type
 from skimage.color import rgb2gray
 from skimage.exposure.exposure import intensity_range
 from skimage.util.dtype import dtype_range
-from skimage._shared._warnings import expected_warnings
-from skimage._shared.utils import _supported_float_type
-
 
 # Test integer histograms
 # =======================

@@ -20,11 +20,11 @@ diaminobenzidine (DAB) which gives a brown color.
        PMID: 11531144
 
 """
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from skimage import data
-from skimage.color import rgb2hed, hed2rgb
+from skimage.color import hed2rgb, rgb2hed
 
 # Example IHC image
 ihc_rgb = data.immunohistochemistry()

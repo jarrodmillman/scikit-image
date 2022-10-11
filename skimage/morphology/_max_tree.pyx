@@ -14,8 +14,10 @@ functions to characterize the tree components.
 """
 
 import numpy as np
-cimport numpy as np
+
 cimport cython
+cimport numpy as np
+
 from .._shared.fused_numerics cimport np_real_numeric
 
 np.import_array()

@@ -16,17 +16,13 @@ from skimage.exposure import histogram
 from skimage.filters._multiotsu import (_get_multiotsu_thresh_indices,
                                         _get_multiotsu_thresh_indices_lut)
 from skimage.filters.thresholding import (_cross_entropy, _mean_std,
-                                          threshold_isodata,
-                                          threshold_li,
-                                          threshold_local,
-                                          threshold_mean,
+                                          threshold_isodata, threshold_li,
+                                          threshold_local, threshold_mean,
                                           threshold_minimum,
                                           threshold_multiotsu,
-                                          threshold_niblack,
-                                          threshold_otsu,
+                                          threshold_niblack, threshold_otsu,
                                           threshold_sauvola,
-                                          threshold_triangle,
-                                          threshold_yen,
+                                          threshold_triangle, threshold_yen,
                                           try_all_threshold)
 
 

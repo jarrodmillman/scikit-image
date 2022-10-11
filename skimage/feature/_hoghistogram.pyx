@@ -3,9 +3,11 @@
 # cython: wraparound=False
 
 import numpy as np
+
 cimport numpy as cnp
 
 from .._shared.fused_numerics cimport np_floats
+
 cnp.import_array()
 
 

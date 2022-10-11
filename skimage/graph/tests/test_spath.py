@@ -1,7 +1,7 @@
 import numpy as np
-import skimage.graph.spath as spath
 
-from skimage._shared.testing import assert_equal, assert_array_equal
+import skimage.graph.spath as spath
+from skimage._shared.testing import assert_array_equal, assert_equal
 
 
 def test_basic():
