@@ -96,7 +96,12 @@ def test_pythagorean_triangle_right_downward_linewidth():
 
 def test_pythagorean_triangle_right_upward_linewidth():
     prof = profile_line(
-        pyth_image[::-1, :], (4, 1), (1, 5), linewidth=3, order=0, mode='constant'
+        pyth_image[::-1, :],
+        (4, 1),
+        (1, 5),
+        linewidth=3,
+        order=0,
+        mode='constant',
     )
     expected_prof = np.ones(6)
     assert_almost_equal(prof, expected_prof)
@@ -104,7 +109,12 @@ def test_pythagorean_triangle_right_upward_linewidth():
 
 def test_pythagorean_triangle_transpose_left_down_linewidth():
     prof = profile_line(
-        pyth_image.T[:, ::-1], (1, 4), (5, 1), linewidth=3, order=0, mode='constant'
+        pyth_image.T[:, ::-1],
+        (1, 4),
+        (5, 1),
+        linewidth=3,
+        order=0,
+        mode='constant',
     )
     expected_prof = np.ones(6)
     assert_almost_equal(prof, expected_prof)
@@ -207,7 +217,9 @@ def test_reduce_func_lambda_linewidth_3():
         reduce_func=reduce_func,
         mode='constant',
     )
-    expected_prof = np.apply_along_axis(reduce_func, arr=pyth_image[1:5, 1:4], axis=1)
+    expected_prof = np.apply_along_axis(
+        reduce_func, arr=pyth_image[1:5, 1:4], axis=1
+    )
     assert_almost_equal(prof, expected_prof)
 
 
@@ -224,7 +236,9 @@ def test_reduce_func_sqrt_linewidth_3():
         reduce_func=reduce_func,
         mode='constant',
     )
-    expected_prof = np.apply_along_axis(reduce_func, arr=pyth_image[1:5, 1:4], axis=1)
+    expected_prof = np.apply_along_axis(
+        reduce_func, arr=pyth_image[1:5, 1:4], axis=1
+    )
     assert_almost_equal(prof, expected_prof)
 
 
@@ -241,7 +255,9 @@ def test_reduce_func_sumofsqrt_linewidth_3():
         reduce_func=reduce_func,
         mode='constant',
     )
-    expected_prof = np.apply_along_axis(reduce_func, arr=pyth_image[1:5, 1:4], axis=1)
+    expected_prof = np.apply_along_axis(
+        reduce_func, arr=pyth_image[1:5, 1:4], axis=1
+    )
     assert_almost_equal(prof, expected_prof)
 
 
@@ -258,7 +274,11 @@ def test_oob_coodinates():
         mode='constant',
     )
     expected_prof = np.vstack(
-        [np.zeros((offset, 1)), pyth_image[:, 2, np.newaxis], np.zeros((offset + 1, 1))]
+        [
+            np.zeros((offset, 1)),
+            pyth_image[:, 2, np.newaxis],
+            np.zeros((offset + 1, 1)),
+        ]
     )
     assert_almost_equal(prof, expected_prof)
 

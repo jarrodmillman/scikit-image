@@ -57,13 +57,17 @@ def test_subdivide_polygon():
             assert_equal(new_square1.shape[0], 2 * square1.shape[0] - 1)
             # test non-circular
             new_square2 = subdivide_polygon(square2, degree)
-            assert_equal(new_square2.shape[0], 2 * (square2.shape[0] - mask_len + 1))
+            assert_equal(
+                new_square2.shape[0], 2 * (square2.shape[0] - mask_len + 1)
+            )
             # test non-circular, preserve_ends
             new_square3 = subdivide_polygon(square3, degree, True)
             assert_equal(new_square3[0], square3[0])
             assert_equal(new_square3[-1], square3[-1])
 
-            assert_equal(new_square3.shape[0], 2 * (square3.shape[0] - mask_len + 2))
+            assert_equal(
+                new_square3.shape[0], 2 * (square3.shape[0] - mask_len + 2)
+            )
 
     # not supported B-Spline degree
     with testing.raises(ValueError):

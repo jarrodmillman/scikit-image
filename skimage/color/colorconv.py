@@ -153,7 +153,8 @@ def convert_colorspace(arr, fromspace, tospace, *, channel_axis=-1):
         raise ValueError(msg)
 
     return todict[tospace](
-        fromdict[fromspace](arr, channel_axis=channel_axis), channel_axis=channel_axis
+        fromdict[fromspace](arr, channel_axis=channel_axis),
+        channel_axis=channel_axis,
     )
 
 
@@ -248,13 +249,17 @@ def rgba2rgb(rgba, background=(1, 1, 1), *, channel_axis=-1):
             f'values. Got {len(background)} items'
         )
     if np.any(background < 0) or np.any(background > 1):
-        raise ValueError('background RGB values must be floats between ' '0 and 1.')
+        raise ValueError(
+            'background RGB values must be floats between ' '0 and 1.'
+        )
     # reshape background for broadcasting along non-channel axes
     background = reshape_nd(background, arr.ndim, channel_axis)
 
     alpha = arr[slice_at_axis(slice(3, 4), axis=channel_axis)]
     channels = arr[slice_at_axis(slice(3), axis=channel_axis)]
-    out = np.clip((1 - alpha) * background + alpha * channels, a_min=0, a_max=1)
+    out = np.clip(
+        (1 - alpha) * background + alpha * channels, a_min=0, a_max=1
+    )
     return out
 
 
@@ -441,7 +446,9 @@ rgb_from_xyz = linalg.inv(xyz_from_rgb)
 # From https://en.wikipedia.org/wiki/CIE_1931_color_space
 # Note: Travis's code did not have the divide by 0.17697
 xyz_from_rgbcie = (
-    np.array([[0.49, 0.31, 0.20], [0.17697, 0.81240, 0.01063], [0.00, 0.01, 0.99]])
+    np.array(
+        [[0.49, 0.31, 0.20], [0.17697, 0.81240, 0.01063], [0.00, 0.01, 0.99]]
+    )
     / 0.17697
 )
 
@@ -475,13 +482,21 @@ yiq_from_rgb = np.array(
 rgb_from_yiq = linalg.inv(yiq_from_rgb)
 
 ypbpr_from_rgb = np.array(
-    [[0.299, 0.587, 0.114], [-0.168736, -0.331264, 0.5], [0.5, -0.418688, -0.081312]]
+    [
+        [0.299, 0.587, 0.114],
+        [-0.168736, -0.331264, 0.5],
+        [0.5, -0.418688, -0.081312],
+    ]
 )
 
 rgb_from_ypbpr = linalg.inv(ypbpr_from_rgb)
 
 ycbcr_from_rgb = np.array(
-    [[65.481, 128.553, 24.966], [-37.797, -74.203, 112.0], [112.0, -93.786, -18.214]]
+    [
+        [65.481, 128.553, 24.966],
+        [-37.797, -74.203, 112.0],
+        [112.0, -93.786, -18.214],
+    ]
 )
 
 rgb_from_ycbcr = linalg.inv(ycbcr_from_rgb)
@@ -664,7 +679,9 @@ def get_xyz_coords(illuminant, observer, dtype=float):
     ----------
     .. [1] https://en.wikipedia.org/wiki/Standard_illuminant
     """
-    return xyz_tristimulus_values(illuminant=illuminant, observer=observer, dtype=dtype)
+    return xyz_tristimulus_values(
+        illuminant=illuminant, observer=observer, dtype=dtype
+    )
 
 
 # Haematoxylin-Eosin-DAB colorspace
@@ -673,7 +690,9 @@ def get_xyz_coords(illuminant, observer, dtype=float):
 # Analytical and quantitative cytology and histology / the International
 # Academy of Cytology [and] American Society of Cytology, vol. 23, no. 4,
 # pp. 291-9, Aug. 2001.
-rgb_from_hed = np.array([[0.65, 0.70, 0.29], [0.07, 0.99, 0.11], [0.27, 0.57, 0.78]])
+rgb_from_hed = np.array(
+    [[0.65, 0.70, 0.29], [0.07, 0.99, 0.11], [0.27, 0.57, 0.78]]
+)
 hed_from_rgb = linalg.inv(rgb_from_hed)
 
 # Following matrices are adapted form the Java code written by G.Landini.
@@ -681,7 +700,9 @@ hed_from_rgb = linalg.inv(rgb_from_hed)
 # https://web.archive.org/web/20160624145052/http://www.mecourse.com/landinig/software/cdeconv/cdeconv.html
 
 # Hematoxylin + DAB
-rgb_from_hdx = np.array([[0.650, 0.704, 0.286], [0.268, 0.570, 0.776], [0.0, 0.0, 0.0]])
+rgb_from_hdx = np.array(
+    [[0.650, 0.704, 0.286], [0.268, 0.570, 0.776], [0.0, 0.0, 0.0]]
+)
 rgb_from_hdx[2, :] = np.cross(rgb_from_hdx[0, :], rgb_from_hdx[1, :])
 hdx_from_rgb = linalg.inv(rgb_from_hdx)
 
@@ -754,14 +775,22 @@ bpx_from_rgb = linalg.inv(rgb_from_bpx)
 
 # Alcian Blue + Hematoxylin
 rgb_from_ahx = np.array(
-    [[0.874622, 0.457711, 0.158256], [0.552556, 0.7544, 0.353744], [0.0, 0.0, 0.0]]
+    [
+        [0.874622, 0.457711, 0.158256],
+        [0.552556, 0.7544, 0.353744],
+        [0.0, 0.0, 0.0],
+    ]
 )
 rgb_from_ahx[2, :] = np.cross(rgb_from_ahx[0, :], rgb_from_ahx[1, :])
 ahx_from_rgb = linalg.inv(rgb_from_ahx)
 
 # Hematoxylin + PAS
 rgb_from_hpx = np.array(
-    [[0.644211, 0.716556, 0.266844], [0.175411, 0.972178, 0.154589], [0.0, 0.0, 0.0]]
+    [
+        [0.644211, 0.716556, 0.266844],
+        [0.175411, 0.972178, 0.154589],
+        [0.0, 0.0, 0.0],
+    ]
 )
 rgb_from_hpx[2, :] = np.cross(rgb_from_hpx[0, :], rgb_from_hpx[1, :])
 hpx_from_rgb = linalg.inv(rgb_from_hpx)
@@ -1056,7 +1085,8 @@ def gray2rgba(image, alpha=None, *, channel_axis=-1):
 
     if not np.can_cast(alpha, arr.dtype):
         warn(
-            f'alpha cannot be safely cast to image dtype {arr.dtype.name}', stacklevel=2
+            f'alpha cannot be safely cast to image dtype {arr.dtype.name}',
+            stacklevel=2,
         )
     if np.isscalar(alpha):
         alpha = np.full(arr.shape, alpha, dtype=arr.dtype)
@@ -1267,7 +1297,9 @@ def _lab2xyz(lab, illuminant, observer):
     out[~mask] = (out[~mask] - 16.0 / 116.0) / 7.787
 
     # rescale to the reference white (illuminant)
-    xyz_ref_white = xyz_tristimulus_values(illuminant=illuminant, observer=observer)
+    xyz_ref_white = xyz_tristimulus_values(
+        illuminant=illuminant, observer=observer
+    )
     out *= xyz_ref_white
     return out, n_invalid
 
@@ -1530,7 +1562,9 @@ def luv2xyz(luv, illuminant="D65", observer="2", *, channel_axis=-1):
     mask = y > 7.999625
     y[mask] = np.power((y[mask] + 16.0) / 116.0, 3.0)
     y[~mask] = y[~mask] / 903.3
-    xyz_ref_white = xyz_tristimulus_values(illuminant=illuminant, observer=observer)
+    xyz_ref_white = xyz_tristimulus_values(
+        illuminant=illuminant, observer=observer
+    )
     y *= xyz_ref_white[1]
 
     # reference white x,z

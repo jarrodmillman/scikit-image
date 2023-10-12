@@ -25,7 +25,9 @@ def test_label_points_coords_negative():
 
 
 def test_label_points_two_dimensional_output():
-    coords, output_shape = np.array([[0, 0], [1, 1], [2, 2], [3, 3], [4, 4]]), (5, 5)
+    coords, output_shape = np.array(
+        [[0, 0], [1, 1], [2, 2], [3, 3], [4, 4]]
+    ), (5, 5)
     mask = label_points(coords, output_shape)
     assert_equal(
         mask,

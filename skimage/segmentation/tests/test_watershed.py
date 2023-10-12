@@ -426,7 +426,9 @@ class TestWatershed(unittest.TestCase):
             [[1, 0, 0, 2], [0, 0, 0, 0], [0, 0, 0, 0], [3, 0, 0, 4]], np.int8
         )
         out = watershed(data, markers, self.eight)
-        error = diff([[1, 1, 2, 2], [1, 1, 2, 2], [3, 3, 4, 4], [3, 3, 4, 4]], out)
+        error = diff(
+            [[1, 1, 2, 2], [1, 1, 2, 2], [3, 3, 4, 4], [3, 3, 4, 4]], out
+        )
         self.assertTrue(error < eps)
 
     def test_watershed11(self):
@@ -450,7 +452,9 @@ class TestWatershed(unittest.TestCase):
         i, j = np.mgrid[0:21, 0:21]
         d = np.dstack(
             [
-                np.sqrt((i.astype(float) - i0) ** 2, (j.astype(float) - j0) ** 2)
+                np.sqrt(
+                    (i.astype(float) - i0) ** 2, (j.astype(float) - j0) ** 2
+                )
                 for i0, j0 in ((5, 5), (5, 10), (10, 5), (10, 10))
             ]
         )
@@ -812,7 +816,16 @@ def test_numeric_seed_watershed():
 
 @pytest.mark.parametrize(
     'dtype',
-    [np.uint8, np.int8, np.uint16, np.int16, np.uint32, np.int32, np.uint64, np.int64],
+    [
+        np.uint8,
+        np.int8,
+        np.uint16,
+        np.int16,
+        np.uint32,
+        np.int32,
+        np.uint64,
+        np.int64,
+    ],
 )
 def test_watershed_output_dtype(dtype):
     image = np.zeros((100, 100))

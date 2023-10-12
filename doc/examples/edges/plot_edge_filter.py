@@ -67,7 +67,9 @@ diff_scharr_prewitt = compare_images(edge_scharr, edge_prewitt)
 diff_scharr_sobel = compare_images(edge_scharr, edge_sobel)
 max_diff = np.max(np.maximum(diff_scharr_prewitt, diff_scharr_sobel))
 
-fig, axes = plt.subplots(nrows=2, ncols=2, sharex=True, sharey=True, figsize=(8, 8))
+fig, axes = plt.subplots(
+    nrows=2, ncols=2, sharex=True, sharey=True, figsize=(8, 8)
+)
 axes = axes.ravel()
 
 axes[0].imshow(image_rot, cmap=plt.cm.gray)
@@ -120,15 +122,25 @@ def angle(dx, dy):
 
 true_angle = angle(image_x, image_y)
 
-angle_farid = angle(filters.farid_h(image_rotinv), filters.farid_v(image_rotinv))
-angle_sobel = angle(filters.sobel_h(image_rotinv), filters.sobel_v(image_rotinv))
-angle_scharr = angle(filters.scharr_h(image_rotinv), filters.scharr_v(image_rotinv))
-angle_prewitt = angle(filters.prewitt_h(image_rotinv), filters.prewitt_v(image_rotinv))
+angle_farid = angle(
+    filters.farid_h(image_rotinv), filters.farid_v(image_rotinv)
+)
+angle_sobel = angle(
+    filters.sobel_h(image_rotinv), filters.sobel_v(image_rotinv)
+)
+angle_scharr = angle(
+    filters.scharr_h(image_rotinv), filters.scharr_v(image_rotinv)
+)
+angle_prewitt = angle(
+    filters.prewitt_h(image_rotinv), filters.prewitt_v(image_rotinv)
+)
 
 
 def diff_angle(angle_1, angle_2):
     """Calculate the differences between two angles."""
-    return np.minimum(np.pi - np.abs(angle_1 - angle_2), np.abs(angle_1 - angle_2))
+    return np.minimum(
+        np.pi - np.abs(angle_1 - angle_2), np.abs(angle_1 - angle_2)
+    )
 
 
 diff_farid = diff_angle(true_angle, angle_farid)
@@ -136,7 +148,9 @@ diff_sobel = diff_angle(true_angle, angle_sobel)
 diff_scharr = diff_angle(true_angle, angle_scharr)
 diff_prewitt = diff_angle(true_angle, angle_prewitt)
 
-fig, axes = plt.subplots(nrows=3, ncols=2, sharex=True, sharey=True, figsize=(8, 8))
+fig, axes = plt.subplots(
+    nrows=3, ncols=2, sharex=True, sharey=True, figsize=(8, 8)
+)
 axes = axes.ravel()
 
 axes[0].imshow(image_rotinv, cmap=plt.cm.gray)

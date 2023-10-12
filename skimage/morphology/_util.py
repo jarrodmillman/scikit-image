@@ -47,7 +47,9 @@ def _validate_connectivity(image_dim, connectivity, offset):
 
     if offset is None:
         if any([x % 2 == 0 for x in c_connectivity.shape]):
-            raise ValueError("Connectivity array must have an unambiguous " "center")
+            raise ValueError(
+                "Connectivity array must have an unambiguous " "center"
+            )
 
         offset = np.array(c_connectivity.shape) // 2
 
@@ -116,7 +118,9 @@ def _raveled_offsets_and_distances(
     """
     ndim = len(image_shape)
     if footprint is None:
-        footprint = ndi.generate_binary_structure(rank=ndim, connectivity=connectivity)
+        footprint = ndi.generate_binary_structure(
+            rank=ndim, connectivity=connectivity
+        )
     if center is None:
         center = tuple(s // 2 for s in footprint.shape)
 
@@ -146,7 +150,9 @@ def _raveled_offsets_and_distances(
         spacing = np.ones(ndim)
     weighted_offsets = offsets * spacing
     distances = np.sqrt(np.sum(weighted_offsets**2, axis=1))
-    sorted_raveled_offsets = raveled_offsets[np.argsort(distances, kind="stable")]
+    sorted_raveled_offsets = raveled_offsets[
+        np.argsort(distances, kind="stable")
+    ]
     sorted_distances = np.sort(distances, kind="stable")
 
     # If any dimension in image_shape is smaller than footprint.shape
@@ -207,7 +213,9 @@ def _offsets_to_raveled_neighbors(image_shape, footprint, center, order='C'):
     return raveled_offsets
 
 
-def _resolve_neighborhood(footprint, connectivity, ndim, enforce_adjacency=True):
+def _resolve_neighborhood(
+    footprint, connectivity, ndim, enforce_adjacency=True
+):
     """Validate or create a footprint (structuring element).
 
     Depending on the values of `connectivity` and `footprint` this function
@@ -310,7 +318,9 @@ def _set_border_values(image, value, border_width=1):
         raise ValueError('length of `border_width` must match image.ndim')
     for axis, npad in enumerate(border_width):
         if len(npad) != 2:
-            raise ValueError('each sequence in `border_width` must have ' 'length 2')
+            raise ValueError(
+                'each sequence in `border_width` must have ' 'length 2'
+            )
         w_start, w_end = npad
         if w_start == w_end == 0:
             continue

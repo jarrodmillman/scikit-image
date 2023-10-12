@@ -1,7 +1,11 @@
 import numpy as np
 from scipy import ndimage as ndi
 
-from ._geometric import SimilarityTransform, AffineTransform, ProjectiveTransform
+from ._geometric import (
+    SimilarityTransform,
+    AffineTransform,
+    ProjectiveTransform,
+)
 from ._warps_cy import _warp_fast
 from ..measure import block_reduce
 
@@ -15,7 +19,11 @@ from .._shared.utils import (
     channel_as_last_axis,
 )
 
-HOMOGRAPHY_TRANSFORMS = (SimilarityTransform, AffineTransform, ProjectiveTransform)
+HOMOGRAPHY_TRANSFORMS = (
+    SimilarityTransform,
+    AffineTransform,
+    ProjectiveTransform,
+)
 
 
 def _preprocess_resize_output_shape(image, output_shape):
@@ -180,9 +188,9 @@ def resize(
         if anti_aliasing_sigma is None:
             anti_aliasing_sigma = np.maximum(0, (factors - 1) / 2)
         else:
-            anti_aliasing_sigma = np.atleast_1d(anti_aliasing_sigma) * np.ones_like(
-                factors
-            )
+            anti_aliasing_sigma = np.atleast_1d(
+                anti_aliasing_sigma
+            ) * np.ones_like(factors)
             if np.any(anti_aliasing_sigma < 0):
                 raise ValueError(
                     "Anti-aliasing standard deviation must be "
@@ -201,7 +209,12 @@ def resize(
 
     zoom_factors = [1 / f for f in factors]
     out = ndi.zoom(
-        filtered, zoom_factors, order=order, mode=ndi_mode, cval=cval, grid_mode=True
+        filtered,
+        zoom_factors,
+        order=order,
+        mode=ndi_mode,
+        cval=cval,
+        grid_mode=True,
     )
 
     _clip_warp_output(image, out, mode, cval, clip)
@@ -306,7 +319,9 @@ def rescale(
         if (not multichannel and len(scale) != image.ndim) or (
             multichannel and len(scale) != image.ndim - 1
         ):
-            raise ValueError("Supply a single scale, or one value per spatial " "axis")
+            raise ValueError(
+                "Supply a single scale, or one value per spatial " "axis"
+            )
         if multichannel:
             scale = np.concatenate((scale, [1]))
     orig_shape = np.asarray(image.shape)
@@ -423,7 +438,9 @@ def rotate(
     output_shape = None
     if resize:
         # determine shape of output image
-        corners = np.array([[0, 0], [0, rows - 1], [cols - 1, rows - 1], [cols - 1, 0]])
+        corners = np.array(
+            [[0, 0], [0, rows - 1], [cols - 1, rows - 1], [cols - 1, 0]]
+        )
         corners = tform.inverse(corners)
         minc = corners[:, 0].min()
         minr = corners[:, 1].min()
@@ -509,7 +526,11 @@ def _swirl_mapping(xy, center, rotation, strength, radius):
     # within the specified radius.
     radius = radius / 5 * np.log(2)
 
-    theta = rotation + strength * np.exp(-rho / radius) + np.arctan2(y - y0, x - x0)
+    theta = (
+        rotation
+        + strength * np.exp(-rho / radius)
+        + np.arctan2(y - y0, x - x0)
+    )
 
     xy[..., 0] = x0 + rho * np.cos(theta)
     xy[..., 1] = y0 + rho * np.sin(theta)
@@ -914,7 +935,9 @@ def warp(
         map_args = {}
 
     if image.size == 0:
-        raise ValueError("Cannot warp empty image with dimensions", image.shape)
+        raise ValueError(
+            "Cannot warp empty image with dimensions", image.shape
+        )
 
     order = _validate_interpolation_order(image.dtype, order)
 
@@ -1023,7 +1046,11 @@ def warp(
                 # Input image is 2D and has color channel, but output_shape is
                 # given for 2-D images. Automatically add the color channel
                 # dimensionality.
-                output_shape = (output_shape[0], output_shape[1], input_shape[2])
+                output_shape = (
+                    output_shape[0],
+                    output_shape[1],
+                    input_shape[2],
+                )
 
             coords = warp_coords(coord_map, output_shape)
 
@@ -1032,7 +1059,12 @@ def warp(
 
         ndi_mode = _to_ndimage_mode(mode)
         warped = ndi.map_coordinates(
-            image, coords, prefilter=prefilter, mode=ndi_mode, order=order, cval=cval
+            image,
+            coords,
+            prefilter=prefilter,
+            mode=ndi_mode,
+            order=order,
+            cval=cval,
         )
 
     _clip_warp_output(image, warped, mode, cval, clip)
@@ -1212,7 +1244,11 @@ def warp_polar(
     warp_args = {'k_angle': k_angle, 'k_radius': k_radius, 'center': center}
 
     warped = warp(
-        image, map_func, map_args=warp_args, output_shape=output_shape, **kwargs
+        image,
+        map_func,
+        map_args=warp_args,
+        output_shape=output_shape,
+        **kwargs,
     )
 
     return warped
@@ -1262,7 +1298,9 @@ def _local_mean_weights(old_size, new_size, grid_mode, dtype):
         )
 
     upper = np.minimum(new_breaks[1:, np.newaxis], old_breaks[np.newaxis, 1:])
-    lower = np.maximum(new_breaks[:-1, np.newaxis], old_breaks[np.newaxis, :-1])
+    lower = np.maximum(
+        new_breaks[:-1, np.newaxis], old_breaks[np.newaxis, :-1]
+    )
 
     weights = np.maximum(upper - lower, 0)
     weights /= weights.sum(axis=1, keepdims=True)
@@ -1271,7 +1309,12 @@ def _local_mean_weights(old_size, new_size, grid_mode, dtype):
 
 
 def resize_local_mean(
-    image, output_shape, grid_mode=True, preserve_range=False, *, channel_axis=None
+    image,
+    output_shape,
+    grid_mode=True,
+    preserve_range=False,
+    *,
+    channel_axis=None,
 ):
     """Resize an array with the local mean / bilinear scaling.
 
@@ -1360,7 +1403,9 @@ def resize_local_mean(
             # move channels to last position in output_shape
             channel_axis = channel_axis % image.ndim
             output_shape = (
-                output_shape[:channel_axis] + output_shape[channel_axis:] + (nc,)
+                output_shape[:channel_axis]
+                + output_shape[channel_axis:]
+                + (nc,)
             )
         else:
             raise ValueError(
@@ -1369,11 +1414,15 @@ def resize_local_mean(
             )
         resized = image
     else:
-        resized, output_shape = _preprocess_resize_output_shape(image, output_shape)
+        resized, output_shape = _preprocess_resize_output_shape(
+            image, output_shape
+        )
     resized = convert_to_float(resized, preserve_range)
     dtype = resized.dtype
 
-    for axis, (old_size, new_size) in enumerate(zip(image.shape, output_shape)):
+    for axis, (old_size, new_size) in enumerate(
+        zip(image.shape, output_shape)
+    ):
         if old_size == new_size:
             continue
         weights = _local_mean_weights(old_size, new_size, grid_mode, dtype)

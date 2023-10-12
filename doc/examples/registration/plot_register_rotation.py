@@ -84,7 +84,9 @@ image = img_as_float(image)
 rotated = rotate(image, angle)
 rescaled = rescale(rotated, scale, channel_axis=-1)
 image_polar = warp_polar(image, radius=radius, scaling='log', channel_axis=-1)
-rescaled_polar = warp_polar(rescaled, radius=radius, scaling='log', channel_axis=-1)
+rescaled_polar = warp_polar(
+    rescaled, radius=radius, scaling='log', channel_axis=-1
+)
 
 fig, axes = plt.subplots(2, 2, figsize=(8, 8))
 ax = axes.ravel()
@@ -225,14 +227,16 @@ ax[0].set_title("Original Image FFT\n(magnitude; zoomed)")
 center = np.array(shape) // 2
 ax[0].imshow(
     image_fs[
-        center[0] - radius : center[0] + radius, center[1] - radius : center[1] + radius
+        center[0] - radius : center[0] + radius,
+        center[1] - radius : center[1] + radius,
     ],
     cmap='magma',
 )
 ax[1].set_title("Modified Image FFT\n(magnitude; zoomed)")
 ax[1].imshow(
     rts_fs[
-        center[0] - radius : center[0] + radius, center[1] - radius : center[1] + radius
+        center[0] - radius : center[0] + radius,
+        center[1] - radius : center[1] + radius,
     ],
     cmap='magma',
 )

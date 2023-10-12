@@ -86,7 +86,9 @@ quantized_img = img // 16
 # Select the coin from the 4th column, second row.
 # Coordinate ordering: [x1,y1,x2,y2]
 coin_coords = [184, 100, 228, 148]  # 44 x 44 region
-coin = quantized_img[coin_coords[1] : coin_coords[3], coin_coords[0] : coin_coords[2]]
+coin = quantized_img[
+    coin_coords[1] : coin_coords[3], coin_coords[0] : coin_coords[2]
+]
 
 # Compute coin histogram and normalize
 coin_hist, _ = np.histogram(coin.flatten(), bins=16, range=(0, 16))

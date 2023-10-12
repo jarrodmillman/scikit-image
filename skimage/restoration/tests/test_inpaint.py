@@ -19,7 +19,9 @@ def test_inpaint_biharmonic_2d(dtype, split_into_regions):
     mask[1, 3:] = 1
     mask[0, 4:] = 1
     img[np.where(mask)] = 0
-    out = inpaint.inpaint_biharmonic(img, mask, split_into_regions=split_into_regions)
+    out = inpaint.inpaint_biharmonic(
+        img, mask, split_into_regions=split_into_regions
+    )
     assert out.dtype == _supported_float_type(img.dtype)
 
     ref = np.array(
@@ -86,7 +88,9 @@ def test_inpaint_biharmonic_3d(split_into_regions):
     mask[1, 3:, :] = 1
     mask[0, 4:, :] = 1
     img[np.where(mask)] = 0
-    out = inpaint.inpaint_biharmonic(img, mask, split_into_regions=split_into_regions)
+    out = inpaint.inpaint_biharmonic(
+        img, mask, split_into_regions=split_into_regions
+    )
     ref = np.dstack(
         (
             np.array(

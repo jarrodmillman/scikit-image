@@ -102,7 +102,9 @@ elif ndim == 3:
 
                 # print python code for generation of the central moment
 
-                python_code = f"moments_central[{p}, {q}, {r}] = {pycode(expr)}\n"
+                python_code = (
+                    f"moments_central[{p}, {q}, {r}] = {pycode(expr)}\n"
+                )
                 # replace symbol names with corresponding python variable names
                 python_code = python_code.replace('c_', 'c')
                 python_code = python_code.replace('M[', 'm[')

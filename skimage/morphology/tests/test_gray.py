@@ -50,7 +50,9 @@ class TestMorphology:
         )
 
         image = img_as_ubyte(
-            transform.downscale_local_mean(color.rgb2gray(data.coffee()), (20, 20))
+            transform.downscale_local_mean(
+                color.rgb2gray(data.coffee()), (20, 20)
+            )
         )
 
         output = {}
@@ -346,7 +348,14 @@ def test_1d_erosion():
 
 @pytest.mark.parametrize(
     "function",
-    ["erosion", "dilation", "closing", "opening", "white_tophat", "black_tophat"],
+    [
+        "erosion",
+        "dilation",
+        "closing",
+        "opening",
+        "white_tophat",
+        "black_tophat",
+    ],
 )
 @pytest.mark.parametrize("size", (7,))
 @pytest.mark.parametrize("decomposition", ['separable', 'sequence'])
@@ -365,12 +374,21 @@ def test_square_decomposition(cam_image, function, size, decomposition):
 
 @pytest.mark.parametrize(
     "function",
-    ["erosion", "dilation", "closing", "opening", "white_tophat", "black_tophat"],
+    [
+        "erosion",
+        "dilation",
+        "closing",
+        "opening",
+        "white_tophat",
+        "black_tophat",
+    ],
 )
 @pytest.mark.parametrize("nrows", (3, 11))
 @pytest.mark.parametrize("ncols", (3, 11))
 @pytest.mark.parametrize("decomposition", ['separable', 'sequence'])
-def test_rectangle_decomposition(cam_image, function, nrows, ncols, decomposition):
+def test_rectangle_decomposition(
+    cam_image, function, nrows, ncols, decomposition
+):
     """Validate footprint decomposition for various shapes.
 
     comparison is made to the case without decomposition.
@@ -385,7 +403,14 @@ def test_rectangle_decomposition(cam_image, function, nrows, ncols, decompositio
 
 @pytest.mark.parametrize(
     "function",
-    ["erosion", "dilation", "closing", "opening", "white_tophat", "black_tophat"],
+    [
+        "erosion",
+        "dilation",
+        "closing",
+        "opening",
+        "white_tophat",
+        "black_tophat",
+    ],
 )
 @pytest.mark.parametrize("radius", (2, 3))
 @pytest.mark.parametrize("decomposition", ['sequence'])
@@ -404,7 +429,14 @@ def test_diamond_decomposition(cam_image, function, radius, decomposition):
 
 @pytest.mark.parametrize(
     "function",
-    ["erosion", "dilation", "closing", "opening", "white_tophat", "black_tophat"],
+    [
+        "erosion",
+        "dilation",
+        "closing",
+        "opening",
+        "white_tophat",
+        "black_tophat",
+    ],
 )
 @pytest.mark.parametrize("m", (0, 1, 3, 5))
 @pytest.mark.parametrize("n", (0, 1, 2, 3))
@@ -428,7 +460,14 @@ def test_octagon_decomposition(cam_image, function, m, n, decomposition):
 
 @pytest.mark.parametrize(
     "function",
-    ["erosion", "dilation", "closing", "opening", "white_tophat", "black_tophat"],
+    [
+        "erosion",
+        "dilation",
+        "closing",
+        "opening",
+        "white_tophat",
+        "black_tophat",
+    ],
 )
 @pytest.mark.parametrize("size", (5,))
 @pytest.mark.parametrize("decomposition", ['separable', 'sequence'])
@@ -447,11 +486,20 @@ def test_cube_decomposition(cell3d_image, function, size, decomposition):
 
 @pytest.mark.parametrize(
     "function",
-    ["erosion", "dilation", "closing", "opening", "white_tophat", "black_tophat"],
+    [
+        "erosion",
+        "dilation",
+        "closing",
+        "opening",
+        "white_tophat",
+        "black_tophat",
+    ],
 )
 @pytest.mark.parametrize("radius", (3,))
 @pytest.mark.parametrize("decomposition", ['sequence'])
-def test_octahedron_decomposition(cell3d_image, function, radius, decomposition):
+def test_octahedron_decomposition(
+    cell3d_image, function, radius, decomposition
+):
     """Validate footprint decomposition for various shapes.
 
     comparison is made to the case without decomposition.

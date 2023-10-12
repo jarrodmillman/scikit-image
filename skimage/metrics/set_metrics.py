@@ -122,12 +122,12 @@ def hausdorff_pair(image0, image1):
         warnings.warn("One or both of the images is empty.", stacklevel=2)
         return (), ()
 
-    nearest_dists_from_b, nearest_a_point_indices_from_b = cKDTree(a_points).query(
-        b_points
-    )
-    nearest_dists_from_a, nearest_b_point_indices_from_a = cKDTree(b_points).query(
+    nearest_dists_from_b, nearest_a_point_indices_from_b = cKDTree(
         a_points
-    )
+    ).query(b_points)
+    nearest_dists_from_a, nearest_b_point_indices_from_a = cKDTree(
+        b_points
+    ).query(a_points)
 
     max_index_from_a = nearest_dists_from_b.argmax()
     max_index_from_b = nearest_dists_from_a.argmax()

@@ -50,7 +50,9 @@ def test_find_boundaries_bool():
     assert_array_equal(result, ref)
 
 
-@pytest.mark.parametrize('dtype', [np.uint8, np.float16, np.float32, np.float64])
+@pytest.mark.parametrize(
+    'dtype', [np.uint8, np.float16, np.float32, np.float64]
+)
 def test_mark_boundaries(dtype):
     image = np.zeros((10, 10), dtype=dtype)
     label_image = np.zeros((10, 10), dtype=np.uint8)

@@ -36,7 +36,9 @@ from skimage.feature import match_descriptors, plot_matches, SIFT
 
 img1 = rgb2gray(data.astronaut())
 img2 = transform.rotate(img1, 180)
-tform = transform.AffineTransform(scale=(1.3, 1.1), rotation=0.5, translation=(0, -200))
+tform = transform.AffineTransform(
+    scale=(1.3, 1.1), rotation=0.5, translation=(0, -200)
+)
 img3 = transform.warp(img1, tform)
 
 descriptor_extractor = SIFT()
@@ -65,7 +67,9 @@ plt.gray()
 
 plot_matches(ax[0, 0], img1, img2, keypoints1, keypoints2, matches12)
 ax[0, 0].axis('off')
-ax[0, 0].set_title("Original Image vs. Flipped Image\n" "(all keypoints and matches)")
+ax[0, 0].set_title(
+    "Original Image vs. Flipped Image\n" "(all keypoints and matches)"
+)
 
 plot_matches(ax[1, 0], img1, img3, keypoints1, keypoints3, matches13)
 ax[1, 0].axis('off')
@@ -74,7 +78,13 @@ ax[1, 0].set_title(
 )
 
 plot_matches(
-    ax[0, 1], img1, img2, keypoints1, keypoints2, matches12[::15], only_matches=True
+    ax[0, 1],
+    img1,
+    img2,
+    keypoints1,
+    keypoints2,
+    matches12[::15],
+    only_matches=True,
 )
 ax[0, 1].axis('off')
 ax[0, 1].set_title(
@@ -82,11 +92,18 @@ ax[0, 1].set_title(
 )
 
 plot_matches(
-    ax[1, 1], img1, img3, keypoints1, keypoints3, matches13[::15], only_matches=True
+    ax[1, 1],
+    img1,
+    img3,
+    keypoints1,
+    keypoints3,
+    matches13[::15],
+    only_matches=True,
 )
 ax[1, 1].axis('off')
 ax[1, 1].set_title(
-    "Original Image vs. Transformed Image\n" "(subset of matches for visibility)"
+    "Original Image vs. Transformed Image\n"
+    "(subset of matches for visibility)"
 )
 
 plt.tight_layout()

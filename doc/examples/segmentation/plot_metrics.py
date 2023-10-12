@@ -118,14 +118,18 @@ ax = axes.ravel()
 
 ax[0].scatter(merge_list, split_list)
 for i, txt in enumerate(short_method_names):
-    ax[0].annotate(txt, (merge_list[i], split_list[i]), verticalalignment='center')
+    ax[0].annotate(
+        txt, (merge_list[i], split_list[i]), verticalalignment='center'
+    )
 ax[0].set_xlabel('False Merges (bits)')
 ax[0].set_ylabel('False Splits (bits)')
 ax[0].set_title('Split Variation of Information')
 
 ax[1].scatter(precision_list, recall_list)
 for i, txt in enumerate(short_method_names):
-    ax[1].annotate(txt, (precision_list[i], recall_list[i]), verticalalignment='center')
+    ax[1].annotate(
+        txt, (precision_list[i], recall_list[i]), verticalalignment='center'
+    )
 ax[1].set_xlabel('Precision')
 ax[1].set_ylabel('Recall')
 ax[1].set_title('Adapted Rand precision vs. recall')

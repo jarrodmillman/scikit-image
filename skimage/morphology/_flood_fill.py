@@ -125,7 +125,9 @@ def flood_fill(
     return image
 
 
-def flood(image, seed_point, *, footprint=None, connectivity=None, tolerance=None):
+def flood(
+    image, seed_point, *, footprint=None, connectivity=None, tolerance=None
+):
     """Mask corresponding to a flood fill.
 
     Starting at a specific `seed_point`, connected points equal or within
@@ -248,7 +250,8 @@ def flood(image, seed_point, *, footprint=None, connectivity=None, tolerance=Non
     # Compute padding width as the maximum offset to neighbors on each axis.
     # Generates a 2-tuple of (pad_start, pad_end) for each axis.
     pad_width = [
-        (np.max(np.abs(idx - c)),) * 2 for idx, c in zip(np.nonzero(footprint), center)
+        (np.max(np.abs(idx - c)),) * 2
+        for idx, c in zip(np.nonzero(footprint), center)
     ]
 
     # Must annotate borders
@@ -257,7 +260,10 @@ def flood(image, seed_point, *, footprint=None, connectivity=None, tolerance=Non
     )
     # Stride-aware neighbors - works for both C- and Fortran-contiguity
     ravelled_seed_idx = np.ravel_multi_index(
-        [i + pad_start for i, (pad_start, pad_end) in zip(seed_point, pad_width)],
+        [
+            i + pad_start
+            for i, (pad_start, pad_end) in zip(seed_point, pad_width)
+        ],
         working_image.shape,
         order=order,
     )

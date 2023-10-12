@@ -78,7 +78,9 @@ plt.show()
 
 iter_thresholds = []
 
-optimal_threshold = filters.threshold_li(camera, iter_callback=iter_thresholds.append)
+optimal_threshold = filters.threshold_li(
+    camera, iter_callback=iter_thresholds.append
+)
 iter_entropies = [_cross_entropy(camera, t) for t in iter_thresholds]
 
 print('Only', len(iter_thresholds), 'thresholds examined.')
@@ -134,7 +136,9 @@ plt.show()
 
 iter_thresholds3 = []
 
-opt_threshold3 = filters.threshold_li(cell, iter_callback=iter_thresholds3.append)
+opt_threshold3 = filters.threshold_li(
+    cell, iter_callback=iter_thresholds3.append
+)
 
 iter_entropies3 = [_cross_entropy(cell, t) for t in iter_thresholds3]
 
@@ -199,7 +203,11 @@ ax1.tick_params(axis='y', labelcolor='C0')
 ax2 = ax1.twinx()
 ax2.plot(thresholds2, gradients, c='C3')
 ax2.hlines(
-    [0], xmin=thresholds2[0], xmax=thresholds2[-1], colors='gray', linestyles='dashed'
+    [0],
+    xmin=thresholds2[0],
+    xmax=thresholds2[-1],
+    colors='gray',
+    linestyles='dashed',
 )
 ax2.vlines(
     np.mean(cell),

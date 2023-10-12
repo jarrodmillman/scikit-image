@@ -49,7 +49,9 @@ seg2 = slic(
 segj = join_segmentations(seg1, seg2)
 
 # Show the segmentations.
-fig, axes = plt.subplots(ncols=2, nrows=2, figsize=(9, 5), sharex=True, sharey=True)
+fig, axes = plt.subplots(
+    ncols=2, nrows=2, figsize=(9, 5), sharex=True, sharey=True
+)
 ax = axes.ravel()
 ax[0].imshow(coins, cmap='gray')
 ax[0].set_title('Image')

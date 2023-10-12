@@ -60,11 +60,13 @@ class TestMaxtree(TestCase):
         )
 
         P_exp = np.array(
-            [[1, 4, 1, 1], [4, 4, 3, 3], [1, 4, 3, 10], [3, 3, 10, 10]], dtype=np.int64
+            [[1, 4, 1, 1], [4, 4, 3, 3], [1, 4, 3, 10], [3, 3, 10, 10]],
+            dtype=np.int64,
         )
 
         S_exp = np.array(
-            [4, 5, 9, 1, 2, 8, 3, 6, 7, 12, 13, 0, 10, 11, 14, 15], dtype=np.int64
+            [4, 5, 9, 1, 2, 8, 3, 6, 7, 12, 13, 0, 10, 11, 14, 15],
+            dtype=np.int64,
         )
 
         for img_type in [np.uint8, np.uint16, np.uint32, np.uint64]:
@@ -155,7 +157,9 @@ class TestMaxtree(TestCase):
         _full_type_test(img, 4, expected_4, area_closing, connectivity=2)
 
         P, S = max_tree(invert(img), connectivity=2)
-        _full_type_test(img, 4, expected_4, area_closing, parent=P, tree_traverser=S)
+        _full_type_test(
+            img, 4, expected_4, area_closing, parent=P, tree_traverser=S
+        )
 
     def test_area_opening(self):
         "Test for Area Opening (2 thresholds, all types)"
@@ -222,7 +226,9 @@ class TestMaxtree(TestCase):
         _full_type_test(img, 4, expected_4, area_opening, connectivity=2)
 
         P, S = max_tree(img, connectivity=2)
-        _full_type_test(img, 4, expected_4, area_opening, parent=P, tree_traverser=S)
+        _full_type_test(
+            img, 4, expected_4, area_opening, parent=P, tree_traverser=S
+        )
 
     def test_diameter_closing(self):
         "Test for Diameter Opening (2 thresholds, all types)"
@@ -285,7 +291,9 @@ class TestMaxtree(TestCase):
         _full_type_test(img, 4, ex4, diameter_closing, connectivity=2)
 
         P, S = max_tree(invert(img), connectivity=2)
-        _full_type_test(img, 4, ex4, diameter_opening, parent=P, tree_traverser=S)
+        _full_type_test(
+            img, 4, ex4, diameter_opening, parent=P, tree_traverser=S
+        )
 
     def test_diameter_opening(self):
         "Test for Diameter Opening (2 thresholds, all types)"
@@ -345,7 +353,9 @@ class TestMaxtree(TestCase):
         _full_type_test(img, 4, ex4, diameter_opening, connectivity=2)
 
         P, S = max_tree(img, connectivity=2)
-        _full_type_test(img, 4, ex4, diameter_opening, parent=P, tree_traverser=S)
+        _full_type_test(
+            img, 4, ex4, diameter_opening, parent=P, tree_traverser=S
+        )
 
     def test_local_maxima(self):
         "local maxima for various data types"

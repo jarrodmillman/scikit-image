@@ -41,7 +41,9 @@ def _get_mask_centroids(mask, n_centroids, multichannel):
 
     # select n_centroids randomly distributed points from within the mask
     idx_full = np.arange(len(coord), dtype=int)
-    idx = np.sort(rng.choice(idx_full, min(n_centroids, len(coord)), replace=False))
+    idx = np.sort(
+        rng.choice(idx_full, min(n_centroids, len(coord)), replace=False)
+    )
 
     # To save time, when n_centroids << len(coords), use only a subset of the
     # coordinates when calling k-means. Rather than the full set of coords,
@@ -96,9 +98,13 @@ def _get_grid_centroids(image, n_centroids):
     centroids_y = grid_y[slices].ravel()[..., np.newaxis]
     centroids_x = grid_x[slices].ravel()[..., np.newaxis]
 
-    centroids = np.concatenate([centroids_z, centroids_y, centroids_x], axis=-1)
+    centroids = np.concatenate(
+        [centroids_z, centroids_y, centroids_x], axis=-1
+    )
 
-    steps = np.asarray([float(s.step) if s.step is not None else 1.0 for s in slices])
+    steps = np.asarray(
+        [float(s.step) if s.step is not None else 1.0 for s in slices]
+    )
     return centroids, steps
 
 
@@ -395,7 +401,9 @@ def slic(
 
     n_centroids = centroids.shape[0]
     segments = np.ascontiguousarray(
-        np.concatenate([centroids, np.zeros((n_centroids, image.shape[3]))], axis=-1),
+        np.concatenate(
+            [centroids, np.zeros((n_centroids, image.shape[3]))], axis=-1
+        ),
         dtype=dtype,
     )
 

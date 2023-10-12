@@ -71,7 +71,11 @@ def test_imagecollection_input():
 
 
 class TestImageCollection:
-    pics = [fetch('data/brick.png'), fetch('data/color.png'), fetch('data/moon.png')]
+    pics = [
+        fetch('data/brick.png'),
+        fetch('data/color.png'),
+        fetch('data/moon.png'),
+    ]
     pattern = pics[:2]
     pattern_same_shape = pics[::2]
 

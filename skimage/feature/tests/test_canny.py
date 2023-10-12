@@ -10,7 +10,9 @@ from skimage.util import img_as_float
 class TestCanny(unittest.TestCase):
     def test_00_00_zeros(self):
         '''Test that the Canny filter finds no points for a blank field'''
-        result = feature.canny(np.zeros((20, 20)), 4, 0, 0, np.ones((20, 20), bool))
+        result = feature.canny(
+            np.zeros((20, 20)), 4, 0, 0, np.ones((20, 20), bool)
+        )
         self.assertFalse(np.any(result))
 
     def test_00_01_zeros_mask(self):
@@ -24,7 +26,9 @@ class TestCanny(unittest.TestCase):
         '''Test that the Canny filter finds the outlines of a circle'''
         i, j = np.mgrid[-200:200, -200:200].astype(float) / 200
         c = np.abs(np.sqrt(i * i + j * j) - 0.5) < 0.02
-        result = feature.canny(c.astype(float), 4, 0, 0, np.ones(c.shape, bool))
+        result = feature.canny(
+            c.astype(float), 4, 0, 0, np.ones(c.shape, bool)
+        )
         #
         # erode and dilate the circle to get rings that should contain the
         # outlines
@@ -64,10 +68,14 @@ class TestCanny(unittest.TestCase):
         self.assertTrue(point_count < 1600)
 
     def test_image_shape(self):
-        self.assertRaises(ValueError, feature.canny, np.zeros((20, 20, 20)), 4, 0, 0)
+        self.assertRaises(
+            ValueError, feature.canny, np.zeros((20, 20, 20)), 4, 0, 0
+        )
 
     def test_mask_none(self):
-        result1 = feature.canny(np.zeros((20, 20)), 4, 0, 0, np.ones((20, 20), bool))
+        result1 = feature.canny(
+            np.zeros((20, 20)), 4, 0, 0, np.ones((20, 20), bool)
+        )
         result2 = feature.canny(np.zeros((20, 20)), 4, 0, 0)
         self.assertTrue(np.all(result1 == result2))
 
@@ -172,7 +180,9 @@ class TestCanny(unittest.TestCase):
         for mode in ('constant', 'nearest', 'reflect'):
             assert_equal(
                 feature.canny(image, mode=mode),
-                feature.canny(image, mode=mode, mask=np.ones_like(image, dtype=bool)),
+                feature.canny(
+                    image, mode=mode, mask=np.ones_like(image, dtype=bool)
+                ),
             )
 
     def test_unsupported_int64(self):

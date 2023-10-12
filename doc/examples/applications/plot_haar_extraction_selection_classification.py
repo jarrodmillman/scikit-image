@@ -99,7 +99,11 @@ feature_coord, feature_type = haar_like_feature_coord(
 
 # Train a random forest classifier and assess its performance
 clf = RandomForestClassifier(
-    n_estimators=1000, max_depth=None, max_features=100, n_jobs=-1, random_state=0
+    n_estimators=1000,
+    max_depth=None,
+    max_features=100,
+    n_jobs=-1,
+    random_state=0,
 )
 t_start = time()
 clf.fit(X_train, y_train)
@@ -113,7 +117,12 @@ fig, axes = plt.subplots(3, 2)
 for idx, ax in enumerate(axes.ravel()):
     image = images[0]
     image = draw_haar_like_feature(
-        image, 0, 0, images.shape[2], images.shape[1], [feature_coord[idx_sorted[idx]]]
+        image,
+        0,
+        0,
+        images.shape[2],
+        images.shape[1],
+        [feature_coord[idx_sorted[idx]]],
     )
     ax.imshow(image)
     ax.set_xticks([])
@@ -130,7 +139,9 @@ _ = fig.suptitle('The most important features')
 cdf_feature_importances = np.cumsum(clf.feature_importances_[idx_sorted])
 cdf_feature_importances /= cdf_feature_importances[-1]  # divide by max value
 sig_feature_count = np.count_nonzero(cdf_feature_importances < 0.7)
-sig_feature_percent = round(sig_feature_count / len(cdf_feature_importances) * 100, 1)
+sig_feature_percent = round(
+    sig_feature_count / len(cdf_feature_importances) * 100, 1
+)
 print(
     f'{sig_feature_count} features, or {sig_feature_percent}%, '
     f'account for 70% of branch points in the random forest.'
@@ -145,7 +156,10 @@ feature_type_sel = feature_type[idx_sorted[:sig_feature_count]]
 
 # Compute the result
 t_start = time()
-X = [extract_feature_image(img, feature_type_sel, feature_coord_sel) for img in images]
+X = [
+    extract_feature_image(img, feature_type_sel, feature_coord_sel)
+    for img in images
+]
 X = np.stack(X)
 time_subs_feature_comp = time() - t_start
 

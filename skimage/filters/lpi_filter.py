@@ -171,7 +171,11 @@ def filter_forward(
 
 
 def filter_inverse(
-    data, impulse_response=None, filter_params=None, max_gain=2, predefined_filter=None
+    data,
+    impulse_response=None,
+    filter_params=None,
+    max_gain=2,
+    predefined_filter=None,
 ):
     """Apply the filter in reverse to the given data.
 
@@ -216,7 +220,11 @@ def filter_inverse(
 
 
 def wiener(
-    data, impulse_response=None, filter_params=None, K=0.25, predefined_filter=None
+    data,
+    impulse_response=None,
+    filter_params=None,
+    K=0.25,
+    predefined_filter=None,
 ):
     """Minimum Mean Square Error (Wiener) inverse filter.
 

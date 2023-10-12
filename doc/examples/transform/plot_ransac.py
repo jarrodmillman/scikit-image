@@ -70,8 +70,12 @@ line_y = model.predict_y(line_x)
 line_y_robust = model_robust.predict_y(line_x)
 
 fig, ax = plt.subplots()
-ax.plot(data[inliers, 0], data[inliers, 1], '.b', alpha=0.6, label='Inlier data')
-ax.plot(data[outliers, 0], data[outliers, 1], '.r', alpha=0.6, label='Outlier data')
+ax.plot(
+    data[inliers, 0], data[inliers, 1], '.b', alpha=0.6, label='Inlier data'
+)
+ax.plot(
+    data[outliers, 0], data[outliers, 1], '.r', alpha=0.6, label='Outlier data'
+)
 ax.plot(line_x, line_y, '-k', label='Line model from all data')
 ax.plot(line_x, line_y_robust, '-b', label='Robust line model')
 ax.legend(loc='lower left')

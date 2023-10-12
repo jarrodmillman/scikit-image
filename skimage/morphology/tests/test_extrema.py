@@ -24,18 +24,21 @@ class TestExtrema:
         """Adding/subtracting a constant and clipping"""
         # Test for unsigned integer
         data = np.array(
-            [[250, 251, 5, 5], [100, 200, 253, 252], [4, 10, 1, 3]], dtype=np.uint8
+            [[250, 251, 5, 5], [100, 200, 253, 252], [4, 10, 1, 3]],
+            dtype=np.uint8,
         )
         # adding the constant
         img_constant_added = extrema._add_constant_clip(data, 4)
         expected = np.array(
-            [[254, 255, 9, 9], [104, 204, 255, 255], [8, 14, 5, 7]], dtype=np.uint8
+            [[254, 255, 9, 9], [104, 204, 255, 255], [8, 14, 5, 7]],
+            dtype=np.uint8,
         )
         error = diff(img_constant_added, expected)
         assert error < eps
         img_constant_subtracted = extrema._subtract_constant_clip(data, 4)
         expected = np.array(
-            [[246, 247, 1, 1], [96, 196, 249, 248], [0, 6, 0, 0]], dtype=np.uint8
+            [[246, 247, 1, 1], [96, 196, 249, 248], [0, 6, 0, 0]],
+            dtype=np.uint8,
         )
         error = diff(img_constant_subtracted, expected)
         assert error < eps
@@ -474,7 +477,9 @@ class TestLocalMaxima(unittest.TestCase):
 
     def test_footprint(self):
         """Test results if footprint is given."""
-        footprint_cross = np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], dtype=bool)
+        footprint_cross = np.array(
+            [[0, 1, 0], [1, 1, 1], [0, 1, 0]], dtype=bool
+        )
         result_footprint_cross = extrema.local_maxima(
             self.image, footprint=footprint_cross
         )
@@ -507,7 +512,9 @@ class TestLocalMaxima(unittest.TestCase):
             ],
             dtype=bool,
         )
-        result_footprint_x = extrema.local_maxima(self.image, footprint=footprint_x)
+        result_footprint_x = extrema.local_maxima(
+            self.image, footprint=footprint_x
+        )
         assert result_footprint_x.dtype == bool
         assert_equal(result_footprint_x, expected_footprint_x)
 
@@ -515,12 +522,16 @@ class TestLocalMaxima(unittest.TestCase):
         """Test output if indices of peaks are desired."""
         # Connectivity 1
         expected_conn1 = np.nonzero(self.expected_cross)
-        result_conn1 = extrema.local_maxima(self.image, connectivity=1, indices=True)
+        result_conn1 = extrema.local_maxima(
+            self.image, connectivity=1, indices=True
+        )
         assert_equal(result_conn1, expected_conn1)
 
         # Connectivity 2
         expected_conn2 = np.nonzero(self.expected_default)
-        result_conn2 = extrema.local_maxima(self.image, connectivity=2, indices=True)
+        result_conn2 = extrema.local_maxima(
+            self.image, connectivity=2, indices=True
+        )
         assert_equal(result_conn2, expected_conn2)
 
     def test_allow_borders(self):
@@ -649,15 +660,23 @@ class TestLocalMaxima(unittest.TestCase):
         """Test if input validation triggers correct exceptions."""
         # Mismatching number of dimensions
         with raises(ValueError, match="number of dimensions"):
-            extrema.local_maxima(self.image, footprint=np.ones((3, 3, 3), dtype=bool))
+            extrema.local_maxima(
+                self.image, footprint=np.ones((3, 3, 3), dtype=bool)
+            )
         with raises(ValueError, match="number of dimensions"):
-            extrema.local_maxima(self.image, footprint=np.ones((3,), dtype=bool))
+            extrema.local_maxima(
+                self.image, footprint=np.ones((3,), dtype=bool)
+            )
 
         # All dimensions in footprint must be of size 3
         with raises(ValueError, match="dimension size"):
-            extrema.local_maxima(self.image, footprint=np.ones((2, 3), dtype=bool))
+            extrema.local_maxima(
+                self.image, footprint=np.ones((2, 3), dtype=bool)
+            )
         with raises(ValueError, match="dimension size"):
-            extrema.local_maxima(self.image, footprint=np.ones((5, 5), dtype=bool))
+            extrema.local_maxima(
+                self.image, footprint=np.ones((5, 5), dtype=bool)
+            )
 
         with raises(TypeError, match="float16 which is not supported"):
             extrema.local_maxima(np.empty(1, dtype=np.float16))

@@ -42,7 +42,9 @@ descriptor_extractor.detect_and_extract(img_right)
 keypoints_right = descriptor_extractor.keypoints
 descriptors_right = descriptor_extractor.descriptors
 
-matches = match_descriptors(descriptors_left, descriptors_right, cross_check=True)
+matches = match_descriptors(
+    descriptors_left, descriptors_right, cross_check=True
+)
 
 print(f'Number of matches: {matches.shape[0]}')
 

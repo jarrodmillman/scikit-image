@@ -26,7 +26,13 @@ def test_haar_like_feature_error():
     feat_coord, feat_type = haar_like_feature_coord(5, 5, 'type-2-x')
     with pytest.raises(ValueError):
         haar_like_feature(
-            img_ii, 0, 0, 5, 5, feature_type=feat_type[:3], feature_coord=feat_coord
+            img_ii,
+            0,
+            0,
+            5,
+            5,
+            feature_type=feat_type[:3],
+            feature_coord=feat_coord,
         )
 
 
@@ -41,11 +47,15 @@ def test_haar_like_feature_error():
         ('type-4', (36,), [0.0]),
     ],
 )
-def test_haar_like_feature(feature_type, shape_feature, expected_feature_value, dtype):
+def test_haar_like_feature(
+    feature_type, shape_feature, expected_feature_value, dtype
+):
     # test Haar-like feature on a basic one image
     img = np.ones((5, 5), dtype=dtype)
     img_ii = integral_image(img)
-    haar_feature = haar_like_feature(img_ii, 0, 0, 5, 5, feature_type=feature_type)
+    haar_feature = haar_like_feature(
+        img_ii, 0, 0, 5, 5, feature_type=feature_type
+    )
     assert_allclose(np.sort(np.unique(haar_feature)), expected_feature_value)
 
 
@@ -61,7 +71,9 @@ def test_haar_like_feature_fused_type(dtype, feature_type):
     # to avoid overflow, unsigned type are converted to signed
     if 'uint' in expected_dtype.name:
         expected_dtype = np.dtype(expected_dtype.name.replace('u', ''))
-    haar_feature = haar_like_feature(img_ii, 0, 0, 5, 5, feature_type=feature_type)
+    haar_feature = haar_like_feature(
+        img_ii, 0, 0, 5, 5, feature_type=feature_type
+    )
     assert haar_feature.dtype == expected_dtype
 
 
@@ -69,7 +81,9 @@ def test_haar_like_feature_list():
     img = np.ones((5, 5), dtype=np.int8)
     img_ii = integral_image(img)
     feature_type = ['type-2-x', 'type-2-y', 'type-3-x', 'type-3-y', 'type-4']
-    haar_list = haar_like_feature(img_ii, 0, 0, 5, 5, feature_type=feature_type)
+    haar_list = haar_like_feature(
+        img_ii, 0, 0, 5, 5, feature_type=feature_type
+    )
     haar_all = haar_like_feature(img_ii, 0, 0, 5, 5)
     assert_array_equal(haar_list, haar_all)
 
@@ -159,12 +173,21 @@ def test_haar_like_feature_precomputed(feature_type):
             'type-4',
             2,
             2,
-            [[[(0, 0), (0, 0)], [(0, 1), (0, 1)], [(1, 1), (1, 1)], [(1, 0), (1, 0)]]],
+            [
+                [
+                    [(0, 0), (0, 0)],
+                    [(0, 1), (0, 1)],
+                    [(1, 1), (1, 1)],
+                    [(1, 0), (1, 0)],
+                ]
+            ],
         ),
     ],
 )
 def test_haar_like_feature_coord(feature_type, height, width, expected_coord):
-    feat_coord, feat_type = haar_like_feature_coord(width, height, feature_type)
+    feat_coord, feat_type = haar_like_feature_coord(
+        width, height, feature_type
+    )
     # convert the output to a full numpy array just for comparison
     feat_coord = np.array([hf for hf in feat_coord])
     assert_array_equal(feat_coord, expected_coord)
@@ -180,7 +203,14 @@ def test_draw_haar_like_feature(max_n_features, nnz_values):
     )
     with expected_warnings(['`random_state` is a deprecated argument']):
         draw_haar_like_feature(
-            img, 0, 0, 5, 5, coord, max_n_features=max_n_features, random_state=0
+            img,
+            0,
+            0,
+            5,
+            5,
+            coord,
+            max_n_features=max_n_features,
+            random_state=0,
         )
     assert image.shape == (5, 5, 3)
     assert np.count_nonzero(image) == nnz_values

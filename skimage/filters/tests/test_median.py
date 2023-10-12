@@ -48,7 +48,9 @@ def test_median_behavior(image, behavior, func, params):
     assert_allclose(median(image, behavior=behavior), func(image, **params))
 
 
-@pytest.mark.parametrize("dtype", [np.uint8, np.uint16, np.float32, np.float64])
+@pytest.mark.parametrize(
+    "dtype", [np.uint8, np.uint16, np.float32, np.float64]
+)
 def test_median_preserve_dtype(image, dtype):
     median_image = median(image.astype(dtype), behavior='ndimage')
     assert median_image.dtype == dtype

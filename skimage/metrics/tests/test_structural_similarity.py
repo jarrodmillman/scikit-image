@@ -125,7 +125,9 @@ def test_structural_similarity_multichannel(channel_axis):
     assert_equal(S3.shape, Xc.shape)
 
     # gradient case
-    m, grad = structural_similarity(Xc, Yc, channel_axis=channel_axis, gradient=True)
+    m, grad = structural_similarity(
+        Xc, Yc, channel_axis=channel_axis, gradient=True
+    )
     assert_equal(grad.shape, Xc.shape)
 
     # full and gradient case
@@ -166,7 +168,8 @@ def test_structural_similarity_multichannel_chelsea():
     # multichannel result should be mean of the individual channel results
     mssim = structural_similarity(Xc, Yc, channel_axis=-1)
     mssim_sep = [
-        structural_similarity(Yc[..., c], Xc[..., c]) for c in range(Xc.shape[-1])
+        structural_similarity(Yc[..., c], Xc[..., c])
+        for c in range(Xc.shape[-1])
     ]
     assert_almost_equal(mssim, np.mean(mssim_sep))
 
@@ -227,7 +230,10 @@ def test_ssim_warns_about_data_range():
         assert mssim_uint16 > 0.99
 
     with expected_warnings(
-        ['Setting data_range based on im1.dtype', 'Inputs have mismatched dtypes']
+        [
+            'Setting data_range based on im1.dtype',
+            'Inputs have mismatched dtypes',
+        ]
     ):
         mssim_mixed = structural_similarity(cam, cam_noisy.astype(np.int32))
 

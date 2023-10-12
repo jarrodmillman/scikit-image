@@ -8,7 +8,9 @@ from numpy.testing import assert_array_equal
 from skimage.morphology import _util
 
 
-@pytest.mark.parametrize("image_shape", [(111,), (33, 44), (22, 55, 11), (6, 5, 4, 3)])
+@pytest.mark.parametrize(
+    "image_shape", [(111,), (33, 44), (22, 55, 11), (6, 5, 4, 3)]
+)
 @pytest.mark.parametrize("order", ["C", "F"])
 def test_offsets_to_raveled_neighbors_highest_connectivity(image_shape, order):
     """
@@ -17,7 +19,9 @@ def test_offsets_to_raveled_neighbors_highest_connectivity(image_shape, order):
     """
     footprint = np.ones((3,) * len(image_shape), dtype=bool)
     center = (1,) * len(image_shape)
-    offsets = _util._offsets_to_raveled_neighbors(image_shape, footprint, center, order)
+    offsets = _util._offsets_to_raveled_neighbors(
+        image_shape, footprint, center, order
+    )
 
     # Assert only neighbors are present, center was removed
     assert len(offsets) == footprint.sum() - 1
@@ -38,7 +42,9 @@ def test_offsets_to_raveled_neighbors_highest_connectivity(image_shape, order):
     image = np.sum(grid, axis=0)
 
     image_raveled = image.ravel(order)
-    image_center_raveled = np.ravel_multi_index(image_center, image_shape, order=order)
+    image_center_raveled = np.ravel_multi_index(
+        image_center, image_shape, order=order
+    )
 
     # Sample raveled image around its center
     samples = []
@@ -59,14 +65,18 @@ def test_offsets_to_raveled_neighbors_highest_connectivity(image_shape, order):
     "image_shape", [(2,), (2, 2), (2, 1, 2), (2, 2, 1, 2), (0, 2, 1, 2)]
 )
 @pytest.mark.parametrize("order", ["C", "F"])
-def test_offsets_to_raveled_neighbors_footprint_smaller_image(image_shape, order):
+def test_offsets_to_raveled_neighbors_footprint_smaller_image(
+    image_shape, order
+):
     """
     Test if a dimension indicated by `image_shape` is smaller than in
     `footprint`.
     """
     footprint = np.ones((3,) * len(image_shape), dtype=bool)
     center = (1,) * len(image_shape)
-    offsets = _util._offsets_to_raveled_neighbors(image_shape, footprint, center, order)
+    offsets = _util._offsets_to_raveled_neighbors(
+        image_shape, footprint, center, order
+    )
 
     # Assert only neighbors are present, center and duplicates (possible
     # for this scenario) where removed
@@ -84,7 +94,9 @@ def test_offsets_to_raveled_neighbors_explicit_0():
     image_shape = (100, 200, 3)
     footprint = np.ones((3, 3, 3), dtype=bool)
     center = (1, 1, 1)
-    offsets = _util._offsets_to_raveled_neighbors(image_shape, footprint, center)
+    offsets = _util._offsets_to_raveled_neighbors(
+        image_shape, footprint, center
+    )
 
     desired = np.array(
         [
@@ -124,7 +136,9 @@ def test_offsets_to_raveled_neighbors_explicit_1():
     image_shape = (10, 9, 8, 3)
     footprint = np.ones((3, 3, 3, 4), dtype=bool)
     center = (1, 1, 1, 1)
-    offsets = _util._offsets_to_raveled_neighbors(image_shape, footprint, center)
+    offsets = _util._offsets_to_raveled_neighbors(
+        image_shape, footprint, center
+    )
 
     desired = np.array(
         [

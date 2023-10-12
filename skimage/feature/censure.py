@@ -65,7 +65,8 @@ STAR_FILTER_SHAPE = [
 
 def _filter_image(image, min_scale, max_scale, mode):
     response = np.zeros(
-        (image.shape[0], image.shape[1], max_scale - min_scale + 1), dtype=np.float64
+        (image.shape[0], image.shape[1], max_scale - min_scale + 1),
+        dtype=np.float64,
     )
 
     if mode == 'dob':
@@ -103,7 +104,9 @@ def _filter_image(image, min_scale, max_scale, mode):
         for i in range(max_scale - min_scale + 1):
             mo, no = OCTAGON_OUTER_SHAPE[min_scale + i - 1]
             mi, ni = OCTAGON_INNER_SHAPE[min_scale + i - 1]
-            response[:, :, i] = convolve(image, _octagon_kernel(mo, no, mi, ni))
+            response[:, :, i] = convolve(
+                image, _octagon_kernel(mo, no, mi, ni)
+            )
 
     elif mode == 'star':
         for i in range(max_scale - min_scale + 1):
@@ -123,7 +126,9 @@ def _octagon_kernel(mo, no, mi, ni):
     outer_oct = octagon(mo, no)
     inner_oct = np.zeros((mo + 2 * no, mo + 2 * no))
     inner_oct[c:-c, c:-c] = octagon(mi, ni)
-    bfilter = outer_weight * outer_oct - (outer_weight + inner_weight) * inner_oct
+    bfilter = (
+        outer_weight * outer_oct - (outer_weight + inner_weight) * inner_oct
+    )
     return bfilter
 
 
@@ -134,13 +139,17 @@ def _star_kernel(m, n):
     inner_star[c:-c, c:-c] = star(n)
     outer_weight = 1.0 / (np.sum(outer_star - inner_star))
     inner_weight = 1.0 / np.sum(inner_star)
-    bfilter = outer_weight * outer_star - (outer_weight + inner_weight) * inner_star
+    bfilter = (
+        outer_weight * outer_star - (outer_weight + inner_weight) * inner_star
+    )
     return bfilter
 
 
 def _suppress_lines(feature_mask, image, sigma, line_threshold):
     Arr, Arc, Acc = structure_tensor(image, sigma, order='rc')
-    feature_mask[(Arr + Acc) ** 2 > line_threshold * (Arr * Acc - Arc**2)] = False
+    feature_mask[
+        (Arr + Acc) ** 2 > line_threshold * (Arr * Acc - Arc**2)
+    ] = False
 
 
 class CENSURE(FeatureDetector):
@@ -244,7 +253,8 @@ class CENSURE(FeatureDetector):
 
         if min_scale < 1 or max_scale < 1 or max_scale - min_scale < 2:
             raise ValueError(
-                'The scales must be >= 1 and the number of ' 'scales should be >= 3.'
+                'The scales must be >= 1 and the number of '
+                'scales should be >= 3.'
             )
 
         self.min_scale = min_scale
@@ -324,21 +334,21 @@ class CENSURE(FeatureDetector):
 
         if self.mode == 'octagon':
             for i in range(self.min_scale + 1, self.max_scale):
-                c = (OCTAGON_OUTER_SHAPE[i - 1][0] - 1) // 2 + OCTAGON_OUTER_SHAPE[
-                    i - 1
-                ][1]
-                cumulative_mask |= _mask_border_keypoints(image.shape, keypoints, c) & (
-                    scales == i
-                )
+                c = (
+                    OCTAGON_OUTER_SHAPE[i - 1][0] - 1
+                ) // 2 + OCTAGON_OUTER_SHAPE[i - 1][1]
+                cumulative_mask |= _mask_border_keypoints(
+                    image.shape, keypoints, c
+                ) & (scales == i)
         elif self.mode == 'star':
             for i in range(self.min_scale + 1, self.max_scale):
                 c = (
                     STAR_SHAPE[STAR_FILTER_SHAPE[i - 1][0]]
                     + STAR_SHAPE[STAR_FILTER_SHAPE[i - 1][0]] // 2
                 )
-                cumulative_mask |= _mask_border_keypoints(image.shape, keypoints, c) & (
-                    scales == i
-                )
+                cumulative_mask |= _mask_border_keypoints(
+                    image.shape, keypoints, c
+                ) & (scales == i)
 
         self.keypoints = keypoints[cumulative_mask]
         self.scales = scales[cumulative_mask]

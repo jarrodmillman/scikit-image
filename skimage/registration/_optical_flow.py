@@ -266,7 +266,9 @@ def optical_flow_tvl1(
     return coarse_to_fine(reference_image, moving_image, solver, dtype=dtype)
 
 
-def _ilk(reference_image, moving_image, flow0, radius, num_warp, gaussian, prefilter):
+def _ilk(
+    reference_image, moving_image, flow0, radius, num_warp, gaussian, prefilter
+):
     """Iterative Lucas-Kanade (iLK) solver for optical flow estimation.
 
     Parameters
@@ -302,7 +304,9 @@ def _ilk(reference_image, moving_image, flow0, radius, num_warp, gaussian, prefi
         sigma = ndim * (size / 4,)
         filter_func = partial(gaussian_filter, sigma=sigma, mode='mirror')
     else:
-        filter_func = partial(ndi.uniform_filter, size=ndim * (size,), mode='mirror')
+        filter_func = partial(
+            ndi.uniform_filter, size=ndim * (size,), mode='mirror'
+        )
 
     flow = flow0
     # For each pixel location (i, j), the optical flow X = flow[:, i, j]
@@ -321,9 +325,13 @@ def _ilk(reference_image, moving_image, flow0, radius, num_warp, gaussian, prefi
         if prefilter:
             flow = ndi.median_filter(flow, (1,) + ndim * (3,))
 
-        moving_image_warp = warp(moving_image, get_warp_points(grid, flow), mode='edge')
+        moving_image_warp = warp(
+            moving_image, get_warp_points(grid, flow), mode='edge'
+        )
         grad = np.stack(np.gradient(moving_image_warp), axis=0)
-        error_image = (grad * flow).sum(axis=0) + reference_image - moving_image_warp
+        error_image = (
+            (grad * flow).sum(axis=0) + reference_image - moving_image_warp
+        )
 
         # Local linear systems creation
         for i, j in combinations_with_replacement(range(ndim), 2):
@@ -418,7 +426,11 @@ def optical_flow_ilk(
     """
 
     solver = partial(
-        _ilk, radius=radius, num_warp=num_warp, gaussian=gaussian, prefilter=prefilter
+        _ilk,
+        radius=radius,
+        num_warp=num_warp,
+        gaussian=gaussian,
+        prefilter=prefilter,
     )
 
     if np.dtype(dtype) != _supported_float_type(dtype):

@@ -130,7 +130,11 @@ def active_contour(
     # Find edges using sobel:
     if w_edge != 0:
         if RGB:
-            edge = [sobel(img[:, :, 0]), sobel(img[:, :, 1]), sobel(img[:, :, 2])]
+            edge = [
+                sobel(img[:, :, 0]),
+                sobel(img[:, :, 1]),
+                sobel(img[:, :, 2]),
+            ]
         else:
             edge = [sobel(img)]
     else:
@@ -144,7 +148,12 @@ def active_contour(
 
     # Interpolate for smoothness:
     intp = RectBivariateSpline(
-        np.arange(img.shape[1]), np.arange(img.shape[0]), img.T, kx=2, ky=2, s=0
+        np.arange(img.shape[1]),
+        np.arange(img.shape[0]),
+        img.T,
+        kx=2,
+        ky=2,
+        s=0,
     )
 
     snake_xy = snake[:, ::-1]
@@ -242,7 +251,9 @@ def active_contour(
             ysave[j, :] = y
         else:
             dist = np.min(
-                np.max(np.abs(xsave - x[None, :]) + np.abs(ysave - y[None, :]), 1)
+                np.max(
+                    np.abs(xsave - x[None, :]) + np.abs(ysave - y[None, :]), 1
+                )
             )
             if dist < convergence:
                 break

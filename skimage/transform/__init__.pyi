@@ -50,7 +50,12 @@ from .hough_transform import (
     hough_circle_peaks,
     hough_ellipse,
 )
-from .radon_transform import radon, iradon, iradon_sart, order_angles_golden_ratio
+from .radon_transform import (
+    radon,
+    iradon,
+    iradon_sart,
+    order_angles_golden_ratio,
+)
 from .finite_radon_transform import frt2, ifrt2
 from .integral import integral_image, integrate
 from ._geometric import (

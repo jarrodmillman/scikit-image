@@ -23,7 +23,9 @@ def test_morphsnakes_incorrect_image_shape():
     with pytest.raises(ValueError):
         morphological_chan_vese(img, num_iter=1, init_level_set=ls)
     with pytest.raises(ValueError):
-        morphological_geodesic_active_contour(img, num_iter=1, init_level_set=ls)
+        morphological_geodesic_active_contour(
+            img, num_iter=1, init_level_set=ls
+        )
 
 
 def test_morphsnakes_incorrect_ndim():
@@ -33,7 +35,9 @@ def test_morphsnakes_incorrect_ndim():
     with pytest.raises(ValueError):
         morphological_chan_vese(img, num_iter=1, init_level_set=ls)
     with pytest.raises(ValueError):
-        morphological_geodesic_active_contour(img, num_iter=1, init_level_set=ls)
+        morphological_geodesic_active_contour(
+            img, num_iter=1, init_level_set=ls
+        )
 
 
 def test_morphsnakes_black():
@@ -46,11 +50,18 @@ def test_morphsnakes_black():
     acwe_ls = morphological_chan_vese(img, num_iter=6, init_level_set=ls)
     assert_array_equal(acwe_ls, ref_zeros)
 
-    gac_ls = morphological_geodesic_active_contour(img, num_iter=6, init_level_set=ls)
+    gac_ls = morphological_geodesic_active_contour(
+        img, num_iter=6, init_level_set=ls
+    )
     assert_array_equal(gac_ls, ref_zeros)
 
     gac_ls2 = morphological_geodesic_active_contour(
-        img, num_iter=6, init_level_set=ls, balloon=1, threshold=-1, smoothing=0
+        img,
+        num_iter=6,
+        init_level_set=ls,
+        balloon=1,
+        threshold=-1,
+        smoothing=0,
     )
     assert_array_equal(gac_ls2, ref_ones)
 

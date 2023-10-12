@@ -277,7 +277,9 @@ def test_object():
         dtype=bool,
     )
 
-    assert_array_equal(convex_hull_object(image, connectivity=1), expected_conn_1)
+    assert_array_equal(
+        convex_hull_object(image, connectivity=1), expected_conn_1
+    )
 
     expected_conn_2 = np.array(
         [
@@ -294,7 +296,9 @@ def test_object():
         dtype=bool,
     )
 
-    assert_array_equal(convex_hull_object(image, connectivity=2), expected_conn_2)
+    assert_array_equal(
+        convex_hull_object(image, connectivity=2), expected_conn_2
+    )
 
     with testing.raises(ValueError):
         convex_hull_object(image, connectivity=3)

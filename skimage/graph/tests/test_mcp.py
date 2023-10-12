@@ -1,7 +1,11 @@
 import numpy as np
 import skimage.graph.mcp as mcp
 
-from skimage._shared.testing import assert_array_equal, assert_almost_equal, parametrize
+from skimage._shared.testing import (
+    assert_array_equal,
+    assert_almost_equal,
+    parametrize,
+)
 from skimage._shared._warnings import expected_warnings
 
 
@@ -82,7 +86,9 @@ def test_neg_inf():
 
 def test_route():
     with expected_warnings(['Upgrading NumPy' + warning_optional]):
-        return_path, cost = mcp.route_through_array(a, (1, 6), (7, 2), geometric=True)
+        return_path, cost = mcp.route_through_array(
+            a, (1, 6), (7, 2), geometric=True
+        )
     assert_almost_equal(cost, np.sqrt(2) / 2)
     assert_array_equal(
         return_path,
@@ -179,7 +185,9 @@ def _test_random(shape):
     with expected_warnings(['Upgrading NumPy' + warning_optional]):
         m = mcp.MCP(a, fully_connected=True)
     costs, offsets = m.find_costs(starts)
-    for point in [(np.random.rand(len(shape)) * shape).astype(int) for i in range(4)]:
+    for point in [
+        (np.random.rand(len(shape)) * shape).astype(int) for i in range(4)
+    ]:
         m.traceback(point)
     m._reset()
     m.find_costs(starts, ends)

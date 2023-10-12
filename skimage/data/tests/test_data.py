@@ -128,7 +128,9 @@ def test_binary_blobs():
     assert_almost_equal(blobs.mean(), 0.25, decimal=1)
     blobs = data.binary_blobs(length=32, volume_fraction=0.25, n_dim=3)
     assert_almost_equal(blobs.mean(), 0.25, decimal=1)
-    other_realization = data.binary_blobs(length=32, volume_fraction=0.25, n_dim=3)
+    other_realization = data.binary_blobs(
+        length=32, volume_fraction=0.25, n_dim=3
+    )
     assert not np.all(blobs == other_realization)
 
 

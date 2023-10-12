@@ -72,8 +72,12 @@ def _make_graph_edges_3d(n_x, n_y, n_z):
         Graph edges with each column describing a node-id pair.
     """
     vertices = np.arange(n_x * n_y * n_z).reshape((n_x, n_y, n_z))
-    edges_deep = np.vstack((vertices[..., :-1].ravel(), vertices[..., 1:].ravel()))
-    edges_right = np.vstack((vertices[:, :-1].ravel(), vertices[:, 1:].ravel()))
+    edges_deep = np.vstack(
+        (vertices[..., :-1].ravel(), vertices[..., 1:].ravel())
+    )
+    edges_right = np.vstack(
+        (vertices[:, :-1].ravel(), vertices[:, 1:].ravel())
+    )
     edges_down = np.vstack((vertices[:-1].ravel(), vertices[1:].ravel()))
     edges = np.hstack((edges_deep, edges_right, edges_down))
     return edges
@@ -144,12 +148,16 @@ def _build_laplacian(data, spacing, mask, beta, multichannel):
     i_indices = edges.ravel()
     j_indices = edges[::-1].ravel()
     data = np.hstack((weights, weights))
-    lap = sparse.coo_matrix((data, (i_indices, j_indices)), shape=(pixel_nb, pixel_nb))
+    lap = sparse.coo_matrix(
+        (data, (i_indices, j_indices)), shape=(pixel_nb, pixel_nb)
+    )
     lap.setdiag(-np.ravel(lap.sum(axis=0)))
     return lap.tocsr()
 
 
-def _build_linear_system(data, spacing, labels, nlabels, mask, beta, multichannel):
+def _build_linear_system(
+    data, spacing, labels, nlabels, mask, beta, multichannel
+):
     """
     Build the matrix A and rhs B of the linear system to solve.
     A and B are two block of the laplacian of the image graph.
@@ -174,7 +182,9 @@ def _build_linear_system(data, spacing, labels, nlabels, mask, beta, multichanne
 
     seeds = labels[seeds_mask]
     seeds_mask = sparse.csc_matrix(
-        np.hstack([np.atleast_2d(seeds == lab).T for lab in range(1, nlabels + 1)])
+        np.hstack(
+            [np.atleast_2d(seeds == lab).T for lab in range(1, nlabels + 1)]
+        )
     )
     rhs = B.dot(seeds_mask)
 
@@ -215,7 +225,14 @@ def _solve_linear_system(lap_sparse, B, tol, mode):
             M = ml.aspreconditioner(cycle='V')
             maxiter = 30
         cg_out = [
-            cg(lap_sparse, B[:, i].toarray(), tol=tol, atol=0, M=M, maxiter=maxiter)
+            cg(
+                lap_sparse,
+                B[:, i].toarray(),
+                tol=tol,
+                atol=0,
+                M=M,
+                maxiter=maxiter,
+            )
             for i in range(B.shape[1])
         ]
         if np.any([info > 0 for _, info in cg_out]):
@@ -263,7 +280,8 @@ def _preprocess(labels):
     # exist between pruned zones (they could not be determined)
     if label_values[0] < 0 or np.any(isolated):
         isolated = np.logical_and(
-            np.logical_not(ndi.binary_propagation(pos_mask, mask=mask)), null_mask
+            np.logical_not(ndi.binary_propagation(pos_mask, mask=mask)),
+            null_mask,
         )
 
         labels[isolated] = -1
@@ -494,7 +512,8 @@ def random_walker(
     if not multichannel:
         if data.ndim not in (2, 3):
             raise ValueError(
-                'For non-multichannel input, data must be of ' 'dimension 2 or 3.'
+                'For non-multichannel input, data must be of '
+                'dimension 2 or 3.'
             )
         if data.shape != labels.shape:
             raise ValueError('Incompatible data and labels shapes.')
@@ -516,7 +535,13 @@ def random_walker(
     if copy:
         labels = np.copy(labels)
 
-    (labels, nlabels, mask, inds_isolated_seeds, isolated_values) = _preprocess(labels)
+    (
+        labels,
+        nlabels,
+        mask,
+        inds_isolated_seeds,
+        isolated_values,
+    ) = _preprocess(labels)
 
     if isolated_values is None:
         # No non isolated zero valued areas in labels were
@@ -524,7 +549,11 @@ def random_walker(
         if return_full_prob:
             # Return the concatenation of the masks of each unique label
             return np.concatenate(
-                [np.atleast_3d(labels == lab) for lab in np.unique(labels) if lab > 0],
+                [
+                    np.atleast_3d(labels == lab)
+                    for lab in np.unique(labels)
+                    if lab > 0
+                ],
                 axis=-1,
             )
         return labels

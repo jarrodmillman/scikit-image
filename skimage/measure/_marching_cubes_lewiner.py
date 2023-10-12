@@ -168,7 +168,9 @@ def _marching_cubes_lewiner(
         raise ValueError('Input volume should be a 3D numpy array.')
     if volume.shape[0] < 2 or volume.shape[1] < 2 or volume.shape[2] < 2:
         raise ValueError("Input array must be at least 2x2x2.")
-    volume = np.ascontiguousarray(volume, np.float32)  # no copy if not necessary
+    volume = np.ascontiguousarray(
+        volume, np.float32
+    )  # no copy if not necessary
 
     # Check/convert other inputs:
     # level

@@ -289,7 +289,10 @@ def _inertia_eigvals_to_axes_lengths_3D(inertia_tensor_eigvals):
     """
     axis_lengths = []
     for ax in range(2, -1, -1):
-        w = sum(v * -1 if i == ax else v for i, v in enumerate(inertia_tensor_eigvals))
+        w = sum(
+            v * -1 if i == ax else v
+            for i, v in enumerate(inertia_tensor_eigvals)
+        )
         axis_lengths.append(sqrt(10 * w))
     return axis_lengths
 
@@ -356,7 +359,9 @@ class RegionProperties:
                         f"renaming it."
                     )
                     warn(msg)
-            self._extra_properties = {func.__name__: func for func in extra_properties}
+            self._extra_properties = {
+                func.__name__: func for func in extra_properties
+            }
 
     def __getattr__(self, attr):
         if self._intensity_image is None and attr in _require_intensity_image:
@@ -401,7 +406,9 @@ class RegionProperties:
             # retrieve deprecated property (excluding old CamelCase ones)
             return getattr(self, PROPS[attr])
         else:
-            raise AttributeError(f"'{type(self)}' object has no attribute '{attr}'")
+            raise AttributeError(
+                f"'{type(self)}' object has no attribute '{attr}'"
+            )
 
     def __setattr__(self, name, value):
         if name in PROPS:
@@ -455,13 +462,17 @@ class RegionProperties:
     @property
     def coords_scaled(self):
         indices = np.argwhere(self.image)
-        object_offset = np.array([self.slice[i].start for i in range(self._ndim)])
+        object_offset = np.array(
+            [self.slice[i].start for i in range(self._ndim)]
+        )
         return (object_offset + indices) * self._spacing + self._offset
 
     @property
     def coords(self):
         indices = np.argwhere(self.image)
-        object_offset = np.array([self.slice[i].start for i in range(self._ndim)])
+        object_offset = np.array(
+            [self.slice[i].start for i in range(self._ndim)]
+        )
         return object_offset + indices + self._offset
 
     @property
@@ -495,10 +506,14 @@ class RegionProperties:
         )
         if self._ndim == 2:
             coordinates = np.vstack(
-                find_contours(identity_convex_hull, 0.5, fully_connected='high')
+                find_contours(
+                    identity_convex_hull, 0.5, fully_connected='high'
+                )
             )
         elif self._ndim == 3:
-            coordinates, _, _, _ = marching_cubes(identity_convex_hull, level=0.5)
+            coordinates, _, _, _ = marching_cubes(
+                identity_convex_hull, level=0.5
+            )
         distances = pdist(coordinates * self._spacing, 'sqeuclidean')
         return sqrt(np.max(distances))
 
@@ -526,7 +541,9 @@ class RegionProperties:
     @property
     @_cached
     def inertia_tensor_eigvals(self):
-        return _moments.inertia_tensor_eigvals(self.image, T=self.inertia_tensor)
+        return _moments.inertia_tensor_eigvals(
+            self.image, T=self.inertia_tensor
+        )
 
     @property
     @_cached
@@ -596,7 +613,9 @@ class RegionProperties:
     @property
     @_cached
     def moments(self):
-        M = _moments.moments(self.image.astype(np.uint8), 3, spacing=self._spacing)
+        M = _moments.moments(
+            self.image.astype(np.uint8), 3, spacing=self._spacing
+        )
         return M
 
     @property
@@ -614,7 +633,9 @@ class RegionProperties:
     @only2d
     def moments_hu(self):
         if any(s != 1.0 for s in self._spacing):
-            raise NotImplementedError('`moments_hu` supports spacing = (1, 1) only')
+            raise NotImplementedError(
+                '`moments_hu` supports spacing = (1, 1) only'
+            )
         return _moments.moments_hu(self.moments_normalized)
 
     @property
@@ -640,14 +661,18 @@ class RegionProperties:
     @only2d
     def perimeter(self):
         if len(np.unique(self._spacing)) != 1:
-            raise NotImplementedError('`perimeter` supports isotropic spacings only')
+            raise NotImplementedError(
+                '`perimeter` supports isotropic spacings only'
+            )
         return perimeter(self.image, 4) * self._spacing[0]
 
     @property
     @only2d
     def perimeter_crofton(self):
         if len(np.unique(self._spacing)) != 1:
-            raise NotImplementedError('`perimeter` supports isotropic spacings only')
+            raise NotImplementedError(
+                '`perimeter` supports isotropic spacings only'
+            )
         return perimeter_crofton(self.image, 4) * self._spacing[0]
 
     @property
@@ -681,7 +706,9 @@ class RegionProperties:
         if self._multichannel:
             moments = np.stack(
                 [
-                    _moments.moments(image[..., i], order=3, spacing=self._spacing)
+                    _moments.moments(
+                        image[..., i], order=3, spacing=self._spacing
+                    )
                     for i in range(image.shape[-1])
                 ],
                 axis=-1,
@@ -698,7 +725,10 @@ class RegionProperties:
         if self._multichannel:
             moments_list = [
                 _moments.moments_central(
-                    image[..., i], center=ctr[..., i], order=3, spacing=self._spacing
+                    image[..., i],
+                    center=ctr[..., i],
+                    order=3,
+                    spacing=self._spacing,
                 )
                 for i in range(image.shape[-1])
             ]
@@ -713,7 +743,9 @@ class RegionProperties:
     @only2d
     def moments_weighted_hu(self):
         if not (np.array(self._spacing) == np.array([1, 1])).all():
-            raise NotImplementedError('`moments_hu` supports spacing = (1, 1) only')
+            raise NotImplementedError(
+                '`moments_hu` supports spacing = (1, 1) only'
+            )
         nu = self.moments_weighted_normalized
         if self._multichannel:
             nchannels = self._intensity_image.shape[-1]
@@ -740,7 +772,9 @@ class RegionProperties:
                 axis=-1,
             )
         else:
-            return _moments.moments_normalized(mu, order=3, spacing=self._spacing)
+            return _moments.moments_normalized(
+                mu, order=3, spacing=self._spacing
+            )
 
     def __iter__(self):
         props = PROP_VALS
@@ -892,7 +926,9 @@ def _props_to_dict(regions, properties=('label', 'bbox'), separator='-'):
             modified_props = []
             locs = []
             for ind in np.ndindex(np.shape(rp)):
-                modified_props.append(separator.join(map(str, (orig_prop,) + ind)))
+                modified_props.append(
+                    separator.join(map(str, (orig_prop,) + ind))
+                )
                 locs.append(ind if len(ind) > 1 else ind[0])
 
             # fill temporary column data_array
@@ -1063,7 +1099,9 @@ def regionprops_table(
         spacing=spacing,
     )
     if extra_properties is not None:
-        properties = list(properties) + [prop.__name__ for prop in extra_properties]
+        properties = list(properties) + [
+            prop.__name__ for prop in extra_properties
+        ]
     if len(regions) == 0:
         ndim = label_image.ndim
         label_image = np.zeros((3,) * ndim, dtype=int)
@@ -1081,7 +1119,9 @@ def regionprops_table(
             spacing=spacing,
         )
 
-        out_d = _props_to_dict(regions, properties=properties, separator=separator)
+        out_d = _props_to_dict(
+            regions, properties=properties, separator=separator
+        )
         return {k: v[:0] for k, v in out_d.items()}
 
     return _props_to_dict(regions, properties=properties, separator=separator)
@@ -1405,7 +1445,11 @@ def _parse_docs():
 def _install_properties_docs():
     prop_doc = _parse_docs()
 
-    for p in [member for member in dir(RegionProperties) if not member.startswith('_')]:
+    for p in [
+        member
+        for member in dir(RegionProperties)
+        if not member.startswith('_')
+    ]:
         getattr(RegionProperties, p).__doc__ = prop_doc[p]
 
 

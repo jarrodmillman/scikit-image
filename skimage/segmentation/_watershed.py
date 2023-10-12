@@ -20,7 +20,10 @@ from scipy import ndimage as ndi
 
 from . import _watershed_cy
 from ..morphology.extrema import local_minima
-from ..morphology._util import _validate_connectivity, _offsets_to_raveled_neighbors
+from ..morphology._util import (
+    _validate_connectivity,
+    _offsets_to_raveled_neighbors,
+)
 from ..util import crop, regular_seeds
 
 
@@ -65,12 +68,16 @@ def _validate_inputs(image, markers, mask, connectivity):
             raise ValueError(message)
     if markers is None:
         markers_bool = local_minima(image, connectivity=connectivity) * mask
-        footprint = ndi.generate_binary_structure(markers_bool.ndim, connectivity)
+        footprint = ndi.generate_binary_structure(
+            markers_bool.ndim, connectivity
+        )
         markers = ndi.label(markers_bool, structure=footprint)[0]
     elif not isinstance(markers, (np.ndarray, list, tuple)):
         # not array-like, assume int
         # given int, assume that number of markers *within mask*.
-        markers = regular_seeds(image.shape, int(markers / (n_pixels / image.size)))
+        markers = regular_seeds(
+            image.shape, int(markers / (n_pixels / image.size))
+        )
         markers *= mask
     else:
         markers = np.asanyarray(markers) * mask
@@ -204,7 +211,9 @@ def watershed(
     separate overlapping spheres.
     """
     image, markers, mask = _validate_inputs(image, markers, mask, connectivity)
-    connectivity, offset = _validate_connectivity(image.ndim, connectivity, offset)
+    connectivity, offset = _validate_connectivity(
+        image.ndim, connectivity, offset
+    )
 
     # pad the image, markers, and mask so that we can use the mask to
     # keep from running off the edges

@@ -12,7 +12,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from skimage.draw import ellipse
-from skimage.measure import find_contours, approximate_polygon, subdivide_polygon
+from skimage.measure import (
+    find_contours,
+    approximate_polygon,
+    subdivide_polygon,
+)
 
 
 hand = np.array(

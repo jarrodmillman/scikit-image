@@ -36,7 +36,9 @@ def test_overrange_tolerance_int():
 def test_overrange_tolerance_float():
     max_value = np.finfo(np.float32).max
 
-    image = np.random.uniform(size=(64, 64), low=-1.0, high=1.0).astype(np.float32)
+    image = np.random.uniform(size=(64, 64), low=-1.0, high=1.0).astype(
+        np.float32
+    )
     image *= max_value
 
     expected = np.ones_like(image)
@@ -192,7 +194,9 @@ def test_neighbors():
 
 def test_footprint():
     # Basic tests for nonstandard footprints
-    footprint = np.array([[0, 1, 1], [0, 1, 1], [0, 0, 0]])  # Cannot grow left or down
+    footprint = np.array(
+        [[0, 1, 1], [0, 1, 1], [0, 0, 0]]
+    )  # Cannot grow left or down
 
     output = flood_fill(
         np.zeros((5, 6), dtype=np.uint8), (3, 1), 255, footprint=footprint
@@ -211,7 +215,9 @@ def test_footprint():
 
     np.testing.assert_equal(output, expected)
 
-    footprint = np.array([[0, 0, 0], [1, 1, 0], [1, 1, 0]])  # Cannot grow right or up
+    footprint = np.array(
+        [[0, 0, 0], [1, 1, 0], [1, 1, 0]]
+    )  # Cannot grow right or up
 
     output = flood_fill(
         np.zeros((5, 6), dtype=np.uint8), (1, 4), 255, footprint=footprint

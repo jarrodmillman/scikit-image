@@ -25,7 +25,13 @@ dtype_range = {
 }
 
 
-img_funcs = (img_as_int, img_as_float64, img_as_float32, img_as_uint, img_as_ubyte)
+img_funcs = (
+    img_as_int,
+    img_as_float64,
+    img_as_float32,
+    img_as_uint,
+    img_as_ubyte,
+)
 dtypes_for_img_funcs = (np.int16, np.float64, np.float32, np.uint16, np.ubyte)
 img_funcs_and_types = zip(img_funcs, dtypes_for_img_funcs)
 
@@ -36,7 +42,9 @@ def _verify_range(msg, x, vmin, vmax, dtype):
     assert x.dtype == dtype
 
 
-@parametrize("dtype, f_and_dt", itertools.product(dtype_range, img_funcs_and_types))
+@parametrize(
+    "dtype, f_and_dt", itertools.product(dtype_range, img_funcs_and_types)
+)
 def test_range(dtype, f_and_dt):
     imin, imax = dtype_range[dtype]
     x = np.linspace(imin, imax, 10).astype(dtype)
@@ -52,7 +60,11 @@ def test_range(dtype, f_and_dt):
         imin = 0
 
     _verify_range(
-        f"From {np.dtype(dtype)} to {np.dtype(dt)}", y, omin, omax, np.dtype(dt)
+        f"From {np.dtype(dtype)} to {np.dtype(dt)}",
+        y,
+        omin,
+        omax,
+        np.dtype(dt),
     )
 
 
@@ -83,7 +95,11 @@ def test_range_extra_dtypes(dtype_in, dt):
 
     omin, omax = dtype_range_extra[dt]
     _verify_range(
-        f"From {np.dtype(dtype_in)} to {np.dtype(dt)}", y, omin, omax, np.dtype(dt)
+        f"From {np.dtype(dtype_in)} to {np.dtype(dt)}",
+        y,
+        omin,
+        omax,
+        np.dtype(dt),
     )
 
 
@@ -177,9 +193,9 @@ def test_float_conversion_dtype():
     x = np.array([-1, 1])
 
     # Test all combinations of dtypes conversions
-    dtype_combin = np.array(np.meshgrid(float_dtype_list, float_dtype_list)).T.reshape(
-        -1, 2
-    )
+    dtype_combin = np.array(
+        np.meshgrid(float_dtype_list, float_dtype_list)
+    ).T.reshape(-1, 2)
 
     for dtype_in, dtype_out in dtype_combin:
         x = x.astype(dtype_in)
@@ -194,9 +210,9 @@ def test_float_conversion_dtype_warns():
     x = np.array([-1, 1])
 
     # Test all combinations of dtypes conversions
-    dtype_combin = np.array(np.meshgrid(float_dtype_list, float_dtype_list)).T.reshape(
-        -1, 2
-    )
+    dtype_combin = np.array(
+        np.meshgrid(float_dtype_list, float_dtype_list)
+    ).T.reshape(-1, 2)
 
     for dtype_in, dtype_out in dtype_combin:
         x = x.astype(dtype_in)

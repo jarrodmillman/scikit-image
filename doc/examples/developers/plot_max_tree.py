@@ -60,11 +60,15 @@ def plot_img(ax, image, title, plot_text, image_values):
 
     for x in np.arange(-0.5, image.shape[0], 1.0):
         ax.add_artist(
-            Line2D((x, x), (-0.5, image.shape[0] - 0.5), color='blue', linewidth=2)
+            Line2D(
+                (x, x), (-0.5, image.shape[0] - 0.5), color='blue', linewidth=2
+            )
         )
 
     for y in np.arange(-0.5, image.shape[1], 1.0):
-        ax.add_artist(Line2D((-0.5, image.shape[1]), (y, y), color='blue', linewidth=2))
+        ax.add_artist(
+            Line2D((-0.5, image.shape[1]), (y, y), color='blue', linewidth=2)
+        )
 
     if plot_text:
         for i, j in np.ndindex(*image_values.shape):
@@ -121,7 +125,9 @@ def position_nodes_for_max_tree(G, image_rav, root_x=4, delta_x=1.2):
         in_nodes = [y for y in canonical_max_tree.predecessors(node)]
 
         # place the nodes at the same level
-        level_nodes = [y for y in filter(lambda x: image_rav[x] == value, in_nodes)]
+        level_nodes = [
+            y for y in filter(lambda x: image_rav[x] == value, in_nodes)
+        ]
         nb_level_nodes = len(level_nodes) + 1
 
         c = nb_level_nodes // 2
@@ -165,7 +171,9 @@ def position_nodes_for_max_tree(G, image_rav, root_x=4, delta_x=1.2):
     return pos
 
 
-def plot_tree(graph, positions, ax, *, title='', labels=None, font_size=8, text_size=8):
+def plot_tree(
+    graph, positions, ax, *, title='', labels=None, font_size=8, text_size=8
+):
     """Plot max and component trees."""
     nx.draw_networkx(
         graph,
@@ -231,7 +239,13 @@ raveled_indices = np.arange(image.size).reshape(image.shape)
 
 fig, (ax1, ax2, ax3) = plt.subplots(1, 3, sharey=True, figsize=(9, 3))
 
-plot_img(ax1, image - image.min(), 'Image Values', plot_text=True, image_values=image)
+plot_img(
+    ax1,
+    image - image.min(),
+    'Image Values',
+    plot_text=True,
+    image_values=image,
+)
 plot_img(
     ax2,
     image - image.min(),
@@ -239,7 +253,13 @@ plot_img(
     plot_text=True,
     image_values=raveled_indices,
 )
-plot_img(ax3, image - image.min(), 'Max-tree indices', plot_text=True, image_values=P)
+plot_img(
+    ax3,
+    image - image.min(),
+    'Max-tree indices',
+    plot_text=True,
+    image_values=P,
+)
 
 
 #####################################################################
@@ -303,7 +323,9 @@ total = accumulate(nx_max_tree, S[0], labels_ct)
 pos_cmt = position_nodes_for_max_tree(canonical_max_tree, image_rav)
 
 # positions of nodes : max-tree (MT)
-pos_mt = dict(zip(nx_max_tree.nodes, [pos_cmt[node] for node in nx_max_tree.nodes]))
+pos_mt = dict(
+    zip(nx_max_tree.nodes, [pos_cmt[node] for node in nx_max_tree.nodes])
+)
 
 # plot the trees with networkx and matplotlib
 fig, (ax1, ax2, ax3) = plt.subplots(1, 3, sharey=True, figsize=(20, 8))

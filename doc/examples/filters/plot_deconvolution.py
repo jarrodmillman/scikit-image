@@ -52,5 +52,7 @@ ax[2].imshow(deconvolved_RL, vmin=astro_noisy.min(), vmax=astro_noisy.max())
 ax[2].set_title('Restoration using\nRichardson-Lucy')
 
 
-fig.subplots_adjust(wspace=0.02, hspace=0.2, top=0.9, bottom=0.05, left=0, right=1)
+fig.subplots_adjust(
+    wspace=0.02, hspace=0.2, top=0.9, bottom=0.05, left=0, right=1
+)
 plt.show()

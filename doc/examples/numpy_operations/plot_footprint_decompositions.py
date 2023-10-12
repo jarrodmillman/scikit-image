@@ -120,7 +120,9 @@ fontdict = dict(fontsize=16, fontweight='bold')
 for title, (footprint, footprint_sequence) in footprint_dict.items():
     ndim = footprint.ndim
     num_seq = len(footprint_sequence)
-    approximate_decomposition = 'ball' in title or 'disk' in title or 'ellipse' in title
+    approximate_decomposition = (
+        'ball' in title or 'disk' in title or 'ellipse' in title
+    )
     if approximate_decomposition:
         # Two extra plot in approximate cases to show both:
         # 1.) decomposition=None idea footprint
@@ -139,7 +141,9 @@ for title, (footprint, footprint_sequence) in footprint_dict.items():
             ax2.imshow(footprint_composite, cmap=cmap, vmin=0, vmax=1)
 
     else:
-        ax = fig.add_subplot(1, num_subplots, num_subplots, projection=Axes3D.name)
+        ax = fig.add_subplot(
+            1, num_subplots, num_subplots, projection=Axes3D.name
+        )
         ax.voxels(footprint, cmap=cmap)
         if approximate_decomposition:
             ax2 = fig.add_subplot(
@@ -162,13 +166,17 @@ for title, (footprint, footprint_sequence) in footprint_dict.items():
         ax2.set_axis_off()
 
     for n, (fp, num_reps) in enumerate(footprint_sequence):
-        npad = [((footprint.shape[d] - fp.shape[d]) // 2,) * 2 for d in range(ndim)]
+        npad = [
+            ((footprint.shape[d] - fp.shape[d]) // 2,) * 2 for d in range(ndim)
+        ]
         fp = np.pad(fp, npad, mode='constant')
         if ndim == 2:
             ax = fig.add_subplot(1, num_subplots, n + 1)
             ax.imshow(fp, cmap=cmap, vmin=0, vmax=1)
         else:
-            ax = fig.add_subplot(1, num_subplots, n + 1, projection=Axes3D.name)
+            ax = fig.add_subplot(
+                1, num_subplots, n + 1, projection=Axes3D.name
+            )
             ax.voxels(fp, cmap=cmap)
         title = f"element {n + 1} of {num_seq}\n({num_reps} iteration"
         title += "s)" if num_reps > 1 else ")"

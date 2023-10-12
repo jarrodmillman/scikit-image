@@ -11,14 +11,18 @@ img = data.coins()
 
 
 @run_in_parallel()
-@pytest.mark.parametrize('dtype', ['float32', 'float64', 'uint8', 'uint16', 'int64'])
+@pytest.mark.parametrize(
+    'dtype', ['float32', 'float64', 'uint8', 'uint16', 'int64']
+)
 def test_keypoints_sift(dtype):
     _img = _convert(img, dtype)
     detector_extractor = SIFT()
     detector_extractor.detect_and_extract(_img)
 
     exp_keypoint_rows = np.array([18, 18, 19, 22, 26, 26, 30, 31, 31, 32])
-    exp_keypoint_cols = np.array([331, 331, 325, 330, 310, 330, 205, 323, 149, 338])
+    exp_keypoint_cols = np.array(
+        [331, 331, 325, 330, 310, 330, 205, 323, 149, 338]
+    )
 
     exp_octaves = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 
@@ -95,8 +99,12 @@ def test_keypoints_sift(dtype):
         ]
     )
 
-    assert_almost_equal(exp_keypoint_rows, detector_extractor.keypoints[:10, 0])
-    assert_almost_equal(exp_keypoint_cols, detector_extractor.keypoints[:10, 1])
+    assert_almost_equal(
+        exp_keypoint_rows, detector_extractor.keypoints[:10, 0]
+    )
+    assert_almost_equal(
+        exp_keypoint_cols, detector_extractor.keypoints[:10, 1]
+    )
     assert_almost_equal(exp_octaves, detector_extractor.octaves[:10])
     assert_almost_equal(
         exp_position_rows, detector_extractor.positions[:10, 0], decimal=4
@@ -117,10 +125,12 @@ def test_keypoints_sift(dtype):
     detector_extractor2.detect(img)
     detector_extractor2.extract(img)
     assert_almost_equal(
-        detector_extractor.keypoints[:10, 0], detector_extractor2.keypoints[:10, 0]
+        detector_extractor.keypoints[:10, 0],
+        detector_extractor2.keypoints[:10, 0],
     )
     assert_almost_equal(
-        detector_extractor.keypoints[:10, 0], detector_extractor2.keypoints[:10, 0]
+        detector_extractor.keypoints[:10, 0],
+        detector_extractor2.keypoints[:10, 0],
     )
 
 
@@ -128,15 +138,168 @@ def test_descriptor_sift():
     detector_extractor = SIFT(n_hist=2, n_ori=4)
     exp_descriptors = np.array(
         [
-            [173, 30, 55, 32, 173, 16, 45, 82, 173, 154, 170, 173, 173, 169, 65, 110],
-            [173, 30, 55, 32, 173, 16, 45, 82, 173, 154, 170, 173, 173, 169, 65, 110],
-            [189, 52, 18, 18, 189, 11, 21, 55, 189, 75, 173, 91, 189, 65, 189, 162],
-            [172, 156, 185, 66, 92, 76, 78, 185, 185, 87, 88, 82, 98, 56, 96, 185],
-            [216, 19, 40, 9, 196, 7, 57, 36, 216, 56, 158, 29, 216, 42, 144, 154],
-            [169, 120, 169, 91, 129, 108, 169, 67, 169, 142, 111, 95, 169, 120, 69, 41],
-            [199, 10, 138, 44, 178, 11, 161, 34, 199, 113, 73, 64, 199, 82, 31, 178],
-            [154, 56, 154, 49, 144, 154, 154, 78, 154, 51, 154, 83, 154, 154, 154, 72],
-            [230, 46, 47, 21, 230, 15, 65, 95, 230, 52, 72, 51, 230, 19, 59, 130],
+            [
+                173,
+                30,
+                55,
+                32,
+                173,
+                16,
+                45,
+                82,
+                173,
+                154,
+                170,
+                173,
+                173,
+                169,
+                65,
+                110,
+            ],
+            [
+                173,
+                30,
+                55,
+                32,
+                173,
+                16,
+                45,
+                82,
+                173,
+                154,
+                170,
+                173,
+                173,
+                169,
+                65,
+                110,
+            ],
+            [
+                189,
+                52,
+                18,
+                18,
+                189,
+                11,
+                21,
+                55,
+                189,
+                75,
+                173,
+                91,
+                189,
+                65,
+                189,
+                162,
+            ],
+            [
+                172,
+                156,
+                185,
+                66,
+                92,
+                76,
+                78,
+                185,
+                185,
+                87,
+                88,
+                82,
+                98,
+                56,
+                96,
+                185,
+            ],
+            [
+                216,
+                19,
+                40,
+                9,
+                196,
+                7,
+                57,
+                36,
+                216,
+                56,
+                158,
+                29,
+                216,
+                42,
+                144,
+                154,
+            ],
+            [
+                169,
+                120,
+                169,
+                91,
+                129,
+                108,
+                169,
+                67,
+                169,
+                142,
+                111,
+                95,
+                169,
+                120,
+                69,
+                41,
+            ],
+            [
+                199,
+                10,
+                138,
+                44,
+                178,
+                11,
+                161,
+                34,
+                199,
+                113,
+                73,
+                64,
+                199,
+                82,
+                31,
+                178,
+            ],
+            [
+                154,
+                56,
+                154,
+                49,
+                144,
+                154,
+                154,
+                78,
+                154,
+                51,
+                154,
+                83,
+                154,
+                154,
+                154,
+                72,
+            ],
+            [
+                230,
+                46,
+                47,
+                21,
+                230,
+                15,
+                65,
+                95,
+                230,
+                52,
+                72,
+                51,
+                230,
+                19,
+                59,
+                130,
+            ],
             [
                 155,
                 117,

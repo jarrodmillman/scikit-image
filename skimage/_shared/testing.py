@@ -254,7 +254,9 @@ def setup_test():
         )
 
         warnings.filterwarnings(
-            'default', message='numpy.ufunc size changed', category=RuntimeWarning
+            'default',
+            message='numpy.ufunc size changed',
+            category=RuntimeWarning,
         )
 
         warnings.filterwarnings(
@@ -318,7 +320,9 @@ def fetch(data_filename):
     try:
         return _fetch(data_filename)
     except (ConnectionError, ModuleNotFoundError):
-        pytest.skip(f'Unable to download {data_filename}', allow_module_level=True)
+        pytest.skip(
+            f'Unable to download {data_filename}', allow_module_level=True
+        )
 
 
 def run_in_parallel(num_threads=2, warnings_matching=None):
@@ -348,7 +352,9 @@ def run_in_parallel(num_threads=2, warnings_matching=None):
             with expected_warnings(warnings_matching):
                 threads = []
                 for i in range(num_threads - 1):
-                    thread = threading.Thread(target=func, args=args, kwargs=kwargs)
+                    thread = threading.Thread(
+                        target=func, args=args, kwargs=kwargs
+                    )
                     threads.append(thread)
                 for thread in threads:
                     thread.start()

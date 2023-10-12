@@ -23,7 +23,9 @@ def _get_high_intensity_peaks(image, mask, num_peaks, min_distance, p_norm):
     else:
         max_out = None
 
-    coord = ensure_spacing(coord, spacing=min_distance, p_norm=p_norm, max_out=max_out)
+    coord = ensure_spacing(
+        coord, spacing=min_distance, p_norm=p_norm, max_out=max_out
+    )
 
     if len(coord) > num_peaks:
         coord = coord[:num_peaks]
@@ -101,7 +103,9 @@ def _get_excluded_border_width(image, min_distance, exclude_border):
                     "contain ints."
                 )
             if exclude < 0:
-                raise ValueError("`exclude_border` can not be a negative value")
+                raise ValueError(
+                    "`exclude_border` can not be a negative value"
+                )
         border_width = exclude_border
     else:
         raise TypeError(
@@ -239,7 +243,9 @@ def peak_local_max(
             stacklevel=2,
         )
 
-    border_width = _get_excluded_border_width(image, min_distance, exclude_border)
+    border_width = _get_excluded_border_width(
+        image, min_distance, exclude_border
+    )
 
     threshold = _get_threshold(image, threshold_abs, threshold_rel)
 
@@ -261,7 +267,9 @@ def peak_local_max(
         )
 
     else:
-        _labels = _exclude_border(labels.astype(int, casting="safe"), border_width)
+        _labels = _exclude_border(
+            labels.astype(int, casting="safe"), border_width
+        )
 
         if np.issubdtype(image.dtype, np.floating):
             bg_val = np.finfo(image.dtype).min

@@ -119,7 +119,9 @@ def max_tree(image, connectivity=1):
         np.moveaxis(mask, k, 0)[0] = 0
         np.moveaxis(mask, k, 0)[-1] = 0
 
-    neighbors, offset = _validate_connectivity(image.ndim, connectivity, offset=None)
+    neighbors, offset = _validate_connectivity(
+        image.ndim, connectivity, offset=None
+    )
 
     # initialization of the parent image
     parent = np.zeros(image.shape, dtype=np.int64)
@@ -249,7 +251,9 @@ def area_opening(
     if parent is None or tree_traverser is None:
         parent, tree_traverser = max_tree(image, connectivity)
 
-    area = _max_tree._compute_area(image.ravel(), parent.ravel(), tree_traverser)
+    area = _max_tree._compute_area(
+        image.ravel(), parent.ravel(), tree_traverser
+    )
 
     _max_tree._direct_filter(
         image.ravel(),
@@ -263,7 +267,11 @@ def area_opening(
 
 
 def diameter_opening(
-    image, diameter_threshold=8, connectivity=1, parent=None, tree_traverser=None
+    image,
+    diameter_threshold=8,
+    connectivity=1,
+    parent=None,
+    tree_traverser=None,
 ):
     """Perform a diameter opening of the image.
 
@@ -477,7 +485,9 @@ def area_closing(
     if parent is None or tree_traverser is None:
         parent, tree_traverser = max_tree(image_inv, connectivity)
 
-    area = _max_tree._compute_area(image_inv.ravel(), parent.ravel(), tree_traverser)
+    area = _max_tree._compute_area(
+        image_inv.ravel(), parent.ravel(), tree_traverser
+    )
 
     _max_tree._direct_filter(
         image_inv.ravel(),
@@ -495,7 +505,11 @@ def area_closing(
 
 
 def diameter_closing(
-    image, diameter_threshold=8, connectivity=1, parent=None, tree_traverser=None
+    image,
+    diameter_threshold=8,
+    connectivity=1,
+    parent=None,
+    tree_traverser=None,
 ):
     """Perform a diameter closing of the image.
 
@@ -609,7 +623,9 @@ def diameter_closing(
     return output
 
 
-def max_tree_local_maxima(image, connectivity=1, parent=None, tree_traverser=None):
+def max_tree_local_maxima(
+    image, connectivity=1, parent=None, tree_traverser=None
+):
     """Determine all local maxima of the image.
 
     The local maxima are defined as connected sets of pixels with equal

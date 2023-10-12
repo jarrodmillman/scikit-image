@@ -135,7 +135,9 @@ def _preprocess_input(
 
     footprint = np.ascontiguousarray(img_as_ubyte(footprint > 0))
     if footprint.ndim != image.ndim:
-        raise ValueError('Image dimensions and neighborhood dimensions' 'do not match')
+        raise ValueError(
+            'Image dimensions and neighborhood dimensions' 'do not match'
+        )
 
     image = np.ascontiguousarray(image)
 
@@ -222,7 +224,9 @@ def _handle_input_3D(
 
     footprint = np.ascontiguousarray(img_as_ubyte(footprint > 0))
     if footprint.ndim != image.ndim:
-        raise ValueError('Image dimensions and neighborhood dimensions' 'do not match')
+        raise ValueError(
+            'Image dimensions and neighborhood dimensions' 'do not match'
+        )
     image = np.ascontiguousarray(image)
 
     if mask is None:
@@ -307,7 +311,15 @@ def _apply_scalar_per_pixel(
 
 
 def _apply_scalar_per_pixel_3D(
-    func, image, footprint, out, mask, shift_x, shift_y, shift_z, out_dtype=None
+    func,
+    image,
+    footprint,
+    out,
+    mask,
+    shift_x,
+    shift_y,
+    shift_z,
+    out_dtype=None,
 ):
     image, footprint, out, mask, n_bins = _handle_input_3D(
         image, footprint, out, mask, out_dtype
@@ -328,7 +340,15 @@ def _apply_scalar_per_pixel_3D(
 
 
 def _apply_vector_per_pixel(
-    func, image, footprint, out, mask, shift_x, shift_y, out_dtype=None, pixel_size=1
+    func,
+    image,
+    footprint,
+    out,
+    mask,
+    shift_x,
+    shift_y,
+    out_dtype=None,
+    pixel_size=1,
 ):
     """
 
@@ -385,7 +405,13 @@ def _apply_vector_per_pixel(
 
 
 def autolevel(
-    image, footprint, out=None, mask=None, shift_x=False, shift_y=False, shift_z=False
+    image,
+    footprint,
+    out=None,
+    mask=None,
+    shift_x=False,
+    shift_y=False,
+    shift_z=False,
 ):
     """Auto-level image using local histogram.
 
@@ -448,11 +474,19 @@ def autolevel(
             shift_y=shift_y,
             shift_z=shift_z,
         )
-    raise ValueError(f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.')
+    raise ValueError(
+        f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.'
+    )
 
 
 def equalize(
-    image, footprint, out=None, mask=None, shift_x=False, shift_y=False, shift_z=False
+    image,
+    footprint,
+    out=None,
+    mask=None,
+    shift_x=False,
+    shift_y=False,
+    shift_z=False,
 ):
     """Equalize image using local histogram.
 
@@ -512,11 +546,19 @@ def equalize(
             shift_y=shift_y,
             shift_z=shift_z,
         )
-    raise ValueError(f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.')
+    raise ValueError(
+        f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.'
+    )
 
 
 def gradient(
-    image, footprint, out=None, mask=None, shift_x=False, shift_y=False, shift_z=False
+    image,
+    footprint,
+    out=None,
+    mask=None,
+    shift_x=False,
+    shift_y=False,
+    shift_z=False,
 ):
     """Return local gradient of an image (i.e. local maximum - local minimum).
 
@@ -576,11 +618,19 @@ def gradient(
             shift_y=shift_y,
             shift_z=shift_z,
         )
-    raise ValueError(f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.')
+    raise ValueError(
+        f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.'
+    )
 
 
 def maximum(
-    image, footprint, out=None, mask=None, shift_x=False, shift_y=False, shift_z=False
+    image,
+    footprint,
+    out=None,
+    mask=None,
+    shift_x=False,
+    shift_y=False,
+    shift_z=False,
 ):
     """Return local maximum of an image.
 
@@ -649,11 +699,19 @@ def maximum(
             shift_y=shift_y,
             shift_z=shift_z,
         )
-    raise ValueError(f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.')
+    raise ValueError(
+        f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.'
+    )
 
 
 def mean(
-    image, footprint, out=None, mask=None, shift_x=False, shift_y=False, shift_z=False
+    image,
+    footprint,
+    out=None,
+    mask=None,
+    shift_x=False,
+    shift_y=False,
+    shift_z=False,
 ):
     """Return local mean of an image.
 
@@ -713,11 +771,19 @@ def mean(
             shift_y=shift_y,
             shift_z=shift_z,
         )
-    raise ValueError(f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.')
+    raise ValueError(
+        f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.'
+    )
 
 
 def geometric_mean(
-    image, footprint, out=None, mask=None, shift_x=False, shift_y=False, shift_z=False
+    image,
+    footprint,
+    out=None,
+    mask=None,
+    shift_x=False,
+    shift_y=False,
+    shift_z=False,
 ):
     """Return local geometric mean of an image.
 
@@ -782,11 +848,19 @@ def geometric_mean(
             shift_y=shift_y,
             shift_z=shift_z,
         )
-    raise ValueError(f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.')
+    raise ValueError(
+        f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.'
+    )
 
 
 def subtract_mean(
-    image, footprint, out=None, mask=None, shift_x=False, shift_y=False, shift_z=False
+    image,
+    footprint,
+    out=None,
+    mask=None,
+    shift_x=False,
+    shift_y=False,
+    shift_z=False,
 ):
     """Return image subtracted from its local mean.
 
@@ -854,7 +928,9 @@ def subtract_mean(
             shift_y=shift_y,
             shift_z=shift_z,
         )
-    raise ValueError(f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.')
+    raise ValueError(
+        f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.'
+    )
 
 
 def median(
@@ -932,11 +1008,19 @@ def median(
             shift_y=shift_y,
             shift_z=shift_z,
         )
-    raise ValueError(f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.')
+    raise ValueError(
+        f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.'
+    )
 
 
 def minimum(
-    image, footprint, out=None, mask=None, shift_x=False, shift_y=False, shift_z=False
+    image,
+    footprint,
+    out=None,
+    mask=None,
+    shift_x=False,
+    shift_y=False,
+    shift_z=False,
 ):
     """Return local minimum of an image.
 
@@ -1005,11 +1089,19 @@ def minimum(
             shift_y=shift_y,
             shift_z=shift_z,
         )
-    raise ValueError(f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.')
+    raise ValueError(
+        f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.'
+    )
 
 
 def modal(
-    image, footprint, out=None, mask=None, shift_x=False, shift_y=False, shift_z=False
+    image,
+    footprint,
+    out=None,
+    mask=None,
+    shift_x=False,
+    shift_y=False,
+    shift_z=False,
 ):
     """Return local mode of an image.
 
@@ -1071,11 +1163,19 @@ def modal(
             shift_y=shift_y,
             shift_z=shift_z,
         )
-    raise ValueError(f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.')
+    raise ValueError(
+        f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.'
+    )
 
 
 def enhance_contrast(
-    image, footprint, out=None, mask=None, shift_x=False, shift_y=False, shift_z=False
+    image,
+    footprint,
+    out=None,
+    mask=None,
+    shift_x=False,
+    shift_y=False,
+    shift_z=False,
 ):
     """Enhance contrast of an image.
 
@@ -1139,11 +1239,19 @@ def enhance_contrast(
             shift_y=shift_y,
             shift_z=shift_z,
         )
-    raise ValueError(f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.')
+    raise ValueError(
+        f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.'
+    )
 
 
 def pop(
-    image, footprint, out=None, mask=None, shift_x=False, shift_y=False, shift_z=False
+    image,
+    footprint,
+    out=None,
+    mask=None,
+    shift_x=False,
+    shift_y=False,
+    shift_z=False,
 ):
     """Return the local number (population) of pixels.
 
@@ -1210,11 +1318,19 @@ def pop(
             shift_y=shift_y,
             shift_z=shift_z,
         )
-    raise ValueError(f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.')
+    raise ValueError(
+        f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.'
+    )
 
 
 def sum(
-    image, footprint, out=None, mask=None, shift_x=False, shift_y=False, shift_z=False
+    image,
+    footprint,
+    out=None,
+    mask=None,
+    shift_x=False,
+    shift_y=False,
+    shift_z=False,
 ):
     """Return the local sum of pixels.
 
@@ -1281,11 +1397,19 @@ def sum(
             shift_y=shift_y,
             shift_z=shift_z,
         )
-    raise ValueError(f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.')
+    raise ValueError(
+        f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.'
+    )
 
 
 def threshold(
-    image, footprint, out=None, mask=None, shift_x=False, shift_y=False, shift_z=False
+    image,
+    footprint,
+    out=None,
+    mask=None,
+    shift_x=False,
+    shift_y=False,
+    shift_z=False,
 ):
     """Local threshold of an image.
 
@@ -1352,11 +1476,19 @@ def threshold(
             shift_y=shift_y,
             shift_z=shift_z,
         )
-    raise ValueError(f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.')
+    raise ValueError(
+        f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.'
+    )
 
 
 def noise_filter(
-    image, footprint, out=None, mask=None, shift_x=False, shift_y=False, shift_z=False
+    image,
+    footprint,
+    out=None,
+    mask=None,
+    shift_x=False,
+    shift_y=False,
+    shift_z=False,
 ):
     """Noise feature.
 
@@ -1441,11 +1573,19 @@ def noise_filter(
             shift_z=shift_z,
         )
 
-    raise ValueError(f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.')
+    raise ValueError(
+        f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.'
+    )
 
 
 def entropy(
-    image, footprint, out=None, mask=None, shift_x=False, shift_y=False, shift_z=False
+    image,
+    footprint,
+    out=None,
+    mask=None,
+    shift_x=False,
+    shift_y=False,
+    shift_z=False,
 ):
     """Local entropy.
 
@@ -1515,11 +1655,19 @@ def entropy(
             shift_z=shift_z,
             out_dtype=np.float64,
         )
-    raise ValueError(f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.')
+    raise ValueError(
+        f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.'
+    )
 
 
 def otsu(
-    image, footprint, out=None, mask=None, shift_x=False, shift_y=False, shift_z=False
+    image,
+    footprint,
+    out=None,
+    mask=None,
+    shift_x=False,
+    shift_y=False,
+    shift_z=False,
 ):
     """Local Otsu's threshold value for each pixel.
 
@@ -1585,11 +1733,19 @@ def otsu(
             shift_y=shift_y,
             shift_z=shift_z,
         )
-    raise ValueError(f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.')
+    raise ValueError(
+        f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.'
+    )
 
 
 def windowed_histogram(
-    image, footprint, out=None, mask=None, shift_x=False, shift_y=False, n_bins=None
+    image,
+    footprint,
+    out=None,
+    mask=None,
+    shift_x=False,
+    shift_y=False,
+    n_bins=None,
 ):
     """Normalized sliding window histogram
 
@@ -1718,4 +1874,6 @@ def majority(
             shift_y=shift_y,
             shift_z=shift_z,
         )
-    raise ValueError(f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.')
+    raise ValueError(
+        f'`image` must have 2 or 3 dimensions, got {np_image.ndim}.'
+    )

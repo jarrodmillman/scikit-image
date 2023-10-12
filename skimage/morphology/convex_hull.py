@@ -161,9 +161,13 @@ def convex_hull_image(
         # points (3) in the mask, otherwise only the inside of the hull (1)
         mask = labels >= 1 if include_borders else labels == 1
     else:
-        gridcoords = np.reshape(np.mgrid[tuple(map(slice, image.shape))], (ndim, -1))
+        gridcoords = np.reshape(
+            np.mgrid[tuple(map(slice, image.shape))], (ndim, -1)
+        )
 
-        coords_in_hull = _check_coords_in_hull(gridcoords, hull.equations, tolerance)
+        coords_in_hull = _check_coords_in_hull(
+            gridcoords, hull.equations, tolerance
+        )
         mask = np.reshape(coords_in_hull, image.shape)
 
     return mask

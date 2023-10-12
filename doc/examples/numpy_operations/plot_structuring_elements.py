@@ -34,7 +34,11 @@ struc_2d = {
     "star(5)": star(5),
 }
 
-struc_3d = {"cube(11)": cube(11), "octahedron(5)": octahedron(5), "ball(5)": ball(5)}
+struc_3d = {
+    "cube(11)": cube(11),
+    "octahedron(5)": octahedron(5),
+    "ball(5)": ball(5),
+}
 
 # Visualize the elements.
 fig = plt.figure(figsize=(8, 8))

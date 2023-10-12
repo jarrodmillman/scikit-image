@@ -106,7 +106,9 @@ def test_relabel_sequential_signed_overflow():
     imax = np.iinfo(np.int32).max
     labels = np.array([0, 1, 99, 42, 42], dtype=np.int32)
     output, fw, inv = relabel_sequential(labels, offset=imax)
-    reference = np.array([0, imax, imax + 2, imax + 1, imax + 1], dtype=np.uint32)
+    reference = np.array(
+        [0, imax, imax + 2, imax + 1, imax + 1], dtype=np.uint32
+    )
     assert_array_equal(output, reference)
     assert output.dtype == reference.dtype
 
@@ -134,7 +136,9 @@ def test_very_large_labels():
     ),
 )
 @pytest.mark.parametrize('data_already_sequential', (False, True))
-def test_relabel_sequential_int_dtype_stability(data_already_sequential, dtype):
+def test_relabel_sequential_int_dtype_stability(
+    data_already_sequential, dtype
+):
     if data_already_sequential:
         ar = np.array([1, 3, 0, 2, 5, 4], dtype=dtype)
     else:
@@ -161,7 +165,9 @@ def test_relabel_sequential_negative_values():
 
 @pytest.mark.parametrize('offset', (0, -3))
 @pytest.mark.parametrize('data_already_sequential', (False, True))
-def test_relabel_sequential_nonpositive_offset(data_already_sequential, offset):
+def test_relabel_sequential_nonpositive_offset(
+    data_already_sequential, offset
+):
     if data_already_sequential:
         ar = np.array([1, 3, 0, 2, 5, 4])
     else:
@@ -173,7 +179,9 @@ def test_relabel_sequential_nonpositive_offset(data_already_sequential, offset):
 @pytest.mark.parametrize('offset', (1, 5))
 @pytest.mark.parametrize('with0', (False, True))
 @pytest.mark.parametrize('input_starts_at_offset', (False, True))
-def test_relabel_sequential_already_sequential(offset, with0, input_starts_at_offset):
+def test_relabel_sequential_already_sequential(
+    offset, with0, input_starts_at_offset
+):
     if with0:
         ar = np.array([1, 3, 0, 2, 5, 4])
     else:

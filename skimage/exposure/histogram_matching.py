@@ -20,7 +20,9 @@ def _match_cumulative_cdf(source, template):
         src_values, src_lookup, src_counts = np.unique(
             source.reshape(-1), return_inverse=True, return_counts=True
         )
-        tmpl_values, tmpl_counts = np.unique(template.reshape(-1), return_counts=True)
+        tmpl_values, tmpl_counts = np.unique(
+            template.reshape(-1), return_counts=True
+        )
 
     # calculate normalized quantiles for each array
     src_quantiles = np.cumsum(src_counts) / source.size

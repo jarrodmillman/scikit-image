@@ -4,7 +4,9 @@ from .._shared.utils import _supported_float_type
 from ._rolling_ball_cy import apply_kernel, apply_kernel_nan
 
 
-def rolling_ball(image, *, radius=100, kernel=None, nansafe=False, num_threads=None):
+def rolling_ball(
+    image, *, radius=100, kernel=None, nansafe=False, num_threads=None
+):
     """Estimate background intensity by rolling/translating a kernel.
 
     This rolling ball algorithm estimates background intensity for a
@@ -98,7 +100,10 @@ def rolling_ball(image, *, radius=100, kernel=None, nansafe=False, num_threads=N
     intensity_difference = intensity_difference.reshape(-1)
 
     img = np.pad(
-        img, kernel_center[:, np.newaxis], constant_values=np.inf, mode="constant"
+        img,
+        kernel_center[:, np.newaxis],
+        constant_values=np.inf,
+        mode="constant",
     )
 
     func = apply_kernel_nan if nansafe else apply_kernel
@@ -141,7 +146,8 @@ def ball_kernel(radius, ndim):
 
     kernel_coords = np.stack(
         np.meshgrid(
-            *[np.arange(-x, x + 1) for x in [np.ceil(radius)] * ndim], indexing='ij'
+            *[np.arange(-x, x + 1) for x in [np.ceil(radius)] * ndim],
+            indexing='ij',
         ),
         axis=-1,
     )
@@ -181,7 +187,8 @@ def ellipsoid_kernel(shape, intensity):
     semi_axis = np.clip(shape // 2, 1, None)
 
     kernel_coords = np.stack(
-        np.meshgrid(*[np.arange(-x, x + 1) for x in semi_axis], indexing='ij'), axis=-1
+        np.meshgrid(*[np.arange(-x, x + 1) for x in semi_axis], indexing='ij'),
+        axis=-1,
     )
 
     intensity_scaling = 1 - np.sum((kernel_coords / semi_axis) ** 2, axis=-1)

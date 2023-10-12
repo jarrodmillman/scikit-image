@@ -302,7 +302,9 @@ class CircleModel(BaseModel):
         # Adapted from a spherical estimator covered in a blog post by Charles
         # Jeckel (see also reference 1 above):
         # https://jekel.me/2015/Least-Squares-Sphere-Fit/
-        A = np.append(data * 2, np.ones((data.shape[0], 1), dtype=float_type), axis=1)
+        A = np.append(
+            data * 2, np.ones((data.shape[0], 1), dtype=float_type), axis=1
+        )
         f = np.sum(data**2, axis=1)
         C, _, rank, _ = np.linalg.lstsq(A, f, rcond=None)
 
@@ -512,7 +514,9 @@ class EllipseModel(BaseModel):
         y0 = (a * f - b * d) / (b**2.0 - a * c)
 
         # Find the semi-axes lengths [eqn. 21 and 22] from [2]
-        numerator = a * f**2 + c * d**2 + g * b**2 - 2 * b * d * f - a * c * g
+        numerator = (
+            a * f**2 + c * d**2 + g * b**2 - 2 * b * d * f - a * c * g
+        )
         term = np.sqrt((a - c) ** 2 + 4 * b**2)
         denominator1 = (b**2 - a * c) * (term - (a + c))
         denominator2 = (b**2 - a * c) * (-term - (a + c))

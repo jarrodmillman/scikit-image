@@ -95,9 +95,15 @@ def _create_image_fetcher():
         skimage_version_for_pooch = __version__.replace('.dev', '+')
 
     if '+' in skimage_version_for_pooch:
-        url = "https://github.com/scikit-image/scikit-image/raw/" "{version}/skimage/"
+        url = (
+            "https://github.com/scikit-image/scikit-image/raw/"
+            "{version}/skimage/"
+        )
     else:
-        url = "https://github.com/scikit-image/scikit-image/raw/" "v{version}/skimage/"
+        url = (
+            "https://github.com/scikit-image/scikit-image/raw/"
+            "v{version}/skimage/"
+        )
 
     # Create a new friend to manage your sample data storage
     image_fetcher = pooch.create(
@@ -144,7 +150,9 @@ def _skip_pytest_case_requiring_pooch(data_filename):
 
         # Pytest skip raises an exception that allows the
         # tests to be skipped
-        pytest.skip(f'Unable to download {data_filename}', allow_module_level=True)
+        pytest.skip(
+            f'Unable to download {data_filename}', allow_module_level=True
+        )
 
 
 def _ensure_cache_dir(*, target_dir):
@@ -1107,7 +1115,11 @@ def stereo_motorcycle():
     """
     filename = _fetch("data/motorcycle_disp.npz")
     disp = np.load(filename)['arr_0']
-    return (_load("data/motorcycle_left.png"), _load("data/motorcycle_right.png"), disp)
+    return (
+        _load("data/motorcycle_left.png"),
+        _load("data/motorcycle_right.png"),
+        disp,
+    )
 
 
 def lfw_subset():

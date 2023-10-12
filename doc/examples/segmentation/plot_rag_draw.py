@@ -24,7 +24,9 @@ lc = graph.show_rag(labels, g, img, ax=ax[0])
 fig.colorbar(lc, fraction=0.03, ax=ax[0])
 
 ax[1].set_title('RAG drawn with grayscale image and viridis colormap')
-lc = graph.show_rag(labels, g, img, img_cmap='gray', edge_cmap='viridis', ax=ax[1])
+lc = graph.show_rag(
+    labels, g, img, img_cmap='gray', edge_cmap='viridis', ax=ax[1]
+)
 fig.colorbar(lc, fraction=0.03, ax=ax[1])
 
 for a in ax:

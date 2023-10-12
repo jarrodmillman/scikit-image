@@ -38,7 +38,12 @@ def _cv_calculate_variation(image, phi, mu, lambda1, lambda2, dt):
     C3 = 1.0 / np.sqrt(eta + phix0**2 + phiyp**2)
     C4 = 1.0 / np.sqrt(eta + phix0**2 + phiyn**2)
 
-    K = P[1:-1, 2:] * C1 + P[1:-1, :-2] * C2 + P[2:, 1:-1] * C3 + P[:-2, 1:-1] * C4
+    K = (
+        P[1:-1, 2:] * C1
+        + P[1:-1, :-2] * C2
+        + P[2:, 1:-1] * C3
+        + P[:-2, 1:-1] * C4
+    )
 
     Hphi = 1 * (phi > 0)
     (c1, c2) = _cv_calculate_averages(image, Hphi)
@@ -46,7 +51,9 @@ def _cv_calculate_variation(image, phi, mu, lambda1, lambda2, dt):
     difference_from_average_term = (
         -lambda1 * (image - c1) ** 2 + lambda2 * (image - c2) ** 2
     )
-    new_phi = phi + (dt * _cv_delta(phi)) * (mu * K + difference_from_average_term)
+    new_phi = phi + (dt * _cv_delta(phi)) * (
+        mu * K + difference_from_average_term
+    )
     return new_phi / (1 + mu * dt * _cv_delta(phi) * (C1 + C2 + C3 + C4))
 
 
@@ -85,7 +92,10 @@ def _cv_difference_from_average_term(image, Hphi, lambda_pos, lambda_neg):
     """
     (c1, c2) = _cv_calculate_averages(image, Hphi)
     Hinv = 1.0 - Hphi
-    return lambda_pos * (image - c1) ** 2 * Hphi + lambda_neg * (image - c2) ** 2 * Hinv
+    return (
+        lambda_pos * (image - c1) ** 2 * Hphi
+        + lambda_neg * (image - c2) ** 2 * Hinv
+    )
 
 
 def _cv_edge_length_term(phi, mu):

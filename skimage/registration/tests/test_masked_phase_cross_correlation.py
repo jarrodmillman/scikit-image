@@ -28,12 +28,17 @@ def test_masked_registration_vs_phase_cross_correlation():
     phase_cross_correlation in the case of trivial masks."""
     reference_image = camera()
     shift = (-7, 12)
-    shifted = np.real(fft.ifft2(fourier_shift(fft.fft2(reference_image), shift)))
+    shifted = np.real(
+        fft.ifft2(fourier_shift(fft.fft2(reference_image), shift))
+    )
     trivial_mask = np.ones_like(reference_image)
 
     nonmasked_result, *_ = phase_cross_correlation(reference_image, shifted)
     masked_result = masked_register_translation(
-        reference_image, shifted, reference_mask=trivial_mask, overlap_ratio=1 / 10
+        reference_image,
+        shifted,
+        reference_mask=trivial_mask,
+        overlap_ratio=1 / 10,
     )
 
     assert_equal(nonmasked_result, masked_result)
@@ -47,14 +52,23 @@ def test_masked_registration_random_masks():
 
     reference_image = camera()
     shift = (-7, 12)
-    shifted = np.real(fft.ifft2(fourier_shift(fft.fft2(reference_image), shift)))
+    shifted = np.real(
+        fft.ifft2(fourier_shift(fft.fft2(reference_image), shift))
+    )
 
     # Random masks with 75% of pixels being valid
-    ref_mask = np.random.choice([True, False], reference_image.shape, p=[3 / 4, 1 / 4])
-    shifted_mask = np.random.choice([True, False], shifted.shape, p=[3 / 4, 1 / 4])
+    ref_mask = np.random.choice(
+        [True, False], reference_image.shape, p=[3 / 4, 1 / 4]
+    )
+    shifted_mask = np.random.choice(
+        [True, False], shifted.shape, p=[3 / 4, 1 / 4]
+    )
 
     measured_shift = masked_register_translation(
-        reference_image, shifted, reference_mask=ref_mask, moving_mask=shifted_mask
+        reference_image,
+        shifted,
+        reference_mask=ref_mask,
+        moving_mask=shifted_mask,
     )
     assert_equal(measured_shift, -np.array(shift))
 
@@ -87,14 +101,20 @@ def test_masked_registration_random_masks_non_equal_sizes():
 
     reference_image = camera()
     shift = (-7, 12)
-    shifted = np.real(fft.ifft2(fourier_shift(fft.fft2(reference_image), shift)))
+    shifted = np.real(
+        fft.ifft2(fourier_shift(fft.fft2(reference_image), shift))
+    )
 
     # Crop the shifted image
     shifted = shifted[64:-64, 64:-64]
 
     # Random masks with 75% of pixels being valid
-    ref_mask = np.random.choice([True, False], reference_image.shape, p=[3 / 4, 1 / 4])
-    shifted_mask = np.random.choice([True, False], shifted.shape, p=[3 / 4, 1 / 4])
+    ref_mask = np.random.choice(
+        [True, False], reference_image.shape, p=[3 / 4, 1 / 4]
+    )
+    shifted_mask = np.random.choice(
+        [True, False], shifted.shape, p=[3 / 4, 1 / 4]
+    )
 
     measured_shift = masked_register_translation(
         reference_image,
@@ -114,7 +134,9 @@ def test_masked_registration_padfield_data():
 
     shifts = [(75, 75), (-130, 130), (130, 130)]
     for xi, yi in shifts:
-        fixed_image = imread(fetch(f'registration/tests/data/OriginalX{xi}Y{yi}.png'))
+        fixed_image = imread(
+            fetch(f'registration/tests/data/OriginalX{xi}Y{yi}.png')
+        )
         moving_image = imread(
             fetch(f'registration/tests/data/TransformedX{xi}Y{yi}.png')
         )
@@ -154,11 +176,15 @@ def test_cross_correlate_masked_output_shape(dtype):
 
     float_dtype = _supported_float_type(dtype)
 
-    full_xcorr = cross_correlate_masked(arr1, arr2, m1, m2, axes=(0, 1, 2), mode='full')
+    full_xcorr = cross_correlate_masked(
+        arr1, arr2, m1, m2, axes=(0, 1, 2), mode='full'
+    )
     assert_equal(full_xcorr.shape, expected_full_shape)
     assert full_xcorr.dtype == float_dtype
 
-    same_xcorr = cross_correlate_masked(arr1, arr2, m1, m2, axes=(0, 1, 2), mode='same')
+    same_xcorr = cross_correlate_masked(
+        arr1, arr2, m1, m2, axes=(0, 1, 2), mode='same'
+    )
     assert_equal(same_xcorr.shape, expected_same_shape)
     assert same_xcorr.dtype == float_dtype
 
@@ -250,7 +276,9 @@ def test_cross_correlate_masked_over_axes():
             mode='same',
         )
 
-    over_axes = cross_correlate_masked(arr1, arr2, m1, m2, axes=(0, 1), mode='same')
+    over_axes = cross_correlate_masked(
+        arr1, arr2, m1, m2, axes=(0, 1), mode='same'
+    )
 
     assert_array_almost_equal(with_loop, over_axes)
 

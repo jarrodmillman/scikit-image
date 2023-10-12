@@ -31,7 +31,9 @@ im_orig = util.img_as_float(cells3d()[:, 1, :, :])  # grab just the nuclei
 im_orig = im_orig.transpose()
 
 # Rescale image data to range [0, 1]
-im_orig = np.clip(im_orig, np.percentile(im_orig, 5), np.percentile(im_orig, 95))
+im_orig = np.clip(
+    im_orig, np.percentile(im_orig, 5), np.percentile(im_orig, 95)
+)
 im_orig = (im_orig - im_orig.min()) / (im_orig.max() - im_orig.min())
 
 # Degrade image by applying exponential intensity decay along x
@@ -40,7 +42,11 @@ im_degraded = (im_orig.T * sigmoid).T
 
 # Set parameters for AHE
 # Determine kernel sizes in each dim relative to image shape
-kernel_size = (im_orig.shape[0] // 5, im_orig.shape[1] // 5, im_orig.shape[2] // 2)
+kernel_size = (
+    im_orig.shape[0] // 5,
+    im_orig.shape[1] // 5,
+    im_orig.shape[2] // 2,
+)
 kernel_size = np.array(kernel_size)
 clip_limit = 0.9
 
@@ -50,7 +56,9 @@ im_orig_he, im_degraded_he = (
 )
 
 im_orig_ahe, im_degraded_ahe = (
-    exposure.equalize_adapthist(im, kernel_size=kernel_size, clip_limit=clip_limit)
+    exposure.equalize_adapthist(
+        im, kernel_size=kernel_size, clip_limit=clip_limit
+    )
     for im in [im_orig, im_degraded]
 )
 
@@ -69,7 +77,9 @@ def scalars_to_rgba(scalars, cmap, vmin=0.0, vmax=1.0, alpha=0.2):
     return rgbas
 
 
-def plt_render_volume(vol, fig_ax, cmap, vmin=0, vmax=1, bin_widths=None, n_levels=20):
+def plt_render_volume(
+    vol, fig_ax, cmap, vmin=0, vmax=1, bin_widths=None, n_levels=20
+):
     """
     Render a volume in a 3D matplotlib scatter plot.
     Better would be to use napari.
@@ -81,7 +91,9 @@ def plt_render_volume(vol, fig_ax, cmap, vmin=0, vmax=1, bin_widths=None, n_leve
         0 : vol.shape[1] : bin_widths[1],
         0 : vol.shape[2] : bin_widths[2],
     ]
-    vol_scaled = vol[:: bin_widths[0], :: bin_widths[1], :: bin_widths[2]].flatten()
+    vol_scaled = vol[
+        :: bin_widths[0], :: bin_widths[1], :: bin_widths[2]
+    ].flatten()
 
     # Define alpha transfer function
     levels = np.linspace(vmin, vmax, n_levels)
@@ -120,12 +132,19 @@ axs = [
     fig.add_subplot(2, 3, i + 1, projection=Axes3D.name, facecolor="none")
     for i in range(6)
 ]
-ims = [im_orig, im_orig_he, im_orig_ahe, im_degraded, im_degraded_he, im_degraded_ahe]
+ims = [
+    im_orig,
+    im_orig_he,
+    im_orig_ahe,
+    im_degraded,
+    im_degraded_he,
+    im_degraded_ahe,
+]
 
 # Prepare lines for the various boxes to be plotted
-verts = np.array([[i, j, k] for i in [0, 1] for j in [0, 1] for k in [0, 1]]).astype(
-    np.float32
-)
+verts = np.array(
+    [[i, j, k] for i in [0, 1] for j in [0, 1] for k in [0, 1]]
+).astype(np.float32)
 lines = [
     np.array([i, j])
     for i in verts

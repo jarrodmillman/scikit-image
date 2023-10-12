@@ -37,7 +37,9 @@ def _bernoulli(p, shape, *, rng):
     return rng.random(shape) <= p
 
 
-@deprecate_kwarg({'seed': 'rng'}, deprecated_version='0.21', removed_version='0.23')
+@deprecate_kwarg(
+    {'seed': 'rng'}, deprecated_version='0.21', removed_version='0.23'
+)
 def random_noise(image, mode='gaussian', rng=None, clip=True, **kwargs):
     """
     Function to add random noise of various types to a floating-point image.
@@ -205,13 +207,21 @@ def random_noise(image, mode='gaussian', rng=None, clip=True, **kwargs):
     elif mode == 'salt':
         # Re-call function with mode='s&p' and p=1 (all salt noise)
         out = random_noise(
-            image, mode='s&p', rng=rng, amount=kwargs['amount'], salt_vs_pepper=1.0
+            image,
+            mode='s&p',
+            rng=rng,
+            amount=kwargs['amount'],
+            salt_vs_pepper=1.0,
         )
 
     elif mode == 'pepper':
         # Re-call function with mode='s&p' and p=1 (all pepper noise)
         out = random_noise(
-            image, mode='s&p', rng=rng, amount=kwargs['amount'], salt_vs_pepper=0.0
+            image,
+            mode='s&p',
+            rng=rng,
+            amount=kwargs['amount'],
+            salt_vs_pepper=0.0,
         )
 
     elif mode == 's&p':

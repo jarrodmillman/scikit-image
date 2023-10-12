@@ -174,7 +174,9 @@ plt.show()
 
 normalized_radius = 70.5 / 255
 image = util.img_as_float(data.coins())
-kernel = restoration.ellipsoid_kernel((70.5 * 2, 70.5 * 2), normalized_radius * 2)
+kernel = restoration.ellipsoid_kernel(
+    (70.5 * 2, 70.5 * 2), normalized_radius * 2
+)
 
 background = restoration.rolling_ball(image, kernel=kernel)
 plot_result(image, background)

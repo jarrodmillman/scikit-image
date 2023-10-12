@@ -25,7 +25,9 @@ DEFAULT_COLORS = (
 )
 
 
-color_dict = {k: v for k, v in rgb_colors.__dict__.items() if isinstance(v, tuple)}
+color_dict = {
+    k: v for k, v in rgb_colors.__dict__.items() if isinstance(v, tuple)
+}
 
 
 def _rgb_vector(color):
@@ -145,7 +147,14 @@ def label2rgb(
         image = np.moveaxis(image, source=channel_axis, destination=-1)
     if kind == 'overlay':
         rgb = _label2rgb_overlay(
-            label, image, colors, alpha, bg_label, bg_color, image_alpha, saturation
+            label,
+            image,
+            colors,
+            alpha,
+            bg_label,
+            bg_color,
+            image_alpha,
+            saturation,
         )
     elif kind == 'avg':
         rgb = _label2rgb_avg(label, image, bg_label, bg_color)
@@ -210,11 +219,16 @@ def _label2rgb_overlay(
         # Opacity doesn't make sense if no image exists.
         alpha = 1
     else:
-        if image.shape[: label.ndim] != label.shape or image.ndim > label.ndim + 1:
+        if (
+            image.shape[: label.ndim] != label.shape
+            or image.ndim > label.ndim + 1
+        ):
             raise ValueError("`image` and `label` must be the same shape")
 
         if image.ndim == label.ndim + 1 and image.shape[-1] != 3:
-            raise ValueError("`image` must be RGB (image.shape[-1] must be 3).")
+            raise ValueError(
+                "`image` must be RGB (image.shape[-1] must be 3)."
+            )
 
         if image.min() < 0:
             warn("Negative intensities in `image` are not supported")

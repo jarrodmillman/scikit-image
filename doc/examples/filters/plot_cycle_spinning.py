@@ -35,7 +35,9 @@ original = img_as_float(data.chelsea()[100:250, 50:300])
 sigma = 0.155
 noisy = random_noise(original, var=sigma**2)
 
-fig, ax = plt.subplots(nrows=2, ncols=3, figsize=(10, 4), sharex=False, sharey=False)
+fig, ax = plt.subplots(
+    nrows=2, ncols=3, figsize=(10, 4), sharex=False, sharey=False
+)
 ax = ax.ravel()
 
 psnr_noisy = peak_signal_noise_ratio(original, noisy)
@@ -83,7 +85,9 @@ plt.subplots_adjust(wspace=0.35, hspace=0.35)
 # Annotate with a cyan arrow on the 6x6 case vs. no cycle shift case to
 # illustrate a region with reduced block-like artifact with cycle shifting
 arrowprops = dict(
-    arrowstyle="simple,tail_width=0.1,head_width=0.5", connectionstyle="arc3", color='c'
+    arrowstyle="simple,tail_width=0.1,head_width=0.5",
+    connectionstyle="arc3",
+    color='c',
 )
 for i in [1, 4]:
     ax[i].annotate(

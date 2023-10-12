@@ -46,7 +46,9 @@ from skimage.feature import shape_index
 from skimage.draw import disk
 
 
-def create_test_image(image_size=256, spot_count=30, spot_radius=5, cloud_noise_size=4):
+def create_test_image(
+    image_size=256, spot_count=30, spot_radius=5, cloud_noise_size=4
+):
     """
     Generate a test image with random noise, uneven illumination and spots.
     """
@@ -64,7 +66,9 @@ def create_test_image(image_size=256, spot_count=30, spot_radius=5, cloud_noise_
     image *= rng.normal(loc=1.0, scale=0.1, size=image.shape)
 
     image *= ndi.zoom(
-        rng.normal(loc=1.0, scale=0.5, size=(cloud_noise_size, cloud_noise_size)),
+        rng.normal(
+            loc=1.0, scale=0.5, size=(cloud_noise_size, cloud_noise_size)
+        ),
         image_size / cloud_noise_size,
     )
 
@@ -111,12 +115,19 @@ ax1.scatter(point_x_s, point_y_s, color='green', **scatter_settings)
 
 ax2 = fig.add_subplot(1, 3, 2, projection='3d', sharex=ax1, sharey=ax1)
 
-x, y = np.meshgrid(np.arange(0, image.shape[0], 1), np.arange(0, image.shape[1], 1))
+x, y = np.meshgrid(
+    np.arange(0, image.shape[0], 1), np.arange(0, image.shape[1], 1)
+)
 
 ax2.plot_surface(x, y, image, linewidth=0, alpha=0.5)
 
 ax2.scatter(
-    point_x, point_y, point_z, color='blue', label='$|s - 1|<0.05$', **scatter_settings
+    point_x,
+    point_y,
+    point_z,
+    color='blue',
+    label='$|s - 1|<0.05$',
+    **scatter_settings,
 )
 
 ax2.scatter(

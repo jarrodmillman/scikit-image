@@ -48,7 +48,9 @@ def test_correlate_sparse(mode, dtype):
 
     cs_output = correlate_sparse(image, kernel, mode=mode)
     assert cs_output.dtype == _supported_float_type(image.dtype)
-    ndi_output = ndi.correlate(image.astype(float, copy=False), kernel, mode=mode)
+    ndi_output = ndi.correlate(
+        image.astype(float, copy=False), kernel, mode=mode
+    )
     assert_equal(cs_output, ndi_output)
 
 

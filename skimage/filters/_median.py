@@ -7,7 +7,12 @@ from .rank import generic
 
 
 def median(
-    image, footprint=None, out=None, mode='nearest', cval=0.0, behavior='ndimage'
+    image,
+    footprint=None,
+    out=None,
+    mode='nearest',
+    cval=0.0,
+    behavior='ndimage',
 ):
     """Return local median of an image.
 

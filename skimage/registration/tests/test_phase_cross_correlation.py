@@ -25,7 +25,10 @@ def test_correlation(normalization):
 
     # pixel precision
     result, _, _ = phase_cross_correlation(
-        reference_image, shifted_image, space="fourier", normalization=normalization
+        reference_image,
+        shifted_image,
+        space="fourier",
+        normalization=normalization,
     )
     assert_allclose(result[:2], -np.array(shift))
 
@@ -39,7 +42,10 @@ def test_correlation_invalid_normalization(normalization):
     # pixel precision
     with pytest.raises(ValueError):
         phase_cross_correlation(
-            reference_image, shifted_image, space="fourier", normalization=normalization
+            reference_image,
+            shifted_image,
+            space="fourier",
+            normalization=normalization,
         )
 
 

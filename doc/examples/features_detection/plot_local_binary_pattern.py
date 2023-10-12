@@ -110,7 +110,11 @@ lbp = local_binary_pattern(image, n_points, radius, METHOD)
 def hist(ax, lbp):
     n_bins = int(lbp.max() + 1)
     return ax.hist(
-        lbp.ravel(), density=True, bins=n_bins, range=(0, n_bins), facecolor='0.5'
+        lbp.ravel(),
+        density=True,
+        bins=n_bins,
+        range=(0, n_bins),
+        facecolor='0.5',
     )
 
 
@@ -172,7 +176,9 @@ def match(refs, img):
     n_bins = int(lbp.max() + 1)
     hist, _ = np.histogram(lbp, density=True, bins=n_bins, range=(0, n_bins))
     for name, ref in refs.items():
-        ref_hist, _ = np.histogram(ref, density=True, bins=n_bins, range=(0, n_bins))
+        ref_hist, _ = np.histogram(
+            ref, density=True, bins=n_bins, range=(0, n_bins)
+        )
         score = kullback_leibler_divergence(hist, ref_hist)
         if score < best_score:
             best_score = score
@@ -206,7 +212,9 @@ print(
 )
 
 # plot histograms of LBP of textures
-fig, ((ax1, ax2, ax3), (ax4, ax5, ax6)) = plt.subplots(nrows=2, ncols=3, figsize=(9, 6))
+fig, ((ax1, ax2, ax3), (ax4, ax5, ax6)) = plt.subplots(
+    nrows=2, ncols=3, figsize=(9, 6)
+)
 plt.gray()
 
 ax1.imshow(brick)

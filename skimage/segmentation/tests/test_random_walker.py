@@ -16,13 +16,16 @@ def make_2d_syntheticdata(lx, ly=None):
     data = np.zeros((lx, ly)) + 0.1 * np.random.randn(lx, ly)
     small_l = int(lx // 5)
     data[
-        lx // 2 - small_l : lx // 2 + small_l, ly // 2 - small_l : ly // 2 + small_l
+        lx // 2 - small_l : lx // 2 + small_l,
+        ly // 2 - small_l : ly // 2 + small_l,
     ] = 1
     data[
         lx // 2 - small_l + 1 : lx // 2 + small_l - 1,
         ly // 2 - small_l + 1 : ly // 2 + small_l - 1,
     ] = 0.1 * np.random.randn(2 * small_l - 2, 2 * small_l - 2)
-    data[lx // 2 - small_l, ly // 2 - small_l // 8 : ly // 2 + small_l // 8] = 0
+    data[
+        lx // 2 - small_l, ly // 2 - small_l // 8 : ly // 2 + small_l // 8
+    ] = 0
     seeds = np.zeros_like(data)
     seeds[lx // 5, ly // 5] = 1
     seeds[lx // 2 + small_l // 4, ly // 2 - small_l // 4] = 2
@@ -56,7 +59,9 @@ def make_3d_syntheticdata(lx, ly=None, lz=None):
     ] = 0
     seeds = np.zeros_like(data)
     seeds[lx // 5, ly // 5, lz // 5] = 1
-    seeds[lx // 2 + small_l // 4, ly // 2 - small_l // 4, lz // 2 - small_l // 4] = 2
+    seeds[
+        lx // 2 + small_l // 4, ly // 2 - small_l // 4, lz // 2 - small_l // 4
+    ] = 2
     return data, seeds
 
 
@@ -76,14 +81,18 @@ def test_2d_bf(dtype):
     full_prob_bf = random_walker(
         data, labels, beta=beta, mode='bf', return_full_prob=True
     )
-    assert (full_prob_bf[1, 25:45, 40:60] >= full_prob_bf[0, 25:45, 40:60]).all()
+    assert (
+        full_prob_bf[1, 25:45, 40:60] >= full_prob_bf[0, 25:45, 40:60]
+    ).all()
     assert data.shape == labels.shape
     # Now test with more than two labels
     labels[55, 80] = 3
     full_prob_bf = random_walker(
         data, labels, beta=beta, mode='bf', return_full_prob=True
     )
-    assert (full_prob_bf[1, 25:45, 40:60] >= full_prob_bf[0, 25:45, 40:60]).all()
+    assert (
+        full_prob_bf[1, 25:45, 40:60] >= full_prob_bf[0, 25:45, 40:60]
+    ).all()
     assert len(full_prob_bf) == 3
     assert data.shape == labels.shape
 
@@ -136,7 +145,9 @@ def test_2d_cg_j(dtype):
     labels_cg = random_walker(data, labels, beta=90, mode='cg_j')
     assert (labels_cg[25:45, 40:60] == 2).all()
     assert data.shape == labels.shape
-    full_prob = random_walker(data, labels, beta=90, mode='cg_j', return_full_prob=True)
+    full_prob = random_walker(
+        data, labels, beta=90, mode='cg_j', return_full_prob=True
+    )
     assert (full_prob[1, 25:45, 40:60] >= full_prob[0, 25:45, 40:60]).all()
     assert data.shape == labels.shape
 
@@ -147,7 +158,9 @@ def test_types():
     data, labels = make_2d_syntheticdata(lx, ly)
     data = 255 * (data - data.min()) // (data.max() - data.min())
     data = data.astype(np.uint8)
-    with expected_warnings([f"{PYAMG_MISSING_WARNING}|scipy.sparse.linalg.cg"]):
+    with expected_warnings(
+        [f"{PYAMG_MISSING_WARNING}|scipy.sparse.linalg.cg"]
+    ):
         labels_cg_mg = random_walker(data, labels, beta=90, mode='cg_mg')
     assert (labels_cg_mg[25:45, 40:60] == 2).all()
     assert data.shape == labels.shape
@@ -220,9 +233,14 @@ def test_multispectral_2d(dtype, channel_axis):
 
     data = np.moveaxis(data, -1, channel_axis)
     with expected_warnings(
-        ['"cg" mode|scipy.sparse.linalg.cg', 'The probability range is outside']
+        [
+            '"cg" mode|scipy.sparse.linalg.cg',
+            'The probability range is outside',
+        ]
     ):
-        multi_labels = random_walker(data, labels, mode='cg', channel_axis=channel_axis)
+        multi_labels = random_walker(
+            data, labels, mode='cg', channel_axis=channel_axis
+        )
     data = np.moveaxis(data, channel_axis, -1)
 
     assert data[..., 0].shape == labels.shape
@@ -245,7 +263,9 @@ def test_multispectral_3d(dtype):
     with expected_warnings(['"cg" mode|scipy.sparse.linalg.cg']):
         single_labels = random_walker(data[..., 0], labels, mode='cg')
     assert (multi_labels.reshape(labels.shape)[13:17, 13:17, 13:17] == 2).all()
-    assert (single_labels.reshape(labels.shape)[13:17, 13:17, 13:17] == 2).all()
+    assert (
+        single_labels.reshape(labels.shape)[13:17, 13:17, 13:17] == 2
+    ).all()
     assert data[..., 0].shape == labels.shape
 
 
@@ -304,7 +324,9 @@ def test_spacing_1():
     small_l = int(lx // 5)
     labels_aniso = np.zeros_like(data_aniso)
     labels_aniso[lx // 5, ly // 5, lz // 5] = 1
-    labels_aniso[lx // 2 + small_l // 4, ly - small_l // 2, lz // 2 - small_l // 4] = 2
+    labels_aniso[
+        lx // 2 + small_l // 4, ly - small_l // 2, lz // 2 - small_l // 4
+    ] = 2
 
     # Test with `spacing` kwarg
     # First, anisotropic along Y
@@ -326,7 +348,9 @@ def test_spacing_1():
     small_l = int(lx // 5)
     labels_aniso2 = np.zeros_like(data_aniso)
     labels_aniso2[lx // 5, ly // 5, lz // 5] = 1
-    labels_aniso2[lx - small_l // 2, ly // 2 + small_l // 4, lz // 2 - small_l // 4] = 2
+    labels_aniso2[
+        lx - small_l // 2, ly // 2 + small_l // 4, lz // 2 - small_l // 4
+    ] = 2
 
     # Anisotropic along X
     with expected_warnings(['"cg" mode|scipy.sparse.linalg.cg']):
@@ -348,7 +372,8 @@ def test_trivial_cases():
     # When all voxels are labeled AND return_full_prob is True
     labels[:, :5] = 3
     expected = np.concatenate(
-        ((labels == 1)[..., np.newaxis], (labels == 3)[..., np.newaxis]), axis=2
+        ((labels == 1)[..., np.newaxis], (labels == 3)[..., np.newaxis]),
+        axis=2,
     )
     with expected_warnings(["Returning provided labels"]):
         test = random_walker(img, labels, return_full_prob=True)
@@ -357,7 +382,9 @@ def test_trivial_cases():
     # Unlabeled voxels not connected to seed, so nothing can be done
     img = np.full((10, 10), False)
     object_A = np.array([(6, 7), (6, 8), (7, 7), (7, 8)])
-    object_B = np.array([(3, 1), (4, 1), (2, 2), (3, 2), (4, 2), (2, 3), (3, 3)])
+    object_B = np.array(
+        [(3, 1), (4, 1), (2, 2), (3, 2), (4, 2), (2, 3), (3, 3)]
+    )
     for x, y in np.vstack((object_A, object_B)):
         img[y][x] = True
 
@@ -432,10 +459,14 @@ def test_isolated_seeds():
     mask[6, 6] = 1
 
     # Test that no error is raised, and that labels of isolated seeds are OK
-    with expected_warnings(['The probability range is outside|scipy.sparse.linalg.cg']):
+    with expected_warnings(
+        ['The probability range is outside|scipy.sparse.linalg.cg']
+    ):
         res = random_walker(a, mask)
     assert res[1, 1] == 1
-    with expected_warnings(['The probability range is outside|scipy.sparse.linalg.cg']):
+    with expected_warnings(
+        ['The probability range is outside|scipy.sparse.linalg.cg']
+    ):
         res = random_walker(a, mask, return_full_prob=True)
     assert res[0, 1, 1] == 1
     assert res[1, 1, 1] == 0
@@ -454,10 +485,14 @@ def test_isolated_area():
     mask[6, 6] = 1
 
     # Test that no error is raised, and that labels of isolated seeds are OK
-    with expected_warnings(['The probability range is outside|scipy.sparse.linalg.cg']):
+    with expected_warnings(
+        ['The probability range is outside|scipy.sparse.linalg.cg']
+    ):
         res = random_walker(a, mask)
     assert res[1, 1] == 0
-    with expected_warnings(['The probability range is outside|scipy.sparse.linalg.cg']):
+    with expected_warnings(
+        ['The probability range is outside|scipy.sparse.linalg.cg']
+    ):
         res = random_walker(a, mask, return_full_prob=True)
     assert res[0, 1, 1] == 0
     assert res[1, 1, 1] == 0
@@ -475,7 +510,9 @@ def test_prob_tol():
     mask[4, 4] = 2
     mask[6, 6] = 1
 
-    with expected_warnings(['The probability range is outside|scipy.sparse.linalg.cg']):
+    with expected_warnings(
+        ['The probability range is outside|scipy.sparse.linalg.cg']
+    ):
         res = random_walker(a, mask, return_full_prob=True)
 
     # Lower beta, no warning is expected.

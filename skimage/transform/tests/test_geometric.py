@@ -3,7 +3,11 @@ import textwrap
 
 import numpy as np
 import pytest
-from numpy.testing import assert_almost_equal, assert_array_almost_equal, assert_equal
+from numpy.testing import (
+    assert_almost_equal,
+    assert_array_almost_equal,
+    assert_equal,
+)
 
 from skimage.transform import (
     AffineTransform,
@@ -51,7 +55,13 @@ DST = np.array(
 
 
 def test_estimate_transform():
-    for tform in ('euclidean', 'similarity', 'affine', 'projective', 'polynomial'):
+    for tform in (
+        'euclidean',
+        'similarity',
+        'affine',
+        'projective',
+        'polynomial',
+    ):
         estimate_transform(tform, SRC[:2, :], DST[:2, :])
     with pytest.raises(ValueError):
         estimate_transform('foobar', SRC[:2, :], DST[:2, :])
@@ -91,7 +101,9 @@ def test_3d_euclidean_estimation():
     dst_points = []
     for pt in src_points:
         pt_r = pt.reshape(3, 1)
-        dst = np.matmul(rotation_matrix, pt_r) + translation_vector.reshape(3, 1)
+        dst = np.matmul(rotation_matrix, pt_r) + translation_vector.reshape(
+            3, 1
+        )
         dst = dst.reshape(3)
         dst_points.append(dst)
 
@@ -163,7 +175,9 @@ def test_3d_similarity_estimation():
     dst_points = []
     for pt in src_points:
         pt_r = pt.reshape(3, 1)
-        dst = np.matmul(rotation_matrix, pt_r) + translation_vector.reshape(3, 1)
+        dst = np.matmul(rotation_matrix, pt_r) + translation_vector.reshape(
+            3, 1
+        )
         dst = dst.reshape(3)
         dst_points.append(dst)
 
@@ -184,7 +198,9 @@ def test_similarity_init():
     scale = 0.1
     rotation = 1
     translation = (1, 1)
-    tform = SimilarityTransform(scale=scale, rotation=rotation, translation=translation)
+    tform = SimilarityTransform(
+        scale=scale, rotation=rotation, translation=translation
+    )
     assert_almost_equal(tform.scale, scale)
     assert_almost_equal(tform.rotation, rotation)
     assert_almost_equal(tform.translation, translation)
@@ -199,7 +215,9 @@ def test_similarity_init():
     scale = 0.1
     rotation = 0
     translation = (1, 1)
-    tform = SimilarityTransform(scale=scale, rotation=rotation, translation=translation)
+    tform = SimilarityTransform(
+        scale=scale, rotation=rotation, translation=translation
+    )
     assert_almost_equal(tform.scale, scale)
     assert_almost_equal(tform.rotation, rotation)
     assert_almost_equal(tform.translation, translation)
@@ -208,7 +226,9 @@ def test_similarity_init():
     scale = 0.1
     rotation = np.pi / 2
     translation = (1, 1)
-    tform = SimilarityTransform(scale=scale, rotation=rotation, translation=translation)
+    tform = SimilarityTransform(
+        scale=scale, rotation=rotation, translation=translation
+    )
     assert_almost_equal(tform.scale, scale)
     assert_almost_equal(tform.rotation, rotation)
     assert_almost_equal(tform.translation, translation)
@@ -219,7 +239,11 @@ def test_similarity_init():
     rotation = np.pi / 2
     translation = (0, 0)
     params = np.array(
-        [[0, -1, 1.33226763e-15], [1, 2.22044605e-16, -1.33226763e-15], [0, 0, 1]]
+        [
+            [0, -1, 1.33226763e-15],
+            [1, 2.22044605e-16, -1.33226763e-15],
+            [0, 0, 1],
+        ]
     )
     tform = SimilarityTransform(params)
     assert_almost_equal(tform.scale, scale)
@@ -265,7 +289,8 @@ def test_affine_init():
 
     # scalar vs. tuple scale arguments
     assert_almost_equal(
-        AffineTransform(scale=0.5).scale, AffineTransform(scale=(0.5, 0.5)).scale
+        AffineTransform(scale=0.5).scale,
+        AffineTransform(scale=(0.5, 0.5)).scale,
     )
 
 
@@ -389,7 +414,9 @@ def test_fundamental_matrix_inverse():
     tform = FundamentalMatrixTransform()
     tform.params = essential_matrix_tform.params
     src = np.array([[0, 0], [0, 1], [1, 1]])
-    assert_almost_equal(tform.inverse(src), [[0, 1, 0], [0, 1, -1], [0, 1, -1]])
+    assert_almost_equal(
+        tform.inverse(src), [[0, 1, 0], [0, 1, -1], [0, 1, -1]]
+    )
 
 
 def test_fundamental_matrix_inverse_estimation():
@@ -440,7 +467,9 @@ def test_fundamental_matrix_inverse_estimation():
     tform = estimate_transform('fundamental', src, dst)
     tform_inv = estimate_transform('fundamental', dst, src)
 
-    np.testing.assert_array_almost_equal(tform.inverse.params, tform_inv.params)
+    np.testing.assert_array_almost_equal(
+        tform.inverse.params, tform_inv.params
+    )
 
 
 def test_fundamental_matrix_epipolar_projection():
@@ -489,7 +518,9 @@ def test_fundamental_matrix_epipolar_projection():
     tform = estimate_transform('fundamental', src, dst)
 
     # calculate x' F x for each coordinate; should be close to zero
-    p = np.abs(np.sum(np.column_stack((dst, np.ones(len(dst)))) * tform(src), axis=1))
+    p = np.abs(
+        np.sum(np.column_stack((dst, np.ones(len(dst)))) * tform(src), axis=1)
+    )
     assert np.all(p < 0.01)
 
 
@@ -497,7 +528,9 @@ def test_essential_matrix_init():
     tform = EssentialMatrixTransform(
         rotation=np.eye(3), translation=np.array([0, 0, 1])
     )
-    assert_equal(tform.params, np.array([0, -1, 0, 1, 0, 0, 0, 0, 0]).reshape(3, 3))
+    assert_equal(
+        tform.params, np.array([0, -1, 0, 1, 0, 0, 0, 0, 0]).reshape(3, 3)
+    )
 
 
 def test_essential_matrix_estimation():
@@ -568,7 +601,9 @@ def test_essential_matrix_inverse():
         rotation=np.eye(3), translation=np.array([1, 0, 0])
     )
     src = np.array([[0, 0], [0, 1], [1, 1]])
-    assert_almost_equal(tform.inverse(src), [[0, 1, 0], [0, 1, -1], [0, 1, -1]])
+    assert_almost_equal(
+        tform.inverse(src), [[0, 1, 0], [0, 1, -1], [0, 1, -1]]
+    )
 
 
 def test_essential_matrix_residuals():
@@ -598,7 +633,9 @@ def test_projective_estimation():
 def test_projective_weighted_estimation():
     # Exact solution with same points, and unity weights
     tform = estimate_transform('projective', SRC[:4, :], DST[:4, :])
-    tform_w = estimate_transform('projective', SRC[:4, :], DST[:4, :], np.ones(4))
+    tform_w = estimate_transform(
+        'projective', SRC[:4, :], DST[:4, :], np.ones(4)
+    )
     assert_almost_equal(tform.params, tform_w.params)
 
     # Over-determined solution with same points, and unity weights
@@ -732,7 +769,8 @@ def test_union_differing_types():
         ),
         FundamentalMatrixTransform(
             matrix=EssentialMatrixTransform(
-                rotation=np.eye(3), translation=(1 / np.sqrt(2), 1 / np.sqrt(2), 0)
+                rotation=np.eye(3),
+                translation=(1 / np.sqrt(2), 1 / np.sqrt(2), 0),
             ).params
         ),
         ((t := PiecewiseAffineTransform()).estimate(SRC, DST) and t),
@@ -814,11 +852,17 @@ def test_invalid_input():
     with pytest.raises(ValueError):
         EssentialMatrixTransform(rotation=np.eye(3))
     with pytest.raises(ValueError):
-        EssentialMatrixTransform(rotation=np.eye(3), translation=np.zeros((2,)))
+        EssentialMatrixTransform(
+            rotation=np.eye(3), translation=np.zeros((2,))
+        )
     with pytest.raises(ValueError):
-        EssentialMatrixTransform(rotation=np.eye(3), translation=np.zeros((2,)))
+        EssentialMatrixTransform(
+            rotation=np.eye(3), translation=np.zeros((2,))
+        )
     with pytest.raises(ValueError):
-        EssentialMatrixTransform(rotation=np.eye(3), translation=np.zeros((3,)))
+        EssentialMatrixTransform(
+            rotation=np.eye(3), translation=np.zeros((3,))
+        )
 
 
 def test_degenerate():

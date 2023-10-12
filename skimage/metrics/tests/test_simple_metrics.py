@@ -61,12 +61,16 @@ def test_PSNR_float(dtype):
 
     # mismatched dtype results in a warning if data_range is unspecified
     with expected_warnings(['Inputs have mismatched dtype']):
-        p_mixed = peak_signal_noise_ratio(cam / 255.0, np.float32(cam_noisy / 255.0))
+        p_mixed = peak_signal_noise_ratio(
+            cam / 255.0, np.float32(cam_noisy / 255.0)
+        )
     assert_almost_equal(p_mixed, p_float64, decimal=decimal)
 
     # mismatched dtype results in a warning if data_range is unspecified
     with expected_warnings(['Inputs have mismatched dtype']):
-        p_mixed = peak_signal_noise_ratio(cam / 255.0, np.float32(cam_noisy / 255.0))
+        p_mixed = peak_signal_noise_ratio(
+            cam / 255.0, np.float32(cam_noisy / 255.0)
+        )
     assert_almost_equal(p_mixed, p_float64, decimal=decimal)
 
 
@@ -83,9 +87,12 @@ def test_NRMSE(dtype):
     nrmse = normalized_root_mse(y, x, normalization='mean')
     assert nrmse.dtype == np.float64
     assert_equal(nrmse, 1 / np.mean(y))
-    assert_equal(normalized_root_mse(y, x, normalization='euclidean'), 1 / np.sqrt(3))
     assert_equal(
-        normalized_root_mse(y, x, normalization='min-max'), 1 / (y.max() - y.min())
+        normalized_root_mse(y, x, normalization='euclidean'), 1 / np.sqrt(3)
+    )
+    assert_equal(
+        normalized_root_mse(y, x, normalization='min-max'),
+        1 / (y.max() - y.min()),
     )
 
     # mixed precision inputs are allowed
@@ -99,10 +106,12 @@ def test_NRMSE_no_int_overflow():
     camf = cam.astype(np.float32)
     cam_noisyf = cam_noisy.astype(np.float32)
     assert_almost_equal(
-        mean_squared_error(cam, cam_noisy), mean_squared_error(camf, cam_noisyf)
+        mean_squared_error(cam, cam_noisy),
+        mean_squared_error(camf, cam_noisyf),
     )
     assert_almost_equal(
-        normalized_root_mse(cam, cam_noisy), normalized_root_mse(camf, cam_noisyf)
+        normalized_root_mse(cam, cam_noisy),
+        normalized_root_mse(camf, cam_noisyf),
     )
 
 

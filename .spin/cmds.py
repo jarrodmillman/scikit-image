@@ -26,7 +26,9 @@ from spin import util
     default=True,
     help="Sphinx gallery: enable/disable plots",
 )
-@click.option("--jobs", "-j", default="auto", help="Number of parallel build jobs")
+@click.option(
+    "--jobs", "-j", default="auto", help="Number of parallel build jobs"
+)
 @click.option(
     "--install-deps/--no-install-deps",
     default=False,
@@ -34,7 +36,13 @@ from spin import util
 )
 @click.pass_context
 def docs(
-    ctx, sphinx_target, clean, first_build, jobs, sphinx_gallery_plot, install_deps
+    ctx,
+    sphinx_target,
+    clean,
+    first_build,
+    jobs,
+    sphinx_gallery_plot,
+    install_deps,
 ):
     """📖 Build documentation
 
@@ -73,7 +81,9 @@ def asv(asv_args):
         print("No built scikit-image found; run `spin build` first.")
         sys.exit(1)
 
-    os.environ['PYTHONPATH'] = f'{site_path}{os.sep}:{os.environ.get("PYTHONPATH", "")}'
+    os.environ[
+        'PYTHONPATH'
+    ] = f'{site_path}{os.sep}:{os.environ.get("PYTHONPATH", "")}'
     util.run(['asv'] + list(asv_args))
 
 

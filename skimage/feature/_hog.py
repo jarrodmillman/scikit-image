@@ -269,14 +269,18 @@ def hog(
         radius = min(c_row, c_col) // 2 - 1
         orientations_arr = np.arange(orientations)
         # set dr_arr, dc_arr to correspond to midpoints of orientation bins
-        orientation_bin_midpoints = np.pi * (orientations_arr + 0.5) / orientations
+        orientation_bin_midpoints = (
+            np.pi * (orientations_arr + 0.5) / orientations
+        )
         dr_arr = radius * np.sin(orientation_bin_midpoints)
         dc_arr = radius * np.cos(orientation_bin_midpoints)
         hog_image = np.zeros((s_row, s_col), dtype=float_dtype)
         for r in range(n_cells_row):
             for c in range(n_cells_col):
                 for o, dr, dc in zip(orientations_arr, dr_arr, dc_arr):
-                    centre = tuple([r * c_row + c_row // 2, c * c_col + c_col // 2])
+                    centre = tuple(
+                        [r * c_row + c_row // 2, c * c_col + c_col // 2]
+                    )
                     rr, cc = draw.line(
                         int(centre[0] - dc),
                         int(centre[1] + dr),
@@ -303,13 +307,16 @@ def hog(
     n_blocks_row = (n_cells_row - b_row) + 1
     n_blocks_col = (n_cells_col - b_col) + 1
     normalized_blocks = np.zeros(
-        (n_blocks_row, n_blocks_col, b_row, b_col, orientations), dtype=float_dtype
+        (n_blocks_row, n_blocks_col, b_row, b_col, orientations),
+        dtype=float_dtype,
     )
 
     for r in range(n_blocks_row):
         for c in range(n_blocks_col):
             block = orientation_histogram[r : r + b_row, c : c + b_col, :]
-            normalized_blocks[r, c, :] = _hog_normalize_block(block, method=block_norm)
+            normalized_blocks[r, c, :] = _hog_normalize_block(
+                block, method=block_norm
+            )
 
     """
     The final step collects the HOG descriptors from all blocks of a dense

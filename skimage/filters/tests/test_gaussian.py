@@ -27,7 +27,8 @@ def test_default_sigma():
     a = np.zeros((3, 3))
     a[1, 1] = 1.0
     assert_array_equal(
-        gaussian(a, preserve_range=True), gaussian(a, preserve_range=True, sigma=1)
+        gaussian(a, preserve_range=True),
+        gaussian(a, preserve_range=True, sigma=1),
     )
 
 
@@ -52,11 +53,17 @@ def test_multichannel(channel_axis):
     a[1, 1] = np.arange(1, 4)
     a = np.moveaxis(a, -1, channel_axis)
     gaussian_rgb_a = gaussian(
-        a, sigma=1, mode='reflect', preserve_range=True, channel_axis=channel_axis
+        a,
+        sigma=1,
+        mode='reflect',
+        preserve_range=True,
+        channel_axis=channel_axis,
     )
     # Check that the mean value is conserved in each channel
     # (color channels are not mixed together)
-    spatial_axes = tuple([ax for ax in range(a.ndim) if ax != channel_axis % a.ndim])
+    spatial_axes = tuple(
+        [ax for ax in range(a.ndim) if ax != channel_axis % a.ndim]
+    )
     assert np.allclose(
         a.mean(axis=spatial_axes), gaussian_rgb_a.mean(axis=spatial_axes)
     )
@@ -69,7 +76,11 @@ def test_multichannel(channel_axis):
         )
     # Iterable sigma
     gaussian_rgb_a = gaussian(
-        a, sigma=[1, 2], mode='reflect', channel_axis=channel_axis, preserve_range=True
+        a,
+        sigma=[1, 2],
+        mode='reflect',
+        channel_axis=channel_axis,
+        preserve_range=True,
     )
     assert np.allclose(
         a.mean(axis=spatial_axes), gaussian_rgb_a.mean(axis=spatial_axes)
@@ -111,7 +122,9 @@ def test_4d_ok():
 def test_preserve_output(dtype):
     image = np.arange(9, dtype=dtype).reshape((3, 3))
     output = np.zeros_like(image, dtype=dtype)
-    gaussian_image = gaussian(image, sigma=1, output=output, preserve_range=True)
+    gaussian_image = gaussian(
+        image, sigma=1, output=output, preserve_range=True
+    )
     assert gaussian_image is output
 
 

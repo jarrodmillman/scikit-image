@@ -49,7 +49,9 @@ for theta in range(4):
     for sigma in (1, 3):
         for frequency in (0.05, 0.25):
             kernel = np.real(
-                gabor_kernel(frequency, theta=theta, sigma_x=sigma, sigma_y=sigma)
+                gabor_kernel(
+                    frequency, theta=theta, sigma_x=sigma, sigma_y=sigma
+                )
             )
             kernels.append(kernel)
 

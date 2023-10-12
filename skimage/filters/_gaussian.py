@@ -142,7 +142,8 @@ def difference_of_gaussians(
 
     if any(high_sigma < low_sigma):
         raise ValueError(
-            'high_sigma must be equal to or larger than' 'low_sigma for all axes'
+            'high_sigma must be equal to or larger than'
+            'low_sigma for all axes'
         )
 
     im1 = gaussian(

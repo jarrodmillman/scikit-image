@@ -2,7 +2,11 @@ import math
 
 import numpy as np
 
-from .draw import polygon as draw_polygon, disk as draw_disk, ellipse as draw_ellipse
+from .draw import (
+    polygon as draw_polygon,
+    disk as draw_disk,
+    ellipse as draw_ellipse,
+)
 from .._shared.utils import deprecate_kwarg, warn
 
 
@@ -60,7 +64,10 @@ def _generate_rectangle_mask(point, image, shape, random):
             point[1] + c,
         ],
     )
-    label = ('rectangle', ((point[0], point[0] + r + 1), (point[1], point[1] + c + 1)))
+    label = (
+        'rectangle',
+        ((point[0], point[0] + r + 1), (point[1], point[1] + c + 1)),
+    )
 
     return rectangle, label
 
@@ -179,7 +186,10 @@ def _generate_triangle_mask(point, image, shape, random):
     )
     label = (
         'triangle',
-        ((point[0] - triangle_height, point[0] + 1), (point[1], point[1] + side + 1)),
+        (
+            (point[0] - triangle_height, point[0] + 1),
+            (point[1], point[1] + side + 1),
+        ),
     )
 
     return triangle, label
@@ -297,7 +307,10 @@ def _generate_random_colors(num_colors, num_channels, intensity_range, random):
         intensity_range = (intensity_range,)
     elif len(intensity_range) == 1:
         intensity_range = intensity_range * num_channels
-    colors = [random.integers(r[0], r[1] + 1, size=num_colors) for r in intensity_range]
+    colors = [
+        random.integers(r[0], r[1] + 1, size=num_colors)
+        for r in intensity_range
+    ]
     return np.transpose(colors)
 
 
@@ -424,7 +437,9 @@ def random_shapes(
     labels = []
 
     num_shapes = rng.integers(min_shapes, max_shapes + 1)
-    colors = _generate_random_colors(num_shapes, num_channels, intensity_range, rng)
+    colors = _generate_random_colors(
+        num_shapes, num_channels, intensity_range, rng
+    )
     shape = (min_size, max_size)
     for shape_idx in range(num_shapes):
         if user_shape is None:
@@ -437,7 +452,9 @@ def random_shapes(
             row = rng.integers(max(1, image_shape[0] - min_size))
             point = (row, column)
             try:
-                indices, label = shape_generator(point, image_shape, shape, rng)
+                indices, label = shape_generator(
+                    point, image_shape, shape, rng
+                )
             except ArithmeticError:
                 # Couldn't fit the shape, skip it.
                 indices = []

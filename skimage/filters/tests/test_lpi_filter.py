@@ -49,12 +49,16 @@ class TestLPIFilter2D:
     def setup_method(self):
         self.f = LPIFilter2D(self.filt_func)
 
-    @pytest.mark.parametrize('c_slice', [slice(None), slice(0, -5), slice(0, -20)])
+    @pytest.mark.parametrize(
+        'c_slice', [slice(None), slice(0, -5), slice(0, -20)]
+    )
     def test_ip_shape(self, c_slice):
         x = self.img[:, c_slice]
         assert_equal(self.f(x).shape, x.shape)
 
-    @pytest.mark.parametrize('dtype', [np.uint8, np.float16, np.float32, np.float64])
+    @pytest.mark.parametrize(
+        'dtype', [np.uint8, np.float16, np.float32, np.float64]
+    )
     def test_filter_inverse(self, dtype):
         img = self.img.astype(dtype, copy=False)
         expected_dtype = _supported_float_type(dtype)
@@ -76,7 +80,9 @@ class TestLPIFilter2D:
         g1 = filter_inverse(F[::-1, ::-1], self.filt_func)
         assert_((g - g1[::-1, ::-1]).sum() < 55)
 
-    @pytest.mark.parametrize('dtype', [np.uint8, np.float16, np.float32, np.float64])
+    @pytest.mark.parametrize(
+        'dtype', [np.uint8, np.float16, np.float32, np.float64]
+    )
     def test_wiener(self, dtype):
         img = self.img.astype(dtype, copy=False)
         expected_dtype = _supported_float_type(dtype)

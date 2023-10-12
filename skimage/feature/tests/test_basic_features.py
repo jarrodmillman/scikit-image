@@ -43,7 +43,9 @@ def test_multiscale_basic_features_channel_axis(channel_axis):
     num_channels = 5
     shape_spatial = (10, 10)
     ndim = len(shape_spatial)
-    shape = tuple(np.insert(shape_spatial, channel_axis % (ndim + 1), num_channels))
+    shape = tuple(
+        np.insert(shape_spatial, channel_axis % (ndim + 1), num_channels)
+    )
     img = np.zeros(shape)
     img[:10] = 1
     img += 0.05 * np.random.randn(*img.shape)

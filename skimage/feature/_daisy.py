@@ -143,7 +143,9 @@ def daisy(
     grad_mag = sqrt(dx**2 + dy**2)
     grad_ori = arctan2(dy, dx)
     orientation_kappa = orientations / pi
-    orientation_angles = [2 * o * pi / orientations - pi for o in range(orientations)]
+    orientation_angles = [
+        2 * o * pi / orientations - pi for o in range(orientations)
+    ]
     hist = np.empty((orientations,) + image.shape, dtype=float_dtype)
     for i, o in enumerate(orientation_angles):
         # Weigh bin contribution by the circular normal distribution
@@ -167,7 +169,9 @@ def daisy(
         (desc_dims, image.shape[0] - 2 * radius, image.shape[1] - 2 * radius),
         dtype=float_dtype,
     )
-    descs[:orientations, :, :] = hist_smooth[0, :, radius:-radius, radius:-radius]
+    descs[:orientations, :, :] = hist_smooth[
+        0, :, radius:-radius, radius:-radius
+    ]
     idx = orientations
     for i in range(rings):
         for j in range(histograms):
@@ -191,7 +195,9 @@ def daisy(
             descs /= sqrt(np.sum(descs**2, axis=2))[:, :, np.newaxis]
         elif normalization == 'daisy':
             for i in range(0, desc_dims, orientations):
-                norms = sqrt(np.sum(descs[:, :, i : i + orientations] ** 2, axis=2))
+                norms = sqrt(
+                    np.sum(descs[:, :, i : i + orientations] ** 2, axis=2)
+                )
                 descs[:, :, i : i + orientations] /= norms[:, :, np.newaxis]
 
     if visualize:
@@ -226,7 +232,9 @@ def daisy(
                         rows, cols, val = draw.circle_perimeter_aa(
                             hist_y, hist_x, int(sigmas[r_num + 1])
                         )
-                        draw.set_color(descs_img, (rows, cols), color, alpha=val)
+                        draw.set_color(
+                            descs_img, (rows, cols), color, alpha=val
+                        )
                         for o_num, o in enumerate(orientation_angles):
                             # Draw histogram bins
                             bin_size = descs[
@@ -241,9 +249,14 @@ def daisy(
                             dy = sigmas[r_num + 1] * bin_size * math.sin(o)
                             dx = sigmas[r_num + 1] * bin_size * math.cos(o)
                             rows, cols, val = draw.line_aa(
-                                hist_y, hist_x, int(hist_y + dy), int(hist_x + dx)
+                                hist_y,
+                                hist_x,
+                                int(hist_y + dy),
+                                int(hist_x + dx),
                             )
-                            draw.set_color(descs_img, (rows, cols), color, alpha=val)
+                            draw.set_color(
+                                descs_img, (rows, cols), color, alpha=val
+                            )
         return descs, descs_img
     else:
         return descs

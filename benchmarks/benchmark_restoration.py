@@ -157,17 +157,25 @@ class DeconvolutionSuite:
         pass
 
     def time_richardson_lucy_f64(self):
-        restoration.richardson_lucy(self.volume_f64, self.psf_f64, **rl_iter_kwarg)
+        restoration.richardson_lucy(
+            self.volume_f64, self.psf_f64, **rl_iter_kwarg
+        )
 
     def time_richardson_lucy_f32(self):
-        restoration.richardson_lucy(self.volume_f32, self.psf_f32, **rl_iter_kwarg)
+        restoration.richardson_lucy(
+            self.volume_f32, self.psf_f32, **rl_iter_kwarg
+        )
 
     # use iterations=1 for peak-memory cases to save time
     def peakmem_richardson_lucy_f64(self):
-        restoration.richardson_lucy(self.volume_f64, self.psf_f64, **rl_iter_kwarg)
+        restoration.richardson_lucy(
+            self.volume_f64, self.psf_f64, **rl_iter_kwarg
+        )
 
     def peakmem_richardson_lucy_f32(self):
-        restoration.richardson_lucy(self.volume_f32, self.psf_f32, **rl_iter_kwarg)
+        restoration.richardson_lucy(
+            self.volume_f32, self.psf_f32, **rl_iter_kwarg
+        )
 
 
 class RollingBall:

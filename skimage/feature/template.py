@@ -8,11 +8,14 @@ from .._shared.utils import check_nD, _supported_float_type
 
 def _window_sum_2d(image, window_shape):
     window_sum = np.cumsum(image, axis=0)
-    window_sum = window_sum[window_shape[0] : -1] - window_sum[: -window_shape[0] - 1]
+    window_sum = (
+        window_sum[window_shape[0] : -1] - window_sum[: -window_shape[0] - 1]
+    )
 
     window_sum = np.cumsum(window_sum, axis=1)
     window_sum = (
-        window_sum[:, window_shape[1] : -1] - window_sum[:, : -window_shape[1] - 1]
+        window_sum[:, window_shape[1] : -1]
+        - window_sum[:, : -window_shape[1] - 1]
     )
 
     return window_sum
@@ -131,7 +134,10 @@ def match_template(
     pad_width = tuple((width, width) for width in template.shape)
     if mode == 'constant':
         image = np.pad(
-            image, pad_width=pad_width, mode=mode, constant_values=constant_values
+            image,
+            pad_width=pad_width,
+            mode=mode,
+            constant_values=constant_values,
         )
     else:
         image = np.pad(image, pad_width=pad_width, mode=mode)
@@ -150,7 +156,9 @@ def match_template(
     template_ssd = np.sum((template - template_mean) ** 2)
 
     if image.ndim == 2:
-        xcorr = fftconvolve(image, template[::-1, ::-1], mode="valid")[1:-1, 1:-1]
+        xcorr = fftconvolve(image, template[::-1, ::-1], mode="valid")[
+            1:-1, 1:-1
+        ]
     elif image.ndim == 3:
         xcorr = fftconvolve(image, template[::-1, ::-1, ::-1], mode="valid")[
             1:-1, 1:-1, 1:-1
@@ -163,7 +171,9 @@ def match_template(
     np.divide(image_window_sum, template_volume, out=image_window_sum)
     denominator -= image_window_sum
     denominator *= template_ssd
-    np.maximum(denominator, 0, out=denominator)  # sqrt of negative number not allowed
+    np.maximum(
+        denominator, 0, out=denominator
+    )  # sqrt of negative number not allowed
     np.sqrt(denominator, out=denominator)
 
     response = np.zeros_like(xcorr, dtype=float_dtype)

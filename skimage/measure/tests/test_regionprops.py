@@ -48,7 +48,9 @@ SAMPLE = np.array(
 INTENSITY_SAMPLE = SAMPLE.copy()
 INTENSITY_SAMPLE[1, 9:11] = 2
 INTENSITY_FLOAT_SAMPLE = INTENSITY_SAMPLE.copy().astype(np.float64) / 10.0
-INTENSITY_FLOAT_SAMPLE_MULTICHANNEL = INTENSITY_FLOAT_SAMPLE[..., np.newaxis] * [
+INTENSITY_FLOAT_SAMPLE_MULTICHANNEL = INTENSITY_FLOAT_SAMPLE[
+    ..., np.newaxis
+] * [
     1,
     2,
     3,
@@ -111,7 +113,9 @@ def test_all_props():
             # (we intentionally do not provide properties for these)
             if prop.lower() == prop:
                 # access legacy name via attribute
-                assert_almost_equal(getattr(region, prop), getattr(region, PROPS[prop]))
+                assert_almost_equal(
+                    getattr(region, prop), getattr(region, PROPS[prop])
+                )
 
         except TypeError:  # the `slice` property causes this
             pass
@@ -126,7 +130,9 @@ def test_all_props_3d():
             # skip property access tests for old CamelCase names
             # (we intentionally do not provide properties for these)
             if prop.lower() == prop:
-                assert_almost_equal(getattr(region, prop), getattr(region, PROPS[prop]))
+                assert_almost_equal(
+                    getattr(region, prop), getattr(region, PROPS[prop])
+                )
 
         except (NotImplementedError, TypeError):
             pass
@@ -167,7 +173,9 @@ def test_feret_diameter_max():
     test_result = regionprops(SAMPLE)[0].feret_diameter_max
     assert np.abs(test_result - comparator_result) < 1
     comparator_result_spacing = 10
-    test_result_spacing = regionprops(SAMPLE, spacing=[1, 0.1])[0].feret_diameter_max
+    test_result_spacing = regionprops(SAMPLE, spacing=[1, 0.1])[
+        0
+    ].feret_diameter_max
     assert np.abs(test_result_spacing - comparator_result_spacing) < 1
     # square, test that maximum Feret diameter is sqrt(2) * square side
     img = np.zeros((20, 20), dtype=np.uint8)
@@ -187,7 +195,9 @@ def test_feret_diameter_max_spacing():
     # square, test that maximum Feret diameter is sqrt(2) * square side
     img = np.zeros((20, 20), dtype=np.uint8)
     img[2:-2, 2:-2] = 1
-    feret_diameter_max = regionprops(img, spacing=spacing)[0].feret_diameter_max
+    feret_diameter_max = regionprops(img, spacing=spacing)[
+        0
+    ].feret_diameter_max
     # For anisotropic spacing the shift is applied to the smaller spacing.
     assert (
         np.abs(
@@ -210,11 +220,16 @@ def test_feret_diameter_max_3d():
     # There are three combinations (x-1, y-1, z), (x-1, y, z-1), (x, y-1, z-1). The option
     # yielding the longest diagonal is the computed max_feret_diameter.
     assert (
-        np.abs(feret_diameter_max - np.sqrt((16 - 1) ** 2 + 16**2 + (3 - 1) ** 2))
+        np.abs(
+            feret_diameter_max
+            - np.sqrt((16 - 1) ** 2 + 16**2 + (3 - 1) ** 2)
+        )
         < 1e-6
     )
     spacing = (1, 2, 3)
-    feret_diameter_max = regionprops(img_3d, spacing=spacing)[0].feret_diameter_max
+    feret_diameter_max = regionprops(img_3d, spacing=spacing)[
+        0
+    ].feret_diameter_max
     # The longest of the three options is the max_feret_diameter
     assert (
         np.abs(
@@ -279,9 +294,13 @@ def test_bbox():
     SAMPLE_mod = SAMPLE.copy()
     SAMPLE_mod[:, -1] = 0
     bbox = regionprops(SAMPLE_mod)[0].bbox
-    assert_array_almost_equal(bbox, (0, 0, SAMPLE.shape[0], SAMPLE.shape[1] - 1))
+    assert_array_almost_equal(
+        bbox, (0, 0, SAMPLE.shape[0], SAMPLE.shape[1] - 1)
+    )
     bbox = regionprops(SAMPLE_mod, spacing=(3, 2))[0].bbox
-    assert_array_almost_equal(bbox, (0, 0, SAMPLE.shape[0], SAMPLE.shape[1] - 1))
+    assert_array_almost_equal(
+        bbox, (0, 0, SAMPLE.shape[0], SAMPLE.shape[1] - 1)
+    )
 
     bbox = regionprops(SAMPLE_3D)[0].bbox
     assert_array_almost_equal(bbox, (1, 1, 1, 4, 3, 3))
@@ -418,7 +437,9 @@ def test_spacing_parameter_nan_inf(spacing):
 
 @pytest.mark.parametrize("spacing", ([1], [[1, 1]], (1, 1, 1)))
 def test_spacing_mismtaching_shape(spacing):
-    with pytest.raises(ValueError, match="spacing isn't a scalar nor a sequence"):
+    with pytest.raises(
+        ValueError, match="spacing isn't a scalar nor a sequence"
+    ):
         regionprops(SAMPLE, spacing=spacing)[0].centroid
 
 
@@ -429,9 +450,9 @@ def test_spacing_parameter_2d(spacing):
     Mpq = get_moment_function(INTENSITY_SAMPLE, spacing=spacing)
     cY = Mpq(0, 1) / Mpq(0, 0)
     cX = Mpq(1, 0) / Mpq(0, 0)
-    centroid = regionprops(SAMPLE, intensity_image=INTENSITY_SAMPLE, spacing=spacing)[
-        0
-    ].centroid_weighted
+    centroid = regionprops(
+        SAMPLE, intensity_image=INTENSITY_SAMPLE, spacing=spacing
+    )[0].centroid_weighted
     assert_almost_equal(centroid, (cX, cY))
 
 
@@ -688,24 +709,32 @@ def test_axis_major_length():
     img[rr, cc] = 1
 
     target_length = regionprops(img, spacing=(1, 1))[0].axis_major_length
-    length_wo_spacing = regionprops(img[::2], spacing=(1, 1))[0].axis_minor_length
+    length_wo_spacing = regionprops(img[::2], spacing=(1, 1))[
+        0
+    ].axis_minor_length
     assert abs(length_wo_spacing - target_length) > 0.1
     length = regionprops(img[:, ::2], spacing=(1, 2))[0].axis_major_length
     assert_almost_equal(length, target_length, decimal=0)
 
 
 def test_intensity_max():
-    intensity = regionprops(SAMPLE, intensity_image=INTENSITY_SAMPLE)[0].intensity_max
+    intensity = regionprops(SAMPLE, intensity_image=INTENSITY_SAMPLE)[
+        0
+    ].intensity_max
     assert_almost_equal(intensity, 2)
 
 
 def test_intensity_mean():
-    intensity = regionprops(SAMPLE, intensity_image=INTENSITY_SAMPLE)[0].intensity_mean
+    intensity = regionprops(SAMPLE, intensity_image=INTENSITY_SAMPLE)[
+        0
+    ].intensity_mean
     assert_almost_equal(intensity, 1.02777777777777)
 
 
 def test_intensity_min():
-    intensity = regionprops(SAMPLE, intensity_image=INTENSITY_SAMPLE)[0].intensity_min
+    intensity = regionprops(SAMPLE, intensity_image=INTENSITY_SAMPLE)[
+        0
+    ].intensity_min
     assert_almost_equal(intensity, 1)
 
 
@@ -726,7 +755,9 @@ def test_axis_minor_length():
     img[rr, cc] = 1
 
     target_length = regionprops(img, spacing=(1, 1))[0].axis_minor_length
-    length_wo_spacing = regionprops(img[::2], spacing=(1, 1))[0].axis_minor_length
+    length_wo_spacing = regionprops(img[::2], spacing=(1, 1))[
+        0
+    ].axis_minor_length
     assert abs(length_wo_spacing - target_length) > 0.1
     length = regionprops(img[::2], spacing=(2, 1))[0].axis_minor_length
     assert_almost_equal(length, target_length, decimal=1)
@@ -827,7 +858,9 @@ def test_orientation():
     assert_almost_equal(orient_diag, -np.arccos(0.5 / np.sqrt(1 + 0.5**2)))
     orient_diag = regionprops(np.fliplr(np.flipud(diag)))[0].orientation
     assert_almost_equal(orient_diag, math.pi / 4)
-    orient_diag = regionprops(np.fliplr(np.flipud(diag)), spacing=(1, 2))[0].orientation
+    orient_diag = regionprops(np.fliplr(np.flipud(diag)), spacing=(1, 2))[
+        0
+    ].orientation
     assert_almost_equal(orient_diag, np.arccos(0.5 / np.sqrt(1 + 0.5**2)))
 
 
@@ -841,16 +874,18 @@ def test_orientation_continuity():
     image = np.hstack((arr1, arr2, arr3))
     props = regionprops(image)
     orientations = [prop.orientation for prop in props]
-    np.testing.assert_allclose(orientations, orientations[1], rtol=0, atol=0.08)
+    np.testing.assert_allclose(
+        orientations, orientations[1], rtol=0, atol=0.08
+    )
     assert_almost_equal(orientations[0], -0.7144496360953664)
     assert_almost_equal(orientations[1], -0.7853981633974483)
     assert_almost_equal(orientations[2], -0.8563466906995303)
 
     # Test spacing
     spacing = (3.2, 1.2)
-    wmu = regionprops(SAMPLE, intensity_image=INTENSITY_SAMPLE, spacing=spacing)[
-        0
-    ].moments_weighted_central
+    wmu = regionprops(
+        SAMPLE, intensity_image=INTENSITY_SAMPLE, spacing=spacing
+    )[0].moments_weighted_central
     centralMpq = get_central_moment_function(INTENSITY_SAMPLE, spacing=spacing)
     assert_almost_equal(wmu[0, 0], centralMpq(0, 0))
     assert_almost_equal(wmu[0, 1], centralMpq(0, 1))
@@ -921,10 +956,15 @@ def test_multichannel_centroid_weighted_table():
     )
     assert np.shape(rp0.centroid_weighted) == (SAMPLE.ndim,)
     assert np.shape(rp1.centroid_weighted) == (SAMPLE.ndim, 1)
-    assert np.shape(rpm.centroid_weighted) == (SAMPLE.ndim, intensity_image.shape[-1])
+    assert np.shape(rpm.centroid_weighted) == (
+        SAMPLE.ndim,
+        intensity_image.shape[-1],
+    )
 
     table = regionprops_table(
-        SAMPLE, intensity_image=intensity_image, properties=('centroid_weighted',)
+        SAMPLE,
+        intensity_image=intensity_image,
+        properties=('centroid_weighted',),
     )
     # check the number of returned columns is correct
     assert len(table) == np.size(rpm.centroid_weighted)
@@ -936,10 +976,30 @@ def test_moments_weighted_central():
     ].moments_weighted_central
     ref = np.array(
         [
-            [7.4000000000e01, 3.7303493627e-14, 1.2602837838e03, -7.6561796932e02],
-            [-2.1316282073e-13, -8.7837837838e01, 2.1571526662e03, -4.2385971907e03],
-            [4.7837837838e02, -1.4801314828e02, 6.6989799420e03, -9.9501164076e03],
-            [-7.5943608473e02, -1.2714707125e03, 1.5304076361e04, -3.3156729271e04],
+            [
+                7.4000000000e01,
+                3.7303493627e-14,
+                1.2602837838e03,
+                -7.6561796932e02,
+            ],
+            [
+                -2.1316282073e-13,
+                -8.7837837838e01,
+                2.1571526662e03,
+                -4.2385971907e03,
+            ],
+            [
+                4.7837837838e02,
+                -1.4801314828e02,
+                6.6989799420e03,
+                -9.9501164076e03,
+            ],
+            [
+                -7.5943608473e02,
+                -1.2714707125e03,
+                1.5304076361e04,
+                -3.3156729271e04,
+            ],
         ]
     )
 
@@ -995,9 +1055,9 @@ def test_centroid_weighted():
     Mpq = get_moment_function(INTENSITY_SAMPLE, spacing=spacing)
     cY = Mpq(0, 1) / Mpq(0, 0)
     cX = Mpq(1, 0) / Mpq(0, 0)
-    centroid = regionprops(SAMPLE, intensity_image=INTENSITY_SAMPLE, spacing=spacing)[
-        0
-    ].centroid_weighted
+    centroid = regionprops(
+        SAMPLE, intensity_image=INTENSITY_SAMPLE, spacing=spacing
+    )[0].centroid_weighted
     assert_almost_equal(centroid, (cX, cY))
     assert_almost_equal(centroid, 2 * np.array(target_centroid))
     centroid = regionprops(
@@ -1009,9 +1069,9 @@ def test_centroid_weighted():
     Mpq = get_moment_function(INTENSITY_SAMPLE, spacing=spacing)
     cY = Mpq(0, 1) / Mpq(0, 0)
     cX = Mpq(1, 0) / Mpq(0, 0)
-    centroid = regionprops(SAMPLE, intensity_image=INTENSITY_SAMPLE, spacing=spacing)[
-        0
-    ].centroid_weighted
+    centroid = regionprops(
+        SAMPLE, intensity_image=INTENSITY_SAMPLE, spacing=spacing
+    )[0].centroid_weighted
     assert_almost_equal(centroid, (cX, cY))
     centroid = regionprops(
         sample_for_spacing, intensity_image=sample_for_spacing, spacing=spacing
@@ -1020,7 +1080,9 @@ def test_centroid_weighted():
 
 
 def test_moments_weighted_hu():
-    whu = regionprops(SAMPLE, intensity_image=INTENSITY_SAMPLE)[0].moments_weighted_hu
+    whu = regionprops(SAMPLE, intensity_image=INTENSITY_SAMPLE)[
+        0
+    ].moments_weighted_hu
     ref = np.array(
         [
             3.1750587329e-01,
@@ -1039,7 +1101,9 @@ def test_moments_weighted_hu():
 
 
 def test_moments_weighted():
-    wm = regionprops(SAMPLE, intensity_image=INTENSITY_SAMPLE)[0].moments_weighted
+    wm = regionprops(SAMPLE, intensity_image=INTENSITY_SAMPLE)[
+        0
+    ].moments_weighted
     ref = np.array(
         [
             [7.4000000e01, 6.9900000e02, 7.8630000e03, 9.7317000e04],
@@ -1071,7 +1135,9 @@ def test_moments_weighted():
 
 
 def test_moments_weighted_spacing():
-    wm = regionprops(SAMPLE, intensity_image=INTENSITY_SAMPLE)[0].moments_weighted
+    wm = regionprops(SAMPLE, intensity_image=INTENSITY_SAMPLE)[
+        0
+    ].moments_weighted
     ref = np.array(
         [
             [7.4000000e01, 6.9900000e02, 7.8630000e03, 9.7317000e04],
@@ -1084,9 +1150,9 @@ def test_moments_weighted_spacing():
 
     # Test spacing
     spacing = (3.2, 1.2)
-    wmu = regionprops(SAMPLE, intensity_image=INTENSITY_SAMPLE, spacing=spacing)[
-        0
-    ].moments_weighted
+    wmu = regionprops(
+        SAMPLE, intensity_image=INTENSITY_SAMPLE, spacing=spacing
+    )[0].moments_weighted
     Mpq = get_moment_function(INTENSITY_SAMPLE, spacing=spacing)
     assert_almost_equal(wmu[0, 0], Mpq(0, 0))
     assert_almost_equal(wmu[0, 1], Mpq(0, 1))
@@ -1123,9 +1189,9 @@ def test_moments_weighted_normalized():
 
 def test_moments_weighted_normalized_spacing():
     spacing = (3, 3)
-    wnu = regionprops(SAMPLE, intensity_image=INTENSITY_SAMPLE, spacing=spacing)[
-        0
-    ].moments_weighted_normalized
+    wnu = regionprops(
+        SAMPLE, intensity_image=INTENSITY_SAMPLE, spacing=spacing
+    )[0].moments_weighted_normalized
 
     np.array(
         [
@@ -1267,7 +1333,9 @@ def test_props_to_dict():
     }
 
     regions = regionprops(SAMPLE)
-    out = _props_to_dict(regions, properties=('label', 'area', 'bbox'), separator='+')
+    out = _props_to_dict(
+        regions, properties=('label', 'area', 'bbox'), separator='+'
+    )
     assert out == {
         'label': np.array([1]),
         'area': np.array([72]),
@@ -1288,7 +1356,9 @@ def test_regionprops_table():
         'bbox-3': np.array([18]),
     }
 
-    out = regionprops_table(SAMPLE, properties=('label', 'area', 'bbox'), separator='+')
+    out = regionprops_table(
+        SAMPLE, properties=('label', 'area', 'bbox'), separator='+'
+    )
     assert out == {
         'label': np.array([1]),
         'area': np.array([72]),
@@ -1320,7 +1390,11 @@ def test_regionprops_table_equal_to_original():
     for prop, dtype in COL_DTYPES.items():
         for i, reg in enumerate(regions):
             rp = reg[prop]
-            if np.isscalar(rp) or prop in OBJECT_COLUMNS or dtype is np.object_:
+            if (
+                np.isscalar(rp)
+                or prop in OBJECT_COLUMNS
+                or dtype is np.object_
+            ):
                 assert_array_equal(rp, out_table[prop][i])
             else:
                 shape = rp.shape if isinstance(rp, np.ndarray) else (len(rp),)
@@ -1332,7 +1406,9 @@ def test_regionprops_table_equal_to_original():
 
 def test_regionprops_table_no_regions():
     out = regionprops_table(
-        np.zeros((2, 2), dtype=int), properties=('label', 'area', 'bbox'), separator='+'
+        np.zeros((2, 2), dtype=int),
+        properties=('label', 'area', 'bbox'),
+        separator='+',
     )
     assert len(out) == 6
     assert len(out['label']) == 0
@@ -1356,9 +1432,13 @@ def test_column_dtypes_correct():
         t = type(np.ravel(r)[0])
 
         if np.issubdtype(t, np.floating):
-            assert COL_DTYPES[col] == float, f'{col} dtype {t} {msg} {COL_DTYPES[col]}'
+            assert (
+                COL_DTYPES[col] == float
+            ), f'{col} dtype {t} {msg} {COL_DTYPES[col]}'
         elif np.issubdtype(t, np.integer):
-            assert COL_DTYPES[col] == int, f'{col} dtype {t} {msg} {COL_DTYPES[col]}'
+            assert (
+                COL_DTYPES[col] == int
+            ), f'{col} dtype {t} {msg} {COL_DTYPES[col]}'
         else:
             assert False, f'{col} dtype {t} {msg} {COL_DTYPES[col]}'
 
@@ -1405,7 +1485,9 @@ def test_extra_properties():
 
 def test_extra_properties_intensity():
     region = regionprops(
-        SAMPLE, intensity_image=INTENSITY_SAMPLE, extra_properties=(intensity_median,)
+        SAMPLE,
+        intensity_image=INTENSITY_SAMPLE,
+        extra_properties=(intensity_median,),
     )[0]
     assert region.intensity_median == np.median(INTENSITY_SAMPLE[SAMPLE == 1])
 
@@ -1470,12 +1552,12 @@ def test_multichannel():
     labels = slic(astro.astype(float), start_label=1)
 
     segment_idx = np.max(labels) // 2
-    region = regionprops(labels, astro_green, extra_properties=[intensity_median])[
-        segment_idx
-    ]
-    region_multi = regionprops(labels, astro, extra_properties=[intensity_median])[
-        segment_idx
-    ]
+    region = regionprops(
+        labels, astro_green, extra_properties=[intensity_median]
+    )[segment_idx]
+    region_multi = regionprops(
+        labels, astro, extra_properties=[intensity_median]
+    )[segment_idx]
 
     for prop in list(PROPS.keys()) + ["intensity_median"]:
         p = region[prop]
@@ -1486,7 +1568,9 @@ def test_multichannel():
         else:
             # property uses multiple channels, returns props stacked along
             # final axis
-            assert_allclose(p, np.asarray(p_multi)[..., 1], rtol=1e-12, atol=1e-12)
+            assert_allclose(
+                p, np.asarray(p_multi)[..., 1], rtol=1e-12, atol=1e-12
+            )
 
 
 def test_3d_ellipsoid_axis_lengths():
@@ -1503,7 +1587,9 @@ def test_3d_ellipsoid_axis_lengths():
     e = np.pad(e, pad_width=[(30, 18), (30, 12), (40, 20)], mode='constant')
 
     # apply rotations to the ellipsoid
-    R = transform.EuclideanTransform(rotation=[0.2, 0.3, 0.4], dimensionality=3)
+    R = transform.EuclideanTransform(
+        rotation=[0.2, 0.3, 0.4], dimensionality=3
+    )
     e = ndi.affine_transform(e, R.params)
 
     # Compute regionprops

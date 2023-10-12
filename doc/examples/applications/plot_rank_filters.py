@@ -147,7 +147,9 @@ noisy_image = img_as_ubyte(data.camera())
 
 bilat = mean_bilateral(noisy_image.astype(np.uint16), disk(20), s0=10, s1=10)
 
-fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 10), sharex='row', sharey='row')
+fig, axes = plt.subplots(
+    nrows=2, ncols=2, figsize=(10, 10), sharex='row', sharey='row'
+)
 ax = axes.ravel()
 
 ax[0].imshow(noisy_image, cmap=plt.cm.gray)
@@ -258,12 +260,22 @@ image = data.camera()
 
 footprint = disk(20)
 loc_autolevel = autolevel(image, footprint=footprint)
-loc_perc_autolevel0 = autolevel_percentile(image, footprint=footprint, p0=0.01, p1=0.99)
-loc_perc_autolevel1 = autolevel_percentile(image, footprint=footprint, p0=0.05, p1=0.95)
-loc_perc_autolevel2 = autolevel_percentile(image, footprint=footprint, p0=0.1, p1=0.9)
-loc_perc_autolevel3 = autolevel_percentile(image, footprint=footprint, p0=0.15, p1=0.85)
+loc_perc_autolevel0 = autolevel_percentile(
+    image, footprint=footprint, p0=0.01, p1=0.99
+)
+loc_perc_autolevel1 = autolevel_percentile(
+    image, footprint=footprint, p0=0.05, p1=0.95
+)
+loc_perc_autolevel2 = autolevel_percentile(
+    image, footprint=footprint, p0=0.1, p1=0.9
+)
+loc_perc_autolevel3 = autolevel_percentile(
+    image, footprint=footprint, p0=0.15, p1=0.85
+)
 
-fig, axes = plt.subplots(nrows=3, ncols=2, figsize=(10, 10), sharex=True, sharey=True)
+fig, axes = plt.subplots(
+    nrows=3, ncols=2, figsize=(10, 10), sharex=True, sharey=True
+)
 ax = axes.ravel()
 
 title_list = [
@@ -301,7 +313,9 @@ noisy_image = img_as_ubyte(data.camera())
 
 enh = enhance_contrast(noisy_image, disk(5))
 
-fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 10), sharex='row', sharey='row')
+fig, axes = plt.subplots(
+    nrows=2, ncols=2, figsize=(10, 10), sharex='row', sharey='row'
+)
 ax = axes.ravel()
 
 ax[0].imshow(noisy_image, cmap=plt.cm.gray)
@@ -329,7 +343,9 @@ noisy_image = img_as_ubyte(data.camera())
 
 penh = enhance_contrast_percentile(noisy_image, disk(5), p0=0.1, p1=0.9)
 
-fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 10), sharex='row', sharey='row')
+fig, axes = plt.subplots(
+    nrows=2, ncols=2, figsize=(10, 10), sharex='row', sharey='row'
+)
 ax = axes.ravel()
 
 ax[0].imshow(noisy_image, cmap=plt.cm.gray)
@@ -382,7 +398,9 @@ loc_otsu = p8 >= t_loc_otsu
 t_glob_otsu = threshold_otsu(p8)
 glob_otsu = p8 >= t_glob_otsu
 
-fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(12, 12), sharex=True, sharey=True)
+fig, axes = plt.subplots(
+    nrows=2, ncols=2, figsize=(12, 12), sharex=True, sharey=True
+)
 ax = axes.ravel()
 
 fig.colorbar(ax[0].imshow(p8, cmap=plt.cm.gray), ax=ax[0])
@@ -418,7 +436,9 @@ loc_otsu = brain >= t_loc_otsu
 t_glob_otsu = threshold_otsu(brain)
 glob_otsu = brain >= t_glob_otsu
 
-fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(12, 12), sharex=True, sharey=True)
+fig, axes = plt.subplots(
+    nrows=2, ncols=2, figsize=(12, 12), sharex=True, sharey=True
+)
 ax = axes.ravel()
 
 slice_index = 3
@@ -484,7 +504,9 @@ closing = minimum(maximum(noisy_image, disk(5)), disk(5))
 grad = gradient(noisy_image, disk(5))
 
 # display results
-fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 10), sharex=True, sharey=True)
+fig, axes = plt.subplots(
+    nrows=2, ncols=2, figsize=(10, 10), sharex=True, sharey=True
+)
 ax = axes.ravel()
 
 ax[0].imshow(noisy_image, cmap=plt.cm.gray)

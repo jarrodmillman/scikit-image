@@ -32,7 +32,12 @@ def file_or_url_context(resource_name):
             # could not open URL
             os.remove(f.name)
             raise
-        except (FileNotFoundError, FileExistsError, PermissionError, BaseException):
+        except (
+            FileNotFoundError,
+            FileExistsError,
+            PermissionError,
+            BaseException,
+        ):
             # could not create temporary file
             raise
         else:

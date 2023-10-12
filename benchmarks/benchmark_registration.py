@@ -50,12 +50,16 @@ class PhaseCrossCorrelationRegistration:
         if phase_cross_correlation is None:
             raise NotImplementedError("phase_cross_correlation unavailable")
         shifts = (-2.3, 1.7, 5.4, -3.2)[:ndims]
-        phantom = img_as_float(data.binary_blobs(length=image_size, n_dim=ndims))
+        phantom = img_as_float(
+            data.binary_blobs(length=image_size, n_dim=ndims)
+        )
         self.reference_image = np.fft.fftn(phantom).astype(dtype, copy=False)
         self.shifted_image = ndi.fourier_shift(self.reference_image, shifts)
         self.shifted_image = self.shifted_image.astype(dtype, copy=False)
 
-    def time_phase_cross_correlation(self, ndims, image_size, upsample_factor, *args):
+    def time_phase_cross_correlation(
+        self, ndims, image_size, upsample_factor, *args
+    ):
         phase_cross_correlation(
             self.reference_image,
             self.shifted_image,

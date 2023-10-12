@@ -53,12 +53,16 @@ def test_wiener(dtype, ndim):
     if ndim == 2:
         rtol, atol = _get_rtol_atol(dtype)
         path = fetch('restoration/tests/camera_wiener.npy')
-        np.testing.assert_allclose(deconvolved, np.load(path), rtol=rtol, atol=atol)
+        np.testing.assert_allclose(
+            deconvolved, np.load(path), rtol=rtol, atol=atol
+        )
 
     _, laplacian = uft.laplacian(ndim, data.shape)
     otf = uft.ir2tf(psf, data.shape, is_real=False)
     assert otf.real.dtype == _supported_float_type(dtype)
-    deconvolved = restoration.wiener(data, otf, 0.05, reg=laplacian, is_real=False)
+    deconvolved = restoration.wiener(
+        data, otf, 0.05, reg=laplacian, is_real=False
+    )
     assert deconvolved.real.dtype == _supported_float_type(dtype)
     if ndim == 2:
         np.testing.assert_allclose(
@@ -84,7 +88,9 @@ def test_unsupervised_wiener(dtype):
 
     rtol, atol = _get_rtol_atol(dtype)
     path = fetch('restoration/tests/camera_unsup.npy')
-    np.testing.assert_allclose(deconvolved, np.load(path), rtol=rtol, atol=atol)
+    np.testing.assert_allclose(
+        deconvolved, np.load(path), rtol=rtol, atol=atol
+    )
 
     _, laplacian = uft.laplacian(2, data.shape)
     otf = uft.ir2tf(psf, data.shape, is_real=False)
@@ -177,8 +183,12 @@ def test_richardson_lucy_filtered(dtype_image, dtype_psf):
     data = convolve2d(test_img_astro, psf, 'same')
     data = data.astype(dtype_image, copy=False)
 
-    deconvolved = restoration.richardson_lucy(data, psf, 5, filter_epsilon=1e-6)
+    deconvolved = restoration.richardson_lucy(
+        data, psf, 5, filter_epsilon=1e-6
+    )
     assert deconvolved.dtype == _supported_float_type(data.dtype)
 
     path = fetch('restoration/tests/astronaut_rl.npy')
-    np.testing.assert_allclose(deconvolved, np.load(path), rtol=1e-3, atol=atol)
+    np.testing.assert_allclose(
+        deconvolved, np.load(path), rtol=1e-3, atol=atol
+    )

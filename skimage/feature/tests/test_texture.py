@@ -14,7 +14,8 @@ from skimage.transform import integral_image
 class TestGLCM:
     def setup_method(self):
         self.image = np.array(
-            [[0, 0, 1, 1], [0, 0, 1, 1], [0, 2, 2, 2], [2, 2, 3, 3]], dtype=np.uint8
+            [[0, 0, 1, 1], [0, 0, 1, 1], [0, 2, 2, 2], [2, 2, 3, 3]],
+            dtype=np.uint8,
         )
 
     @run_in_parallel()
@@ -24,19 +25,23 @@ class TestGLCM:
         )
         assert result.shape == (4, 4, 1, 4)
         expected1 = np.array(
-            [[2, 2, 1, 0], [0, 2, 0, 0], [0, 0, 3, 1], [0, 0, 0, 1]], dtype=np.uint32
+            [[2, 2, 1, 0], [0, 2, 0, 0], [0, 0, 3, 1], [0, 0, 0, 1]],
+            dtype=np.uint32,
         )
         np.testing.assert_array_equal(result[:, :, 0, 0], expected1)
         expected2 = np.array(
-            [[1, 1, 3, 0], [0, 1, 1, 0], [0, 0, 0, 2], [0, 0, 0, 0]], dtype=np.uint32
+            [[1, 1, 3, 0], [0, 1, 1, 0], [0, 0, 0, 2], [0, 0, 0, 0]],
+            dtype=np.uint32,
         )
         np.testing.assert_array_equal(result[:, :, 0, 1], expected2)
         expected3 = np.array(
-            [[3, 0, 2, 0], [0, 2, 2, 0], [0, 0, 1, 2], [0, 0, 0, 0]], dtype=np.uint32
+            [[3, 0, 2, 0], [0, 2, 2, 0], [0, 0, 1, 2], [0, 0, 0, 0]],
+            dtype=np.uint32,
         )
         np.testing.assert_array_equal(result[:, :, 0, 2], expected3)
         expected4 = np.array(
-            [[2, 0, 0, 0], [1, 1, 2, 0], [0, 0, 2, 1], [0, 0, 0, 0]], dtype=np.uint32
+            [[2, 0, 0, 0], [1, 1, 2, 0], [0, 0, 2, 1], [0, 0, 0, 0]],
+            dtype=np.uint32,
         )
         np.testing.assert_array_equal(result[:, :, 0, 3], expected4)
 
@@ -44,7 +49,8 @@ class TestGLCM:
         result = graycomatrix(self.image, [1], [np.pi / 2], 4, symmetric=True)
         assert result.shape == (4, 4, 1, 1)
         expected = np.array(
-            [[6, 0, 2, 0], [0, 4, 2, 0], [2, 2, 2, 2], [0, 0, 2, 0]], dtype=np.uint32
+            [[6, 0, 2, 0], [0, 4, 2, 0], [2, 2, 2, 2], [0, 0, 2, 0]],
+            dtype=np.uint32,
         )
         np.testing.assert_array_equal(result[:, :, 0, 0], expected)
 
@@ -54,7 +60,14 @@ class TestGLCM:
                 graycomatrix(self.image.astype(dtype), [1], [np.pi], 4)
 
     def test_error_raise_int_types(self):
-        for dtype in [np.int16, np.int32, np.int64, np.uint16, np.uint32, np.uint64]:
+        for dtype in [
+            np.int16,
+            np.int32,
+            np.int64,
+            np.uint16,
+            np.uint32,
+            np.uint64,
+        ]:
             with pytest.raises(ValueError):
                 graycomatrix(self.image.astype(dtype), [1], [np.pi])
 
@@ -67,7 +80,14 @@ class TestGLCM:
             graycomatrix(self.image - 1, [1], [np.pi], 3)
 
     def test_image_data_types(self):
-        for dtype in [np.uint16, np.uint32, np.uint64, np.int16, np.int32, np.int64]:
+        for dtype in [
+            np.uint16,
+            np.uint32,
+            np.uint64,
+            np.int16,
+            np.int32,
+            np.int64,
+        ]:
             img = self.image.astype(dtype)
             result = graycomatrix(img, [1], [np.pi / 2], 4, symmetric=True)
             assert result.shape == (4, 4, 1, 1)
@@ -81,11 +101,13 @@ class TestGLCM:
 
     def test_output_distance(self):
         im = np.array(
-            [[0, 0, 0, 0], [1, 0, 0, 1], [2, 0, 0, 2], [3, 0, 0, 3]], dtype=np.uint8
+            [[0, 0, 0, 0], [1, 0, 0, 1], [2, 0, 0, 2], [3, 0, 0, 3]],
+            dtype=np.uint8,
         )
         result = graycomatrix(im, [3], [0], 4, symmetric=False)
         expected = np.array(
-            [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]], dtype=np.uint32
+            [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]],
+            dtype=np.uint32,
         )
         np.testing.assert_array_equal(result[:, :, 0, 0], expected)
 
@@ -96,10 +118,12 @@ class TestGLCM:
 
         z = np.zeros((4, 4), dtype=np.uint32)
         e1 = np.array(
-            [[0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [0, 0, 0, 0]], dtype=np.uint32
+            [[0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [0, 0, 0, 0]],
+            dtype=np.uint32,
         )
         e2 = np.array(
-            [[0, 0, 1, 0], [0, 0, 0, 1], [0, 0, 0, 0], [0, 0, 0, 0]], dtype=np.uint32
+            [[0, 0, 1, 0], [0, 0, 0, 1], [0, 0, 0, 0], [0, 0, 0, 0]],
+            dtype=np.uint32,
         )
 
         np.testing.assert_array_equal(result[:, :, 0, 0], z)
@@ -119,7 +143,12 @@ class TestGLCM:
 
     def test_normed_symmetric(self):
         result = graycomatrix(
-            self.image, [1, 2, 3], [0, np.pi / 2, np.pi], 4, normed=True, symmetric=True
+            self.image,
+            [1, 2, 3],
+            [0, np.pi / 2, np.pi],
+            4,
+            normed=True,
+            symmetric=True,
         )
         for d in range(result.shape[2]):
             for a in range(result.shape[3]):
@@ -129,7 +158,9 @@ class TestGLCM:
                 )
 
     def test_contrast(self):
-        result = graycomatrix(self.image, [1, 2], [0], 4, normed=True, symmetric=True)
+        result = graycomatrix(
+            self.image, [1, 2], [0], 4, normed=True, symmetric=True
+        )
         result = np.round(result, 3)
         contrast = graycoprops(result, 'contrast')
         np.testing.assert_almost_equal(contrast[0, 0], 0.585, decimal=3)
@@ -161,17 +192,23 @@ class TestGLCM:
             graycoprops(result, 'ABC')
 
     def test_homogeneity(self):
-        result = graycomatrix(self.image, [1], [0, 6], 4, normed=True, symmetric=True)
+        result = graycomatrix(
+            self.image, [1], [0, 6], 4, normed=True, symmetric=True
+        )
         homogeneity = graycoprops(result, 'homogeneity')[0, 0]
         np.testing.assert_almost_equal(homogeneity, 0.80833333)
 
     def test_energy(self):
-        result = graycomatrix(self.image, [1], [0, 4], 4, normed=True, symmetric=True)
+        result = graycomatrix(
+            self.image, [1], [0, 4], 4, normed=True, symmetric=True
+        )
         energy = graycoprops(result, 'energy')[0, 0]
         np.testing.assert_almost_equal(energy, 0.38188131)
 
     def test_correlation(self):
-        result = graycomatrix(self.image, [1, 2], [0], 4, normed=True, symmetric=True)
+        result = graycomatrix(
+            self.image, [1, 2], [0], 4, normed=True, symmetric=True
+        )
         energy = graycoprops(result, 'correlation')
         np.testing.assert_almost_equal(energy[0, 0], 0.71953255)
         np.testing.assert_almost_equal(energy[1, 0], 0.41176470)

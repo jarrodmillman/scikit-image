@@ -118,7 +118,12 @@ def profile_line(
         pixels = np.transpose(np.asarray(pixels), (1, 2, 0))
     else:
         pixels = ndi.map_coordinates(
-            image, perp_lines, prefilter=order > 1, order=order, mode=mode, cval=cval
+            image,
+            perp_lines,
+            prefilter=order > 1,
+            order=order,
+            mode=mode,
+            cval=cval,
         )
     # The outputted array with reduce_func=None gives an array where the
     # row values (axis=1) are flipped. Here, we make this consistent.

@@ -3,7 +3,12 @@ from skimage._shared.testing import assert_equal
 from skimage import data
 from skimage import transform
 from skimage.color import rgb2gray
-from skimage.feature import BRIEF, match_descriptors, corner_peaks, corner_harris
+from skimage.feature import (
+    BRIEF,
+    match_descriptors,
+    corner_peaks,
+    corner_harris,
+)
 from skimage._shared import testing
 
 
@@ -34,7 +39,9 @@ def test_binary_descriptors_rotation_crosscheck_false():
     cross_check disabled."""
     img = data.astronaut()
     img = rgb2gray(img)
-    tform = transform.SimilarityTransform(scale=1, rotation=0.15, translation=(0, 0))
+    tform = transform.SimilarityTransform(
+        scale=1, rotation=0.15, translation=(0, 0)
+    )
     rotated_img = transform.warp(img, tform, clip=False)
 
     extractor = BRIEF(descriptor_size=512)
@@ -46,7 +53,10 @@ def test_binary_descriptors_rotation_crosscheck_false():
     descriptors1 = extractor.descriptors
 
     keypoints2 = corner_peaks(
-        corner_harris(rotated_img), min_distance=5, threshold_abs=0, threshold_rel=0.1
+        corner_harris(rotated_img),
+        min_distance=5,
+        threshold_abs=0,
+        threshold_rel=0.1,
     )
     extractor.extract(rotated_img, keypoints2)
     descriptors2 = extractor.descriptors
@@ -130,7 +140,9 @@ def test_binary_descriptors_rotation_crosscheck_true():
     cross_check enabled."""
     img = data.astronaut()
     img = rgb2gray(img)
-    tform = transform.SimilarityTransform(scale=1, rotation=0.15, translation=(0, 0))
+    tform = transform.SimilarityTransform(
+        scale=1, rotation=0.15, translation=(0, 0)
+    )
     rotated_img = transform.warp(img, tform, clip=False)
 
     extractor = BRIEF(descriptor_size=512)
@@ -142,7 +154,10 @@ def test_binary_descriptors_rotation_crosscheck_true():
     descriptors1 = extractor.descriptors
 
     keypoints2 = corner_peaks(
-        corner_harris(rotated_img), min_distance=5, threshold_abs=0, threshold_rel=0.1
+        corner_harris(rotated_img),
+        min_distance=5,
+        threshold_abs=0,
+        threshold_rel=0.1,
     )
     extractor.extract(rotated_img, keypoints2)
     descriptors2 = extractor.descriptors

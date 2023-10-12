@@ -28,8 +28,12 @@ from skimage._shared.utils import _supported_float_type
 @pytest.mark.parametrize('dtype', [np.int8, np.float32])
 def test_wrong_source_range(dtype):
     im = np.array([-1, 100], dtype=dtype)
-    with pytest.raises(ValueError, match="Incorrect value for `source_range` argument"):
-        frequencies, bin_centers = exposure.histogram(im, source_range='foobar')
+    with pytest.raises(
+        ValueError, match="Incorrect value for `source_range` argument"
+    ):
+        frequencies, bin_centers = exposure.histogram(
+            im, source_range='foobar'
+        )
 
 
 def test_negative_overflow():
@@ -114,7 +118,9 @@ def test_peak_float_out_of_range_image(dtype):
 def test_peak_float_out_of_range_dtype(dtype):
     im = np.array([10, 100], dtype=dtype)
     nbins = 10
-    frequencies, bin_centers = exposure.histogram(im, nbins=nbins, source_range='dtype')
+    frequencies, bin_centers = exposure.histogram(
+        im, nbins=nbins, source_range='dtype'
+    )
     assert bin_centers.dtype == dtype
     assert_almost_equal(np.min(bin_centers), -0.9, 3)
     assert_almost_equal(np.max(bin_centers), 0.9, 3)
@@ -144,7 +150,9 @@ def test_normalize():
 @pytest.mark.parametrize('source_range', ['dtype', 'image'])
 @pytest.mark.parametrize('dtype', [np.uint8, np.int16, np.float64])
 @pytest.mark.parametrize('channel_axis', [0, 1, -1])
-def test_multichannel_hist_common_bins_uint8(dtype, source_range, channel_axis):
+def test_multichannel_hist_common_bins_uint8(
+    dtype, source_range, channel_axis
+):
     """Check that all channels use the same binning."""
     # Construct multichannel image with uniform values within each channel,
     # but the full range of values across channels.
@@ -361,7 +369,9 @@ def test_rescale_same_values():
     Version(np.__version__) < Version('1.25'),
     reason="Older NumPy throws a few extra warnings here",
 )
-@pytest.mark.parametrize("in_range,out_range", [("image", "dtype"), ("dtype", "image")])
+@pytest.mark.parametrize(
+    "in_range,out_range", [("image", "dtype"), ("dtype", "image")]
+)
 def test_rescale_nan_warning(in_range, out_range):
     image = np.arange(12, dtype=float).reshape(3, 4)
     image[1, 1] = np.nan
@@ -476,8 +486,12 @@ def test_adapthist_grayscale_Nd():
     img3d = np.array([img2d] * (img.shape[0] // a))
 
     # apply CLAHE
-    adapted2d = exposure.equalize_adapthist(img2d, kernel_size=5, clip_limit=0.05)
-    adapted3d = exposure.equalize_adapthist(img3d, kernel_size=5, clip_limit=0.05)
+    adapted2d = exposure.equalize_adapthist(
+        img2d, kernel_size=5, clip_limit=0.05
+    )
+    adapted3d = exposure.equalize_adapthist(
+        img3d, kernel_size=5, clip_limit=0.05
+    )
 
     # check that dimensions of input and output match
     assert img2d.shape == adapted2d.shape
@@ -485,7 +499,9 @@ def test_adapthist_grayscale_Nd():
 
     # check that the result from the stack of 2d images is similar
     # to the underlying 2d image
-    assert np.mean(np.abs(adapted2d - adapted3d[adapted3d.shape[0] // 2])) < 0.02
+    assert (
+        np.mean(np.abs(adapted2d - adapted3d[adapted3d.shape[0] // 2])) < 0.02
+    )
 
 
 def test_adapthist_constant():
@@ -516,9 +532,15 @@ def test_adapthist_borders():
     for kernel_size in range(51, 71, 2):
         adapted = exposure.equalize_adapthist(img, kernel_size, clip_limit=0.5)
         # Check last columns are processed
-        assert norm_brightness_err(adapted[:, border_index], img[:, border_index]) > 0.1
+        assert (
+            norm_brightness_err(adapted[:, border_index], img[:, border_index])
+            > 0.1
+        )
         # Check last rows are processed
-        assert norm_brightness_err(adapted[border_index, :], img[border_index, :]) > 0.1
+        assert (
+            norm_brightness_err(adapted[border_index, :], img[border_index, :])
+            > 0.1
+        )
 
 
 def test_adapthist_clip_limit():

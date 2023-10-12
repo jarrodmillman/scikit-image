@@ -7,17 +7,23 @@ from skimage._shared.testing import assert_array_equal, assert_equal
 from skimage._shared._warnings import expected_warnings
 
 
-test_image = np.array([[0, 0, 0, 1, 0], [1, 1, 1, 0, 0], [1, 1, 1, 0, 1]], bool)
+test_image = np.array(
+    [[0, 0, 0, 1, 0], [1, 1, 1, 0, 0], [1, 1, 1, 0, 1]], bool
+)
 
 
 def test_one_connectivity():
-    expected = np.array([[0, 0, 0, 0, 0], [1, 1, 1, 0, 0], [1, 1, 1, 0, 0]], bool)
+    expected = np.array(
+        [[0, 0, 0, 0, 0], [1, 1, 1, 0, 0], [1, 1, 1, 0, 0]], bool
+    )
     observed = remove_small_objects(test_image, min_size=6)
     assert_array_equal(observed, expected)
 
 
 def test_two_connectivity():
-    expected = np.array([[0, 0, 0, 1, 0], [1, 1, 1, 0, 0], [1, 1, 1, 0, 0]], bool)
+    expected = np.array(
+        [[0, 0, 0, 1, 0], [1, 1, 1, 0, 0], [1, 1, 1, 0, 0]], bool
+    )
     observed = remove_small_objects(test_image, min_size=7, connectivity=2)
     assert_array_equal(observed, expected)
 
@@ -26,7 +32,9 @@ def test_in_place():
     image = test_image.copy()
     observed = remove_small_objects(image, min_size=6, out=image)
     assert_equal(
-        observed is image, True, "remove_small_objects in_place argument failed."
+        observed is image,
+        True,
+        "remove_small_objects in_place argument failed.",
     )
 
 
@@ -50,10 +58,12 @@ def test_out(in_dtype, out_dtype):
 
 def test_labeled_image():
     labeled_image = np.array(
-        [[2, 2, 2, 0, 1], [2, 2, 2, 0, 1], [2, 0, 0, 0, 0], [0, 0, 3, 3, 3]], dtype=int
+        [[2, 2, 2, 0, 1], [2, 2, 2, 0, 1], [2, 0, 0, 0, 0], [0, 0, 3, 3, 3]],
+        dtype=int,
     )
     expected = np.array(
-        [[2, 2, 2, 0, 0], [2, 2, 2, 0, 0], [2, 0, 0, 0, 0], [0, 0, 3, 3, 3]], dtype=int
+        [[2, 2, 2, 0, 0], [2, 2, 2, 0, 0], [2, 0, 0, 0, 0], [0, 0, 3, 3, 3]],
+        dtype=int,
     )
     observed = remove_small_objects(labeled_image, min_size=3)
     assert_array_equal(observed, expected)
@@ -137,7 +147,9 @@ def test_two_connectivity_holes():
         ],
         bool,
     )
-    observed = remove_small_holes(test_holes_image, area_threshold=3, connectivity=2)
+    observed = remove_small_holes(
+        test_holes_image, area_threshold=3, connectivity=2
+    )
     assert_array_equal(observed, expected)
 
 

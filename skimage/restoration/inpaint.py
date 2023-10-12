@@ -78,7 +78,9 @@ def _inpaint_biharmonic_single_region(
     mask_i = np.concatenate((boundary_i, center_i))
 
     center_pts = np.where(center_mask)
-    mask_pts = tuple([np.concatenate((b, c)) for b, c in zip(boundary_pts, center_pts)])
+    mask_pts = tuple(
+        [np.concatenate((b, c)) for b, c in zip(boundary_pts, center_pts)]
+    )
 
     # Use convolution to predetermine the number of non-zero entries in the
     # sparse system matrix.
@@ -119,7 +121,9 @@ def _inpaint_biharmonic_single_region(
         # Create (truncated) biharmonic coefficients ndarray
         coef_shape = tuple(b_hi - b_lo)
         coef_center = tuple(nd_idx - b_lo)
-        coef_idx, coefs = coef_cache.get((coef_shape, coef_center), (None, None))
+        coef_idx, coefs = coef_cache.get(
+            (coef_shape, coef_center), (None, None)
+        )
         if coef_idx is None:
             _, coef_idx, coefs = _get_neigh_coef(
                 coef_shape, coef_center, dtype=out.dtype
@@ -186,7 +190,9 @@ def _inpaint_biharmonic_single_region(
     rhs[row_idx_known, :] = data_known
 
     # set use_umfpack to False so float32 data is supported
-    result = spsolve(matrix_unknown, rhs, use_umfpack=False, permc_spec='MMD_ATA')
+    result = spsolve(
+        matrix_unknown, rhs, use_umfpack=False, permc_spec='MMD_ATA'
+    )
     if result.ndim == 1:
         result = result[:, np.newaxis]
 
@@ -195,7 +201,9 @@ def _inpaint_biharmonic_single_region(
 
 
 @utils.channel_as_last_axis()
-def inpaint_biharmonic(image, mask, *, split_into_regions=False, channel_axis=None):
+def inpaint_biharmonic(
+    image, mask, *, split_into_regions=False, channel_axis=None
+):
     """Inpaint masked points in image with biharmonic equations.
 
     Parameters
@@ -310,7 +318,9 @@ def inpaint_biharmonic(image, mask, *, split_into_regions=False, channel_axis=No
             ostrides = np.array(
                 [s // channel_stride_bytes for s in otmp[..., 0].strides]
             )
-            raveled_offsets = np.sum(offsets * ostrides[..., np.newaxis], axis=0)
+            raveled_offsets = np.sum(
+                offsets * ostrides[..., np.newaxis], axis=0
+            )
 
             _inpaint_biharmonic_single_region(
                 image[roi_sl],
@@ -324,7 +334,9 @@ def inpaint_biharmonic(image, mask, *, split_into_regions=False, channel_axis=No
             out[roi_sl] = otmp
     else:
         # compute raveled offsets for output image
-        ostrides = np.array([s // channel_stride_bytes for s in out[..., 0].strides])
+        ostrides = np.array(
+            [s // channel_stride_bytes for s in out[..., 0].strides]
+        )
         raveled_offsets = np.sum(offsets * ostrides[..., np.newaxis], axis=0)
 
         _inpaint_biharmonic_single_region(

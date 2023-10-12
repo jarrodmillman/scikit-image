@@ -123,7 +123,9 @@ def _hessian_matrix_det(img, sigma):
             dxy = -dxy * w_i
 
             mid = _integ(img, r - s3 + 1, c - s2, 2 * s3 - 1, w)  # middle box
-            side = _integ(img, r - s3 + 1, c - s3 // 2, 2 * s3 - 1, s3)  # sides
+            side = _integ(
+                img, r - s3 + 1, c - s3 // 2, 2 * s3 - 1, s3
+            )  # sides
 
             dxx = mid - 3 * side
             dxx = -dxx * w_i

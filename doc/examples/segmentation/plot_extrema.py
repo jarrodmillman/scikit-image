@@ -58,7 +58,12 @@ h = 0.05
 h_maxima = extrema.h_maxima(img, h)
 label_h_maxima = label(h_maxima)
 overlay_h = color.label2rgb(
-    label_h_maxima, img, alpha=0.7, bg_label=0, bg_color=None, colors=[(1, 0, 0)]
+    label_h_maxima,
+    img,
+    alpha=0.7,
+    bg_label=0,
+    bg_color=None,
+    colors=[(1, 0, 0)],
 )
 
 

@@ -49,7 +49,9 @@ features_func = partial(
     channel_axis=-1,
 )
 features = features_func(img)
-clf = RandomForestClassifier(n_estimators=50, n_jobs=-1, max_depth=10, max_samples=0.05)
+clf = RandomForestClassifier(
+    n_estimators=50, n_jobs=-1, max_depth=10, max_samples=0.05
+)
 clf = future.fit_segmenter(training_labels, features, clf)
 result = future.predict_segmenter(features, clf)
 

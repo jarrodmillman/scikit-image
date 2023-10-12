@@ -64,7 +64,8 @@ def test_line_model_nd_estimate():
     # we scale the unit vector with a factor 10 when generating points on the
     # line in order to compensate for the scale of the random noise
     data0 = (
-        model0.params[0] + 10 * np.arange(-100, 100)[..., np.newaxis] * model0.params[1]
+        model0.params[0]
+        + 10 * np.arange(-100, 100)[..., np.newaxis] * model0.params[1]
     )
 
     # add gaussian noise to data
@@ -158,7 +159,9 @@ def test_circle_model_residuals():
 
 def test_circle_model_insufficient_data():
     model = CircleModel()
-    warning_message = ["Input does not contain enough significant data points."]
+    warning_message = [
+        "Input does not contain enough significant data points."
+    ]
     with expected_warnings(warning_message):
         model.estimate(np.array([[1, 2], [3, 4]]))
 
@@ -512,7 +515,9 @@ def test_ransac_geometric():
 
     # generate original data without noise
     src = 100 * rng.random((50, 2))
-    model0 = AffineTransform(scale=(0.5, 0.3), rotation=1, translation=(10, 20))
+    model0 = AffineTransform(
+        scale=(0.5, 0.3), rotation=1, translation=(10, 20)
+    )
     dst = model0(src)
 
     # add some faulty data
@@ -611,7 +616,11 @@ def test_ransac_invalid_input():
     # "`max_trials` must be greater than zero"
     with testing.raises(ValueError):
         ransac(
-            np.zeros((10, 2)), None, min_samples=2, residual_threshold=0, max_trials=-1
+            np.zeros((10, 2)),
+            None,
+            min_samples=2,
+            residual_threshold=0,
+            max_trials=-1,
         )
     # `stop_probability` must be in range (0, 1)
     with testing.raises(ValueError):
@@ -659,7 +668,13 @@ def test_ransac_sample_duplicates():
     # and check that there are no duplicated data points.
     data = np.arange(4)
     with expected_warnings(["No inliers found"]):
-        ransac(data, DummyModel, min_samples=3, residual_threshold=0.0, max_trials=10)
+        ransac(
+            data,
+            DummyModel,
+            min_samples=3,
+            residual_threshold=0.0,
+            max_trials=10,
+        )
 
 
 def test_ransac_with_no_final_inliers():

@@ -55,7 +55,9 @@ def n_subplots(ax_im):
 
 def test_uint8():
     plt.figure()
-    with expected_warnings(imshow_expected_warnings + [r"CObject type is marked|\A\Z"]):
+    with expected_warnings(
+        imshow_expected_warnings + [r"CObject type is marked|\A\Z"]
+    ):
         ax_im = io.imshow(im8)
     assert ax_im.cmap.name == 'gray'
     assert ax_im.get_clim() == (0, 255)
@@ -65,7 +67,9 @@ def test_uint8():
 
 def test_uint16():
     plt.figure()
-    with expected_warnings(imshow_expected_warnings + [r"CObject type is marked|\A\Z"]):
+    with expected_warnings(
+        imshow_expected_warnings + [r"CObject type is marked|\A\Z"]
+    ):
         ax_im = io.imshow(im16)
     assert ax_im.cmap.name == 'gray'
     assert ax_im.get_clim() == (0, 65535)
@@ -75,7 +79,9 @@ def test_uint16():
 
 def test_float():
     plt.figure()
-    with expected_warnings(imshow_expected_warnings + [r"CObject type is marked|\A\Z"]):
+    with expected_warnings(
+        imshow_expected_warnings + [r"CObject type is marked|\A\Z"]
+    ):
         ax_im = io.imshow(imf)
     assert ax_im.cmap.name == 'gray'
     assert ax_im.get_clim() == (0, 1)
@@ -85,7 +91,8 @@ def test_float():
 
 def test_low_data_range():
     with expected_warnings(
-        imshow_expected_warnings + ["Low image data range|CObject type is marked"]
+        imshow_expected_warnings
+        + ["Low image data range|CObject type is marked"]
     ):
         ax_im = io.imshow(im_lo)
     assert ax_im.get_clim() == (im_lo.min(), im_lo.max())
@@ -100,7 +107,8 @@ def test_outside_standard_range():
     #  Please use capsule objects instead."
     # Ref: https://docs.python.org/2/c-api/cobject.html
     with expected_warnings(
-        imshow_expected_warnings + ["out of standard range|CObject type is marked"]
+        imshow_expected_warnings
+        + ["out of standard range|CObject type is marked"]
     ):
         ax_im = io.imshow(im_hi)
     assert ax_im.get_clim() == (im_hi.min(), im_hi.max())
@@ -115,7 +123,8 @@ def test_nonstandard_type():
     #  Please use capsule objects instead."
     # Ref: https://docs.python.org/2/c-api/cobject.html
     with expected_warnings(
-        imshow_expected_warnings + ["Low image data range|CObject type is marked"]
+        imshow_expected_warnings
+        + ["Low image data range|CObject type is marked"]
     ):
         ax_im = io.imshow(im64)
     assert ax_im.get_clim() == (im64.min(), im64.max())
@@ -127,7 +136,9 @@ def test_signed_image():
     plt.figure()
     im_signed = np.array([[-0.5, -0.2], [0.1, 0.4]])
 
-    with expected_warnings(imshow_expected_warnings + [r"CObject type is marked|\A\Z"]):
+    with expected_warnings(
+        imshow_expected_warnings + [r"CObject type is marked|\A\Z"]
+    ):
         ax_im = io.imshow(im_signed)
     assert ax_im.get_clim() == (-0.5, 0.5)
     assert n_subplots(ax_im) == 2

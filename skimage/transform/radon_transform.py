@@ -67,7 +67,9 @@ def radon(image, theta=None, circle=True, *, preserve_range=False):
         shape_min = min(image.shape)
         radius = shape_min // 2
         img_shape = np.array(image.shape)
-        coords = np.array(np.ogrid[: image.shape[0], : image.shape[1]], dtype=object)
+        coords = np.array(
+            np.ogrid[: image.shape[0], : image.shape[1]], dtype=object
+        )
         dist = ((coords - img_shape // 2) ** 2).sum(0)
         outside_reconstruction_circle = dist > radius**2
         if np.any(image[outside_reconstruction_circle]):
@@ -77,7 +79,9 @@ def radon(image, theta=None, circle=True, *, preserve_range=False):
             )
         # Crop image to make it square
         slices = tuple(
-            slice(int(np.ceil(excess / 2)), int(np.ceil(excess / 2) + shape_min))
+            slice(
+                int(np.ceil(excess / 2)), int(np.ceil(excess / 2) + shape_min)
+            )
             if excess > 0
             else slice(None)
             for excess in (img_shape - shape_min)
@@ -90,13 +94,17 @@ def radon(image, theta=None, circle=True, *, preserve_range=False):
         old_center = [s // 2 for s in image.shape]
         pad_before = [nc - oc for oc, nc in zip(old_center, new_center)]
         pad_width = [(pb, p - pb) for pb, p in zip(pad_before, pad)]
-        padded_image = np.pad(image, pad_width, mode='constant', constant_values=0)
+        padded_image = np.pad(
+            image, pad_width, mode='constant', constant_values=0
+        )
 
     # padded_image is always square
     if padded_image.shape[0] != padded_image.shape[1]:
         raise ValueError('padded_image must be a square')
     center = padded_image.shape[0] // 2
-    radon_image = np.zeros((padded_image.shape[0], len(theta)), dtype=image.dtype)
+    radon_image = np.zeros(
+        (padded_image.shape[0], len(theta)), dtype=image.dtype
+    )
 
     for i, angle in enumerate(np.deg2rad(theta)):
         cos_a, sin_a = np.cos(angle), np.sin(angle)
@@ -479,7 +487,8 @@ def iradon_sart(
             dtype = np.dtype(float)
     elif np.dtype(dtype).char not in 'fd':
         raise ValueError(
-            "Only floating point data type are valid for inverse " "radon transform."
+            "Only floating point data type are valid for inverse "
+            "radon transform."
         )
 
     dtype = np.dtype(dtype)
@@ -488,7 +497,9 @@ def iradon_sart(
     reconstructed_shape = (radon_image.shape[0], radon_image.shape[0])
 
     if theta is None:
-        theta = np.linspace(0, 180, radon_image.shape[1], endpoint=False, dtype=dtype)
+        theta = np.linspace(
+            0, 180, radon_image.shape[1], endpoint=False, dtype=dtype
+        )
     elif len(theta) != radon_image.shape[1]:
         raise ValueError(
             f'Shape of theta ({len(theta)}) does not match the '
@@ -505,7 +516,10 @@ def iradon_sart(
             f'of radon_image ({reconstructed_shape})'
         )
     elif image.dtype != dtype:
-        warn(f'image dtype does not match output dtype: ' f'image is cast to {dtype}')
+        warn(
+            f'image dtype does not match output dtype: '
+            f'image is cast to {dtype}'
+        )
 
     image = np.asarray(image, dtype=dtype)
 

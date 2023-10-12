@@ -31,7 +31,10 @@ class RegionpropsTableIndividual:
 
     def time_single_region_property(self, prop):
         measure.regionprops_table(
-            self.label_image, self.intensity_image, properties=[prop], cache=True
+            self.label_image,
+            self.intensity_image,
+            properties=[prop],
+            cache=True,
         )
 
     # omit peakmem tests to save time (memory usage was minimal)
@@ -51,7 +54,10 @@ class RegionpropsTableAll:
 
     def time_regionprops_table_all(self, cache):
         measure.regionprops_table(
-            self.label_image, self.intensity_image, properties=PROP_VALS, cache=cache
+            self.label_image,
+            self.intensity_image,
+            properties=PROP_VALS,
+            cache=cache,
         )
 
     # omit peakmem tests to save time (memory usage was minimal)

@@ -90,7 +90,9 @@ class MaskSlicSegmentation(SlicSegmentation):
         try:
             mask = np.zeros((64, 64)) > 0
             mask[10:-10, 10:-10] = 1
-            segmentation.slic(np.ones_like(mask), mask=mask, **_channel_kwarg(False))
+            segmentation.slic(
+                np.ones_like(mask), mask=mask, **_channel_kwarg(False)
+            )
         except TypeError:
             raise NotImplementedError("masked slic unavailable")
 
@@ -130,7 +132,9 @@ class Watershed:
         self.image = filters.sobel(data.coins())
 
     def time_watershed(self, seed_count, connectivity, compactness):
-        watershed(self.image, seed_count, connectivity, compactness=compactness)
+        watershed(
+            self.image, seed_count, connectivity, compactness=compactness
+        )
 
     def peakmem_reference(self, *args):
         """Provide reference for memory measurement with empty benchmark.
@@ -149,4 +153,6 @@ class Watershed:
         pass
 
     def peakmem_watershed(self, seed_count, connectivity, compactness):
-        watershed(self.image, seed_count, connectivity, compactness=compactness)
+        watershed(
+            self.image, seed_count, connectivity, compactness=compactness
+        )

@@ -183,7 +183,9 @@ def test_rag_hierarchical():
     assert np.all(result[:, :4] == result[0, 0])
     assert np.all(result[:, 4:] == result[-1, -1])
 
-    result = merge_hierarchical_mean_color(labels, g2, thresh, in_place_merge=True)
+    result = merge_hierarchical_mean_color(
+        labels, g2, thresh, in_place_merge=True
+    )
     assert np.all(result[:, :4] == result[0, 0])
     assert np.all(result[:, 4:] == result[-1, -1])
 
@@ -212,7 +214,9 @@ def test_reproducibility():
     when specifying random seed
     """
     img = data.coffee()
-    labels1 = segmentation.slic(img, compactness=30, n_segments=400, start_label=0)
+    labels1 = segmentation.slic(
+        img, compactness=30, n_segments=400, start_label=0
+    )
     g = graph.rag_mean_color(img, labels1, mode='similarity')
     results = [None] * 4
     for i in range(len(results)):
@@ -220,7 +224,9 @@ def test_reproducibility():
             labels1, g, in_place=False, thresh=1e-3, rng=1234
         )
     with expected_warnings(['`random_state` is a deprecated argument']):
-        graph.cut_normalized(labels1, g, in_place=False, thresh=1e-3, random_state=1234)
+        graph.cut_normalized(
+            labels1, g, in_place=False, thresh=1e-3, random_state=1234
+        )
 
     for i in range(len(results) - 1):
         assert_array_equal(results[i], results[i + 1])

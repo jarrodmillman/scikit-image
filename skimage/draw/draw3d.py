@@ -54,9 +54,13 @@ def ellipsoid(a, b, c, spacing=(1.0, 1.0, 1.0), levelset=False):
     ]
 
     if not levelset:
-        arr = ((x / float(a)) ** 2 + (y / float(b)) ** 2 + (z / float(c)) ** 2) <= 1
+        arr = (
+            (x / float(a)) ** 2 + (y / float(b)) ** 2 + (z / float(c)) ** 2
+        ) <= 1
     else:
-        arr = ((x / float(a)) ** 2 + (y / float(b)) ** 2 + (z / float(c)) ** 2) - 1
+        arr = (
+            (x / float(a)) ** 2 + (y / float(b)) ** 2 + (z / float(c)) ** 2
+        ) - 1
 
     return arr
 

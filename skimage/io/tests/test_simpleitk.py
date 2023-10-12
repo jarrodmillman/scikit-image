@@ -29,7 +29,10 @@ def test_imread_as_gray():
     assert img.dtype == np.float64
     img = imread(testing.fetch('data/camera.png'), as_gray=True)
     # check that conversion does not happen for a gray image
-    assert np.core.numerictypes.sctype2char(img.dtype) in np.typecodes['AllInteger']
+    assert (
+        np.core.numerictypes.sctype2char(img.dtype)
+        in np.typecodes['AllInteger']
+    )
 
 
 def test_bilevel():
@@ -59,7 +62,9 @@ def test_imread_uint16_big_endian():
 
 
 @pytest.mark.parametrize("shape", [(10, 10), (10, 10, 3), (10, 10, 4)])
-@pytest.mark.parametrize("dtype", [np.uint8, np.uint16, np.float32, np.float64])
+@pytest.mark.parametrize(
+    "dtype", [np.uint8, np.uint16, np.float32, np.float64]
+)
 def test_imsave_roundtrip(shape, dtype, tmp_path):
     if np.issubdtype(dtype, np.floating):
         info_func = np.finfo

@@ -307,7 +307,9 @@ class RAG(nx.Graph):
         super().add_node(n)
 
 
-def rag_mean_color(image, labels, connectivity=2, mode='distance', sigma=255.0):
+def rag_mean_color(
+    image, labels, connectivity=2, mode='distance', sigma=255.0
+):
     """Compute the Region Adjacency Graph using mean colors.
 
     Given an image and its initial segmentation, this method constructs the
@@ -451,8 +453,12 @@ def rag_boundary(labels, edge_map, connectivity=2):
     graph_matrix.data /= count_matrix.data
 
     rag = RAG()
-    rag.add_weighted_edges_from(_edge_generator_from_csr(graph_matrix), weight='weight')
-    rag.add_weighted_edges_from(_edge_generator_from_csr(count_matrix), weight='count')
+    rag.add_weighted_edges_from(
+        _edge_generator_from_csr(graph_matrix), weight='weight'
+    )
+    rag.add_weighted_edges_from(
+        _edge_generator_from_csr(count_matrix), weight='count'
+    )
 
     for n in rag.nodes():
         rag.nodes[n].update({'labels': [n]})

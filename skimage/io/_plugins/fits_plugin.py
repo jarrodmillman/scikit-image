@@ -43,7 +43,9 @@ def imread(fname):
         # such as binary tables, and get the first image data array:
         img_array = None
         for hdu in hdulist:
-            if isinstance(hdu, fits.ImageHDU) or isinstance(hdu, fits.PrimaryHDU):
+            if isinstance(hdu, fits.ImageHDU) or isinstance(
+                hdu, fits.PrimaryHDU
+            ):
                 if hdu.data is not None:
                     img_array = hdu.data
                     break
@@ -84,7 +86,9 @@ def imread_collection(load_pattern, conserve_memory=True):
     for filename in load_pattern:
         with fits.open(filename) as hdulist:
             for n, hdu in zip(range(len(hdulist)), hdulist):
-                if isinstance(hdu, fits.ImageHDU) or isinstance(hdu, fits.PrimaryHDU):
+                if isinstance(hdu, fits.ImageHDU) or isinstance(
+                    hdu, fits.PrimaryHDU
+                ):
                     # Ignore (primary) header units with no data (use '.size'
                     # rather than '.data' to avoid actually loading the image):
                     try:

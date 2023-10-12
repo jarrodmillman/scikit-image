@@ -72,9 +72,9 @@ def equalize_adapthist(image, kernel_size=None, clip_limit=0.01, nbins=256):
 
     float_dtype = _supported_float_type(image.dtype)
     image = img_as_uint(image)
-    image = np.round(rescale_intensity(image, out_range=(0, NR_OF_GRAY - 1))).astype(
-        np.min_scalar_type(NR_OF_GRAY)
-    )
+    image = np.round(
+        rescale_intensity(image, out_range=(0, NR_OF_GRAY - 1))
+    ).astype(np.min_scalar_type(NR_OF_GRAY))
 
     if kernel_size is None:
         kernel_size = tuple([max(s // 8, 1) for s in image.shape])
@@ -148,7 +148,9 @@ def _clahe(image, kernel_size, clip_limit, nbins):
     hist_blocks_axis_order = np.array(
         [np.arange(0, ndim * 2, 2), np.arange(1, ndim * 2, 2)]
     ).flatten()
-    hist_slices = [slice(k // 2, k // 2 + n * k) for k, n in zip(kernel_size, ns_hist)]
+    hist_slices = [
+        slice(k // 2, k // 2 + n * k) for k, n in zip(kernel_size, ns_hist)
+    ]
     hist_blocks = image[tuple(hist_slices)].reshape(hist_blocks_shape)
     hist_blocks = np.transpose(hist_blocks, axes=hist_blocks_axis_order)
     hist_block_assembled_shape = hist_blocks.shape
@@ -168,7 +170,9 @@ def _clahe(image, kernel_size, clip_limit, nbins):
     hist = hist.reshape(hist_block_assembled_shape[:ndim] + (-1,))
 
     # duplicate leading mappings in each dim
-    map_array = np.pad(hist, [[1, 1] for _ in range(ndim)] + [[0, 0]], mode='edge')
+    map_array = np.pad(
+        hist, [[1, 1] for _ in range(ndim)] + [[0, 0]], mode='edge'
+    )
 
     # Perform multilinear interpolation of graylevel mappings
     # using the convention described here:
@@ -184,7 +188,9 @@ def _clahe(image, kernel_size, clip_limit, nbins):
     blocks = image.reshape(blocks_shape)
     blocks = np.transpose(blocks, axes=blocks_axis_order)
     blocks_flattened_shape = blocks.shape
-    blocks = np.reshape(blocks, (math.prod(ns_proc), math.prod(blocks.shape[ndim:])))
+    blocks = np.reshape(
+        blocks, (math.prod(ns_proc), math.prod(blocks.shape[ndim:]))
+    )
 
     # calculate interpolation coefficients
     coeffs = np.meshgrid(
@@ -197,7 +203,9 @@ def _clahe(image, kernel_size, clip_limit, nbins):
     # regions in each direction
     result = np.zeros(blocks.shape, dtype=np.float32)
     for iedge, edge in enumerate(np.ndindex(*([2] * ndim))):
-        edge_maps = map_array[tuple([slice(e, e + n) for e, n in zip(edge, ns_proc)])]
+        edge_maps = map_array[
+            tuple([slice(e, e + n) for e, n in zip(edge, ns_proc)])
+        ]
         edge_maps = edge_maps.reshape((math.prod(ns_proc), -1))
 
         # apply map
@@ -224,7 +232,9 @@ def _clahe(image, kernel_size, clip_limit, nbins):
     unpad_slices = tuple(
         [
             slice(p_i, s - p_f)
-            for p_i, p_f, s in zip(pad_start_per_dim, pad_end_per_dim, image.shape)
+            for p_i, p_f, s in zip(
+                pad_start_per_dim, pad_end_per_dim, image.shape
+            )
         ]
     )
     result = result[unpad_slices]

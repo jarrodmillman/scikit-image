@@ -19,7 +19,9 @@ VSCHARR_WEIGHTS = HSCHARR_WEIGHTS.T
 
 PREWITT_EDGE = np.array([1, 0, -1])
 PREWITT_SMOOTH = np.full((3,), 1 / 3)
-HPREWITT_WEIGHTS = PREWITT_EDGE.reshape((3, 1)) * PREWITT_SMOOTH.reshape((1, 3))
+HPREWITT_WEIGHTS = PREWITT_EDGE.reshape((3, 1)) * PREWITT_SMOOTH.reshape(
+    (1, 3)
+)
 VPREWITT_WEIGHTS = HPREWITT_WEIGHTS.T
 
 # 2D-only filter weights
@@ -41,7 +43,15 @@ farid_smooth = np.array(
     ]
 )
 farid_edge = np.array(
-    [[0.109603762960254, 0.276690988455557, 0, -0.276690988455557, -0.109603762960254]]
+    [
+        [
+            0.109603762960254,
+            0.276690988455557,
+            0,
+            -0.276690988455557,
+            -0.109603762960254,
+        ]
+    ]
 )
 HFARID_WEIGHTS = farid_edge.T * farid_smooth
 VFARID_WEIGHTS = np.copy(HFARID_WEIGHTS.T)

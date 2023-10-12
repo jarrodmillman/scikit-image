@@ -11,7 +11,9 @@ def test_marching_cubes_isotropic():
     _, surf = ellipsoid_stats(6, 10, 16)
 
     # Classic
-    verts, faces = marching_cubes(ellipsoid_isotropic, 0.0, method='lorensen')[:2]
+    verts, faces = marching_cubes(ellipsoid_isotropic, 0.0, method='lorensen')[
+        :2
+    ]
     surf_calc = mesh_surface_area(verts, faces)
     # Test within 1% tolerance for isotropic. Will always underestimate.
     assert surf > surf_calc and surf_calc > surf * 0.99
@@ -26,7 +28,9 @@ def test_marching_cubes_isotropic():
 def test_marching_cubes_anisotropic():
     # test spacing as numpy array (and not just tuple)
     spacing = np.array([1.0, 10 / 6.0, 16 / 6.0])
-    ellipsoid_anisotropic = ellipsoid(6, 10, 16, spacing=spacing, levelset=True)
+    ellipsoid_anisotropic = ellipsoid(
+        6, 10, 16, spacing=spacing, levelset=True
+    )
     _, surf = ellipsoid_stats(6, 10, 16)
 
     # Classic
@@ -38,7 +42,9 @@ def test_marching_cubes_anisotropic():
     assert surf > surf_calc and surf_calc > surf * 0.985
 
     # Lewiner
-    verts, faces = marching_cubes(ellipsoid_anisotropic, 0.0, spacing=spacing)[:2]
+    verts, faces = marching_cubes(ellipsoid_anisotropic, 0.0, spacing=spacing)[
+        :2
+    ]
     surf_calc = mesh_surface_area(verts, faces)
     # Test within 1.5% tolerance for anisotropic. Will always underestimate.
     assert surf > surf_calc and surf_calc > surf * 0.985
@@ -50,7 +56,9 @@ def test_marching_cubes_anisotropic():
         )[:2]
 
     # Test spacing together with allow_degenerate=False
-    marching_cubes(ellipsoid_anisotropic, 0, spacing=spacing, allow_degenerate=False)
+    marching_cubes(
+        ellipsoid_anisotropic, 0, spacing=spacing, allow_degenerate=False
+    )
 
 
 def test_invalid_input():
@@ -60,7 +68,9 @@ def test_invalid_input():
     with pytest.raises(ValueError):
         marching_cubes(np.zeros((2, 2, 1)), 1, method='lorensen')
     with pytest.raises(ValueError):
-        marching_cubes(np.ones((3, 3, 3)), 1, spacing=(1, 2), method='lorensen')
+        marching_cubes(
+            np.ones((3, 3, 3)), 1, spacing=(1, 2), method='lorensen'
+        )
     with pytest.raises(ValueError):
         marching_cubes(np.zeros((20, 20)), 0, method='lorensen')
 
@@ -85,7 +95,9 @@ def test_both_algs_same_result_ellipse():
 
     sphere_small = ellipsoid(1, 1, 1, levelset=True)
 
-    vertices1, faces1 = marching_cubes(sphere_small, 0, allow_degenerate=False)[:2]
+    vertices1, faces1 = marching_cubes(
+        sphere_small, 0, allow_degenerate=False
+    )[:2]
     vertices2, faces2 = marching_cubes(
         sphere_small, 0, allow_degenerate=False, method='lorensen'
     )[:2]
@@ -103,12 +115,18 @@ def _same_mesh(vertices1, faces1, vertices2, faces2, tol=1e-10):
     triangles1 = vertices1[np.array(faces1)]
     triangles2 = vertices2[np.array(faces2)]
     # Sort vertices within each triangle
-    triang1 = [np.concatenate(sorted(t, key=lambda x: tuple(x))) for t in triangles1]
-    triang2 = [np.concatenate(sorted(t, key=lambda x: tuple(x))) for t in triangles2]
+    triang1 = [
+        np.concatenate(sorted(t, key=lambda x: tuple(x))) for t in triangles1
+    ]
+    triang2 = [
+        np.concatenate(sorted(t, key=lambda x: tuple(x))) for t in triangles2
+    ]
     # Sort the resulting 9-element "tuples"
     triang1 = np.array(sorted([tuple(x) for x in triang1]))
     triang2 = np.array(sorted([tuple(x) for x in triang2]))
-    return triang1.shape == triang2.shape and np.allclose(triang1, triang2, 0, tol)
+    return triang1.shape == triang2.shape and np.allclose(
+        triang1, triang2, 0, tol
+    )
 
 
 def test_both_algs_same_result_donut():
@@ -121,9 +139,19 @@ def test_both_algs_same_result_donut():
         for iy in range(vol.shape[1]):
             for ix in range(vol.shape[2]):
                 # Double-torii formula by Thomas Lewiner
-                z, y, x = float(iz) * a + b, float(iy) * a + b, float(ix) * a + b
+                z, y, x = (
+                    float(iz) * a + b,
+                    float(iy) * a + b,
+                    float(ix) * a + b,
+                )
                 vol[iz, iy, ix] = (
-                    ((8 * x) ** 2 + (8 * y - 2) ** 2 + (8 * z) ** 2 + 16 - 1.85 * 1.85)
+                    (
+                        (8 * x) ** 2
+                        + (8 * y - 2) ** 2
+                        + (8 * z) ** 2
+                        + 16
+                        - 1.85 * 1.85
+                    )
                     * (
                         (8 * x) ** 2
                         + (8 * y - 2) ** 2
@@ -147,7 +175,8 @@ def test_both_algs_same_result_donut():
                         + 16
                         - 1.85 * 1.85
                     )
-                    - 64 * (((8 * y - 2) + 4) * ((8 * y - 2) + 4) + (8 * z) ** 2)
+                    - 64
+                    * (((8 * y - 2) + 4) * ((8 * y - 2) + 4) + (8 * z) ** 2)
                 ) + 1025
 
     vertices1, faces1 = marching_cubes(vol, 0, method='lorensen')[:2]

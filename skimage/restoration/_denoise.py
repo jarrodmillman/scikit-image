@@ -240,9 +240,13 @@ def denoise_bilateral(
 
     sigma_color = sigma_color or image.std()
 
-    color_lut = _compute_color_lut(bins, sigma_color, max_value, dtype=image.dtype)
+    color_lut = _compute_color_lut(
+        bins, sigma_color, max_value, dtype=image.dtype
+    )
 
-    range_lut = _compute_spatial_lut(win_size, sigma_spatial, dtype=image.dtype)
+    range_lut = _compute_spatial_lut(
+        win_size, sigma_spatial, dtype=image.dtype
+    )
 
     out = np.empty(image.shape, dtype=image.dtype)
 
@@ -280,7 +284,13 @@ def denoise_bilateral(
 
 @utils.channel_as_last_axis()
 def denoise_tv_bregman(
-    image, weight=5.0, max_num_iter=100, eps=1e-3, isotropic=True, *, channel_axis=None
+    image,
+    weight=5.0,
+    max_num_iter=100,
+    eps=1e-3,
+    isotropic=True,
+    *,
+    channel_axis=None,
 ):
     r"""Perform total variation denoising using split-Bregman optimization.
 
@@ -649,7 +659,9 @@ def _sigma_est_dwt(detail_coeffs, distribution='Gaussian'):
         denom = scipy.stats.norm.ppf(0.75)
         sigma = np.median(np.abs(detail_coeffs)) / denom
     else:
-        raise ValueError("Only Gaussian noise estimation is currently " "supported")
+        raise ValueError(
+            "Only Gaussian noise estimation is currently " "supported"
+        )
     return sigma
 
 
@@ -756,7 +768,9 @@ def _wavelet_threshold(
     if threshold is None:
         var = sigma**2
         if method is None:
-            raise ValueError("If method is None, a threshold must be provided.")
+            raise ValueError(
+                "If method is None, a threshold must be provided."
+            )
         elif method == "BayesShrink":
             # The BayesShrink thresholds from [1]_ in docstring
             threshold = [
@@ -791,7 +805,9 @@ def _wavelet_threshold(
     return pywt.waverecn(denoised_coeffs, wavelet)[original_extent]
 
 
-def _scale_sigma_and_image_consistently(image, sigma, multichannel, rescale_sigma):
+def _scale_sigma_and_image_consistently(
+    image, sigma, multichannel, rescale_sigma
+):
     """If the ``image`` is rescaled, also rescale ``sigma`` consistently.
 
     Images that are not floating point will be rescaled via ``img_as_float``.
@@ -814,7 +830,9 @@ def _scale_sigma_and_image_consistently(image, sigma, multichannel, rescale_sigm
             # apply the same magnitude scaling to sigma
             scale_factor = range_post / range_pre
             if multichannel:
-                sigma = [s * scale_factor if s is not None else s for s in sigma]
+                sigma = [
+                    s * scale_factor if s is not None else s for s in sigma
+                ]
             elif sigma is not None:
                 sigma *= scale_factor
     elif image.dtype == np.float16:
@@ -1107,7 +1125,8 @@ def estimate_sigma(image, average_sigmas=False, *, channel_axis=None):
         _at = functools.partial(utils.slice_at_axis, axis=channel_axis)
         nchannels = image.shape[channel_axis]
         sigmas = [
-            estimate_sigma(image[_at(c)], channel_axis=None) for c in range(nchannels)
+            estimate_sigma(image[_at(c)], channel_axis=None)
+            for c in range(nchannels)
         ]
         if average_sigmas:
             sigmas = np.mean(sigmas)

@@ -53,7 +53,9 @@ def test_connections():
     assert (pos1, pos2) == ((3, 3), (4, 4))
     # Test the whole path
     path = mcp.traceback(pos1) + list(reversed(mcp.traceback(pos2)))
-    assert_array_equal(path, [(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7)])
+    assert_array_equal(
+        path, [(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7)]
+    )
 
     # For seed 1 and 2
     cost, pos1, pos2 = mcp._bestconn[(1, 2)]
@@ -61,7 +63,9 @@ def test_connections():
     assert (pos1, pos2) == ((3, 7), (4, 7))
     # Test the whole path
     path = mcp.traceback(pos1) + list(reversed(mcp.traceback(pos2)))
-    assert_array_equal(path, [(1, 7), (2, 7), (3, 7), (4, 7), (5, 7), (6, 7), (7, 7)])
+    assert_array_equal(
+        path, [(1, 7), (2, 7), (3, 7), (4, 7), (5, 7), (6, 7), (7, 7)]
+    )
 
     # For seed 0 and 2
     cost, pos1, pos2 = mcp._bestconn[(0, 2)]
@@ -69,4 +73,6 @@ def test_connections():
     assert (pos1, pos2) == ((1, 3), (1, 4))
     # Test the whole path
     path = mcp.traceback(pos1) + list(reversed(mcp.traceback(pos2)))
-    assert_array_equal(path, [(1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7)])
+    assert_array_equal(
+        path, [(1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7)]
+    )

@@ -73,7 +73,9 @@ def test_gmm_wrong_covariance_type():
 
     with pytest.raises(FisherVectorException):
         learn_gmm(
-            np.random.random((10, 10)), n_modes=2, gm_args={'covariance_type': 'full'}
+            np.random.random((10, 10)),
+            n_modes=2,
+            gm_args={'covariance_type': 'full'},
         )
 
 
@@ -83,7 +85,9 @@ def test_gmm_correct_covariance_type():
     """
 
     gmm = learn_gmm(
-        np.random.random((10, 10)), n_modes=2, gm_args={'covariance_type': 'diag'}
+        np.random.random((10, 10)),
+        n_modes=2,
+        gm_args={'covariance_type': 'diag'},
     )
 
     assert gmm.means_ is not None
@@ -157,7 +161,9 @@ def test_fv_e2e():
 
     expected_dim = 2 * num_modes * dim + num_modes
 
-    descriptors = [np.random.random((np.random.randint(5, 30), dim)) for _ in range(10)]
+    descriptors = [
+        np.random.random((np.random.randint(5, 30), dim)) for _ in range(10)
+    ]
 
     gmm = learn_gmm(descriptors, n_modes=num_modes)
 
@@ -182,7 +188,9 @@ def test_fv_e2e_improved():
 
     expected_dim = 2 * num_modes * dim + num_modes
 
-    descriptors = [np.random.random((np.random.randint(5, 30), dim)) for _ in range(10)]
+    descriptors = [
+        np.random.random((np.random.randint(5, 30), dim)) for _ in range(10)
+    ]
 
     gmm = learn_gmm(descriptors, n_modes=num_modes)
 

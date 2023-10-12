@@ -172,7 +172,13 @@ def try_all_threshold(image, figsize=(8, 5), verbose=True):
 
 
 def threshold_local(
-    image, block_size=3, method='gaussian', offset=0, mode='reflect', param=None, cval=0
+    image,
+    block_size=3,
+    method='gaussian',
+    offset=0,
+    mode='reflect',
+    param=None,
+    cval=0,
 ):
     """Compute a threshold mask image based on local pixel neighborhood.
 
@@ -262,9 +268,13 @@ def threshold_local(
             sigma = param
         gaussian(image, sigma, output=thresh_image, mode=mode, cval=cval)
     elif method == 'mean':
-        ndi.uniform_filter(image, block_size, output=thresh_image, mode=mode, cval=cval)
+        ndi.uniform_filter(
+            image, block_size, output=thresh_image, mode=mode, cval=cval
+        )
     elif method == 'median':
-        ndi.median_filter(image, block_size, output=thresh_image, mode=mode, cval=cval)
+        ndi.median_filter(
+            image, block_size, output=thresh_image, mode=mode, cval=cval
+        )
     else:
         raise ValueError(
             "Invalid method specified. Please use `generic`, "
@@ -460,7 +470,9 @@ def threshold_yen(image=None, nbins=256, *, hist=None):
     P2_sq = np.cumsum(pmf[::-1] ** 2)[::-1]
     # P2_sq indexes is shifted +1. I assume, with P1[:-1] it's help avoid
     # '-inf' in crit. ImageJ Yen implementation replaces those values by zero.
-    crit = np.log(((P1_sq[:-1] * P2_sq[1:]) ** -1) * (P1[:-1] * (1.0 - P1[:-1])) ** 2)
+    crit = np.log(
+        ((P1_sq[:-1] * P2_sq[1:]) ** -1) * (P1[:-1] * (1.0 - P1[:-1])) ** 2
+    )
     return bin_centers[crit.argmax()]
 
 
@@ -636,7 +648,9 @@ def _cross_entropy(image, threshold, bins=_DEFAULT_ENTROPY_BINS):
     return nu
 
 
-def threshold_li(image, *, tolerance=None, initial_guess=None, iter_callback=None):
+def threshold_li(
+    image, *, tolerance=None, initial_guess=None, iter_callback=None
+):
     """Compute threshold value by Li's iterative Minimum Cross Entropy method.
 
     Parameters
@@ -761,13 +775,19 @@ def threshold_li(image, *, tolerance=None, initial_guess=None, iter_callback=Non
             foreground = bin_centers > t_curr
             background = ~foreground
 
-            mean_fore = np.average(bin_centers[foreground], weights=hist[foreground])
-            mean_back = np.average(bin_centers[background], weights=hist[background])
+            mean_fore = np.average(
+                bin_centers[foreground], weights=hist[foreground]
+            )
+            mean_back = np.average(
+                bin_centers[background], weights=hist[background]
+            )
 
             if mean_back == 0:
                 break
 
-            t_next = (mean_back - mean_fore) / (np.log(mean_back) - np.log(mean_fore))
+            t_next = (mean_back - mean_fore) / (
+                np.log(mean_back) - np.log(mean_fore)
+            )
 
             if iter_callback is not None:
                 iter_callback(t_next + image_min)
@@ -782,7 +802,9 @@ def threshold_li(image, *, tolerance=None, initial_guess=None, iter_callback=Non
             if mean_back == 0.0:
                 break
 
-            t_next = (mean_back - mean_fore) / (np.log(mean_back) - np.log(mean_fore))
+            t_next = (mean_back - mean_fore) / (
+                np.log(mean_back) - np.log(mean_fore)
+            )
 
             if iter_callback is not None:
                 iter_callback(t_next + image_min)
@@ -874,10 +896,14 @@ def threshold_minimum(image=None, nbins=256, max_num_iter=10000, *, hist=None):
     if len(maximum_idxs) != 2:
         raise RuntimeError('Unable to find two maxima in histogram')
     elif counter == max_num_iter - 1:
-        raise RuntimeError('Maximum iteration reached for histogram' 'smoothing')
+        raise RuntimeError(
+            'Maximum iteration reached for histogram' 'smoothing'
+        )
 
     # Find lowest point between the maxima
-    threshold_idx = np.argmin(smooth_hist[maximum_idxs[0] : maximum_idxs[1] + 1])
+    threshold_idx = np.argmin(
+        smooth_hist[maximum_idxs[0] : maximum_idxs[1] + 1]
+    )
 
     return bin_centers[maximum_idxs[0] + threshold_idx]
 
@@ -948,7 +974,9 @@ def threshold_triangle(image, nbins=256):
     """
     # nbins is ignored for integer arrays
     # so, we recalculate the effective nbins.
-    hist, bin_centers = histogram(image.reshape(-1), nbins, source_range='image')
+    hist, bin_centers = histogram(
+        image.reshape(-1), nbins, source_range='image'
+    )
     nbins = len(hist)
 
     # Find peak, lowest and highest gray levels.
@@ -1031,7 +1059,9 @@ def _mean_std(image, w):
 
     float_dtype = _supported_float_type(image.dtype)
     pad_width = tuple((k // 2 + 1, k // 2) for k in w)
-    padded = np.pad(image.astype(float_dtype, copy=False), pad_width, mode='reflect')
+    padded = np.pad(
+        image.astype(float_dtype, copy=False), pad_width, mode='reflect'
+    )
 
     # Note: keep float64 integral images for accuracy. Outputs of
     # _correlate_sparse can later be safely cast to float_dtype
@@ -1042,15 +1072,20 @@ def _mean_std(image, w):
     # Create lists of non-zero kernel indices and values
     kernel_indices = list(itertools.product(*tuple([(0, _w) for _w in w])))
     kernel_values = [
-        (-1) ** (image.ndim % 2 != np.sum(indices) % 2) for indices in kernel_indices
+        (-1) ** (image.ndim % 2 != np.sum(indices) % 2)
+        for indices in kernel_indices
     ]
 
     total_window_size = math.prod(w)
     kernel_shape = tuple(_w + 1 for _w in w)
-    m = _correlate_sparse(integral, kernel_shape, kernel_indices, kernel_values)
+    m = _correlate_sparse(
+        integral, kernel_shape, kernel_indices, kernel_values
+    )
     m = m.astype(float_dtype, copy=False)
     m /= total_window_size
-    g2 = _correlate_sparse(integral_sq, kernel_shape, kernel_indices, kernel_values)
+    g2 = _correlate_sparse(
+        integral_sq, kernel_shape, kernel_indices, kernel_values
+    )
     g2 = g2.astype(float_dtype, copy=False)
     g2 /= total_window_size
     # Note: we use np.clip because g2 is not guaranteed to be greater than
@@ -1308,7 +1343,9 @@ def threshold_multiotsu(image=None, classes=3, nbins=256, *, hist=None):
         )
 
     # calculating the histogram and the probability of each gray level.
-    prob, bin_centers = _validate_image_histogram(image, hist, nbins, normalize=True)
+    prob, bin_centers = _validate_image_histogram(
+        image, hist, nbins, normalize=True
+    )
     prob = prob.astype('float32', copy=False)
 
     nvalues = np.count_nonzero(prob)

@@ -92,7 +92,9 @@ def match_descriptors(
         distances[indices1, indices2] = np.inf
         second_best_indices2 = np.argmin(distances[indices1], axis=1)
         second_best_distances = distances[indices1, second_best_indices2]
-        second_best_distances[second_best_distances == 0] = np.finfo(np.float64).eps
+        second_best_distances[second_best_distances == 0] = np.finfo(
+            np.float64
+        ).eps
         ratio = best_distances / second_best_distances
         mask = ratio < max_ratio
         indices1 = indices1[mask]

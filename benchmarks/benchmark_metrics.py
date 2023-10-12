@@ -22,7 +22,9 @@ class SetMetricsSuite:
         metrics.hausdorff_distance(self.coords_a, self.coords_b)
 
     def time_modified_hausdorff_distance(self):
-        metrics.hausdorff_distance(self.coords_a, self.coords_b, method="modified")
+        metrics.hausdorff_distance(
+            self.coords_a, self.coords_b, method="modified"
+        )
 
     def time_hausdorff_pair(self):
         metrics.hausdorff_pair(self.coords_a, self.coords_b)

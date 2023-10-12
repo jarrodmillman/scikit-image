@@ -105,7 +105,12 @@ from skimage.restoration import denoise_invariant
 sigma_range = np.arange(sigma / 2, 1.5 * sigma, 0.025)
 
 parameters_tested = [
-    {'sigma': sigma, 'convert2ycbcr': True, 'wavelet': 'db2', 'channel_axis': -1}
+    {
+        'sigma': sigma,
+        'convert2ycbcr': True,
+        'wavelet': 'db2',
+        'channel_axis': -1,
+    }
     for sigma in sigma_range
 ]
 
@@ -132,7 +137,9 @@ ax1 = plt.subplot(gs[0, :])
 ax2 = plt.subplot(gs[1, :])
 ax_image = [plt.subplot(gs[2, i]) for i in range(3)]
 
-ax1.plot(sigma_range, self_supervised_loss, color='C0', label='Self-Supervised Loss')
+ax1.plot(
+    sigma_range, self_supervised_loss, color='C0', label='Self-Supervised Loss'
+)
 ax1.scatter(
     sigma_range[opt_idx],
     self_supervised_loss[opt_idx] + 0.0003,
@@ -194,11 +201,18 @@ for spine in ax_image[1].spines.values():
 #
 
 parameters_tested = [
-    {'sigma': sigma, 'convert2ycbcr': True, 'wavelet': 'db2', 'channel_axis': -1}
+    {
+        'sigma': sigma,
+        'convert2ycbcr': True,
+        'wavelet': 'db2',
+        'channel_axis': -1,
+    }
     for sigma in sigma_range
 ]
 
-denoised_original = [_denoise_wavelet(noisy, **params) for params in parameters_tested]
+denoised_original = [
+    _denoise_wavelet(noisy, **params) for params in parameters_tested
+]
 
 ground_truth_loss_invariant = [mse(img, image) for img in denoised_invariant]
 ground_truth_loss_original = [mse(img, image) for img in denoised_original]
@@ -220,11 +234,15 @@ ax.plot(
     label='Original',
 )
 ax.scatter(
-    sigma_range[opt_idx], ground_truth_loss[opt_idx] + 0.001, marker='v', color='red'
+    sigma_range[opt_idx],
+    ground_truth_loss[opt_idx] + 0.001,
+    marker='v',
+    color='red',
 )
 ax.legend()
 ax.set_title(
-    'J-Invariant Denoiser Has Comparable Or ' 'Better Performance At Same Parameters'
+    'J-Invariant Denoiser Has Comparable Or '
+    'Better Performance At Same Parameters'
 )
 ax.set_ylabel('MSE')
 ax.set_xlabel('sigma')

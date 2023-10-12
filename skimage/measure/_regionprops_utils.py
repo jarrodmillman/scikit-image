@@ -533,13 +533,18 @@ def perimeter_crofton(image, directions=4):
     7837.077...
     """
     if image.ndim != 2:
-        raise NotImplementedError('`perimeter_crofton` supports 2D images only')
+        raise NotImplementedError(
+            '`perimeter_crofton` supports 2D images only'
+        )
 
     # as image could be a label image, transform it to binary image
     image = (image > 0).astype(np.uint8)
     image = np.pad(image, pad_width=1, mode='constant')
     XF = ndi.convolve(
-        image, np.array([[0, 0, 0], [0, 1, 4], [0, 2, 8]]), mode='constant', cval=0
+        image,
+        np.array([[0, 0, 0], [0, 1, 4], [0, 2, 8]]),
+        mode='constant',
+        cval=0,
     )
 
     h = np.bincount(XF.ravel(), minlength=16)

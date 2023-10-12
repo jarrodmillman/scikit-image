@@ -12,17 +12,41 @@ img = data.coins()
 
 
 @run_in_parallel()
-@pytest.mark.parametrize('dtype', ['float32', 'float64', 'uint8', 'uint16', 'int64'])
+@pytest.mark.parametrize(
+    'dtype', ['float32', 'float64', 'uint8', 'uint16', 'int64']
+)
 def test_keypoints_orb_desired_no_of_keypoints(dtype):
     _img = _convert(img, dtype)
     detector_extractor = ORB(n_keypoints=10, fast_n=12, fast_threshold=0.20)
     detector_extractor.detect(_img)
 
     exp_rows = np.array(
-        [141.0, 108.0, 214.56, 131.0, 214.272, 67.0, 206.0, 177.0, 108.0, 141.0]
+        [
+            141.0,
+            108.0,
+            214.56,
+            131.0,
+            214.272,
+            67.0,
+            206.0,
+            177.0,
+            108.0,
+            141.0,
+        ]
     )
     exp_cols = np.array(
-        [323.0, 328.0, 282.24, 292.0, 281.664, 85.0, 260.0, 284.0, 328.8, 267.0]
+        [
+            323.0,
+            328.0,
+            282.24,
+            292.0,
+            281.664,
+            85.0,
+            260.0,
+            284.0,
+            328.8,
+            267.0,
+        ]
     )
 
     exp_scales = np.array([1, 1, 1.44, 1, 1.728, 1, 1, 1, 1.2, 1])
@@ -78,7 +102,9 @@ def test_keypoints_orb_desired_no_of_keypoints(dtype):
     assert_almost_equal(exp_cols, detector_extractor.keypoints[:, 1])
 
 
-@pytest.mark.parametrize('dtype', ['float32', 'float64', 'uint8', 'uint16', 'int64'])
+@pytest.mark.parametrize(
+    'dtype', ['float32', 'float64', 'uint8', 'uint16', 'int64']
+)
 def test_keypoints_orb_less_than_desired_no_of_keypoints(dtype):
     _img = _convert(img, dtype)
     detector_extractor = ORB(
@@ -95,7 +121,9 @@ def test_keypoints_orb_less_than_desired_no_of_keypoints(dtype):
         [151.93906, -56.90052, -79.46341, -59.42996, -158.26941]
     )
 
-    exp_response = np.array([-0.1764169, 0.2652126, -0.0324343, 0.0400902, 0.2667641])
+    exp_response = np.array(
+        [-0.1764169, 0.2652126, -0.0324343, 0.0400902, 0.2667641]
+    )
 
     assert_almost_equal(exp_rows, detector_extractor.keypoints[:, 0])
     assert_almost_equal(exp_cols, detector_extractor.keypoints[:, 1])
@@ -155,10 +183,14 @@ def test_descriptor_orb():
         detector_extractor.orientations,
     )
 
-    assert_equal(exp_descriptors, detector_extractor.descriptors[100:120, 10:20])
+    assert_equal(
+        exp_descriptors, detector_extractor.descriptors[100:120, 10:20]
+    )
 
     detector_extractor.detect_and_extract(img)
-    assert_equal(exp_descriptors, detector_extractor.descriptors[100:120, 10:20])
+    assert_equal(
+        exp_descriptors, detector_extractor.descriptors[100:120, 10:20]
+    )
     keypoints_count = detector_extractor.keypoints.shape[0]
     assert keypoints_count == detector_extractor.descriptors.shape[0]
     assert keypoints_count == detector_extractor.orientations.shape[0]

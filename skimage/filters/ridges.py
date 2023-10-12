@@ -19,7 +19,12 @@ from ..feature.corner import hessian_matrix, hessian_matrix_eigvals
 
 
 def meijering(
-    image, sigmas=range(1, 10, 2), alpha=None, black_ridges=True, mode='reflect', cval=0
+    image,
+    sigmas=range(1, 10, 2),
+    alpha=None,
+    black_ridges=True,
+    mode='reflect',
+    cval=0,
 ):
     """
     Filter an image with the Meijering neuriteness filter.
@@ -75,7 +80,9 @@ def meijering(
 
     if alpha is None:
         alpha = 1 / (image.ndim + 1)
-    mtx = linalg.circulant([1, *[alpha] * (image.ndim - 1)]).astype(image.dtype)
+    mtx = linalg.circulant([1, *[alpha] * (image.ndim - 1)]).astype(
+        image.dtype
+    )
 
     # Generate empty array for storing maximum value
     # from different (sigma) scales
@@ -83,13 +90,19 @@ def meijering(
     for sigma in sigmas:  # Filter for all sigmas.
         eigvals = hessian_matrix_eigvals(
             hessian_matrix(
-                image, sigma, mode=mode, cval=cval, use_gaussian_derivatives=True
+                image,
+                sigma,
+                mode=mode,
+                cval=cval,
+                use_gaussian_derivatives=True,
             )
         )
         # Compute normalized eigenvalues l_i = e_i + sum_{j!=i} alpha * e_j.
         vals = np.tensordot(mtx, eigvals, 1)
         # Get largest normalized eigenvalue (by magnitude) at each pixel.
-        vals = np.take_along_axis(vals, abs(vals).argmax(0)[None], 0).squeeze(0)
+        vals = np.take_along_axis(vals, abs(vals).argmax(0)[None], 0).squeeze(
+            0
+        )
         # Remove negative values.
         vals = np.maximum(vals, 0)
         # Normalize to max = 1 (unless everything is already zero).
@@ -101,7 +114,9 @@ def meijering(
     return filtered_max  # Return pixel-wise max over all sigmas.
 
 
-def sato(image, sigmas=range(1, 10, 2), black_ridges=True, mode='reflect', cval=0):
+def sato(
+    image, sigmas=range(1, 10, 2), black_ridges=True, mode='reflect', cval=0
+):
     """
     Filter an image with the Sato tubeness filter.
 
@@ -159,7 +174,11 @@ def sato(image, sigmas=range(1, 10, 2), black_ridges=True, mode='reflect', cval=
     for sigma in sigmas:  # Filter for all sigmas.
         eigvals = hessian_matrix_eigvals(
             hessian_matrix(
-                image, sigma, mode=mode, cval=cval, use_gaussian_derivatives=True
+                image,
+                sigma,
+                mode=mode,
+                cval=cval,
+                use_gaussian_derivatives=True,
             )
         )
         # Compute normalized tubeness (eqs. (9) and (22), ref. [1]_) as the
@@ -167,7 +186,9 @@ def sato(image, sigmas=range(1, 10, 2), black_ridges=True, mode='reflect', cval=
         # (hessian_matrix_eigvals returns eigvals in decreasing order), clipped
         # to 0, multiplied by sigma^2.
         eigvals = eigvals[:-1]
-        vals = sigma**2 * np.prod(np.maximum(eigvals, 0), 0) ** (1 / len(eigvals))
+        vals = sigma**2 * np.prod(np.maximum(eigvals, 0), 0) ** (
+            1 / len(eigvals)
+        )
         filtered_max = np.maximum(filtered_max, vals)
     return filtered_max  # Return pixel-wise max over all sigmas.
 
@@ -271,7 +292,11 @@ def frangi(
     for sigma in sigmas:  # Filter for all sigmas.
         eigvals = hessian_matrix_eigvals(
             hessian_matrix(
-                image, sigma, mode=mode, cval=cval, use_gaussian_derivatives=True
+                image,
+                sigma,
+                mode=mode,
+                cval=cval,
+                use_gaussian_derivatives=True,
             )
         )
         # Sort eigenvalues by magnitude.
@@ -294,7 +319,9 @@ def frangi(
         # blobness exponential factor underflowing to zero whenever the second
         # or third eigenvalues are negative (we clip them to 1e-10, to make r_b
         # very large).
-        vals = 1.0 - np.exp(-(r_a**2) / (2 * alpha**2))  # plate sensitivity
+        vals = 1.0 - np.exp(
+            -(r_a**2) / (2 * alpha**2)
+        )  # plate sensitivity
         vals *= np.exp(-(r_b**2) / (2 * beta**2))  # blobness
         vals *= 1.0 - np.exp(-(s**2) / (2 * gamma**2))  # structuredness
         filtered_max = np.maximum(filtered_max, vals)

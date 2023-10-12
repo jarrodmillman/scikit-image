@@ -11,7 +11,13 @@ __all__ = ['gabor_kernel', 'gabor']
 def _sigma_prefactor(bandwidth):
     b = bandwidth
     # See http://www.cs.rug.nl/~imaging/simplecell.html
-    return 1.0 / np.pi * math.sqrt(math.log(2) / 2.0) * (2.0**b + 1) / (2.0**b - 1)
+    return (
+        1.0
+        / np.pi
+        * math.sqrt(math.log(2) / 2.0)
+        * (2.0**b + 1)
+        / (2.0**b - 1)
+    )
 
 
 def gabor_kernel(
@@ -94,10 +100,17 @@ def gabor_kernel(
 
     ct = math.cos(theta)
     st = math.sin(theta)
-    x0 = math.ceil(max(abs(n_stds * sigma_x * ct), abs(n_stds * sigma_y * st), 1))
-    y0 = math.ceil(max(abs(n_stds * sigma_y * ct), abs(n_stds * sigma_x * st), 1))
+    x0 = math.ceil(
+        max(abs(n_stds * sigma_x * ct), abs(n_stds * sigma_y * st), 1)
+    )
+    y0 = math.ceil(
+        max(abs(n_stds * sigma_y * ct), abs(n_stds * sigma_x * st), 1)
+    )
     y, x = np.meshgrid(
-        np.arange(-y0, y0 + 1), np.arange(-x0, x0 + 1), indexing='ij', sparse=True
+        np.arange(-y0, y0 + 1),
+        np.arange(-x0, x0 + 1),
+        indexing='ij',
+        sparse=True,
     )
     rotx = x * ct + y * st
     roty = -x * st + y * ct

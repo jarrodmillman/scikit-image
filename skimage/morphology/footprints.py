@@ -59,7 +59,9 @@ def _shape_from_sequence(footprints, require_odd_size=False):
 
     def _odd_size(size, require_odd_size):
         if require_odd_size and size % 2 == 0:
-            raise ValueError("expected all footprint elements to have odd size")
+            raise ValueError(
+                "expected all footprint elements to have odd size"
+            )
 
     for d in range(ndim):
         fp, nreps = footprints[0]
@@ -508,7 +510,9 @@ def disk(radius, dtype=np.uint8, *, strict_radius=True, decomposition=None):
     elif decomposition == 'sequence':
         sequence = _nsphere_series_decomposition(radius, ndim=2, dtype=dtype)
     elif decomposition == 'crosses':
-        fp = disk(radius, dtype, strict_radius=strict_radius, decomposition=None)
+        fp = disk(
+            radius, dtype, strict_radius=strict_radius, decomposition=None
+        )
         sequence = _cross_decomposition(fp)
     return sequence
 
@@ -693,7 +697,9 @@ def cube(width, dtype=np.uint8, *, decomposition=None):
         ]
     elif decomposition == 'sequence':
         # only handles odd widths
-        sequence = [(np.ones((3, 3, 3), dtype=dtype), _decompose_size(width, 3))]
+        sequence = [
+            (np.ones((3, 3, 3), dtype=dtype), _decompose_size(width, 3))
+        ]
     else:
         raise ValueError(f"Unrecognized decomposition: {decomposition}")
     return tuple(sequence)

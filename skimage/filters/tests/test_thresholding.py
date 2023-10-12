@@ -130,14 +130,17 @@ class TestSimpleImage:
         image = np.linspace(-127, 0, 256)
         assert -63.8 < threshold_isodata(image) < -63.6
         assert_almost_equal(
-            threshold_isodata(image, return_all=True), [-63.74804688, -63.25195312]
+            threshold_isodata(image, return_all=True),
+            [-63.74804688, -63.25195312],
         )
 
     def test_isodata_16bit(self):
         np.random.seed(0)
         imfloat = np.random.rand(256, 256)
         assert 0.49 < threshold_isodata(imfloat, nbins=1024) < 0.51
-        assert all(0.49 < threshold_isodata(imfloat, nbins=1024, return_all=True))
+        assert all(
+            0.49 < threshold_isodata(imfloat, nbins=1024, return_all=True)
+        )
 
     @pytest.mark.parametrize('ndim', [2, 3])
     def test_threshold_local_gaussian(self, ndim):
@@ -156,13 +159,21 @@ class TestSimpleImage:
         else:
             image = np.stack((self.image,) * 5, axis=-1)
             ref = np.stack((ref,) * 5, axis=-1)
-            block_sizes = [3, (3,) * image.ndim, (3,) * (image.ndim - 1) + (1,)]
+            block_sizes = [
+                3,
+                (3,) * image.ndim,
+                (3,) * (image.ndim - 1) + (1,),
+            ]
 
         for block_size in block_sizes:
-            out = threshold_local(image, block_size, method='gaussian', mode='reflect')
+            out = threshold_local(
+                image, block_size, method='gaussian', mode='reflect'
+            )
             assert_equal(ref, image > out)
 
-        out = threshold_local(image, 3, method='gaussian', mode='reflect', param=1 / 3)
+        out = threshold_local(
+            image, 3, method='gaussian', mode='reflect', param=1 / 3
+        )
         assert_equal(ref, image > out)
 
     @pytest.mark.parametrize('ndim', [2, 3])
@@ -184,9 +195,15 @@ class TestSimpleImage:
             ref = np.stack((ref,) * 5, axis=-1)
             # Given the same data at each z location, the following block sizes
             # will all give an equivalent result.
-            block_sizes = [3, (3,) * image.ndim, (3,) * (image.ndim - 1) + (1,)]
+            block_sizes = [
+                3,
+                (3,) * image.ndim,
+                (3,) * (image.ndim - 1) + (1,),
+            ]
         for block_size in block_sizes:
-            out = threshold_local(image, block_size, method='mean', mode='reflect')
+            out = threshold_local(
+                image, block_size, method='mean', mode='reflect'
+            )
             assert_equal(ref, image > out)
 
     @pytest.mark.parametrize('block_size', [(3,), (3, 3, 3)])
@@ -215,7 +232,9 @@ class TestSimpleImage:
         assert_equal(ref, image > out)
 
     def test_threshold_local_median_constant_mode(self):
-        out = threshold_local(self.image, 3, method='median', mode='constant', cval=20)
+        out = threshold_local(
+            self.image, 3, method='median', mode='constant', cval=20
+        )
         expected = np.array(
             [
                 [20.0, 1.0, 3.0, 4.0, 20.0],
@@ -400,7 +419,9 @@ def test_li_constant_image_with_nan():
 def test_li_arbitrary_start_point():
     cell = data.cell()
     max_stationary_point = threshold_li(cell)
-    low_stationary_point = threshold_li(cell, initial_guess=np.percentile(cell, 5))
+    low_stationary_point = threshold_li(
+        cell, initial_guess=np.percentile(cell, 5)
+    )
     optimum = threshold_li(cell, initial_guess=np.percentile(cell, 95))
     assert 67 < max_stationary_point < 68
     assert 48 < low_stationary_point < 49
@@ -474,7 +495,10 @@ def test_isodata_camera_image():
     threshold = threshold_isodata(camera)
     assert (
         np.floor(
-            (camera[camera <= threshold].mean() + camera[camera > threshold].mean())
+            (
+                camera[camera <= threshold].mean()
+                + camera[camera > threshold].mean()
+            )
             / 2.0
         )
         == threshold
@@ -504,7 +528,11 @@ def test_isodata_coins_image():
     threshold = threshold_isodata(coins)
     assert (
         np.floor(
-            (coins[coins <= threshold].mean() + coins[coins > threshold].mean()) / 2.0
+            (
+                coins[coins <= threshold].mean()
+                + coins[coins > threshold].mean()
+            )
+            / 2.0
         )
         == threshold
     )
@@ -518,7 +546,10 @@ def test_isodata_moon_image():
 
     threshold = threshold_isodata(moon)
     assert (
-        np.floor((moon[moon <= threshold].mean() + moon[moon > threshold].mean()) / 2.0)
+        np.floor(
+            (moon[moon <= threshold].mean() + moon[moon > threshold].mean())
+            / 2.0
+        )
         == threshold
     )
     assert threshold == 86
@@ -527,7 +558,11 @@ def test_isodata_moon_image():
     for threshold in thresholds:
         assert (
             np.floor(
-                (moon[moon <= threshold].mean() + moon[moon > threshold].mean()) / 2.0
+                (
+                    moon[moon <= threshold].mean()
+                    + moon[moon > threshold].mean()
+                )
+                / 2.0
             )
             == threshold
         )
@@ -540,7 +575,10 @@ def test_isodata_moon_image_negative_int():
 
     threshold = threshold_isodata(moon)
     assert (
-        np.floor((moon[moon <= threshold].mean() + moon[moon > threshold].mean()) / 2.0)
+        np.floor(
+            (moon[moon <= threshold].mean() + moon[moon > threshold].mean())
+            / 2.0
+        )
         == threshold
     )
     assert threshold == -14
@@ -549,7 +587,11 @@ def test_isodata_moon_image_negative_int():
     for threshold in thresholds:
         assert (
             np.floor(
-                (moon[moon <= threshold].mean() + moon[moon > threshold].mean()) / 2.0
+                (
+                    moon[moon <= threshold].mean()
+                    + moon[moon > threshold].mean()
+                )
+                / 2.0
             )
             == threshold
         )
@@ -648,10 +690,16 @@ def test_triangle_float_images():
     assert round(threshold_triangle(text / 255.0, nbins=int_bins) * 255) == 104
     # Repeat for inverted image.
     assert (
-        round(threshold_triangle(np.invert(text).astype(float), nbins=int_bins)) == 151
+        round(
+            threshold_triangle(np.invert(text).astype(float), nbins=int_bins)
+        )
+        == 151
     )
     assert (
-        round(threshold_triangle(np.invert(text) / 255.0, nbins=int_bins) * 255) == 151
+        round(
+            threshold_triangle(np.invert(text) / 255.0, nbins=int_bins) * 255
+        )
+        == 151
     )
 
 
@@ -688,7 +736,9 @@ def test_mean_std_2d(window_size, mean_kernel):
     m, s = _mean_std(image, w=window_size)
     expected_m = ndi.convolve(image, mean_kernel, mode='mirror')
     assert_allclose(m, expected_m)
-    expected_s = ndi.generic_filter(image, np.std, size=window_size, mode='mirror')
+    expected_s = ndi.generic_filter(
+        image, np.std, size=window_size, mode='mirror'
+    )
     assert_allclose(s, expected_s)
 
 
@@ -706,7 +756,9 @@ def test_mean_std_3d(window_size, mean_kernel):
     m, s = _mean_std(image, w=window_size)
     expected_m = ndi.convolve(image, mean_kernel, mode='mirror')
     assert_allclose(m, expected_m)
-    expected_s = ndi.generic_filter(image, np.std, size=window_size, mode='mirror')
+    expected_s = ndi.generic_filter(
+        image, np.std, size=window_size, mode='mirror'
+    )
     assert_allclose(s, expected_s)
 
 

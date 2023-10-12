@@ -78,7 +78,11 @@ init_ls = checkerboard_level_set(image.shape, 6)
 evolution = []
 callback = store_evolution_in(evolution)
 ls = morphological_chan_vese(
-    image, num_iter=35, init_level_set=init_ls, smoothing=3, iter_callback=callback
+    image,
+    num_iter=35,
+    init_level_set=init_ls,
+    smoothing=3,
+    iter_callback=callback,
 )
 
 fig, axes = plt.subplots(2, 2, figsize=(8, 8))

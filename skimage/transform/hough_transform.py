@@ -120,7 +120,10 @@ def hough_circle(image, radius, normalize=True, full_output=False):
     """
     radius = np.atleast_1d(np.asarray(radius))
     return _hough_circle(
-        image, radius.astype(np.intp), normalize=normalize, full_output=full_output
+        image,
+        radius.astype(np.intp),
+        normalize=normalize,
+        full_output=full_output,
     )
 
 
@@ -238,7 +241,9 @@ def hough_line(image, theta=None):
     return _hough_line(image, theta=theta)
 
 
-@deprecate_kwarg({'seed': 'rng'}, deprecated_version='0.21', removed_version='0.23')
+@deprecate_kwarg(
+    {'seed': 'rng'}, deprecated_version='0.21', removed_version='0.23'
+)
 def probabilistic_hough_line(
     image, threshold=10, line_length=50, line_gap=10, theta=None, rng=None
 ):
@@ -400,7 +405,12 @@ def hough_circle_peaks(
     # if default min_xdistance and min_ydistance are used
     # or if no peak was detected
     if (min_xdistance == 1 and min_ydistance == 1) or len(accum_sorted) == 0:
-        return (accum_sorted[:tnp], cx_sorted[:tnp], cy_sorted[:tnp], r_sorted[:tnp])
+        return (
+            accum_sorted[:tnp],
+            cx_sorted[:tnp],
+            cy_sorted[:tnp],
+            r_sorted[:tnp],
+        )
 
     # For circles with centers too close, only keep the one with
     # the highest peak

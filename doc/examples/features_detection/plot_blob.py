@@ -59,7 +59,11 @@ blobs_doh = blob_doh(image_gray, max_sigma=30, threshold=0.01)
 
 blobs_list = [blobs_log, blobs_dog, blobs_doh]
 colors = ['yellow', 'lime', 'red']
-titles = ['Laplacian of Gaussian', 'Difference of Gaussian', 'Determinant of Hessian']
+titles = [
+    'Laplacian of Gaussian',
+    'Difference of Gaussian',
+    'Determinant of Hessian',
+]
 sequence = zip(blobs_list, colors, titles)
 
 fig, axes = plt.subplots(1, 3, figsize=(9, 3), sharex=True, sharey=True)

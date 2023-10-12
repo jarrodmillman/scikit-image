@@ -24,7 +24,9 @@ def map_array(input_arr, input_vals, output_vals, out=None):
     from ._remap import _map_array
 
     if not np.issubdtype(input_arr.dtype, np.integer):
-        raise TypeError('The dtype of an array to be remapped should be integer.')
+        raise TypeError(
+            'The dtype of an array to be remapped should be integer.'
+        )
     # We ravel the input array for simplicity of iteration in Cython:
     orig_shape = input_arr.shape
     # NumPy docs for `np.ravel()` says:
@@ -136,16 +138,25 @@ class ArrayMap:
             rows = range(len(self.in_values))
             string = '\n'.join(
                 ['ArrayMap:']
-                + [f'  {self.in_values[i]} → {self.out_values[i]}' for i in rows]
+                + [
+                    f'  {self.in_values[i]} → {self.out_values[i]}'
+                    for i in rows
+                ]
             )
         else:
             rows0 = list(range(0, self._max_str_lines // 2))
             rows1 = list(range(-self._max_str_lines // 2, 0))
             string = '\n'.join(
                 ['ArrayMap:']
-                + [f'  {self.in_values[i]} → {self.out_values[i]}' for i in rows0]
+                + [
+                    f'  {self.in_values[i]} → {self.out_values[i]}'
+                    for i in rows0
+                ]
                 + ['  ...']
-                + [f'  {self.in_values[i]} → {self.out_values[i]}' for i in rows1]
+                + [
+                    f'  {self.in_values[i]} → {self.out_values[i]}'
+                    for i in rows1
+                ]
             )
         return string
 

@@ -89,7 +89,11 @@ for dataset in datasets.values():
     ax[1, 1].axis('off')
 
     ax[1, 2].imshow(
-        dataset['vis_factor'] * tophat, cmap='gray', aspect='equal', vmin=0, vmax=255
+        dataset['vis_factor'] * tophat,
+        cmap='gray',
+        aspect='equal',
+        vmin=0,
+        vmax=255,
     )
     ax[1, 2].set_title('Tophat (Difference)', fontsize=16)
     ax[1, 2].axis('off')

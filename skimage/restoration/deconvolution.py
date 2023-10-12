@@ -128,7 +128,9 @@ def wiener(image, psf, balance, reg=None, is_real=True, clip=True):
         np.abs(trans_func) ** 2 + balance * np.abs(reg) ** 2
     )
     if is_real:
-        deconv = uft.uirfftn(wiener_filter * uft.urfftn(image), shape=image.shape)
+        deconv = uft.uirfftn(
+            wiener_filter * uft.urfftn(image), shape=image.shape
+        )
     else:
         deconv = uft.uifftn(wiener_filter * uft.ufftn(image))
 
@@ -143,7 +145,14 @@ def wiener(image, psf, balance, reg=None, is_real=True, clip=True):
     {'random_state': 'rng'}, deprecated_version='0.21', removed_version='0.23'
 )
 def unsupervised_wiener(
-    image, psf, reg=None, user_params=None, is_real=True, clip=True, *, rng=None
+    image,
+    psf,
+    reg=None,
+    user_params=None,
+    is_real=True,
+    clip=True,
+    *,
+    rng=None,
 ):
     """Unsupervised Wiener-Hunt deconvolution.
 
@@ -324,7 +333,9 @@ def unsupervised_wiener(
 
         # sample of Eq. 31 p(gx | x^k, gn^k-1, y)
         gx_chain.append(
-            rng.gamma((image.size - 1) / 2, 2 / uft.image_quad_norm(x_sample * reg))
+            rng.gamma(
+                (image.size - 1) / 2, 2 / uft.image_quad_norm(x_sample * reg)
+            )
         )
 
         # current empirical average
@@ -344,7 +355,9 @@ def unsupervised_wiener(
         prev_x_postmean = x_postmean
 
         # stop of the algorithm
-        if (iteration > params['min_num_iter']) and (delta < params['threshold']):
+        if (iteration > params['min_num_iter']) and (
+            delta < params['threshold']
+        ):
             break
 
     # Empirical average \approx POSTMEAN Eq. 44

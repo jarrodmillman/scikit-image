@@ -11,7 +11,9 @@ from skimage.feature import blob_dog, blob_doh, blob_log
 from skimage.feature.blob import _blob_overlap
 
 
-@pytest.mark.parametrize('dtype', [np.uint8, np.float16, np.float32, np.float64])
+@pytest.mark.parametrize(
+    'dtype', [np.uint8, np.float16, np.float32, np.float64]
+)
 @pytest.mark.parametrize('threshold_type', ['absolute', 'relative'])
 def test_blob_dog(dtype, threshold_type):
     r2 = math.sqrt(2)
@@ -71,7 +73,9 @@ def test_blob_dog(dtype, threshold_type):
     assert blob_dog(img_empty).size == 0
 
 
-@pytest.mark.parametrize('dtype', [np.uint8, np.float16, np.float32, np.float64])
+@pytest.mark.parametrize(
+    'dtype', [np.uint8, np.float16, np.float32, np.float64]
+)
 @pytest.mark.parametrize('threshold_type', ['absolute', 'relative'])
 def test_blob_dog_3d(dtype, threshold_type):
     # Testing 3D
@@ -104,7 +108,9 @@ def test_blob_dog_3d(dtype, threshold_type):
     assert abs(math.sqrt(3) * b[3] - r) < 1.1
 
 
-@pytest.mark.parametrize('dtype', [np.uint8, np.float16, np.float32, np.float64])
+@pytest.mark.parametrize(
+    'dtype', [np.uint8, np.float16, np.float32, np.float64]
+)
 @pytest.mark.parametrize('threshold_type', ['absolute', 'relative'])
 def test_blob_dog_3d_anisotropic(dtype, threshold_type):
     # Testing 3D anisotropic
@@ -156,8 +162,12 @@ def test_blob_dog_exclude_border(disc_center, exclude_border):
     )
     assert blobs.shape[0] == 1, "one blob should have been detected"
     b = blobs[0]
-    assert b[0] == disc_center[0], f"blob should be {disc_center[0]} px from x border"
-    assert b[1] == disc_center[1], f"blob should be {disc_center[1]} px from y border"
+    assert (
+        b[0] == disc_center[0]
+    ), f"blob should be {disc_center[0]} px from x border"
+    assert (
+        b[1] == disc_center[1]
+    ), f"blob should be {disc_center[1]} px from y border"
 
     blobs = blob_dog(
         img,
@@ -198,7 +208,9 @@ def test_nd_blob_no_peaks_shape(function_name, ndim, anisotropic):
     assert blobs.shape == (0, expected_shape)
 
 
-@pytest.mark.parametrize('dtype', [np.uint8, np.float16, np.float32, np.float64])
+@pytest.mark.parametrize(
+    'dtype', [np.uint8, np.float16, np.float32, np.float64]
+)
 @pytest.mark.parametrize('threshold_type', ['absolute', 'relative'])
 def test_blob_log(dtype, threshold_type):
     r2 = math.sqrt(2)
@@ -227,7 +239,11 @@ def test_blob_log(dtype, threshold_type):
         threshold_rel = 0.5
 
     blobs = blob_log(
-        img, min_sigma=5, max_sigma=20, threshold=threshold, threshold_rel=threshold_rel
+        img,
+        min_sigma=5,
+        max_sigma=20,
+        threshold=threshold,
+        threshold_rel=threshold_rel,
     )
 
     def radius(x):
@@ -358,8 +374,12 @@ def test_blob_log_exclude_border(disc_center, exclude_border):
     )
     assert blobs.shape[0] == 1
     b = blobs[0]
-    assert b[0] == disc_center[0], f"blob should be {disc_center[0]} px from x border"
-    assert b[1] == disc_center[1], f"blob should be {disc_center[1]} px from y border"
+    assert (
+        b[0] == disc_center[0]
+    ), f"blob should be {disc_center[0]} px from x border"
+    assert (
+        b[1] == disc_center[1]
+    ), f"blob should be {disc_center[1]} px from y border"
 
     blobs = blob_log(
         img,
@@ -464,7 +484,12 @@ def test_blob_doh_log_scale():
     img[xs, ys] = 255
 
     blobs = blob_doh(
-        img, min_sigma=1, max_sigma=60, num_sigma=10, log_scale=True, threshold=0.05
+        img,
+        min_sigma=1,
+        max_sigma=60,
+        num_sigma=10,
+        log_scale=True,
+        threshold=0.05,
     )
 
     def radius(x):
@@ -509,7 +534,9 @@ def test_blob_doh_overlap():
     xs, ys = disk((120, 100), 30)
     img[xs, ys] = 255
 
-    blobs = blob_doh(img, min_sigma=1, max_sigma=60, num_sigma=10, threshold=0.05)
+    blobs = blob_doh(
+        img, min_sigma=1, max_sigma=60, num_sigma=10, threshold=0.05
+    )
 
     assert len(blobs) == 1
 
@@ -521,7 +548,9 @@ def test_blob_log_overlap_3d():
     blob1 = np.pad(blob1, pad1, mode='constant')
     blob2 = ellipsoid(r2, r2, r2)
     blob2 = np.pad(
-        blob2, [(pad2, pad2), (pad2 - 9, pad2 + 9), (pad2, pad2)], mode='constant'
+        blob2,
+        [(pad2, pad2), (pad2 - 9, pad2 + 9), (pad2, pad2)],
+        mode='constant',
     )
     im3 = np.logical_or(blob1, blob2)
 
@@ -566,16 +595,21 @@ def test_blob_log_overlap_3d_anisotropic():
     blob1 = np.pad(blob1, pad1, mode='constant')
     blob2 = ellipsoid(r2, r2, r2)
     blob2 = np.pad(
-        blob2, [(pad2, pad2), (pad2 - 9, pad2 + 9), (pad2, pad2)], mode='constant'
+        blob2,
+        [(pad2, pad2), (pad2 - 9, pad2 + 9), (pad2, pad2)],
+        mode='constant',
     )
     im3 = np.logical_or(blob1, blob2)
 
-    blobs = blob_log(im3, min_sigma=[2, 2.01, 2.005], max_sigma=10, overlap=0.1)
+    blobs = blob_log(
+        im3, min_sigma=[2, 2.01, 2.005], max_sigma=10, overlap=0.1
+    )
     assert len(blobs) == 1
 
     # Two circles with distance between centers equal to radius
     overlap = _blob_overlap(
-        np.array([0, 0, 10 / math.sqrt(2)]), np.array([0, 10, 10 / math.sqrt(2)])
+        np.array([0, 0, 10 / math.sqrt(2)]),
+        np.array([0, 10, 10 / math.sqrt(2)]),
     )
     assert_almost_equal(
         overlap, 1.0 / math.pi * (2 * math.acos(1.0 / 2) - math.sqrt(3) / 2.0)

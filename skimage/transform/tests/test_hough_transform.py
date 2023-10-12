@@ -145,10 +145,20 @@ def test_hough_line_peaks_dist():
     img[:, 40] = True
     hspace, angles, dists = transform.hough_line(img)
     assert (
-        len(transform.hough_line_peaks(hspace, angles, dists, min_distance=5)[0]) == 2
+        len(
+            transform.hough_line_peaks(hspace, angles, dists, min_distance=5)[
+                0
+            ]
+        )
+        == 2
     )
     assert (
-        len(transform.hough_line_peaks(hspace, angles, dists, min_distance=15)[0]) == 1
+        len(
+            transform.hough_line_peaks(hspace, angles, dists, min_distance=15)[
+                0
+            ]
+        )
+        == 1
     )
 
 
@@ -162,18 +172,36 @@ def check_hough_line_peaks_angle():
     img[0, :] = True
 
     hspace, angles, dists = transform.hough_line(img)
-    assert len(transform.hough_line_peaks(hspace, angles, dists, min_angle=45)[0]) == 2
-    assert len(transform.hough_line_peaks(hspace, angles, dists, min_angle=90)[0]) == 1
+    assert (
+        len(transform.hough_line_peaks(hspace, angles, dists, min_angle=45)[0])
+        == 2
+    )
+    assert (
+        len(transform.hough_line_peaks(hspace, angles, dists, min_angle=90)[0])
+        == 1
+    )
 
     theta = np.linspace(0, np.pi, 100)
     hspace, angles, dists = transform.hough_line(img, theta)
-    assert len(transform.hough_line_peaks(hspace, angles, dists, min_angle=45)[0]) == 2
-    assert len(transform.hough_line_peaks(hspace, angles, dists, min_angle=90)[0]) == 1
+    assert (
+        len(transform.hough_line_peaks(hspace, angles, dists, min_angle=45)[0])
+        == 2
+    )
+    assert (
+        len(transform.hough_line_peaks(hspace, angles, dists, min_angle=90)[0])
+        == 1
+    )
 
     theta = np.linspace(np.pi / 3, 4.0 / 3 * np.pi, 100)
     hspace, angles, dists = transform.hough_line(img, theta)
-    assert len(transform.hough_line_peaks(hspace, angles, dists, min_angle=45)[0]) == 2
-    assert len(transform.hough_line_peaks(hspace, angles, dists, min_angle=90)[0]) == 1
+    assert (
+        len(transform.hough_line_peaks(hspace, angles, dists, min_angle=45)[0])
+        == 2
+    )
+    assert (
+        len(transform.hough_line_peaks(hspace, angles, dists, min_angle=90)[0])
+        == 1
+    )
 
 
 def test_hough_line_peaks_num():

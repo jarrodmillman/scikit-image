@@ -71,7 +71,9 @@ def test_ellipsoid_bool():
 
 def test_ellipsoid_levelset():
     test = ellipsoid(2, 2, 2, levelset=True)[1:-1, 1:-1, 1:-1]
-    test_anisotropic = ellipsoid(2, 2, 4, spacing=(1.0, 1.0, 2.0), levelset=True)
+    test_anisotropic = ellipsoid(
+        2, 2, 4, spacing=(1.0, 1.0, 2.0), levelset=True
+    )
     test_anisotropic = test_anisotropic[1:-1, 1:-1, 1:-1]
 
     expected = np.array(

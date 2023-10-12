@@ -11,7 +11,9 @@ from ..util import img_as_float
 from ._texture import _glcm_loop, _local_binary_pattern, _multiblock_lbp
 
 
-def graycomatrix(image, distances, angles, levels=None, symmetric=False, normed=False):
+def graycomatrix(
+    image, distances, angles, levels=None, symmetric=False, normed=False
+):
     """Calculate the gray-level co-occurrence matrix.
 
     A gray level co-occurrence matrix is a histogram of co-occurring
@@ -143,7 +145,9 @@ def graycomatrix(image, distances, angles, levels=None, symmetric=False, normed=
     angles = np.ascontiguousarray(angles, dtype=np.float64)
 
     P = np.zeros(
-        (levels, levels, len(distances), len(angles)), dtype=np.uint32, order='C'
+        (levels, levels, len(distances), len(angles)),
+        dtype=np.uint32,
+        order='C',
     )
 
     # count co-occurences
@@ -526,11 +530,15 @@ def draw_multiblock_lbp(
             new_value = (1 - alpha) * output[
                 curr_r : curr_r + height, curr_c : curr_c + width
             ] + alpha * color_greater_block
-            output[curr_r : curr_r + height, curr_c : curr_c + width] = new_value
+            output[
+                curr_r : curr_r + height, curr_c : curr_c + width
+            ] = new_value
         else:
             new_value = (1 - alpha) * output[
                 curr_r : curr_r + height, curr_c : curr_c + width
             ] + alpha * color_less_block
-            output[curr_r : curr_r + height, curr_c : curr_c + width] = new_value
+            output[
+                curr_r : curr_r + height, curr_c : curr_c + width
+            ] = new_value
 
     return output

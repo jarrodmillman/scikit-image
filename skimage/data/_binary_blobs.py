@@ -4,7 +4,9 @@ from .._shared.utils import deprecate_kwarg
 from .._shared.filters import gaussian
 
 
-@deprecate_kwarg({'seed': 'rng'}, deprecated_version='0.21', removed_version='0.23')
+@deprecate_kwarg(
+    {'seed': 'rng'}, deprecated_version='0.21', removed_version='0.23'
+)
 def binary_blobs(
     length=512, blob_size_fraction=0.1, n_dim=2, volume_fraction=0.5, rng=None
 ):

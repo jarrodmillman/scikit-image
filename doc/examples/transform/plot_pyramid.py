@@ -39,7 +39,9 @@ pyramid = tuple(pyramid_gaussian(image, downscale=2, channel_axis=-1))
 # determine the total number of rows and columns for the composite
 composite_rows = max(rows, sum(p.shape[0] for p in pyramid[1:]))
 composite_cols = cols + pyramid[1].shape[1]
-composite_image = np.zeros((composite_rows, composite_cols, 3), dtype=np.double)
+composite_image = np.zeros(
+    (composite_rows, composite_cols, 3), dtype=np.double
+)
 
 # store the original to the left
 composite_image[:rows, :cols, :] = pyramid[0]

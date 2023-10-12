@@ -38,7 +38,9 @@ from skimage import img_as_float
 # pairs of points. It can be described as a rotation about the origin
 # followed by a translation.
 
-tform = transform.EuclideanTransform(rotation=np.pi / 12.0, translation=(100, -20))
+tform = transform.EuclideanTransform(
+    rotation=np.pi / 12.0, translation=(100, -20)
+)
 print(tform.params)
 
 ######################################################################

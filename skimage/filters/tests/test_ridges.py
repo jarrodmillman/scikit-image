@@ -57,8 +57,12 @@ def test_2d_energy_decrease():
     a_black[2, 2] = 255
     a_white = invert(a_black)
 
-    assert_array_less(meijering(a_black, black_ridges=True).std(), a_black.std())
-    assert_array_less(meijering(a_white, black_ridges=False).std(), a_white.std())
+    assert_array_less(
+        meijering(a_black, black_ridges=True).std(), a_black.std()
+    )
+    assert_array_less(
+        meijering(a_white, black_ridges=False).std(), a_white.std()
+    )
 
     assert_array_less(
         sato(a_black, black_ridges=True, mode='reflect').std(), a_black.std()
@@ -71,10 +75,12 @@ def test_2d_energy_decrease():
     assert_array_less(frangi(a_white, black_ridges=False).std(), a_white.std())
 
     assert_array_less(
-        hessian(a_black, black_ridges=True, mode='reflect').std(), a_black.std()
+        hessian(a_black, black_ridges=True, mode='reflect').std(),
+        a_black.std(),
     )
     assert_array_less(
-        hessian(a_white, black_ridges=False, mode='reflect').std(), a_white.std()
+        hessian(a_white, black_ridges=False, mode='reflect').std(),
+        a_white.std(),
     )
 
 
@@ -83,8 +89,12 @@ def test_3d_energy_decrease():
     a_black[2, 2, 2] = 255
     a_white = invert(a_black)
 
-    assert_array_less(meijering(a_black, black_ridges=True).std(), a_black.std())
-    assert_array_less(meijering(a_white, black_ridges=False).std(), a_white.std())
+    assert_array_less(
+        meijering(a_black, black_ridges=True).std(), a_black.std()
+    )
+    assert_array_less(
+        meijering(a_white, black_ridges=False).std(), a_white.std()
+    )
 
     assert_array_less(
         sato(a_black, black_ridges=True, mode='reflect').std(), a_black.std()
@@ -97,10 +107,12 @@ def test_3d_energy_decrease():
     assert_array_less(frangi(a_white, black_ridges=False).std(), a_white.std())
 
     assert_array_less(
-        hessian(a_black, black_ridges=True, mode='reflect').std(), a_black.std()
+        hessian(a_black, black_ridges=True, mode='reflect').std(),
+        a_black.std(),
     )
     assert_array_less(
-        hessian(a_white, black_ridges=False, mode='reflect').std(), a_white.std()
+        hessian(a_white, black_ridges=False, mode='reflect').std(),
+        a_white.std(),
     )
 
 
@@ -212,7 +224,8 @@ def test_2d_cropped_camera_image():
     ones = np.ones((100, 100))
 
     assert_allclose(
-        meijering(a_black, black_ridges=True), meijering(a_white, black_ridges=False)
+        meijering(a_black, black_ridges=True),
+        meijering(a_white, black_ridges=False),
     )
 
     assert_allclose(
@@ -225,10 +238,14 @@ def test_2d_cropped_camera_image():
     )
 
     assert_allclose(
-        hessian(a_black, black_ridges=True, mode='reflect'), ones, atol=1 - 1e-7
+        hessian(a_black, black_ridges=True, mode='reflect'),
+        ones,
+        atol=1 - 1e-7,
     )
     assert_allclose(
-        hessian(a_white, black_ridges=False, mode='reflect'), ones, atol=1 - 1e-7
+        hessian(a_white, black_ridges=False, mode='reflect'),
+        ones,
+        atol=1 - 1e-7,
     )
 
 
@@ -248,7 +265,8 @@ def test_3d_cropped_camera_image():
     ones = np.ones(a_black.shape)
 
     assert_allclose(
-        meijering(a_black, black_ridges=True), meijering(a_white, black_ridges=False)
+        meijering(a_black, black_ridges=True),
+        meijering(a_white, black_ridges=False),
     )
 
     assert_allclose(
@@ -261,15 +279,20 @@ def test_3d_cropped_camera_image():
     )
 
     assert_allclose(
-        hessian(a_black, black_ridges=True, mode='reflect'), ones, atol=1 - 1e-7
+        hessian(a_black, black_ridges=True, mode='reflect'),
+        ones,
+        atol=1 - 1e-7,
     )
     assert_allclose(
-        hessian(a_white, black_ridges=False, mode='reflect'), ones, atol=1 - 1e-7
+        hessian(a_white, black_ridges=False, mode='reflect'),
+        ones,
+        atol=1 - 1e-7,
     )
 
 
 @pytest.mark.parametrize(
-    'func, tol', [(frangi, 1e-2), (meijering, 1e-2), (sato, 2e-3), (hessian, 2e-2)]
+    'func, tol',
+    [(frangi, 1e-2), (meijering, 1e-2), (sato, 2e-3), (hessian, 2e-2)],
 )
 def test_border_management(func, tol):
     img = rgb2gray(retina()[300:500, 700:900])
@@ -279,7 +302,9 @@ def test_border_management(func, tol):
     full_mean = out.mean()
     inside_std = out[4:-4, 4:-4].std()
     inside_mean = out[4:-4, 4:-4].mean()
-    border_std = np.stack([out[:4, :], out[-4:, :], out[:, :4].T, out[:, -4:].T]).std()
+    border_std = np.stack(
+        [out[:4, :], out[-4:, :], out[:, :4].T, out[:, -4:].T]
+    ).std()
     border_mean = np.stack(
         [out[:4, :], out[-4:, :], out[:, :4].T, out[:, -4:].T]
     ).mean()

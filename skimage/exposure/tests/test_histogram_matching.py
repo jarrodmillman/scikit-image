@@ -38,7 +38,9 @@ class TestMatchHistogram:
         """Assert that pdf of matched image is close to the reference's pdf for
         all channels and all values of matched"""
 
-        matched = exposure.match_histograms(image, reference, channel_axis=channel_axis)
+        matched = exposure.match_histograms(
+            image, reference, channel_axis=channel_axis
+        )
 
         matched_pdf = self._calculate_image_empirical_pdf(matched)
         reference_pdf = self._calculate_image_empirical_pdf(reference)
@@ -48,9 +50,13 @@ class TestMatchHistogram:
             matched_values, matched_quantiles = matched_pdf[channel]
 
             for i, matched_value in enumerate(matched_values):
-                closest_id = (np.abs(reference_values - matched_value)).argmin()
+                closest_id = (
+                    np.abs(reference_values - matched_value)
+                ).argmin()
                 assert_almost_equal(
-                    matched_quantiles[i], reference_quantiles[closest_id], decimal=1
+                    matched_quantiles[i],
+                    reference_quantiles[closest_id],
+                    decimal=1,
                 )
 
     @pytest.mark.parametrize('channel_axis', (0, 1, -1))
@@ -60,7 +66,9 @@ class TestMatchHistogram:
 
         image = np.moveaxis(self.image_rgb, -1, channel_axis)
         reference = np.moveaxis(self.template_rgb, -1, channel_axis)
-        matched = exposure.match_histograms(image, reference, channel_axis=channel_axis)
+        matched = exposure.match_histograms(
+            image, reference, channel_axis=channel_axis
+        )
         assert matched.dtype == image.dtype
         matched = np.moveaxis(matched, channel_axis, -1)
         reference = np.moveaxis(reference, channel_axis, -1)
@@ -72,9 +80,13 @@ class TestMatchHistogram:
             matched_values, matched_quantiles = matched_pdf[channel]
 
             for i, matched_value in enumerate(matched_values):
-                closest_id = (np.abs(reference_values - matched_value)).argmin()
+                closest_id = (
+                    np.abs(reference_values - matched_value)
+                ).argmin()
                 assert_almost_equal(
-                    matched_quantiles[i], reference_quantiles[closest_id], decimal=1
+                    matched_quantiles[i],
+                    reference_quantiles[closest_id],
+                    decimal=1,
                 )
 
     @pytest.mark.parametrize('dtype', [np.float16, np.float32, np.float64])
@@ -87,7 +99,10 @@ class TestMatchHistogram:
 
     @pytest.mark.parametrize(
         'image, reference',
-        [(image_rgb, template_rgb[:, :, 0]), (image_rgb[:, :, 0], template_rgb)],
+        [
+            (image_rgb, template_rgb[:, :, 0]),
+            (image_rgb[:, :, 0], template_rgb),
+        ],
     )
     def test_raises_value_error_on_channels_mismatch(self, image, reference):
         with pytest.raises(ValueError):

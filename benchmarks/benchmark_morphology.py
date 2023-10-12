@@ -100,7 +100,9 @@ class BinaryMorphology2D:
         elif footprint == "ellipse":
             if radius > 1:
                 # make somewhat elliptical
-                self.footprint = fp_func(radius - 1, radius + 1, **footprint_kwargs)
+                self.footprint = fp_func(
+                    radius - 1, radius + 1, **footprint_kwargs
+                )
             else:
                 self.footprint = fp_func(radius, radius, **footprint_kwargs)
 

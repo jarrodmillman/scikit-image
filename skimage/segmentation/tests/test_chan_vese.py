@@ -37,7 +37,9 @@ def test_chan_vese_simple_shape():
     assert_array_equal(result, img)
 
 
-@pytest.mark.parametrize('dtype', [np.uint8, np.float16, np.float32, np.float64])
+@pytest.mark.parametrize(
+    'dtype', [np.uint8, np.float16, np.float32, np.float64]
+)
 def test_chan_vese_extended_output(dtype):
     img = np.zeros((10, 10), dtype=dtype)
     img[3:6, 3:6] = 1
@@ -80,7 +82,12 @@ def test_chan_vese_gap_closing():
     img = ref.copy()
     img[:, 6] = np.zeros(20)
     result = chan_vese(
-        img, mu=0.7, tol=1e-3, max_num_iter=1000, dt=1000, init_level_set="disk"
+        img,
+        mu=0.7,
+        tol=1e-3,
+        max_num_iter=1000,
+        dt=1000,
+        init_level_set="disk",
     ).astype(float)
     assert_array_equal(result, ref)
 

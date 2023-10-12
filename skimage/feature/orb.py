@@ -7,7 +7,12 @@ from ..feature.util import (
     _prepare_grayscale_input_2D,
 )
 
-from .corner import corner_fast, corner_orientations, corner_peaks, corner_harris
+from .corner import (
+    corner_fast,
+    corner_orientations,
+    corner_peaks,
+    corner_harris,
+)
 from ..transform import pyramid_gaussian
 from .._shared.utils import check_nD
 
@@ -149,7 +154,9 @@ class ORB(FeatureDetector, DescriptorExtractor):
     def _detect_octave(self, octave_image):
         dtype = octave_image.dtype
         # Extract keypoints for current octave
-        fast_response = corner_fast(octave_image, self.fast_n, self.fast_threshold)
+        fast_response = corner_fast(
+            octave_image, self.fast_n, self.fast_threshold
+        )
         keypoints = corner_peaks(fast_response, min_distance=1)
 
         if len(keypoints) == 0:
@@ -159,12 +166,16 @@ class ORB(FeatureDetector, DescriptorExtractor):
                 np.zeros((0,), dtype=dtype),
             )
 
-        mask = _mask_border_keypoints(octave_image.shape, keypoints, distance=16)
+        mask = _mask_border_keypoints(
+            octave_image.shape, keypoints, distance=16
+        )
         keypoints = keypoints[mask]
 
         orientations = corner_orientations(octave_image, keypoints, OFAST_MASK)
 
-        harris_response = corner_harris(octave_image, method='k', k=self.harris_k)
+        harris_response = corner_harris(
+            octave_image, method='k', k=self.harris_k
+        )
         responses = harris_response[keypoints[:, 0], keypoints[:, 1]]
 
         return keypoints, orientations, responses
@@ -194,7 +205,9 @@ class ORB(FeatureDetector, DescriptorExtractor):
                 # No further keypoints can be detected if the image is not really 2d
                 break
 
-            keypoints, orientations, responses = self._detect_octave(octave_image)
+            keypoints, orientations, responses = self._detect_octave(
+                octave_image
+            )
 
             keypoints_list.append(keypoints * self.downscale**octave)
             orientations_list.append(orientations)
@@ -226,8 +239,12 @@ class ORB(FeatureDetector, DescriptorExtractor):
             self.responses = responses[best_indices]
 
     def _extract_octave(self, octave_image, keypoints, orientations):
-        mask = _mask_border_keypoints(octave_image.shape, keypoints, distance=20)
-        keypoints = np.array(keypoints[mask], dtype=np.intp, order='C', copy=False)
+        mask = _mask_border_keypoints(
+            octave_image.shape, keypoints, distance=20
+        )
+        keypoints = np.array(
+            keypoints[mask], dtype=np.intp, order='C', copy=False
+        )
         orientations = np.array(orientations[mask], order='C', copy=False)
 
         descriptors = _orb_loop(octave_image, keypoints, orientations)
@@ -314,7 +331,9 @@ class ORB(FeatureDetector, DescriptorExtractor):
                 # No further keypoints can be detected if the image is not really 2d
                 break
 
-            keypoints, orientations, responses = self._detect_octave(octave_image)
+            keypoints, orientations, responses = self._detect_octave(
+                octave_image
+            )
 
             if len(keypoints) == 0:
                 keypoints_list.append(keypoints)

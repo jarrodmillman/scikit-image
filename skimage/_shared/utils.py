@@ -73,7 +73,9 @@ class change_default_value(_DecoratorBaseClass):
 
     """
 
-    def __init__(self, arg_name, *, new_value, changed_version, warning_msg=None):
+    def __init__(
+        self, arg_name, *, new_value, changed_version, warning_msg=None
+    ):
         self.arg_name = arg_name
         self.new_value = new_value
         self.warning_msg = warning_msg
@@ -101,7 +103,9 @@ class change_default_value(_DecoratorBaseClass):
             stacklevel = 1 + self.get_stack_length(func) - stack_rank
             if len(args) < arg_idx + 1 and self.arg_name not in kwargs.keys():
                 # warn that arg_name default value changed:
-                warnings.warn(self.warning_msg, FutureWarning, stacklevel=stacklevel)
+                warnings.warn(
+                    self.warning_msg, FutureWarning, stacklevel=stacklevel
+                )
             return func(*args, **kwargs)
 
         return fixed_func
@@ -147,7 +151,9 @@ class remove_arg(_DecoratorBaseClass):
             stacklevel = 1 + self.get_stack_length(func) - stack_rank
             if len(args) > arg_idx or self.arg_name in kwargs.keys():
                 # warn that arg_name is deprecated
-                warnings.warn(warning_msg, FutureWarning, stacklevel=stacklevel)
+                warnings.warn(
+                    warning_msg, FutureWarning, stacklevel=stacklevel
+                )
             return func(*args, **kwargs)
 
         return fixed_func
@@ -213,7 +219,9 @@ def _docstring_add_deprecated(func, kwarg_mapping, deprecated_version):
     # '\n    ' rather than '\n' here to restore the original indentation.
     final_docstring = descr + '\n    '.join(no_header)
     # strip any extra spaces from ends of lines
-    final_docstring = '\n'.join([line.rstrip() for line in final_docstring.split('\n')])
+    final_docstring = '\n'.join(
+        [line.rstrip() for line in final_docstring.split('\n')]
+    )
     return final_docstring
 
 
@@ -238,12 +246,17 @@ class deprecate_kwarg(_DecoratorBaseClass):
     """
 
     def __init__(
-        self, kwarg_mapping, deprecated_version, warning_msg=None, removed_version=None
+        self,
+        kwarg_mapping,
+        deprecated_version,
+        warning_msg=None,
+        removed_version=None,
     ):
         self.kwarg_mapping = kwarg_mapping
         if warning_msg is None:
             self.warning_msg = (
-                "`{old_arg}` is a deprecated argument name " "for `{func_name}`. "
+                "`{old_arg}` is a deprecated argument name "
+                "for `{func_name}`. "
             )
             if removed_version is not None:
                 self.warning_msg += (
@@ -267,7 +280,9 @@ class deprecate_kwarg(_DecoratorBaseClass):
                     #  warn that the function interface has changed:
                     warnings.warn(
                         self.warning_msg.format(
-                            old_arg=old_arg, func_name=func.__name__, new_arg=new_arg
+                            old_arg=old_arg,
+                            func_name=func.__name__,
+                            new_arg=new_arg,
                         ),
                         FutureWarning,
                         stacklevel=stacklevel,
@@ -334,7 +349,9 @@ class channel_as_last_axis:
             if np.isscalar(channel_axis):
                 channel_axis = (channel_axis,)
             if len(channel_axis) > 1:
-                raise ValueError("only a single channel axis is currently supported")
+                raise ValueError(
+                    "only a single channel axis is currently supported"
+                )
 
             if channel_axis == (-1,) or channel_axis == -1:
                 return func(*args, **kwargs)
@@ -408,7 +425,9 @@ class deprecate_func(_DecoratorBaseClass):
             f"{self.deprecated_version}"
         )
         if self.removed_version:
-            message += f" and will be removed in version {self.removed_version}."
+            message += (
+                f" and will be removed in version {self.removed_version}."
+            )
         if self.hint:
             # Prepend space and make sure it closes with "."
             message += f" {self.hint.rstrip('.')}."
@@ -418,7 +437,9 @@ class deprecate_func(_DecoratorBaseClass):
         @functools.wraps(func)
         def wrapped(*args, **kwargs):
             stacklevel = 1 + self.get_stack_length(func) - stack_rank
-            warnings.warn(message, category=FutureWarning, stacklevel=stacklevel)
+            warnings.warn(
+                message, category=FutureWarning, stacklevel=stacklevel
+            )
             return func(*args, **kwargs)
 
         # modify docstring to display deprecation warning
@@ -660,7 +681,9 @@ def _validate_interpolation_order(image_dtype, order):
         return 0 if image_dtype == bool else 1
 
     if order < 0 or order > 5:
-        raise ValueError("Spline interpolation order has to be in the " "range 0-5.")
+        raise ValueError(
+            "Spline interpolation order has to be in the " "range 0-5."
+        )
 
     if image_dtype == bool and order != 0:
         raise ValueError(
@@ -674,7 +697,9 @@ def _validate_interpolation_order(image_dtype, order):
 
 def _to_np_mode(mode):
     """Convert padding modes from `ndi.correlate` to `np.pad`."""
-    mode_translation_dict = dict(nearest='edge', reflect='symmetric', mirror='reflect')
+    mode_translation_dict = dict(
+        nearest='edge', reflect='symmetric', mirror='reflect'
+    )
     if mode in mode_translation_dict:
         mode = mode_translation_dict[mode]
     return mode

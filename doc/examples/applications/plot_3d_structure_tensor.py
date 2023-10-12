@@ -159,19 +159,25 @@ plotly.io.show(fig3)
 # We are looking at a local property. Let us consider a tiny neighborhood
 # around the maximum eigenvalue in the above X-Y plane.
 
-eigen[0, coords[1], coords[2] - 2 : coords[2] + 1, coords[3] - 2 : coords[3] + 1]
+eigen[
+    0, coords[1], coords[2] - 2 : coords[2] + 1, coords[3] - 2 : coords[3] + 1
+]
 
 #####################################################################
 # If we examine the second-largest eigenvalues in this neighborhood, we can
 # see that they have the same order of magnitude as the largest ones.
 
-eigen[1, coords[1], coords[2] - 2 : coords[2] + 1, coords[3] - 2 : coords[3] + 1]
+eigen[
+    1, coords[1], coords[2] - 2 : coords[2] + 1, coords[3] - 2 : coords[3] + 1
+]
 
 #####################################################################
 # In contrast, the third-largest eigenvalues are one order of magnitude
 # smaller.
 
-eigen[2, coords[1], coords[2] - 2 : coords[2] + 1, coords[3] - 2 : coords[3] + 1]
+eigen[
+    2, coords[1], coords[2] - 2 : coords[2] + 1, coords[3] - 2 : coords[3] + 1
+]
 
 #####################################################################
 # Let us visualize the slice of sample data in the X-Y plane where the
@@ -196,7 +202,11 @@ plotly.io.show(fig4)
 
 subplots = np.dstack((sample[:, coords[2], :], sample[:, :, coords[3]]))
 fig5 = px.imshow(
-    subplots, zmin=v_min, zmax=v_max, facet_col=2, labels={'facet_col': 'longitudinal'}
+    subplots,
+    zmin=v_min,
+    zmax=v_max,
+    facet_col=2,
+    labels={'facet_col': 'longitudinal'},
 )
 
 plotly.io.show(fig5)

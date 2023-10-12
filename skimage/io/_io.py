@@ -74,7 +74,9 @@ def imread(fname, as_gray=False, plugin=None, **plugin_args):
     return img
 
 
-def imread_collection(load_pattern, conserve_memory=True, plugin=None, **plugin_args):
+def imread_collection(
+    load_pattern, conserve_memory=True, plugin=None, **plugin_args
+):
     """
     Load a collection of images.
 
@@ -100,7 +102,11 @@ def imread_collection(load_pattern, conserve_memory=True, plugin=None, **plugin_
 
     """
     return call_plugin(
-        'imread_collection', load_pattern, conserve_memory, plugin=plugin, **plugin_args
+        'imread_collection',
+        load_pattern,
+        conserve_memory,
+        plugin=plugin,
+        **plugin_args,
     )
 
 

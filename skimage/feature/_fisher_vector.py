@@ -114,7 +114,8 @@ def learn_gmm(descriptors, *, n_modes=32, gm_args=None):
         ranks = [len(e.shape) == len(expected_shape) for e in descriptors]
         if not all(ranks):
             raise DescriptorException(
-                'Please ensure all elements of your descriptor list ' 'are of rank 2.'
+                'Please ensure all elements of your descriptor list '
+                'are of rank 2.'
             )
         dims = [e.shape[1] == descriptors[0].shape[1] for e in descriptors]
         if not all(dims):
@@ -123,7 +124,9 @@ def learn_gmm(descriptors, *, n_modes=32, gm_args=None):
             )
 
     if not isinstance(n_modes, int) or n_modes <= 0:
-        raise FisherVectorException('Please ensure n_modes is a positive integer.')
+        raise FisherVectorException(
+            'Please ensure n_modes is a positive integer.'
+        )
 
     if gm_args:
         has_cov_type = 'covariance_type' in gm_args
@@ -211,7 +214,9 @@ def fisher_vector(descriptors, gmm, *, improved=False, alpha=0.5):
         )
 
     if not isinstance(descriptors, np.ndarray):
-        raise DescriptorException('Please ensure descriptors is a NumPy array.')
+        raise DescriptorException(
+            'Please ensure descriptors is a NumPy array.'
+        )
 
     if not isinstance(gmm, GaussianMixture):
         raise FisherVectorException(
@@ -234,7 +239,10 @@ def fisher_vector(descriptors, gmm, *, improved=False, alpha=0.5):
     # Statistics necessary to compute GMM gradients wrt its parameters
     pp_sum = posterior_probabilities.mean(axis=0, keepdims=True).T
     pp_x = posterior_probabilities.T.dot(descriptors) / num_descriptors
-    pp_x_2 = posterior_probabilities.T.dot(np.power(descriptors, 2)) / num_descriptors
+    pp_x_2 = (
+        posterior_probabilities.T.dot(np.power(descriptors, 2))
+        / num_descriptors
+    )
 
     # Compute GMM gradients wrt its parameters
     d_pi = pp_sum.squeeze() - mixture_weights
@@ -256,7 +264,9 @@ def fisher_vector(descriptors, gmm, *, improved=False, alpha=0.5):
     fisher_vector = np.hstack((d_pi, d_mu.ravel(), d_sigma.ravel()))
 
     if improved:
-        fisher_vector = np.sign(fisher_vector) * np.power(np.abs(fisher_vector), alpha)
+        fisher_vector = np.sign(fisher_vector) * np.power(
+            np.abs(fisher_vector), alpha
+        )
         fisher_vector = fisher_vector / np.linalg.norm(fisher_vector)
 
     return fisher_vector

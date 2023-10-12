@@ -104,7 +104,8 @@ def _named_tempfile_func(error_class):
 
 
 @pytest.mark.parametrize(
-    'error_class', [FileNotFoundError, FileExistsError, PermissionError, BaseException]
+    'error_class',
+    [FileNotFoundError, FileExistsError, PermissionError, BaseException],
 )
 def test_failed_temporary_file(monkeypatch, error_class):
     fetch('data/camera.png')

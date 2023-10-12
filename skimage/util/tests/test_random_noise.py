@@ -59,7 +59,9 @@ def test_pepper():
 
     # Check to make sure pepper gets added properly to signed images
     orig_zeros = (data_signed == -1).sum()
-    cam_noisy_signed = random_noise(data_signed, rng=42, mode='pepper', amount=0.15)
+    cam_noisy_signed = random_noise(
+        data_signed, rng=42, mode='pepper', amount=0.15
+    )
 
     proportion = float((cam_noisy_signed == -1).sum() - orig_zeros) / (
         cam.shape[0] * cam.shape[1]
@@ -120,11 +122,15 @@ def test_localvar():
     # Ensure local variance bounds checking works properly
     bad_local_vars = np.zeros_like(data)
     with testing.raises(ValueError):
-        random_noise(data, mode='localvar', rng=seed, local_vars=bad_local_vars)
+        random_noise(
+            data, mode='localvar', rng=seed, local_vars=bad_local_vars
+        )
     bad_local_vars += 0.1
     bad_local_vars[0, 0] = -1
     with testing.raises(ValueError):
-        random_noise(data, mode='localvar', rng=seed, local_vars=bad_local_vars)
+        random_noise(
+            data, mode='localvar', rng=seed, local_vars=bad_local_vars
+        )
 
 
 def test_speckle():
@@ -135,7 +141,9 @@ def test_speckle():
     noise = rng.normal(0.1, 0.02**0.5, (128, 128))
     expected = np.clip(data + data * noise, 0, 1)
 
-    data_speckle = random_noise(data, mode='speckle', rng=42, mean=0.1, var=0.02)
+    data_speckle = random_noise(
+        data, mode='speckle', rng=42, mean=0.1, var=0.02
+    )
     assert_allclose(expected, data_speckle)
 
 
@@ -153,7 +161,9 @@ def test_poisson():
 
 def test_clip_poisson():
     data = camera()  # 512x512 grayscale uint8
-    data_signed = img_as_float(data) * 2.0 - 1.0  # Same image, on range [-1, 1]
+    data_signed = (
+        img_as_float(data) * 2.0 - 1.0
+    )  # Same image, on range [-1, 1]
 
     # Signed and unsigned, clipped
     cam_poisson = random_noise(data, mode='poisson', rng=42, clip=True)
@@ -163,14 +173,18 @@ def test_clip_poisson():
 
     # Signed and unsigned, unclipped
     cam_poisson = random_noise(data, mode='poisson', rng=42, clip=False)
-    cam_poisson2 = random_noise(data_signed, mode='poisson', rng=42, clip=False)
+    cam_poisson2 = random_noise(
+        data_signed, mode='poisson', rng=42, clip=False
+    )
     assert (cam_poisson.max() > 1.15) and (cam_poisson.min() == 0.0)
     assert (cam_poisson2.max() > 1.3) and (cam_poisson2.min() == -1.0)
 
 
 def test_clip_gaussian():
     data = camera()  # 512x512 grayscale uint8
-    data_signed = img_as_float(data) * 2.0 - 1.0  # Same image, on range [-1, 1]
+    data_signed = (
+        img_as_float(data) * 2.0 - 1.0
+    )  # Same image, on range [-1, 1]
 
     # Signed and unsigned, clipped
     cam_gauss = random_noise(data, mode='gaussian', rng=42, clip=True)
@@ -187,17 +201,23 @@ def test_clip_gaussian():
 
 def test_clip_speckle():
     data = camera()  # 512x512 grayscale uint8
-    data_signed = img_as_float(data) * 2.0 - 1.0  # Same image, on range [-1, 1]
+    data_signed = (
+        img_as_float(data) * 2.0 - 1.0
+    )  # Same image, on range [-1, 1]
 
     # Signed and unsigned, clipped
     cam_speckle = random_noise(data, mode='speckle', rng=42, clip=True)
-    cam_speckle_sig = random_noise(data_signed, mode='speckle', rng=42, clip=True)
+    cam_speckle_sig = random_noise(
+        data_signed, mode='speckle', rng=42, clip=True
+    )
     assert (cam_speckle.max() == 1.0) and (cam_speckle.min() == 0.0)
     assert (cam_speckle_sig.max() == 1.0) and (cam_speckle_sig.min() == -1.0)
 
     # Signed and unsigned, unclipped
     cam_speckle = random_noise(data, mode='speckle', rng=42, clip=False)
-    cam_speckle_sig = random_noise(data_signed, mode='speckle', rng=42, clip=False)
+    cam_speckle_sig = random_noise(
+        data_signed, mode='speckle', rng=42, clip=False
+    )
     assert (cam_speckle.max() > 1.219) and (cam_speckle.min() == 0.0)
     assert (cam_speckle_sig.max() > 1.219) and (cam_speckle_sig.min() < -1.219)
 

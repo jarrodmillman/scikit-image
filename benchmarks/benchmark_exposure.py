@@ -66,7 +66,9 @@ class MatchHistogramsSuite:
         self.reference = data.camera().astype(dtype, copy=False)
 
         self.image = self._tile_to_shape(self.image, shape, multichannel)
-        self.reference = self._tile_to_shape(self.reference, shape, multichannel)
+        self.reference = self._tile_to_shape(
+            self.reference, shape, multichannel
+        )
         channel_axis = -1 if multichannel else None
         self.kwargs = {'channel_axis': channel_axis}
 

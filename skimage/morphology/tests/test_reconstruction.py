@@ -9,12 +9,16 @@ from skimage.morphology.grayreconstruct import reconstruction
 
 def test_zeros():
     """Test reconstruction with image and mask of zeros"""
-    assert_array_almost_equal(reconstruction(np.zeros((5, 7)), np.zeros((5, 7))), 0)
+    assert_array_almost_equal(
+        reconstruction(np.zeros((5, 7)), np.zeros((5, 7))), 0
+    )
 
 
 def test_image_equals_mask():
     """Test reconstruction where the image and mask are the same"""
-    assert_array_almost_equal(reconstruction(np.ones((7, 5)), np.ones((7, 5))), 1)
+    assert_array_almost_equal(
+        reconstruction(np.ones((7, 5)), np.ones((7, 5))), 1
+    )
 
 
 def test_image_less_than_mask():
@@ -184,7 +188,11 @@ def test_offset_not_none():
 
     assert_array_almost_equal(
         reconstruction(
-            seed, mask, method='dilation', footprint=np.ones(3), offset=np.array([0])
+            seed,
+            mask,
+            method='dilation',
+            footprint=np.ones(3),
+            offset=np.array([0]),
         ),
         expected,
     )

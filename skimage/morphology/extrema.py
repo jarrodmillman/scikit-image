@@ -37,7 +37,8 @@ def _subtract_constant_clip(image, const_value):
 
     if const_value > (max_dtype - min_dtype):
         raise ValueError(
-            "The subtracted constant is not compatible" "with the image data type."
+            "The subtracted constant is not compatible"
+            "with the image data type."
         )
 
     result = image - const_value
@@ -133,7 +134,9 @@ def h_maxima(image, h, footprint=None):
     #   >>> b[0] == b[1]
     #   True
     #
-    if np.issubdtype(type(h), np.floating) and np.issubdtype(image.dtype, np.integer):
+    if np.issubdtype(type(h), np.floating) and np.issubdtype(
+        image.dtype, np.integer
+    ):
         if (h % 1) != 0:
             warn(
                 'possible precision loss converting image to '
@@ -243,7 +246,9 @@ def h_minima(image, h, footprint=None):
     if h > np.ptp(image):
         return np.zeros(image.shape, dtype=np.uint8)
 
-    if np.issubdtype(type(h), np.floating) and np.issubdtype(image.dtype, np.integer):
+    if np.issubdtype(type(h), np.floating) and np.issubdtype(
+        image.dtype, np.integer
+    ):
         if (h % 1) != 0:
             warn(
                 'possible precision loss converting image to '
@@ -407,7 +412,9 @@ def local_maxima(
             stacklevel=3,
         )
     else:
-        footprint = _util._resolve_neighborhood(footprint, connectivity, image.ndim)
+        footprint = _util._resolve_neighborhood(
+            footprint, connectivity, image.ndim
+        )
         neighbor_offsets = _util._offsets_to_raveled_neighbors(
             image.shape, footprint, center=((1,) * image.ndim)
         )

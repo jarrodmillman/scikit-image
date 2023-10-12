@@ -3,7 +3,11 @@ import itertools
 
 import numpy as np
 import pytest
-from numpy.testing import assert_array_almost_equal, assert_array_equal, assert_warns
+from numpy.testing import (
+    assert_array_almost_equal,
+    assert_array_equal,
+    assert_warns,
+)
 
 from skimage import color, data, img_as_float, restoration
 from skimage._shared._warnings import expected_warnings
@@ -28,7 +32,9 @@ xfail_without_pywt = pytest.mark.xfail(
 try:
     import dask  # noqa
 except ImportError:
-    DASK_NOT_INSTALLED_WARNING = 'The optional dask dependency is not installed'
+    DASK_NOT_INSTALLED_WARNING = (
+        'The optional dask dependency is not installed'
+    )
 else:
     DASK_NOT_INSTALLED_WARNING = None
 
@@ -112,7 +118,9 @@ def test_denoise_tv_chambolle_float_result_range():
     img = astro_gray
     int_astro = np.multiply(img, 255).astype(np.uint8)
     assert np.max(int_astro) > 1
-    denoised_int_astro = restoration.denoise_tv_chambolle(int_astro, weight=0.1)
+    denoised_int_astro = restoration.denoise_tv_chambolle(
+        int_astro, weight=0.1
+    )
     # test if the value range of output float data is within [0.0:1.0]
     assert denoised_int_astro.dtype == float
     assert np.max(denoised_int_astro) <= 1.0
@@ -170,7 +178,9 @@ def test_denoise_tv_chambolle_weighting():
     assert denoised_2d.dtype == np.float64
     assert denoised_4d.dtype == np.float64
     ssim_2d = structural_similarity(denoised_2d, astro_gray, data_range=1.0)
-    ssim = structural_similarity(denoised_2d, denoised_4d[:, :, 0, 0], data_range=1.0)
+    ssim = structural_similarity(
+        denoised_2d, denoised_4d[:, :, 0, 0], data_range=1.0
+    )
     assert ssim > 0.98  # clsoe to 1.0
     assert ssim_2d > ssim_noisy  # quality must increase after denoising
 
@@ -322,12 +332,16 @@ def test_denoise_bregman_types(dtype):
 
 def test_denoise_bilateral_zeros():
     img = np.zeros((10, 10))
-    assert_array_equal(img, restoration.denoise_bilateral(img, channel_axis=None))
+    assert_array_equal(
+        img, restoration.denoise_bilateral(img, channel_axis=None)
+    )
 
 
 def test_denoise_bilateral_constant():
     img = np.ones((10, 10)) * 5
-    assert_array_equal(img, restoration.denoise_bilateral(img, channel_axis=None))
+    assert_array_equal(
+        img, restoration.denoise_bilateral(img, channel_axis=None)
+    )
 
 
 @pytest.mark.parametrize('channel_axis', [0, 1, -1])
@@ -457,7 +471,13 @@ def test_denoise_nl_means_3d(fast_mode, dtype):
     psnr_noisy = peak_signal_noise_ratio(img, imgn)
     for s in [sigma, 0]:
         denoised = restoration.denoise_nl_means(
-            imgn, 3, 4, h=0.75 * sigma, fast_mode=fast_mode, channel_axis=None, sigma=s
+            imgn,
+            3,
+            4,
+            h=0.75 * sigma,
+            fast_mode=fast_mode,
+            channel_axis=None,
+            sigma=s,
         )
         # make sure noise is reduced
         assert peak_signal_noise_ratio(img, denoised) > psnr_noisy
@@ -519,7 +539,11 @@ def test_denoise_nl_means_4d():
     imgn = img + sigma * rng.standard_normal(img.shape)
 
     nlmeans_kwargs = dict(
-        patch_size=3, patch_distance=2, h=0.3 * sigma, sigma=sigma, fast_mode=True
+        patch_size=3,
+        patch_distance=2,
+        h=0.3 * sigma,
+        sigma=sigma,
+        fast_mode=True,
     )
 
     psnr_noisy = peak_signal_noise_ratio(img, imgn, data_range=1.0)
@@ -557,7 +581,13 @@ def test_denoise_nl_means_4d_multichannel():
     psnr_noisy = peak_signal_noise_ratio(img, imgn, data_range=1.0)
 
     denoised_4dmc = restoration.denoise_nl_means(
-        imgn, 3, 3, h=0.35 * sigma, fast_mode=True, channel_axis=-1, sigma=sigma
+        imgn,
+        3,
+        3,
+        h=0.35 * sigma,
+        fast_mode=True,
+        channel_axis=-1,
+        sigma=sigma,
     )
     psnr_4dmc = peak_signal_noise_ratio(img, denoised_4dmc, data_range=1.0)
     assert psnr_4dmc > psnr_noisy
@@ -618,7 +648,10 @@ def test_denoise_nl_means_2d_dtype(fast_mode):
     img_f32 = img.astype('float32')
     img_f64 = img.astype('float64')
 
-    assert restoration.denoise_nl_means(img, fast_mode=fast_mode).dtype == 'float64'
+    assert (
+        restoration.denoise_nl_means(img, fast_mode=fast_mode).dtype
+        == 'float64'
+    )
 
     assert (
         restoration.denoise_nl_means(img_f32, fast_mode=fast_mode).dtype
@@ -638,7 +671,9 @@ def test_denoise_nl_means_3d_dtype(fast_mode):
     img_f64 = img.astype('float64')
 
     assert (
-        restoration.denoise_nl_means(img, patch_distance=2, fast_mode=fast_mode).dtype
+        restoration.denoise_nl_means(
+            img, patch_distance=2, fast_mode=fast_mode
+        ).dtype
         == 'float64'
     )
 
@@ -778,7 +813,9 @@ def test_wavelet_denoising_scaling(case, dtype, convert2ycbcr, estimate_sigma):
     channel_axis = -1 if x.shape[-1] == 3 else None
 
     if estimate_sigma:
-        sigma_est = restoration.estimate_sigma(noisy, channel_axis=channel_axis)
+        sigma_est = restoration.estimate_sigma(
+            noisy, channel_axis=channel_axis
+        )
     else:
         sigma_est = None
 
@@ -809,7 +846,9 @@ def test_wavelet_denoising_scaling(case, dtype, convert2ycbcr, estimate_sigma):
     psnr_noisy = peak_signal_noise_ratio(x, noisy, data_range=data_range)
     clipped = np.dtype(dtype).kind != 'f'
     if not clipped:
-        psnr_denoised = peak_signal_noise_ratio(x, denoised, data_range=data_range)
+        psnr_denoised = peak_signal_noise_ratio(
+            x, denoised, data_range=data_range
+        )
 
         # output's max value is not substantially smaller than x's
         assert denoised.max() > 0.9 * x.max()
@@ -841,7 +880,9 @@ def test_wavelet_threshold():
     noisy = np.clip(noisy, 0, 1)
 
     # employ a single, user-specified threshold instead of BayesShrink sigmas
-    denoised = _wavelet_threshold(noisy, wavelet='db1', method=None, threshold=sigma)
+    denoised = _wavelet_threshold(
+        noisy, wavelet='db1', method=None, threshold=sigma
+    )
     psnr_noisy = peak_signal_noise_ratio(img, noisy)
     psnr_denoised = peak_signal_noise_ratio(img, denoised)
     assert psnr_denoised > psnr_noisy
@@ -852,13 +893,17 @@ def test_wavelet_threshold():
 
     # warns if a threshold is provided in a case where it would be ignored
     with expected_warnings(["Thresholding method "]):
-        _wavelet_threshold(noisy, wavelet='db1', method='BayesShrink', threshold=sigma)
+        _wavelet_threshold(
+            noisy, wavelet='db1', method='BayesShrink', threshold=sigma
+        )
 
 
 @xfail_without_pywt
 @pytest.mark.parametrize(
     'rescale_sigma, method, ndim',
-    itertools.product([True, False], ['VisuShrink', 'BayesShrink'], range(1, 5)),
+    itertools.product(
+        [True, False], ['VisuShrink', 'BayesShrink'], range(1, 5)
+    ),
 )
 def test_wavelet_denoising_nd(rescale_sigma, method, ndim):
     rstate = np.random.default_rng(1234)
@@ -924,9 +969,13 @@ def test_wavelet_denoising_levels(rescale_sigma):
     assert psnr_denoised > psnr_denoised_1 > psnr_noisy
 
     # invalid number of wavelet levels results in a ValueError or UserWarning
-    max_level = pywt.dwt_max_level(np.min(img.shape), pywt.Wavelet(wavelet).dec_len)
+    max_level = pywt.dwt_max_level(
+        np.min(img.shape), pywt.Wavelet(wavelet).dec_len
+    )
     # exceeding max_level raises a UserWarning in PyWavelets >= 1.0.0
-    with expected_warnings(['all coefficients will experience boundary effects']):
+    with expected_warnings(
+        ['all coefficients will experience boundary effects']
+    ):
         restoration.denoise_wavelet(
             noisy,
             wavelet=wavelet,
@@ -936,7 +985,10 @@ def test_wavelet_denoising_levels(rescale_sigma):
 
     with pytest.raises(ValueError):
         restoration.denoise_wavelet(
-            noisy, wavelet=wavelet, wavelet_levels=-1, rescale_sigma=rescale_sigma
+            noisy,
+            wavelet=wavelet,
+            wavelet_levels=-1,
+            rescale_sigma=rescale_sigma,
         )
 
 
@@ -1077,7 +1129,9 @@ def test_cycle_spinning_multichannel(rescale_sigma, channel_axis):
     noisy = img.copy() + 0.1 * rstate.standard_normal(img.shape)
 
     denoise_func = restoration.denoise_wavelet
-    func_kw = dict(sigma=sigma, channel_axis=channel_axis, rescale_sigma=rescale_sigma)
+    func_kw = dict(
+        sigma=sigma, channel_axis=channel_axis, rescale_sigma=rescale_sigma
+    )
 
     # max_shifts=0 is equivalent to just calling denoise_func
     with expected_warnings([DASK_NOT_INSTALLED_WARNING]):

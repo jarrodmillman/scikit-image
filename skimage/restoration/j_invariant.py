@@ -26,14 +26,18 @@ def _interpolate_image(image, *, multichannel=False):
         Interpolated version of `image`.
     """
     spatialdims = image.ndim if not multichannel else image.ndim - 1
-    conv_filter = ndi.generate_binary_structure(spatialdims, 1).astype(image.dtype)
+    conv_filter = ndi.generate_binary_structure(spatialdims, 1).astype(
+        image.dtype
+    )
     conv_filter.ravel()[conv_filter.size // 2] = 0
     conv_filter /= conv_filter.sum()
 
     if multichannel:
         interp = np.zeros_like(image)
         for i in range(image.shape[-1]):
-            interp[..., i] = ndi.convolve(image[..., i], conv_filter, mode='mirror')
+            interp[..., i] = ndi.convolve(
+                image[..., i], conv_filter, mode='mirror'
+            )
     else:
         interp = ndi.convolve(image, conv_filter, mode='mirror')
     return interp
@@ -164,7 +168,9 @@ def denoise_invariant(
         spatialdims = image.ndim if not multichannel else image.ndim - 1
         n_masks = stride**spatialdims
         masks = (
-            _generate_grid_slice(image.shape[:spatialdims], offset=idx, stride=stride)
+            _generate_grid_slice(
+                image.shape[:spatialdims], offset=idx, stride=stride
+            )
             for idx in range(n_masks)
         )
 
@@ -301,7 +307,12 @@ def calibrate_denoiser(
 
 
 def _calibrate_denoiser_search(
-    image, denoise_function, denoise_parameters, *, stride=4, approximate_loss=True
+    image,
+    denoise_function,
+    denoise_parameters,
+    *,
+    stride=4,
+    approximate_loss=True,
 ):
     """Return a parameter search history with losses for a denoise function.
 
@@ -337,7 +348,10 @@ def _calibrate_denoiser_search(
         multichannel = denoiser_kwargs.get('channel_axis', None) is not None
         if not approximate_loss:
             denoised = denoise_invariant(
-                image, denoise_function, stride=stride, denoiser_kwargs=denoiser_kwargs
+                image,
+                denoise_function,
+                stride=stride,
+                denoiser_kwargs=denoiser_kwargs,
             )
             loss = mean_squared_error(image, denoised)
         else:
@@ -348,7 +362,10 @@ def _calibrate_denoiser_search(
             )
 
             masked_denoised = denoise_invariant(
-                image, denoise_function, masks=[mask], denoiser_kwargs=denoiser_kwargs
+                image,
+                denoise_function,
+                masks=[mask],
+                denoiser_kwargs=denoiser_kwargs,
             )
 
             loss = mean_squared_error(image[mask], masked_denoised[mask])

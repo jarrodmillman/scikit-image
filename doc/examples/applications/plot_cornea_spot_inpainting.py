@@ -124,7 +124,9 @@ mask_2 = image_med < thresh_2
 
 
 def plot_comparison(plot1, plot2, title1, title2):
-    fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(12, 6), sharex=True, sharey=True)
+    fig, (ax1, ax2) = plt.subplots(
+        ncols=2, figsize=(12, 6), sharex=True, sharey=True
+    )
     ax1.imshow(plot1, cmap='gray')
     ax1.set_title(title1)
     ax2.imshow(plot2, cmap='gray')

@@ -41,4 +41,6 @@ def test_grid_points_in_poly_binarize():
         ]
     )
 
-    assert_array_equal(grid_points_in_poly((5, 5), v, binarize=False), expected)
+    assert_array_equal(
+        grid_points_in_poly((5, 5), v, binarize=False), expected
+    )

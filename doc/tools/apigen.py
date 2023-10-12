@@ -207,7 +207,9 @@ class ApiDocWriter:
         mod = __import__(uri, fromlist=[uri.split('.')[-1]])
         # find all public objects in the module.
         obj_strs = getattr(
-            mod, '__all__', [obj for obj in dir(mod) if not obj.startswith('_')]
+            mod,
+            '__all__',
+            [obj for obj in dir(mod) if not obj.startswith('_')],
         )
         functions = []
         classes = []
@@ -399,7 +401,9 @@ class ApiDocWriter:
     def write_modules_api(self, modules, outdir):
         # write the list
         written_modules = []
-        public_modules = [m for m in modules if not m.split('.')[-1].startswith('_')]
+        public_modules = [
+            m for m in modules if not m.split('.')[-1].startswith('_')
+        ]
         for m in public_modules:
             api_str = self.generate_api_doc(m)
             if not api_str:
@@ -456,7 +460,9 @@ class ApiDocWriter:
         path = os.path.join(outdir, froot + self.rst_extension)
         # Path written into index is relative to rootpath
         if relative_to is not None:
-            relpath = (outdir + os.path.sep).replace(relative_to + os.path.sep, '')
+            relpath = (outdir + os.path.sep).replace(
+                relative_to + os.path.sep, ''
+            )
         else:
             relpath = outdir
         print("outdir: ", relpath)

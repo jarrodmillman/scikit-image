@@ -48,7 +48,9 @@ def _compute_disk_overlap(d, r1, r2):
     b = d - r2 + r1
     c = d + r2 - r1
     d = d + r2 + r1
-    area = r1**2 * acos1 + r2**2 * acos2 - 0.5 * math.sqrt(abs(a * b * c * d))
+    area = (
+        r1**2 * acos1 + r2**2 * acos2 - 0.5 * math.sqrt(abs(a * b * c * d))
+    )
     return area / (math.pi * (min(r1, r2) ** 2))
 
 
@@ -215,7 +217,9 @@ def _format_exclude_border(img_ndim, exclude_border):
     elif exclude_border is False:
         return (0,) * (img_ndim + 1)
     else:
-        raise ValueError(f'Unsupported value ({exclude_border}) for exclude_border')
+        raise ValueError(
+            f'Unsupported value ({exclude_border}) for exclude_border'
+        )
 
 
 def blob_dog(
@@ -361,7 +365,9 @@ def blob_dog(
     k = int(np.mean(np.log(max_sigma / min_sigma) / np.log(sigma_ratio) + 1))
 
     # a geometric progression of standard deviations for gaussian kernels
-    sigma_list = np.array([min_sigma * (sigma_ratio**i) for i in range(k + 1)])
+    sigma_list = np.array(
+        [min_sigma * (sigma_ratio**i) for i in range(k + 1)]
+    )
 
     # computing difference between two successive Gaussian blurred images
     # to obtain an approximation of the scale invariant Laplacian of the
@@ -523,7 +529,9 @@ def blob_log(
     image = image.astype(float_dtype, copy=False)
 
     # if both min and max sigma are scalar, function returns only one sigma
-    scalar_sigma = True if np.isscalar(max_sigma) and np.isscalar(min_sigma) else False
+    scalar_sigma = (
+        True if np.isscalar(max_sigma) and np.isscalar(min_sigma) else False
+    )
 
     # Gaussian filter requires that sequence-type sigmas have same
     # dimensionality as image. This broadcasts scalar kernels
@@ -693,7 +701,9 @@ def blob_doh(
     else:
         sigma_list = np.linspace(min_sigma, max_sigma, num_sigma)
 
-    image_cube = np.empty(shape=image.shape + (len(sigma_list),), dtype=float_dtype)
+    image_cube = np.empty(
+        shape=image.shape + (len(sigma_list),), dtype=float_dtype
+    )
     for j, s in enumerate(sigma_list):
         image_cube[..., j] = _hessian_matrix_det(image, s)
 

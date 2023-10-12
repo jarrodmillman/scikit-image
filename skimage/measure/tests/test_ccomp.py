@@ -77,7 +77,9 @@ class TestConnectedComponents:
 
         assert_array_equal(label(x), [[1, 0, 0], [1, 1, 2], [0, 0, 0]])
 
-        assert_array_equal(label(x, background=0), [[1, 0, 0], [1, 1, 2], [0, 0, 0]])
+        assert_array_equal(
+            label(x, background=0), [[1, 0, 0], [1, 1, 2], [0, 0, 0]]
+        )
 
     def test_background_two_regions(self):
         x = np.array([[0, 0, 6], [0, 0, 6], [5, 5, 5]])
@@ -89,7 +91,8 @@ class TestConnectedComponents:
         x = np.array([[0, 0, 0], [0, 1, 0], [0, 0, 0]])
 
         assert_array_equal(
-            label(x, connectivity=1, background=0), [[0, 0, 0], [0, 1, 0], [0, 0, 0]]
+            label(x, connectivity=1, background=0),
+            [[0, 0, 0], [0, 1, 0], [0, 0, 0]],
         )
 
     def test_return_num(self):
@@ -104,29 +107,59 @@ class TestConnectedComponents3d:
     def setup_method(self):
         self.x = np.zeros((3, 4, 5), int)
         self.x[0] = np.array(
-            [[0, 3, 2, 1, 9], [0, 1, 9, 2, 9], [0, 1, 9, 9, 9], [3, 1, 5, 3, 0]]
+            [
+                [0, 3, 2, 1, 9],
+                [0, 1, 9, 2, 9],
+                [0, 1, 9, 9, 9],
+                [3, 1, 5, 3, 0],
+            ]
         )
 
         self.x[1] = np.array(
-            [[3, 3, 2, 1, 9], [0, 3, 9, 2, 1], [0, 3, 3, 1, 1], [3, 1, 3, 3, 0]]
+            [
+                [3, 3, 2, 1, 9],
+                [0, 3, 9, 2, 1],
+                [0, 3, 3, 1, 1],
+                [3, 1, 3, 3, 0],
+            ]
         )
 
         self.x[2] = np.array(
-            [[3, 3, 8, 8, 0], [2, 3, 9, 8, 8], [2, 3, 0, 8, 0], [2, 1, 0, 0, 0]]
+            [
+                [3, 3, 8, 8, 0],
+                [2, 3, 9, 8, 8],
+                [2, 3, 0, 8, 0],
+                [2, 1, 0, 0, 0],
+            ]
         )
 
         self.labels = np.zeros((3, 4, 5), int)
 
         self.labels[0] = np.array(
-            [[0, 1, 2, 3, 4], [0, 5, 4, 2, 4], [0, 5, 4, 4, 4], [1, 5, 6, 1, 0]]
+            [
+                [0, 1, 2, 3, 4],
+                [0, 5, 4, 2, 4],
+                [0, 5, 4, 4, 4],
+                [1, 5, 6, 1, 0],
+            ]
         )
 
         self.labels[1] = np.array(
-            [[1, 1, 2, 3, 4], [0, 1, 4, 2, 3], [0, 1, 1, 3, 3], [1, 5, 1, 1, 0]]
+            [
+                [1, 1, 2, 3, 4],
+                [0, 1, 4, 2, 3],
+                [0, 1, 1, 3, 3],
+                [1, 5, 1, 1, 0],
+            ]
         )
 
         self.labels[2] = np.array(
-            [[1, 1, 7, 7, 0], [8, 1, 4, 7, 7], [8, 1, 0, 7, 0], [8, 5, 0, 0, 0]]
+            [
+                [1, 1, 7, 7, 0],
+                [8, 1, 4, 7, 7],
+                [8, 1, 0, 7, 0],
+                [8, 5, 0, 0, 0],
+            ]
         )
 
     def test_basic(self):

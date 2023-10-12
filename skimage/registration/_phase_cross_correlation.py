@@ -14,7 +14,9 @@ from skimage._shared.utils import remove_arg
 from ._masked_phase_cross_correlation import _masked_phase_cross_correlation
 
 
-def _upsampled_dft(data, upsampled_region_size, upsample_factor=1, axis_offsets=None):
+def _upsampled_dft(
+    data, upsampled_region_size, upsample_factor=1, axis_offsets=None
+):
     """
     Upsampled DFT by matrix multiplication.
 
@@ -160,7 +162,9 @@ def _disambiguate_shift(reference_image, moving_image, shift):
     negative_shift = [shift_i - s for shift_i, s in zip(positive_shift, shape)]
     subpixel = np.any(np.array(shift) % 1 != 0)
     interp_order = 3 if subpixel else 0
-    shifted = ndi.shift(moving_image, shift, mode='grid-wrap', order=interp_order)
+    shifted = ndi.shift(
+        moving_image, shift, mode='grid-wrap', order=interp_order
+    )
     indices = np.round(positive_shift).astype(int)
     splits_per_dim = [(slice(0, i), slice(i, None)) for i in indices]
     max_corr = -1.0
@@ -179,7 +183,9 @@ def _disambiguate_shift(reference_image, moving_image, shift):
             max_corr = corr
             max_slice = test_slice
     real_shift_acc = []
-    for sl, pos_shift, neg_shift in zip(max_slice, positive_shift, negative_shift):
+    for sl, pos_shift, neg_shift in zip(
+        max_slice, positive_shift, negative_shift
+    ):
         real_shift_acc.append(pos_shift if sl.stop is None else neg_shift)
 
     return np.array(real_shift_acc)
@@ -306,7 +312,11 @@ def phase_cross_correlation(
     """
     if (reference_mask is not None) or (moving_mask is not None):
         shift = _masked_phase_cross_correlation(
-            reference_image, moving_image, reference_mask, moving_mask, overlap_ratio
+            reference_image,
+            moving_image,
+            reference_mask,
+            moving_mask,
+            overlap_ratio,
         )
         return shift, np.nan, np.nan
 
@@ -405,4 +415,8 @@ def phase_cross_correlation(
             "moving_mask=~np.isnan(moving_image))"
         )
 
-    return shift, _compute_error(CCmax, src_amp, target_amp), _compute_phasediff(CCmax)
+    return (
+        shift,
+        _compute_error(CCmax, src_amp, target_amp),
+        _compute_phasediff(CCmax),
+    )

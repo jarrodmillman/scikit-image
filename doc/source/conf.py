@@ -73,7 +73,9 @@ pygments_style = "sphinx"
 
 v = parse(release)
 if v.release is None:
-    raise ValueError(f"Ill-formed version: {version!r}. Version should follow PEP440")
+    raise ValueError(
+        f"Ill-formed version: {version!r}. Version should follow PEP440"
+    )
 
 if v.is_devrelease:
     binder_branch = "main"
@@ -113,7 +115,10 @@ sphinx_gallery_conf = {
         "repo": "scikit-image",
         "branch": binder_branch,  # Can be any branch, tag, or commit hash
         "binderhub_url": "https://mybinder.org",  # Any URL of a binderhub.
-        "dependencies": ["../../.binder/requirements.txt", "../../.binder/runtime.txt"],
+        "dependencies": [
+            "../../.binder/requirements.txt",
+            "../../.binder/runtime.txt",
+        ],
         # Optional keys
         "use_jupyter_lab": False,
     },
@@ -170,7 +175,9 @@ html_theme_options = {
     "navbar_end": ["version-switcher", "navbar-icon-links"],
     "show_prev_next": False,
     "switcher": {
-        "json_url": ("https://scikit-image.org/docs/dev/_static/version_switcher.json"),
+        "json_url": (
+            "https://scikit-image.org/docs/dev/_static/version_switcher.json"
+        ),
         "version_match": "dev" if "dev" in version else version,
     },
     "show_version_warning_banner": True,
@@ -182,7 +189,9 @@ html_theme_options = {
     "pygment_dark_style": "github-dark",
     "analytics": {
         "plausible_analytics_domain": "scikit-image.org",
-        "plausible_analytics_url": ("https://views.scientific-python.org/js/script.js"),
+        "plausible_analytics_url": (
+            "https://views.scientific-python.org/js/script.js"
+        ),
     },
 }
 

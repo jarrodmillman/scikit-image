@@ -61,7 +61,12 @@ xs = []
 ys = []
 for patch in grass_patches + sky_patches:
     glcm = graycomatrix(
-        patch, distances=[5], angles=[0], levels=256, symmetric=True, normed=True
+        patch,
+        distances=[5],
+        angles=[0],
+        levels=256,
+        symmetric=True,
+        normed=True,
     )
     xs.append(graycoprops(glcm, 'dissimilarity')[0, 0])
     ys.append(graycoprops(glcm, 'correlation')[0, 0])
@@ -83,7 +88,9 @@ ax.axis('image')
 
 # for each patch, plot (dissimilarity, correlation)
 ax = fig.add_subplot(3, 2, 2)
-ax.plot(xs[: len(grass_patches)], ys[: len(grass_patches)], 'go', label='Grass')
+ax.plot(
+    xs[: len(grass_patches)], ys[: len(grass_patches)], 'go', label='Grass'
+)
 ax.plot(xs[len(grass_patches) :], ys[len(grass_patches) :], 'bo', label='Sky')
 ax.set_xlabel('GLCM Dissimilarity')
 ax.set_ylabel('GLCM Correlation')

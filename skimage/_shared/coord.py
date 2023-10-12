@@ -111,7 +111,9 @@ def ensure_spacing(
             split_size = min_split_size
             while coord_count - split_idx[-1] > max_split_size:
                 split_size *= 2
-                split_idx.append(split_idx[-1] + min(split_size, max_split_size))
+                split_idx.append(
+                    split_idx[-1] + min(split_size, max_split_size)
+                )
             batch_list = np.array_split(coords, split_idx)
 
         output = np.zeros((0, coords.shape[1]), dtype=coords.dtype)

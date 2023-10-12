@@ -209,7 +209,8 @@ def haar_like_feature(
     else:
         if feature_coord.shape[0] != feature_type.shape[0]:
             raise ValueError(
-                "Inconsistent size between feature coordinates" "and feature types."
+                "Inconsistent size between feature coordinates"
+                "and feature types."
             )
 
         mask_feature = [feature_type == feat_t for feat_t in FEATURE_TYPE]
@@ -218,7 +219,13 @@ def haar_like_feature(
                 (
                     np.flatnonzero(mask),
                     haar_like_feature_wrapper(
-                        int_image, r, c, width, height, feat_t, feature_coord[mask]
+                        int_image,
+                        r,
+                        c,
+                        width,
+                        height,
+                        feat_t,
+                        feature_coord[mask],
                     ),
                 )
                 for mask, feat_t in zip(mask_feature, FEATURE_TYPE)
@@ -320,7 +327,9 @@ def draw_haar_like_feature(
     if max_n_features is None:
         feature_coord_ = feature_coord
     else:
-        feature_coord_ = rng.choice(feature_coord, size=max_n_features, replace=False)
+        feature_coord_ = rng.choice(
+            feature_coord, size=max_n_features, replace=False
+        )
 
     output = np.copy(image)
     if len(image.shape) < 3:
@@ -335,9 +344,13 @@ def draw_haar_like_feature(
             rr, cc = rectangle(coord_start, coord_end)
 
             if ((idx_rect + 1) % 2) == 0:
-                new_value = (1 - alpha) * output[rr, cc] + alpha * color_positive_block
+                new_value = (1 - alpha) * output[
+                    rr, cc
+                ] + alpha * color_positive_block
             else:
-                new_value = (1 - alpha) * output[rr, cc] + alpha * color_negative_block
+                new_value = (1 - alpha) * output[
+                    rr, cc
+                ] + alpha * color_negative_block
             output[rr, cc] = new_value
 
     return output

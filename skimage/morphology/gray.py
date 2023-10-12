@@ -10,7 +10,14 @@ from ..util import crop
 from .footprints import _footprint_is_sequence, _shape_from_sequence
 from .misc import default_footprint
 
-__all__ = ['erosion', 'dilation', 'opening', 'closing', 'white_tophat', 'black_tophat']
+__all__ = [
+    'erosion',
+    'dilation',
+    'opening',
+    'closing',
+    'white_tophat',
+    'black_tophat',
+]
 
 
 def _iterate_gray_func(gray_func, image, footprints, out):

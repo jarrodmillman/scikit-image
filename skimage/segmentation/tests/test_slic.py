@@ -19,7 +19,9 @@ def test_color_2d():
     img += 0.01 * rng.normal(size=img.shape)
     img[img > 1] = 1
     img[img < 0] = 0
-    seg = slic(img, n_segments=4, sigma=0, enforce_connectivity=False, start_label=0)
+    seg = slic(
+        img, n_segments=4, sigma=0, enforce_connectivity=False, start_label=0
+    )
 
     # we expect 4 segments
     assert_equal(len(np.unique(seg)), 4)
@@ -80,7 +82,9 @@ def test_gray_2d():
 def test_gray2d_default_channel_axis():
     img = np.zeros((20, 21))
     img[:10, :10] = 0.33
-    with pytest.raises(ValueError, match="channel_axis=-1 indicates multichannel"):
+    with pytest.raises(
+        ValueError, match="channel_axis=-1 indicates multichannel"
+    ):
         slic(img)
     slic(img, channel_axis=None)
 
@@ -178,7 +182,11 @@ def test_list_sigma():
         ["Input image is 2D: sigma number of " "elements must be 2"]
     ):
         seg_sigma = slic(
-            img, n_segments=2, sigma=[1, 50, 1], channel_axis=None, start_label=0
+            img,
+            n_segments=2,
+            sigma=[1, 50, 1],
+            channel_axis=None,
+            start_label=0,
         )
     assert_equal(seg_sigma, result_sigma)
 
@@ -190,7 +198,12 @@ def test_spacing():
     result_spaced = np.array([[0, 0, 0, 0, 0], [1, 1, 1, 1, 1]], int)
     img += 0.1 * rng.normal(size=img.shape)
     seg_non_spaced = slic(
-        img, n_segments=2, sigma=0, channel_axis=None, compactness=1.0, start_label=0
+        img,
+        n_segments=2,
+        sigma=0,
+        channel_axis=None,
+        compactness=1.0,
+        start_label=0,
     )
     seg_spaced = slic(
         img,
@@ -212,7 +225,9 @@ def test_invalid_lab_conversion():
 
 
 def test_enforce_connectivity():
-    img = np.array([[0, 0, 0, 1, 1, 1], [1, 0, 0, 1, 1, 0], [0, 0, 0, 1, 1, 0]], float)
+    img = np.array(
+        [[0, 0, 0, 1, 1, 1], [1, 0, 0, 1, 1, 0], [0, 0, 0, 1, 1, 0]], float
+    )
 
     segments_connected = slic(
         img,
@@ -311,7 +326,9 @@ def test_color_2d_mask():
     img[10:, 10:, 2] = 1
     img += 0.01 * rng.normal(size=img.shape)
     np.clip(img, 0, 1, out=img)
-    seg = slic(img, n_segments=4, sigma=0, enforce_connectivity=False, mask=msk)
+    seg = slic(
+        img, n_segments=4, sigma=0, enforce_connectivity=False, mask=msk
+    )
 
     # we expect 4 segments + masked area
     assert_equal(len(np.unique(seg)), 5)
@@ -397,7 +414,9 @@ def test_list_sigma_mask():
     img = np.array([[1, 1, 1, 0, 0, 0], [0, 0, 0, 1, 1, 1]], float)
     img += 0.1 * rng.normal(size=img.shape)
     result_sigma = np.array([[0, 1, 1, 2, 2, 0], [0, 1, 1, 2, 2, 0]], int)
-    seg_sigma = slic(img, n_segments=2, sigma=[50, 1], channel_axis=None, mask=msk)
+    seg_sigma = slic(
+        img, n_segments=2, sigma=[50, 1], channel_axis=None, mask=msk
+    )
     assert_equal(seg_sigma, result_sigma)
 
 
@@ -410,7 +429,12 @@ def test_spacing_mask():
     result_spaced = np.array([[0, 1, 1, 1, 0], [0, 2, 2, 2, 0]], int)
     img += 0.1 * rng.normal(size=img.shape)
     seg_non_spaced = slic(
-        img, n_segments=2, sigma=0, channel_axis=None, compactness=1.0, mask=msk
+        img,
+        n_segments=2,
+        sigma=0,
+        channel_axis=None,
+        compactness=1.0,
+        mask=msk,
     )
     seg_spaced = slic(
         img,
@@ -428,7 +452,9 @@ def test_spacing_mask():
 def test_enforce_connectivity_mask():
     msk = np.zeros((3, 6))
     msk[:, 1:-1] = 1
-    img = np.array([[0, 0, 0, 1, 1, 1], [1, 0, 0, 1, 1, 0], [0, 0, 0, 1, 1, 0]], float)
+    img = np.array(
+        [[0, 0, 0, 1, 1, 1], [1, 0, 0, 1, 1, 0], [0, 0, 0, 1, 1, 0]], float
+    )
 
     segments_connected = slic(
         img,
@@ -568,7 +594,12 @@ def test_gray_3d_mask():
     img += 0.001 * rng.normal(size=img.shape)
     np.clip(img, 0, 1, out=img)
     seg = slic(
-        img, sigma=0, n_segments=8, channel_axis=None, convert2lab=False, mask=msk
+        img,
+        sigma=0,
+        n_segments=8,
+        channel_axis=None,
+        convert2lab=False,
+        mask=msk,
     )
 
     # we expect 8 segments + masked area
@@ -577,7 +608,9 @@ def test_gray_3d_mask():
         assert_equal(seg[s][2:-2, 2:-2, 2:-2], c)
 
 
-@pytest.mark.parametrize("dtype", ['float16', 'float32', 'float64', 'uint8', 'int'])
+@pytest.mark.parametrize(
+    "dtype", ['float16', 'float32', 'float64', 'uint8', 'int']
+)
 def test_dtype_support(dtype):
     img = np.random.rand(28, 28).astype(dtype)
 

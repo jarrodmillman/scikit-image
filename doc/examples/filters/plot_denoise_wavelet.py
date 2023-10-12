@@ -40,7 +40,9 @@ original = img_as_float(data.chelsea()[100:250, 50:300])
 sigma = 0.12
 noisy = random_noise(original, var=sigma**2)
 
-fig, ax = plt.subplots(nrows=2, ncols=3, figsize=(8, 5), sharex=True, sharey=True)
+fig, ax = plt.subplots(
+    nrows=2, ncols=3, figsize=(8, 5), sharex=True, sharey=True
+)
 
 plt.gray()
 

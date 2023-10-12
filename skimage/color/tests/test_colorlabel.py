@@ -36,7 +36,9 @@ def test_uint_image(channel_axis):
     labels = np.zeros((10, 10), dtype=np.int64)
     labels[1:3, 1:3] = 1
     labels[6:9, 6:9] = 2
-    output = label2rgb(labels, image=img, bg_label=0, channel_axis=channel_axis)
+    output = label2rgb(
+        labels, image=img, bg_label=0, channel_axis=channel_axis
+    )
     # Make sure that the output is made of floats and in the correct range
     assert np.issubdtype(output.dtype, np.floating)
     assert output.max() <= 1
@@ -103,7 +105,12 @@ def test_bg_and_color_cycle():
     colors = [(1, 0, 0), (0, 0, 1)]
     bg_color = (0, 0, 0)
     rgb = label2rgb(
-        label, image=image, bg_label=0, bg_color=bg_color, colors=colors, alpha=1
+        label,
+        image=image,
+        bg_label=0,
+        bg_color=bg_color,
+        colors=colors,
+        alpha=1,
     )
     assert_array_almost_equal(rgb[0, 0], bg_color)
     for pixel, color in zip(rgb[0, 1:], itertools.cycle(colors)):
@@ -127,7 +134,8 @@ def test_nonconsecutive():
         [(1.0, 0.0, 0.0), (0.0, 0.0, 1.0), (1.0, 0.0, 0.0), (1.0, 0.0, 0.0)]
     )
     assert_array_almost_equal(
-        rout, label2rgb(labels, colors=colors, alpha=1, image_alpha=1, bg_label=-1)
+        rout,
+        label2rgb(labels, colors=colors, alpha=1, image_alpha=1, bg_label=-1),
     )
 
 
@@ -157,20 +165,36 @@ def test_leave_labels_alone():
 @pytest.mark.parametrize("channel_axis", [0, 1, -1])
 def test_avg(channel_axis):
     # label image
-    label_field = np.array([[1, 1, 1, 2], [1, 2, 2, 2], [3, 3, 4, 4]], dtype=np.uint8)
+    label_field = np.array(
+        [[1, 1, 1, 2], [1, 2, 2, 2], [3, 3, 4, 4]], dtype=np.uint8
+    )
 
     # color image
-    r = np.array([[1.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 1.0], [0.0, 0.0, 0.0, 0.0]])
-    g = np.array([[0.0, 0.0, 0.0, 1.0], [1.0, 1.0, 1.0, 0.0], [0.0, 0.0, 0.0, 0.0]])
-    b = np.array([[0.0, 0.0, 0.0, 1.0], [0.0, 1.0, 1.0, 1.0], [0.0, 0.0, 1.0, 1.0]])
+    r = np.array(
+        [[1.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 1.0], [0.0, 0.0, 0.0, 0.0]]
+    )
+    g = np.array(
+        [[0.0, 0.0, 0.0, 1.0], [1.0, 1.0, 1.0, 0.0], [0.0, 0.0, 0.0, 0.0]]
+    )
+    b = np.array(
+        [[0.0, 0.0, 0.0, 1.0], [0.0, 1.0, 1.0, 1.0], [0.0, 0.0, 1.0, 1.0]]
+    )
     image = np.dstack((r, g, b))
 
     # reference label-colored image
-    rout = np.array([[0.5, 0.5, 0.5, 0.5], [0.5, 0.5, 0.5, 0.5], [0.0, 0.0, 0.0, 0.0]])
-    gout = np.array(
-        [[0.25, 0.25, 0.25, 0.75], [0.25, 0.75, 0.75, 0.75], [0.0, 0.0, 0.0, 0.0]]
+    rout = np.array(
+        [[0.5, 0.5, 0.5, 0.5], [0.5, 0.5, 0.5, 0.5], [0.0, 0.0, 0.0, 0.0]]
     )
-    bout = np.array([[0.0, 0.0, 0.0, 1.0], [0.0, 1.0, 1.0, 1.0], [0.0, 0.0, 1.0, 1.0]])
+    gout = np.array(
+        [
+            [0.25, 0.25, 0.25, 0.75],
+            [0.25, 0.75, 0.75, 0.75],
+            [0.0, 0.0, 0.0, 0.0],
+        ]
+    )
+    bout = np.array(
+        [[0.0, 0.0, 0.0, 1.0], [0.0, 1.0, 1.0, 1.0], [0.0, 0.0, 1.0, 1.0]]
+    )
     expected_out = np.dstack((rout, gout, bout))
 
     # test standard averaging
@@ -214,7 +238,9 @@ def test_bg_color_rgb_string():
     labels = np.zeros((10, 10), dtype=np.int64)
     labels[1:3, 1:3] = 1
     labels[6:9, 6:9] = 2
-    output = label2rgb(labels, image=img, alpha=0.9, bg_label=0, bg_color='red')
+    output = label2rgb(
+        labels, image=img, alpha=0.9, bg_label=0, bg_color='red'
+    )
     assert output[0, 0, 0] > 0.9  # red channel
 
 
@@ -285,7 +311,9 @@ def test_overlay_full_saturation():
     labels[5:, 5:] = 2
     labels[:3, :3] = 0
     alpha = 0.3
-    rgb = label2rgb(labels, image=rgb_img, alpha=alpha, bg_label=0, saturation=1)
+    rgb = label2rgb(
+        labels, image=rgb_img, alpha=alpha, bg_label=0, saturation=1
+    )
     # check that rgb part of input image is preserved, where labels=0
     assert_array_almost_equal(rgb_img[:3, :3] * (1 - alpha), rgb[:3, :3])
 

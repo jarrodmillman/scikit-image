@@ -69,7 +69,13 @@ _clear_plugins()
 
 def _load_preferred_plugins():
     # Load preferred plugin for each io function.
-    io_types = ['imsave', 'imshow', 'imread_collection', 'imshow_collection', 'imread']
+    io_types = [
+        'imsave',
+        'imshow',
+        'imread_collection',
+        'imshow_collection',
+        'imread',
+    ]
     for p_type in io_types:
         _set_plugin(p_type, preferred_plugins['all'])
 
@@ -127,11 +133,14 @@ def _scan_plugins():
 
         for p in provides:
             if p not in plugin_store:
-                print(f"Plugin `{name}` wants to provide non-existent `{p}`. Ignoring.")
+                print(
+                    f"Plugin `{name}` wants to provide non-existent `{p}`. Ignoring."
+                )
 
         # Add plugins that provide 'imread' as provider of 'imread_collection'.
         need_to_add_collection = (
-            'imread_collection' not in valid_provides and 'imread' in valid_provides
+            'imread_collection' not in valid_provides
+            and 'imread' in valid_provides
         )
         if need_to_add_collection:
             valid_provides.append('imread_collection')
@@ -168,7 +177,9 @@ def find_available_plugins(loaded=False):
     d = {}
     for plugin in plugin_provides:
         if not loaded or plugin in active_plugins:
-            d[plugin] = [f for f in plugin_provides[plugin] if not f.startswith('_')]
+            d[plugin] = [
+                f for f in plugin_provides[plugin] if not f.startswith('_')
+            ]
 
     return d
 
@@ -211,7 +222,9 @@ def call_plugin(kind, *args, **kwargs):
         try:
             func = [f for (p, f) in plugin_funcs if p == plugin][0]
         except IndexError:
-            raise RuntimeError(f'Could not find the plugin "{plugin}" for {kind}.')
+            raise RuntimeError(
+                f'Could not find the plugin "{plugin}" for {kind}.'
+            )
 
     return func(*args, **kwargs)
 
@@ -299,14 +312,18 @@ def _load(plugin):
         raise ValueError(f"Plugin {plugin} not found.")
     else:
         modname = plugin_module_name[plugin]
-        plugin_module = __import__('skimage.io._plugins.' + modname, fromlist=[modname])
+        plugin_module = __import__(
+            'skimage.io._plugins.' + modname, fromlist=[modname]
+        )
 
     provides = plugin_provides[plugin]
     for p in provides:
         if p == 'imread_collection':
             _inject_imread_collection_if_needed(plugin_module)
         elif not hasattr(plugin_module, p):
-            print(f"Plugin {plugin} does not provide {p} as advertised.  Ignoring.")
+            print(
+                f"Plugin {plugin} does not provide {p} as advertised.  Ignoring."
+            )
             continue
 
         store = plugin_store[p]

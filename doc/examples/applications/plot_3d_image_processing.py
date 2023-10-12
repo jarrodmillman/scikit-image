@@ -171,7 +171,10 @@ def slice_in_3D(ax, i):
     # Plot sides
     ax.add_collection3d(
         Poly3DCollection(
-            verts, facecolors=(0, 1, 1, 0.25), linewidths=1, edgecolors="darkblue"
+            verts,
+            facecolors=(0, 1, 1, 0.25),
+            linewidths=1,
+            edgecolors="darkblue",
         )
     )
 
@@ -180,7 +183,9 @@ def slice_in_3D(ax, i):
     verts += [i, 0, 0]
 
     ax.add_collection3d(
-        Poly3DCollection(verts, facecolors="magenta", linewidths=1, edgecolors="black")
+        Poly3DCollection(
+            verts, facecolors="magenta", linewidths=1, edgecolors="black"
+        )
     )
 
     ax.set_xlabel("plane")
@@ -315,7 +320,9 @@ display(clipped_data)
 fig = px.imshow(data, animation_frame=0, binary_string=True)
 fig.update_xaxes(showticklabels=False)
 fig.update_yaxes(showticklabels=False)
-fig.update_layout(autosize=False, width=500, height=500, coloraxis_showscale=False)
+fig.update_layout(
+    autosize=False, width=500, height=500, coloraxis_showscale=False
+)
 # Drop animation buttons
 fig['layout'].pop('updatemenus')
 plotly.io.show(fig)

@@ -13,7 +13,12 @@ from skimage.transform import radon, iradon, iradon_sart, rescale
 
 PHANTOM = shepp_logan_phantom()[::2, ::2]
 PHANTOM = rescale(
-    PHANTOM, 0.5, order=1, mode='constant', anti_aliasing=False, channel_axis=None
+    PHANTOM,
+    0.5,
+    order=1,
+    mode='constant',
+    anti_aliasing=False,
+    channel_axis=None,
 )
 
 
@@ -72,7 +77,9 @@ def check_radon_center(shape, circle, dtype, preserve_range):
     image[(shape[0] // 2, shape[1] // 2)] = 1.0
     # Calculate the sinogram
     theta = np.linspace(0.0, 180.0, max(shape), endpoint=False)
-    sinogram = radon(image, theta=theta, circle=circle, preserve_range=preserve_range)
+    sinogram = radon(
+        image, theta=theta, circle=circle, preserve_range=preserve_range
+    )
     assert sinogram.dtype == _supported_float_type(sinogram.dtype)
     # The sinogram should be a straight, horizontal line
     sinogram_max = np.argmax(sinogram, axis=0)
@@ -82,7 +89,9 @@ def check_radon_center(shape, circle, dtype, preserve_range):
 
 @pytest.mark.parametrize("shape", [(16, 16), (17, 17)])
 @pytest.mark.parametrize("circle", [False, True])
-@pytest.mark.parametrize("dtype", [np.float64, np.float32, np.float16, np.uint8, bool])
+@pytest.mark.parametrize(
+    "dtype", [np.float64, np.float32, np.float16, np.uint8, bool]
+)
 @pytest.mark.parametrize("preserve_range", [False, True])
 def test_radon_center(shape, circle, dtype, preserve_range):
     check_radon_center(shape, circle, dtype, preserve_range)
@@ -113,7 +122,9 @@ def check_iradon_center(size, theta, circle):
     # Compare reconstructions for theta=angle and theta=angle + 180;
     # these should be exactly equal
     reconstruction = iradon(sinogram, theta=[theta], circle=circle)
-    reconstruction_opposite = iradon(sinogram, theta=[theta + 180], circle=circle)
+    reconstruction_opposite = iradon(
+        sinogram, theta=[theta + 180], circle=circle
+    )
     print(
         'rms deviance:',
         np.sqrt(np.mean((reconstruction_opposite - reconstruction) ** 2)),
@@ -178,12 +189,16 @@ def check_radon_iradon(interpolation_type, filter_type):
 
 filter_types = ["ramp", "shepp-logan", "cosine", "hamming", "hann"]
 interpolation_types = ['linear', 'nearest']
-radon_iradon_inputs = list(itertools.product(interpolation_types, filter_types))
+radon_iradon_inputs = list(
+    itertools.product(interpolation_types, filter_types)
+)
 # cubic interpolation is slow; only run one test for it
 radon_iradon_inputs.append(('cubic', 'shepp-logan'))
 
 
-@pytest.mark.parametrize("interpolation_type, filter_type", radon_iradon_inputs)
+@pytest.mark.parametrize(
+    "interpolation_type, filter_type", radon_iradon_inputs
+)
 def test_radon_iradon(interpolation_type, filter_type):
     check_radon_iradon(interpolation_type, filter_type)
 
@@ -240,7 +255,9 @@ shapes = [(3, 3), (4, 4), (5, 5)]
 def generate_test_data_for_radon_iradon_minimal(shapes):
     def shape2coordinates(shape):
         c0, c1 = shape[0] // 2, shape[1] // 2
-        coordinates = itertools.product((c0 - 1, c0, c0 + 1), (c1 - 1, c1, c1 + 1))
+        coordinates = itertools.product(
+            (c0 - 1, c0, c0 + 1), (c1 - 1, c1, c1 + 1)
+        )
         return coordinates
 
     def shape2shapeandcoordinates(shape):
@@ -317,10 +334,15 @@ def check_sinogram_circle_to_square(size):
     sinogram_square = radon(image, theta, circle=False)
     print('\targmax of square:', argmax_shape(sinogram_square))
     sinogram_circle_to_square = _sinogram_circle_to_square(sinogram_circle)
-    print('\targmax of circle to square:', argmax_shape(sinogram_circle_to_square))
+    print(
+        '\targmax of circle to square:',
+        argmax_shape(sinogram_circle_to_square),
+    )
     error = abs(sinogram_square - sinogram_circle_to_square)
     print(np.mean(error), np.max(error))
-    assert argmax_shape(sinogram_square) == argmax_shape(sinogram_circle_to_square)
+    assert argmax_shape(sinogram_square) == argmax_shape(
+        sinogram_circle_to_square
+    )
 
 
 @pytest.mark.parametrize("size", (50, 51))
@@ -373,7 +395,9 @@ output_sizes = (
 
 @pytest.mark.parametrize(
     "shape, interpolation, output_size",
-    itertools.product(shapes_radon_iradon_circle, interpolations, output_sizes),
+    itertools.product(
+        shapes_radon_iradon_circle, interpolations, output_sizes
+    ),
 )
 def test_radon_iradon_circle(shape, interpolation, output_size):
     check_radon_iradon_circle(interpolation, shape, output_size)
@@ -401,8 +425,13 @@ def test_iradon_sart():
         PHANTOM, 0.8, mode='reflect', channel_axis=None, anti_aliasing=False
     )
     theta_ordered = np.linspace(0.0, 180.0, image.shape[0], endpoint=False)
-    theta_missing_wedge = np.linspace(0.0, 150.0, image.shape[0], endpoint=True)
-    for theta, error_factor in ((theta_ordered, 1.0), (theta_missing_wedge, 2.0)):
+    theta_missing_wedge = np.linspace(
+        0.0, 150.0, image.shape[0], endpoint=True
+    )
+    for theta, error_factor in (
+        (theta_ordered, 1.0),
+        (theta_missing_wedge, 2.0),
+    ):
         sinogram = radon(image, theta, circle=True)
         reconstructed = iradon_sart(sinogram, theta)
 
@@ -441,7 +470,9 @@ def test_iradon_sart():
                 for i in range(sinogram.shape[1])
             ]
         ).T
-        reconstructed = iradon_sart(sinogram_shifted, theta, projection_shifts=shifts)
+        reconstructed = iradon_sart(
+            sinogram_shifted, theta, projection_shifts=shifts
+        )
         if debug and has_mpl:
             from matplotlib import pyplot as plt
 
@@ -468,7 +499,10 @@ def test_iradon_dtype(preserve_range):
     sinogram64 = sinogram.astype('float64')
     sinogram32 = sinogram.astype('float32')
 
-    assert iradon(sinogram, theta=[0], preserve_range=preserve_range).dtype == 'float64'
+    assert (
+        iradon(sinogram, theta=[0], preserve_range=preserve_range).dtype
+        == 'float64'
+    )
     assert (
         iradon(sinogram64, theta=[0], preserve_range=preserve_range).dtype
         == sinogram64.dtype

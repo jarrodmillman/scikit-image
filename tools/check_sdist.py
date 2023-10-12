@@ -18,7 +18,9 @@ with tarfile.open(sdist_name) as tar:
 # The very first item contains the name of the archive
 top_parent = Path(members[0].name)
 
-filenames = ['./' + str(Path(m.name).relative_to(top_parent)) for m in members[1:]]
+filenames = [
+    './' + str(Path(m.name).relative_to(top_parent)) for m in members[1:]
+]
 
 ignore_exts = ['.pyc', '.so', '.o', '#', '~', '.gitignore', '.o.d']
 ignore_dirs = [

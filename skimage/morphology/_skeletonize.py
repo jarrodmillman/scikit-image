@@ -7,7 +7,11 @@ from scipy import ndimage as ndi
 from .._shared.utils import check_nD, deprecate_kwarg
 from ..util import crop, img_as_ubyte
 from ._skeletonize_3d_cy import _compute_thin_image
-from ._skeletonize_cy import _fast_skeletonize, _skeletonize_loop, _table_lookup_index
+from ._skeletonize_cy import (
+    _fast_skeletonize,
+    _skeletonize_loop,
+    _table_lookup_index,
+)
 
 
 def skeletonize(image, *, method=None):
@@ -74,17 +78,21 @@ def skeletonize(image, *, method=None):
     """
     if method not in {'zhang', 'lee', None}:
         raise ValueError(
-            f'skeletonize method should be either "lee" or "zhang", ' f'got {method}.'
+            f'skeletonize method should be either "lee" or "zhang", '
+            f'got {method}.'
         )
     if image.ndim == 2 and (method is None or method == 'zhang'):
         skeleton = skeletonize_2d(image.astype(bool, copy=False))
     elif image.ndim == 3 and method == 'zhang':
-        raise ValueError('skeletonize method "zhang" only works for 2D ' 'images.')
+        raise ValueError(
+            'skeletonize method "zhang" only works for 2D ' 'images.'
+        )
     elif image.ndim == 3 or (image.ndim == 2 and method == 'lee'):
         skeleton = skeletonize_3d(image)
     else:
         raise ValueError(
-            f'skeletonize requires a 2D or 3D image as input, ' f'got {image.ndim}D.'
+            f'skeletonize requires a 2D or 3D image as input, '
+            f'got {image.ndim}D.'
         )
     return skeleton
 
@@ -948,11 +956,15 @@ def medial_axis(image, mask=None, return_distance=False, *, rng=None):
             np.array(
                 [
                     ndi.label(_pattern_of(index), _eight_connect)[1]
-                    != ndi.label(_pattern_of(index & ~(2**4)), _eight_connect)[1]
+                    != ndi.label(
+                        _pattern_of(index & ~(2**4)), _eight_connect
+                    )[1]
                     for index in range(512)
                 ]
             )  # condition 2
-            | np.array([np.sum(_pattern_of(index)) < 3 for index in range(512)])
+            | np.array(
+                [np.sum(_pattern_of(index)) < 3 for index in range(512)]
+            )
         )
         # condition 3
     )

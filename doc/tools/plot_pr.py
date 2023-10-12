@@ -44,7 +44,11 @@ def fetch_PRs(user='scikit-image', repo='scikit-image', state='open'):
     page_data = True
 
     while page_data:
-        config = {'user': user, 'repo': repo, 'params': urllib.urlencode(params)}
+        config = {
+            'user': user,
+            'repo': repo,
+            'params': urllib.urlencode(params),
+        }
 
         fetch_status = (
             f"Fetching page {params['page']} (state={params['state']})"
@@ -62,7 +66,9 @@ def fetch_PRs(user='scikit-image', repo='scikit-image', state='open'):
 
         if 'message' in page_data and page_data['message'] == "Not Found":
             page_data = []
-            print(f"Warning: Repo not found ({config['user']}/{config['repo']})")
+            print(
+                f"Warning: Repo not found ({config['user']}/{config['repo']})"
+            )
         else:
             data.extend(page_data)
 
@@ -76,7 +82,9 @@ def seconds_from_epoch(dates):
 
 def get_month_bins(dates):
     now = datetime.now(tz=dates[0].tzinfo)
-    this_month = datetime(year=now.year, month=now.month, day=1, tzinfo=dates[0].tzinfo)
+    this_month = datetime(
+        year=now.year, month=now.month, day=1, tzinfo=dates[0].tzinfo
+    )
 
     bins = [
         this_month - relativedelta(months=i)
@@ -135,7 +143,13 @@ for version, date in releases.items():
     date = seconds_from_epoch([date])[0]
     ax.axvline(date, color='black', linestyle=':', label=version)
     ax.text(
-        date, 1, version, color='r', va='bottom', ha='center', transform=mixed_transform
+        date,
+        1,
+        version,
+        color='r',
+        va='bottom',
+        ha='center',
+        transform=mixed_transform,
     )
 
 ax.set_title('Pull request activity').set_y(1.05)

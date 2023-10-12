@@ -135,7 +135,9 @@ def unsharp_mask(
         result = np.empty_like(fimg, dtype=float_dtype)
         for channel in range(image.shape[channel_axis]):
             sl = utils.slice_at_axis(channel, channel_axis)
-            result[sl] = _unsharp_mask_single_channel(fimg[sl], radius, amount, vrange)
+            result[sl] = _unsharp_mask_single_channel(
+                fimg[sl], radius, amount, vrange
+            )
         return result
     else:
         return _unsharp_mask_single_channel(fimg, radius, amount, vrange)

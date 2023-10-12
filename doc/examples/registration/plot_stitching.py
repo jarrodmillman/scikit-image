@@ -46,7 +46,9 @@ def match_locations(img0, img1, coords0, coords1, radius=5, sigma=3):
 
     match_list = []
     for r0, c0 in coords0:
-        roi0 = img0[r0 - radius : r0 + radius + 1, c0 - radius : c0 + radius + 1]
+        roi0 = img0[
+            r0 - radius : r0 + radius + 1, c0 - radius : c0 + radius + 1
+        ]
         roi1_list = [
             img1[r1 - radius : r1 + radius + 1, c1 - radius : c1 + radius + 1]
             for r1, c1 in coords1
@@ -130,7 +132,9 @@ trfm_list = [
 ]
 
 fig, ax_list = plt.subplots(6, 2, figsize=(6, 9), sharex=True, sharey=True)
-for idx, (im, trfm, (ax0, ax1)) in enumerate(zip(img_list, trfm_list, ax_list)):
+for idx, (im, trfm, (ax0, ax1)) in enumerate(
+    zip(img_list, trfm_list, ax_list)
+):
     ax0.imshow(im, cmap="gray", vmin=0, vmax=1)
     ax1.imshow(transform.warp(im, trfm), cmap="gray", vmin=0, vmax=1)
 
@@ -167,7 +171,11 @@ glob_trfm[:2, 2] = -margin, -margin
 # relative transformations:
 global_img_list = [
     transform.warp(
-        img, trfm.dot(glob_trfm), output_shape=out_shape, mode="constant", cval=np.nan
+        img,
+        trfm.dot(glob_trfm),
+        output_shape=out_shape,
+        mode="constant",
+        cval=np.nan,
     )
     for img, trfm in zip(img_list, trfm_list)
 ]

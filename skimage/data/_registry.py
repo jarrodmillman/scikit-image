@@ -182,5 +182,6 @@ registry_urls = {
 }
 
 legacy_registry = {
-    ('data/' + filename): registry['data/' + filename] for filename in legacy_datasets
+    ('data/' + filename): registry['data/' + filename]
+    for filename in legacy_datasets
 }

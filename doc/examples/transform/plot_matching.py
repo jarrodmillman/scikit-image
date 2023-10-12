@@ -26,7 +26,12 @@ from matplotlib import pyplot as plt
 
 from skimage import data
 from skimage.util import img_as_float
-from skimage.feature import corner_harris, corner_subpix, corner_peaks, plot_matches
+from skimage.feature import (
+    corner_harris,
+    corner_subpix,
+    corner_peaks,
+    plot_matches,
+)
 from skimage.transform import warp, AffineTransform
 from skimage.exposure import rescale_intensity
 from skimage.color import rgb2gray
@@ -37,9 +42,9 @@ from skimage.measure import ransac
 checkerboard = img_as_float(data.checkerboard())
 img_orig = np.zeros(list(checkerboard.shape) + [3])
 img_orig[..., 0] = checkerboard
-gradient_r, gradient_c = np.mgrid[0 : img_orig.shape[0], 0 : img_orig.shape[1]] / float(
-    img_orig.shape[0]
-)
+gradient_r, gradient_c = np.mgrid[
+    0 : img_orig.shape[0], 0 : img_orig.shape[1]
+] / float(img_orig.shape[0])
 img_orig[..., 1] = gradient_r
 img_orig[..., 2] = gradient_c
 img_orig = rescale_intensity(img_orig)
@@ -60,7 +65,9 @@ coords_warped = corner_peaks(
 
 # determine sub-pixel corner position
 coords_orig_subpix = corner_subpix(img_orig_gray, coords_orig, window_size=9)
-coords_warped_subpix = corner_subpix(img_warped_gray, coords_warped, window_size=9)
+coords_warped_subpix = corner_subpix(
+    img_warped_gray, coords_warped, window_size=9
+)
 
 
 def gaussian_weights(window_ext, sigma=1):
@@ -74,7 +81,9 @@ def gaussian_weights(window_ext, sigma=1):
 def match_corner(coord, window_ext=5):
     r, c = np.round(coord).astype(np.intp)
     window_orig = img_orig[
-        r - window_ext : r + window_ext + 1, c - window_ext : c + window_ext + 1, :
+        r - window_ext : r + window_ext + 1,
+        c - window_ext : c + window_ext + 1,
+        :,
     ]
 
     # weight pixels depending on distance to center pixel
@@ -113,7 +122,11 @@ model.estimate(src, dst)
 
 # robustly estimate affine transform model with RANSAC
 model_robust, inliers = ransac(
-    (src, dst), AffineTransform, min_samples=3, residual_threshold=2, max_trials=100
+    (src, dst),
+    AffineTransform,
+    min_samples=3,
+    residual_threshold=2,
+    max_trials=100,
 )
 outliers = inliers == False
 

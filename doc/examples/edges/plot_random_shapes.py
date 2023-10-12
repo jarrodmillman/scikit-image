@@ -31,12 +31,20 @@ ax[0].set_title('Grayscale shape')
 # The generated images can be much more complex. For example, let's try many
 # shapes of any color. If we want the colors to be particularly light, we can
 # set the `intensity_range` to an upper subrange of (0,255).
-image1, _ = random_shapes((128, 128), max_shapes=10, intensity_range=((100, 255),))
+image1, _ = random_shapes(
+    (128, 128), max_shapes=10, intensity_range=((100, 255),)
+)
 
 # Moar :)
-image2, _ = random_shapes((128, 128), max_shapes=10, intensity_range=((200, 255),))
-image3, _ = random_shapes((128, 128), max_shapes=10, intensity_range=((50, 255),))
-image4, _ = random_shapes((128, 128), max_shapes=10, intensity_range=((0, 255),))
+image2, _ = random_shapes(
+    (128, 128), max_shapes=10, intensity_range=((200, 255),)
+)
+image3, _ = random_shapes(
+    (128, 128), max_shapes=10, intensity_range=((50, 255),)
+)
+image4, _ = random_shapes(
+    (128, 128), max_shapes=10, intensity_range=((0, 255),)
+)
 
 for i, image in enumerate([image1, image2, image3, image4], 1):
     ax[i].imshow(image)

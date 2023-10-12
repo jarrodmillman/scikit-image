@@ -195,7 +195,9 @@ def moments(image, order=3, *, spacing=None):
     >>> centroid
     (14.5, 14.5)
     """
-    return moments_central(image, (0,) * image.ndim, order=order, spacing=spacing)
+    return moments_central(
+        image, (0,) * image.ndim, order=order, spacing=spacing
+    )
 
 
 def moments_central(image, center=None, order=3, *, spacing=None, **kwargs):
@@ -257,7 +259,10 @@ def moments_central(image, center=None, order=3, *, spacing=None, **kwargs):
     float_dtype = _supported_float_type(image.dtype)
     calc = image.astype(float_dtype, copy=False)
     for dim, dim_length in enumerate(image.shape):
-        delta = np.arange(dim_length, dtype=float_dtype) * spacing[dim] - center[dim]
+        delta = (
+            np.arange(dim_length, dtype=float_dtype) * spacing[dim]
+            - center[dim]
+        )
         powers_of_delta = delta[:, np.newaxis] ** np.arange(
             order + 1, dtype=float_dtype
         )
@@ -394,7 +399,9 @@ def centroid(image, *, spacing=None):
     >>> centroid(image)
     array([13.16666667, 13.16666667])
     """
-    M = moments_central(image, center=(0,) * image.ndim, order=1, spacing=spacing)
+    M = moments_central(
+        image, center=(0,) * image.ndim, order=1, spacing=spacing
+    )
     center = (
         M[tuple(np.eye(image.ndim, dtype=int))]  # array of weighted sums
         # for each axis

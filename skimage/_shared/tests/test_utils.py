@@ -37,7 +37,9 @@ def test_remove_argument():
         return arg0, arg1, arg2
 
     @remove_arg(
-        'arg1', changed_version='0.12', help_msg="Some indication on future behavior"
+        'arg1',
+        changed_version='0.12',
+        help_msg="Some indication on future behavior",
     )
     def bar(arg0, arg1=0, arg2=1):
         """Expected docstring"""
@@ -216,7 +218,11 @@ def test_check_nD():
 def test_validate_interpolation_order(dtype, order):
     if order is None:
         # Default order
-        assert _validate_interpolation_order(dtype, None) == 0 if dtype == bool else 1
+        assert (
+            _validate_interpolation_order(dtype, None) == 0
+            if dtype == bool
+            else 1
+        )
     elif order < 0 or order > 5:
         # Order not in valid range
         with testing.raises(ValueError):
@@ -269,7 +275,9 @@ def test_supported_float_dtype_complex(dtype, allow_complex):
             _supported_float_type(dtype, allow_complex=allow_complex)
 
 
-@pytest.mark.parametrize('dtype', ['f', 'float32', np.float32, np.dtype(np.float32)])
+@pytest.mark.parametrize(
+    'dtype', ['f', 'float32', np.float32, np.dtype(np.float32)]
+)
 def test_supported_float_dtype_input_kinds(dtype):
     assert _supported_float_type(dtype) == np.float32
 

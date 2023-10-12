@@ -37,7 +37,8 @@ def _compute_derivatives(image, mode='constant', cval=0):
     """
 
     derivatives = [
-        ndi.sobel(image, axis=i, mode=mode, cval=cval) for i in range(image.ndim)
+        ndi.sobel(image, axis=i, mode=mode, cval=cval)
+        for i in range(image.ndim)
     ]
 
     return derivatives
@@ -108,12 +109,16 @@ def structure_tensor(image, sigma=1, mode='constant', cval=0, order='rc'):
         raise ValueError('Only "rc" order is supported for dim > 2.')
 
     if order not in ['rc', 'xy']:
-        raise ValueError(f'order {order} is invalid. Must be either "rc" or "xy"')
+        raise ValueError(
+            f'order {order} is invalid. Must be either "rc" or "xy"'
+        )
 
     if not np.isscalar(sigma):
         sigma = tuple(sigma)
         if len(sigma) != image.ndim:
-            raise ValueError('sigma must have as many elements as image ' 'has axes')
+            raise ValueError(
+                'sigma must have as many elements as image ' 'has axes'
+            )
 
     image = _prepare_grayscale_input_nD(image)
 
@@ -131,7 +136,9 @@ def structure_tensor(image, sigma=1, mode='constant', cval=0, order='rc'):
     return A_elems
 
 
-def _hessian_matrix_with_gaussian(image, sigma=1, mode='reflect', cval=0, order='rc'):
+def _hessian_matrix_with_gaussian(
+    image, sigma=1, mode='reflect', cval=0, order='rc'
+):
     """Compute the Hessian via convolutions with Gaussian derivatives.
 
     In 2D, the Hessian matrix is defined as:
@@ -195,7 +202,9 @@ def _hessian_matrix_with_gaussian(image, sigma=1, mode='reflect', cval=0, order=
     truncate = 8 if all(s > 1 for s in sigma) else 100
     sq1_2 = 1 / math.sqrt(2)
     sigma_scaled = tuple(sq1_2 * s for s in sigma)
-    common_kwargs = dict(sigma=sigma_scaled, mode=mode, cval=cval, truncate=truncate)
+    common_kwargs = dict(
+        sigma=sigma_scaled, mode=mode, cval=cval, truncate=truncate
+    )
     gaussian_ = functools.partial(ndi.gaussian_filter, **common_kwargs)
 
     # Apply two successive first order Gaussian derivative operations, as
@@ -223,7 +232,12 @@ def _hessian_matrix_with_gaussian(image, sigma=1, mode='reflect', cval=0, order=
 
 
 def hessian_matrix(
-    image, sigma=1, mode='constant', cval=0, order='rc', use_gaussian_derivatives=None
+    image,
+    sigma=1,
+    mode='constant',
+    cval=0,
+    order='rc',
+    use_gaussian_derivatives=None,
 ):
     r"""Compute the Hessian matrix.
 
@@ -1096,7 +1110,9 @@ def corner_subpix(image, corners, window_size=11, alpha=0.99):
             winx_winx * ryy_dot - 2 * winx_winy * rxy_dot + winy_winy * rxx_dot
         )
         var_edge = np.sum(
-            winy_winy * ryy_edge + 2 * winx_winy * rxy_edge + winx_winx * rxx_edge
+            winy_winy * ryy_edge
+            + 2 * winx_winy * rxy_edge
+            + winx_winx * rxx_edge
         )
 
         # test value (F-distributed)
@@ -1222,12 +1238,16 @@ def corner_peaks(
         rejected_peaks_indices = set()
         for idx, point in enumerate(coords):
             if idx not in rejected_peaks_indices:
-                candidates = tree.query_ball_point(point, r=min_distance, p=p_norm)
+                candidates = tree.query_ball_point(
+                    point, r=min_distance, p=p_norm
+                )
                 candidates.remove(idx)
                 rejected_peaks_indices.update(candidates)
 
         # Remove the peaks that are too close to each other
-        coords = np.delete(coords, tuple(rejected_peaks_indices), axis=0)[:num_peaks]
+        coords = np.delete(coords, tuple(rejected_peaks_indices), axis=0)[
+            :num_peaks
+        ]
 
     if indices:
         return coords

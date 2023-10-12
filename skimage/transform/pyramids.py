@@ -19,7 +19,12 @@ def _smooth(image, sigma, mode, cval, channel_axis):
     else:
         channel_axis = None
     gaussian(
-        image, sigma, output=smoothed, mode=mode, cval=cval, channel_axis=channel_axis
+        image,
+        sigma,
+        output=smoothed,
+        mode=mode,
+        cval=cval,
+        channel_axis=channel_axis,
     )
     return smoothed
 
@@ -100,7 +105,12 @@ def pyramid_reduce(
 
     smoothed = _smooth(image, sigma, mode, cval, channel_axis)
     out = resize(
-        smoothed, out_shape, order=order, mode=mode, cval=cval, anti_aliasing=False
+        smoothed,
+        out_shape,
+        order=order,
+        mode=mode,
+        cval=cval,
+        anti_aliasing=False,
     )
 
     return out
@@ -175,7 +185,12 @@ def pyramid_expand(
         sigma = 2 * upscale / 6.0
 
     resized = resize(
-        image, out_shape, order=order, mode=mode, cval=cval, anti_aliasing=False
+        image,
+        out_shape,
+        order=order,
+        mode=mode,
+        cval=cval,
+        anti_aliasing=False,
     )
     out = _smooth(resized, sigma, mode, cval, channel_axis)
 
@@ -387,7 +402,9 @@ def pyramid_laplacian(
                 for ax, d in enumerate(current_shape)
             )
         else:
-            out_shape = tuple(math.ceil(d / float(downscale)) for d in current_shape)
+            out_shape = tuple(
+                math.ceil(d / float(downscale)) for d in current_shape
+            )
 
         resized_image = resize(
             smoothed_image,
@@ -397,7 +414,9 @@ def pyramid_laplacian(
             cval=cval,
             anti_aliasing=False,
         )
-        smoothed_image = _smooth(resized_image, sigma, mode, cval, channel_axis)
+        smoothed_image = _smooth(
+            resized_image, sigma, mode, cval, channel_axis
+        )
         current_shape = resized_image.shape
 
         yield resized_image - smoothed_image

@@ -140,11 +140,15 @@ def montage(
         arr_out[..., idx_chan] = fill[idx_chan]
 
     slices_row = [
-        slice(n_pad + (n_rows + n_pad) * n, n_pad + (n_rows + n_pad) * n + n_rows)
+        slice(
+            n_pad + (n_rows + n_pad) * n, n_pad + (n_rows + n_pad) * n + n_rows
+        )
         for n in range(ntiles_row)
     ]
     slices_col = [
-        slice(n_pad + (n_cols + n_pad) * n, n_pad + (n_cols + n_pad) * n + n_cols)
+        slice(
+            n_pad + (n_cols + n_pad) * n, n_pad + (n_cols + n_pad) * n + n_cols
+        )
         for n in range(ntiles_col)
     ]
 

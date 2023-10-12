@@ -86,7 +86,9 @@ def _is_multipattern(input_pattern):
     """Helping function. Returns True if pattern contains a tuple, list, or a
     string separated with os.pathsep."""
     # Conditions to be accepted by ImageCollection:
-    has_str_ospathsep = isinstance(input_pattern, str) and os.pathsep in input_pattern
+    has_str_ospathsep = (
+        isinstance(input_pattern, str) and os.pathsep in input_pattern
+    )
     not_a_string = not isinstance(input_pattern, str)
     has_iterable = isinstance(input_pattern, Sequence)
     has_strings = all(isinstance(pat, str) for pat in input_pattern)
@@ -206,7 +208,11 @@ class ImageCollection:
     """
 
     def __init__(
-        self, load_pattern, conserve_memory=True, load_func=None, **load_func_kwargs
+        self,
+        load_pattern,
+        conserve_memory=True,
+        load_func=None,
+        **load_func_kwargs,
     ):
         """Load and manage a collection of images."""
         self._files = []
@@ -306,7 +312,9 @@ class ImageCollection:
             n = self._check_imgnum(n)
             idx = n % len(self.data)
 
-            if (self.conserve_memory and n != self._cached) or (self.data[idx] is None):
+            if (self.conserve_memory and n != self._cached) or (
+                self.data[idx] is None
+            ):
                 kwargs = self.load_func_kwargs
                 if self._frame_index:
                     fname, img_num = self._frame_index[n]
@@ -481,12 +489,16 @@ class MultiImage(ImageCollection):
     (15, 10)
     """
 
-    def __init__(self, filename, conserve_memory=True, dtype=None, **imread_kwargs):
+    def __init__(
+        self, filename, conserve_memory=True, dtype=None, **imread_kwargs
+    ):
         """Load a multi-img."""
         from ._io import imread
 
         self._filename = filename
-        super().__init__(filename, conserve_memory, load_func=imread, **imread_kwargs)
+        super().__init__(
+            filename, conserve_memory, load_func=imread, **imread_kwargs
+        )
 
     @property
     def filename(self):

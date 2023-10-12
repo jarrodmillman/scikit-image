@@ -13,7 +13,8 @@ def test_fast_exp():
 
     # Approximation at single precision
     _y_f32 = np.array(
-        [fast_exp['float32_t'](x) for x in X.astype('float32')], dtype='float32'
+        [fast_exp['float32_t'](x) for x in X.astype('float32')],
+        dtype='float32',
     )
 
     for _y in [_y_f64, _y_f32]:

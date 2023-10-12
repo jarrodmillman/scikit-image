@@ -34,7 +34,9 @@ def _find_boundaries_subpixel(label_img):
     edges = np.ones(label_img_expanded.shape, dtype=bool)
     edges[pixels] = False
     label_img_expanded[edges] = max_label
-    windows = view_as_windows(np.pad(label_img_expanded, 1, mode='edge'), (3,) * ndim)
+    windows = view_as_windows(
+        np.pad(label_img_expanded, 1, mode='edge'), (3,) * ndim
+    )
 
     boundaries = np.zeros_like(edges)
     for index in np.ndindex(label_img_expanded.shape):
@@ -161,7 +163,9 @@ def find_boundaries(label_img, connectivity=1, mode='thick', background=0):
     ndim = label_img.ndim
     footprint = ndi.generate_binary_structure(ndim, connectivity)
     if mode != 'subpixel':
-        boundaries = dilation(label_img, footprint) != erosion(label_img, footprint)
+        boundaries = dilation(label_img, footprint) != erosion(
+            label_img, footprint
+        )
         if mode == 'inner':
             foreground_image = label_img != background
             boundaries &= foreground_image
@@ -232,7 +236,9 @@ def mark_boundaries(
         marked = ndi.zoom(
             marked, [2 - 1 / s for s in marked.shape[:-1]] + [1], mode='mirror'
         )
-    boundaries = find_boundaries(label_img, mode=mode, background=background_label)
+    boundaries = find_boundaries(
+        label_img, mode=mode, background=background_label
+    )
     if outline_color is not None:
         outlines = dilation(boundaries, square(3))
         marked[outlines] = outline_color

@@ -48,7 +48,9 @@ def create_luts(fname):
     ii = 0
     for casenr in range(99):
         # Get table
-        more_lines, ii = get_table(lines1, 'static const char subconfig', ii + 1)
+        more_lines, ii = get_table(
+            lines1, 'static const char subconfig', ii + 1
+        )
         if ii < 0:
             break
         else:
@@ -82,7 +84,9 @@ def get_table(lines1, needle, i):
         if not back:
             front, back = back, front
         line2 = '    '
-        line2 += back.strip().replace('{', '[').replace('}', ']').replace(';', '')
+        line2 += (
+            back.strip().replace('{', '[').replace('}', ']').replace(';', '')
+        )
         line2 += front.replace('/*', '  #').rstrip()
         lines2.append(line2)
         if line1.endswith('};'):

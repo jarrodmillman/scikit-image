@@ -103,7 +103,12 @@ def is_installed(name, version=None):
         symb = version[: match.start()]
         if not symb:
             symb = '='
-        assert symb in ('>=', '>', '=', '<'), f"Invalid version condition '{symb}'"
+        assert symb in (
+            '>=',
+            '>',
+            '=',
+            '<',
+        ), f"Invalid version condition '{symb}'"
         version = version[match.start() :]
         return _check_version(actver, version, symb)
 

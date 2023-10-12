@@ -78,11 +78,27 @@ def test_plot_matches():
         img1 = np.zeros(shape1)
         img2 = np.zeros(shape2)
         plot_matches(ax, img1, img2, keypoints1, keypoints2, matches)
-        plot_matches(ax, img1, img2, keypoints1, keypoints2, matches, only_matches=True)
         plot_matches(
-            ax, img1, img2, keypoints1, keypoints2, matches, keypoints_color='r'
+            ax, img1, img2, keypoints1, keypoints2, matches, only_matches=True
         )
-        plot_matches(ax, img1, img2, keypoints1, keypoints2, matches, matches_color='r')
         plot_matches(
-            ax, img1, img2, keypoints1, keypoints2, matches, alignment='vertical'
+            ax,
+            img1,
+            img2,
+            keypoints1,
+            keypoints2,
+            matches,
+            keypoints_color='r',
+        )
+        plot_matches(
+            ax, img1, img2, keypoints1, keypoints2, matches, matches_color='r'
+        )
+        plot_matches(
+            ax,
+            img1,
+            img2,
+            keypoints1,
+            keypoints2,
+            matches,
+            alignment='vertical',
         )

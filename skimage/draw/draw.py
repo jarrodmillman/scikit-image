@@ -124,8 +124,12 @@ def ellipse(r, c, r_radius, c_radius, shape=None, rotation=0.0):
     rotation %= np.pi
 
     # compute rotated radii by given rotation
-    r_radius_rot = abs(r_radius * np.cos(rotation)) + c_radius * np.sin(rotation)
-    c_radius_rot = r_radius * np.sin(rotation) + abs(c_radius * np.cos(rotation))
+    r_radius_rot = abs(r_radius * np.cos(rotation)) + c_radius * np.sin(
+        rotation
+    )
+    c_radius_rot = r_radius * np.sin(rotation) + abs(
+        c_radius * np.cos(rotation)
+    )
     # The upper_left and lower_right corners of the smallest rectangle
     # containing the ellipse.
     radii_rot = np.array([r_radius_rot, c_radius_rot])
@@ -861,7 +865,9 @@ def rectangle(start, end=None, extent=None, shape=None):
         n_dim = len(start)
         br = np.minimum(shape[0:n_dim], br)
         tl = np.maximum(np.zeros_like(shape[0:n_dim]), tl)
-    coords = np.meshgrid(*[np.arange(st, en) for st, en in zip(tuple(tl), tuple(br))])
+    coords = np.meshgrid(
+        *[np.arange(st, en) for st, en in zip(tuple(tl), tuple(br))]
+    )
     return coords
 
 
@@ -927,11 +933,25 @@ def rectangle_perimeter(start, end=None, extent=None, shape=None, clip=False):
            [0, 0, 1, 1, 1]], dtype=uint8)
 
     """
-    top_left, bottom_right = _rectangle_slice(start=start, end=end, extent=extent)
+    top_left, bottom_right = _rectangle_slice(
+        start=start, end=end, extent=extent
+    )
 
     top_left -= 1
-    r = [top_left[0], top_left[0], bottom_right[0], bottom_right[0], top_left[0]]
-    c = [top_left[1], bottom_right[1], bottom_right[1], top_left[1], top_left[1]]
+    r = [
+        top_left[0],
+        top_left[0],
+        bottom_right[0],
+        bottom_right[0],
+        top_left[0],
+    ]
+    c = [
+        top_left[1],
+        bottom_right[1],
+        bottom_right[1],
+        top_left[1],
+        top_left[1],
+    ]
     return polygon_perimeter(r, c, shape=shape, clip=clip)
 
 

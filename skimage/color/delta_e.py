@@ -376,7 +376,9 @@ def get_dH2(lab1, lab2, *, channel_axis=-1):
         2*|ab1|*|ab2| - 2*dot(ab1, ab2)
     """
     # This function needs double precision internally for accuracy
-    input_is_float_32 = _supported_float_type((lab1.dtype, lab2.dtype)) == np.float32
+    input_is_float_32 = (
+        _supported_float_type((lab1.dtype, lab2.dtype)) == np.float32
+    )
     lab1, lab2 = _float_inputs(lab1, lab2, allow_float32=False)
 
     a1, b1 = np.moveaxis(lab1, source=channel_axis, destination=0)[1:3]

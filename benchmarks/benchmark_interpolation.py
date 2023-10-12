@@ -26,18 +26,30 @@ class InterpolationResize:
 
     def time_resize(self, new_shape, order, mode, dtype, anti_aliasing):
         transform.resize(
-            self.image, new_shape, order=order, mode=mode, anti_aliasing=anti_aliasing
+            self.image,
+            new_shape,
+            order=order,
+            mode=mode,
+            anti_aliasing=anti_aliasing,
         )
 
     def time_rescale(self, new_shape, order, mode, dtype, anti_aliasing):
         scale = tuple(s2 / s1 for s2, s1 in zip(new_shape, self.image.shape))
         transform.rescale(
-            self.image, scale, order=order, mode=mode, anti_aliasing=anti_aliasing
+            self.image,
+            scale,
+            order=order,
+            mode=mode,
+            anti_aliasing=anti_aliasing,
         )
 
     def peakmem_resize(self, new_shape, order, mode, dtype, anti_aliasing):
         transform.resize(
-            self.image, new_shape, order=order, mode=mode, anti_aliasing=anti_aliasing
+            self.image,
+            new_shape,
+            order=order,
+            mode=mode,
+            anti_aliasing=anti_aliasing,
         )
 
     def peakmem_reference(self, *args):

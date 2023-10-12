@@ -109,7 +109,12 @@ class RidgeFilters:
 
     def setup(self):
         # Ensure memory footprint of lazy import is included in reference
-        self._ = filters.meijering, filters.sato, filters.frangi, filters.hessian
+        self._ = (
+            filters.meijering,
+            filters.sato,
+            filters.frangi,
+            filters.hessian,
+        )
         self.image = color.rgb2gray(data.retina())
 
     def peakmem_setup(self):

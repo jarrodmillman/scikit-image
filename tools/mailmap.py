@@ -34,7 +34,9 @@ authors = call("git log --format='%aN::%aE'")
 
 names, emails = [], []
 
-for name, email in (author.split('::') for author in authors if author.strip()):
+for name, email in (
+    author.split('::') for author in authors if author.strip()
+):
     if email not in emails:
         names.append(name)
         emails.append(email)

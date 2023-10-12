@@ -18,7 +18,11 @@ def test_2d_motion(dtype, gaussian, prefilter):
     float_dtype = _supported_float_type(dtype)
     # Estimate the flow
     flow = optical_flow_ilk(
-        image0, image1, gaussian=gaussian, prefilter=prefilter, dtype=float_dtype
+        image0,
+        image1,
+        gaussian=gaussian,
+        prefilter=prefilter,
+        dtype=float_dtype,
     )
     assert flow.dtype == _supported_float_type(dtype)
     # Assert that the average absolute error is less then half a pixel
@@ -27,7 +31,11 @@ def test_2d_motion(dtype, gaussian, prefilter):
     if dtype != float_dtype:
         with pytest.raises(ValueError):
             optical_flow_ilk(
-                image0, image1, gaussian=gaussian, prefilter=prefilter, dtype=dtype
+                image0,
+                image1,
+                gaussian=gaussian,
+                prefilter=prefilter,
+                dtype=dtype,
             )
 
 

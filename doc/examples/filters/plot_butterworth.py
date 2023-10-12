@@ -132,7 +132,9 @@ fig.text(
 # substantially reduced.
 
 
-lowpasses, highpasses = get_filtered(image, cutoffs, squared_butterworth=True, npad=32)
+lowpasses, highpasses = get_filtered(
+    image, cutoffs, squared_butterworth=True, npad=32
+)
 
 fig, axes = plot_filtered(lowpasses, highpasses, cutoffs)
 fig.text(
@@ -156,7 +158,9 @@ fig.text(
 # sharper in the lowpass case than their squared Butterworth counterparts
 # above.
 
-lowpasses, highpasses = get_filtered(image, cutoffs, squared_butterworth=False, npad=32)
+lowpasses, highpasses = get_filtered(
+    image, cutoffs, squared_butterworth=False, npad=32
+)
 
 fig, axes = plot_filtered(lowpasses, highpasses, cutoffs)
 fig.text(

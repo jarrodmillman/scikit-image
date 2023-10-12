@@ -22,7 +22,11 @@ from skimage.metrics import structural_similarity
 from ... import img_as_float
 from ...color import rgb2lab
 from .. import imread, imsave, reset_plugins, use_plugin, plugin_order
-from .._plugins.pil_plugin import _palette_is_grayscale, ndarray_to_pil, pil_to_ndarray
+from .._plugins.pil_plugin import (
+    _palette_is_grayscale,
+    ndarray_to_pil,
+    pil_to_ndarray,
+)
 
 
 @pytest.fixture(autouse=True)
@@ -57,7 +61,10 @@ def test_imread_as_gray():
     assert img.dtype == np.float64
     img = imread(fetch('data/camera.png'), as_gray=True)
     # check that conversion does not happen for a gray image
-    assert np.core.numerictypes.sctype2char(img.dtype) in np.typecodes['AllInteger']
+    assert (
+        np.core.numerictypes.sctype2char(img.dtype)
+        in np.typecodes['AllInteger']
+    )
 
 
 @pytest.mark.parametrize('explicit_kwargs', [False, True])
@@ -193,10 +200,21 @@ class TestSave:
                 x = np.ones(shape, dtype=dtype) * np.random.rand(*shape)
 
                 if np.issubdtype(dtype, np.floating):
-                    yield (self.verify_roundtrip, dtype, x, roundtrip_function(x), 255)
+                    yield (
+                        self.verify_roundtrip,
+                        dtype,
+                        x,
+                        roundtrip_function(x),
+                        255,
+                    )
                 else:
                     x = (x * 255).astype(dtype)
-                    yield (self.verify_roundtrip, dtype, x, roundtrip_function(x))
+                    yield (
+                        self.verify_roundtrip,
+                        dtype,
+                        x,
+                        roundtrip_function(x),
+                    )
 
     def test_imsave_roundtrip_file(self):
         self.verify_imsave_roundtrip(self.roundtrip_file)
@@ -241,7 +259,9 @@ def test_imsave_boolean_input():
     s = BytesIO()
 
     # save to file-like object
-    with expected_warnings(['is a boolean image: setting True to 255 and False to 0']):
+    with expected_warnings(
+        ['is a boolean image: setting True to 255 and False to 0']
+    ):
         imsave(s, image)
 
     # read from file-like object
@@ -302,7 +322,9 @@ def test_cmyk():
     for i in range(3):
         newi = np.ascontiguousarray(new_lab[:, :, i])
         refi = np.ascontiguousarray(ref_lab[:, :, i])
-        sim = structural_similarity(refi, newi, data_range=refi.max() - refi.min())
+        sim = structural_similarity(
+            refi, newi, data_range=refi.max() - refi.min()
+        )
         assert sim > 0.99
 
 

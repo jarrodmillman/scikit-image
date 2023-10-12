@@ -152,7 +152,9 @@ def relabel_sequential(label_field, offset=1):
     in_vals = np.unique(label_field)
     if in_vals[0] == 0:
         # always map 0 to 0
-        out_vals = np.concatenate([[0], np.arange(offset, offset + len(in_vals) - 1)])
+        out_vals = np.concatenate(
+            [[0], np.arange(offset, offset + len(in_vals) - 1)]
+        )
     else:
         out_vals = np.arange(offset, offset + len(in_vals))
     input_type = label_field.dtype

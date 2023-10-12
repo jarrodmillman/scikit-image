@@ -81,7 +81,9 @@ def test_dtype_conv():
     assert_equal(res.max(), img_max)  # the intensity range is preserved
 
 
-@parametrize("img", [np.ones((8, 8), dtype=float), np.ones((4, 8, 8), dtype=float)])
+@parametrize(
+    "img", [np.ones((8, 8), dtype=float), np.ones((4, 8, 8), dtype=float)]
+)
 def test_input_with_warning(img):
     # check that the input is not clobbered
     # for 2D and 3D images of varying dtypes

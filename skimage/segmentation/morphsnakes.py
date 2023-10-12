@@ -52,7 +52,9 @@ def sup_inf(u):
     elif np.ndim(u) == 3:
         P = _P3
     else:
-        raise ValueError("u has an invalid number of dimensions " "(should be 2 or 3)")
+        raise ValueError(
+            "u has an invalid number of dimensions " "(should be 2 or 3)"
+        )
 
     erosions = []
     for P_i in P:
@@ -69,7 +71,9 @@ def inf_sup(u):
     elif np.ndim(u) == 3:
         P = _P3
     else:
-        raise ValueError("u has an invalid number of dimensions " "(should be 2 or 3)")
+        raise ValueError(
+            "u has an invalid number of dimensions " "(should be 2 or 3)"
+        )
 
     dilations = []
     for P_i in P:
@@ -105,7 +109,9 @@ def _init_level_set(init_level_set, image_shape):
         elif init_level_set == 'disk':
             res = disk_level_set(image_shape)
         else:
-            raise ValueError("`init_level_set` not in " "['checkerboard', 'disk']")
+            raise ValueError(
+                "`init_level_set` not in " "['checkerboard', 'disk']"
+            )
     else:
         res = init_level_set
     return res
@@ -305,7 +311,9 @@ def morphological_chan_vese(
         # Image attachment
         du = np.gradient(u)
         abs_du = np.abs(du).sum(0)
-        aux = abs_du * (lambda1 * (image - c1) ** 2 - lambda2 * (image - c0) ** 2)
+        aux = abs_du * (
+            lambda1 * (image - c1) ** 2 - lambda2 * (image - c0) ** 2
+        )
 
         u[aux < 0] = 1
         u[aux > 0] = 0

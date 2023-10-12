@@ -19,13 +19,17 @@ def test_daisy_desc_dims():
     rings = 2
     histograms = 4
     orientations = 3
-    descs = daisy(img, rings=rings, histograms=histograms, orientations=orientations)
+    descs = daisy(
+        img, rings=rings, histograms=histograms, orientations=orientations
+    )
     assert descs.shape[2] == (rings * histograms + 1) * orientations
 
     rings = 4
     histograms = 5
     orientations = 13
-    descs = daisy(img, rings=rings, histograms=histograms, orientations=orientations)
+    descs = daisy(
+        img, rings=rings, histograms=histograms, orientations=orientations
+    )
     assert descs.shape[2] == (rings * histograms + 1) * orientations
 
 

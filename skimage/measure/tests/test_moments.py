@@ -6,7 +6,11 @@ from scipy import ndimage as ndi
 
 from skimage import draw
 from skimage._shared import testing
-from skimage._shared.testing import assert_allclose, assert_almost_equal, assert_equal
+from skimage._shared.testing import (
+    assert_allclose,
+    assert_almost_equal,
+    assert_equal,
+)
 from skimage._shared.utils import _supported_float_type
 from skimage.measure import (
     centroid,
@@ -110,7 +114,9 @@ def test_moments_central(anisotropic):
         mu2 = moments_central(image2, (14.5 + 2, 14.5 + 2))
     else:
         mu2 = moments_central(
-            image2, ((14.5 + 2) * spacing[0], (14.5 + 2) * spacing[1]), spacing=spacing
+            image2,
+            ((14.5 + 2) * spacing[0], (14.5 + 2) * spacing[1]),
+            spacing=spacing,
         )
     # central moments must be translation invariant
     compare_moments(mu, mu2, thresh=1e-14)
@@ -122,7 +128,8 @@ def test_moments_coords():
     mu_image = moments(image)
 
     coords = np.array(
-        [[r, c] for r in range(13, 17) for c in range(13, 17)], dtype=np.float64
+        [[r, c] for r in range(13, 17) for c in range(13, 17)],
+        dtype=np.float64,
     )
     mu_coords = moments_coords(coords)
     assert_almost_equal(mu_coords, mu_image)
@@ -152,7 +159,8 @@ def test_moments_central_coords():
     mu_image = moments_central(image, (14.5, 14.5))
 
     coords = np.array(
-        [[r, c] for r in range(13, 17) for c in range(13, 17)], dtype=np.float64
+        [[r, c] for r in range(13, 17) for c in range(13, 17)],
+        dtype=np.float64,
     )
     mu_coords = moments_coords_central(coords, (14.5, 14.5))
     assert_almost_equal(mu_coords, mu_image)
@@ -167,7 +175,8 @@ def test_moments_central_coords():
     mu_image = moments_central(image, (14.5, 14.5))
 
     coords = np.array(
-        [[r, c] for r in range(16, 20) for c in range(16, 20)], dtype=np.float64
+        [[r, c] for r in range(16, 20) for c in range(16, 20)],
+        dtype=np.float64,
     )
     mu_coords = moments_coords_central(coords, (14.5, 14.5))
     assert_almost_equal(mu_coords, mu_image)
@@ -336,7 +345,11 @@ def test_inertia_tensor_3d():
     # Check that axis has rotated by expected amount
     pi, cos, sin = np.pi, np.cos, np.sin
     R = np.array(
-        [[cos(pi / 6), -sin(pi / 6), 0], [sin(pi / 6), cos(pi / 6), 0], [0, 0, 1]]
+        [
+            [cos(pi / 6), -sin(pi / 6), 0],
+            [sin(pi / 6), cos(pi / 6), 0],
+            [0, 0, 1],
+        ]
     )
     expected_vr = R @ v0
     assert np.allclose(vr, expected_vr, atol=1e-3, rtol=0.01) or np.allclose(

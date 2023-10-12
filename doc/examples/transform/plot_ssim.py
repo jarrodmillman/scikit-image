@@ -39,7 +39,9 @@ noise[rng.random(size=noise.shape) > 0.5] *= -1
 img_noise = img + noise
 img_const = img + abs(noise)
 
-fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(10, 4), sharex=True, sharey=True)
+fig, axes = plt.subplots(
+    nrows=1, ncols=3, figsize=(10, 4), sharex=True, sharey=True
+)
 ax = axes.ravel()
 
 mse_none = mean_squared_error(img, img)

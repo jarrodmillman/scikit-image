@@ -168,10 +168,16 @@ def denoise_nl_means(
 
     kwargs = dict(s=patch_size, d=patch_distance, h=h, var=sigma * sigma)
     if ndim_no_channel == 2:
-        nlm_func = _fast_nl_means_denoising_2d if fast_mode else _nl_means_denoising_2d
+        nlm_func = (
+            _fast_nl_means_denoising_2d
+            if fast_mode
+            else _nl_means_denoising_2d
+        )
     elif ndim_no_channel == 3:
         if multichannel and not fast_mode:
-            raise NotImplementedError("Multichannel 3D requires fast_mode to be True.")
+            raise NotImplementedError(
+                "Multichannel 3D requires fast_mode to be True."
+            )
         if fast_mode:
             nlm_func = _fast_nl_means_denoising_3d
         else:

@@ -7,7 +7,11 @@ from skimage import draw
 from skimage._shared.testing import expected_warnings, fetch
 from skimage.io import imread
 from skimage.morphology import medial_axis, skeletonize, thin
-from skimage.morphology._skeletonize import G123_LUT, G123P_LUT, _generate_thin_luts
+from skimage.morphology._skeletonize import (
+    G123_LUT,
+    G123P_LUT,
+    _generate_thin_luts,
+)
 
 
 class TestSkeletonize:
@@ -186,7 +190,9 @@ class TestMedialAxis:
 
     def test_00_01_zeros_masked(self):
         '''Test skeletonize on an array that is completely masked'''
-        result = medial_axis(np.zeros((10, 10), bool), np.zeros((10, 10), bool))
+        result = medial_axis(
+            np.zeros((10, 10), bool), np.zeros((10, 10), bool)
+        )
         assert np.all(result == False)
 
     def test_vertical_line(self):

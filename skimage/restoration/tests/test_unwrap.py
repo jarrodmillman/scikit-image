@@ -20,7 +20,9 @@ def assert_phase_almost_equal(a, b, *args, **kwargs):
         [r'invalid value encountered|\A\Z', r'divide by zero encountered|\A\Z']
     ):
         print('assert_phase_allclose, abs', np.max(np.abs(a - (b - shift))))
-        print('assert_phase_allclose, rel', np.max(np.abs((a - (b - shift)) / a)))
+        print(
+            'assert_phase_allclose, rel', np.max(np.abs((a - (b - shift)) / a))
+        )
     if np.ma.isMaskedArray(a):
         assert_(np.ma.isMaskedArray(b))
         assert_array_equal(a.mask, b.mask)
@@ -28,10 +30,14 @@ def assert_phase_almost_equal(a, b, *args, **kwargs):
         au = np.asarray(a)
         bu = np.asarray(b)
         with expected_warnings(
-            [r'invalid value encountered|\A\Z', r'divide by zero encountered|\A\Z']
+            [
+                r'invalid value encountered|\A\Z',
+                r'divide by zero encountered|\A\Z',
+            ]
         ):
             print(
-                'assert_phase_allclose, no mask, abs', np.max(np.abs(au - (bu - shift)))
+                'assert_phase_allclose, no mask, abs',
+                np.max(np.abs(au - (bu - shift))),
             )
             print(
                 'assert_phase_allclose, no mask, rel',
@@ -88,7 +94,9 @@ def check_wrap_around(ndim, axis):
     elements = 100
     ramp = np.linspace(0, 12 * np.pi, elements)
     ramp[-1] = ramp[0]
-    image = ramp.reshape(tuple([elements if n == axis else 1 for n in range(ndim)]))
+    image = ramp.reshape(
+        tuple([elements if n == axis else 1 for n in range(ndim)])
+    )
     image_wrapped = np.angle(np.exp(1j * image))
 
     index_first = tuple([0] * ndim)
@@ -114,7 +122,9 @@ def check_wrap_around(ndim, axis):
     wrap_around = [n == axis for n in range(ndim)]
     # We do not want warnings about length 1 dimensions
     with expected_warnings([r'Image has a length 1 dimension.|\A\Z']):
-        image_unwrap_wrap_around = unwrap_phase(image_wrapped, wrap_around, rng=0)
+        image_unwrap_wrap_around = unwrap_phase(
+            image_wrapped, wrap_around, rng=0
+        )
     print(
         'endpoints with wrap_around:',
         image_unwrap_wrap_around[index_first],
@@ -122,7 +132,8 @@ def check_wrap_around(ndim, axis):
     )
     # with wrap around, the endpoints of the image should be equal
     assert_almost_equal(
-        image_unwrap_wrap_around[index_first], image_unwrap_wrap_around[index_last]
+        image_unwrap_wrap_around[index_first],
+        image_unwrap_wrap_around[index_last],
     )
 
 
@@ -168,7 +179,9 @@ def test_mask():
             image_unwrapped_3d = unwrap_phase(image_wrapped_3d)
             # remove phase shift
             image_unwrapped_3d -= image_unwrapped_3d[0, 0, 0]
-        assert_array_almost_equal_nulp(image_unwrapped_3d[:, :, -1], image[i, -1])
+        assert_array_almost_equal_nulp(
+            image_unwrapped_3d[:, :, -1], image[i, -1]
+        )
 
 
 def test_invalid_input():

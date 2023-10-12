@@ -67,7 +67,12 @@ plt.show()
 
 props = regionprops_table(
     label_img,
-    properties=('centroid', 'orientation', 'axis_major_length', 'axis_minor_length'),
+    properties=(
+        'centroid',
+        'orientation',
+        'axis_major_length',
+        'axis_minor_length',
+    ),
 )
 
 #####################################################################
@@ -110,7 +115,9 @@ for index in range(1, labels.max()):
     y, x = contour.T
     hoverinfo = ''
     for prop_name in properties:
-        hoverinfo += f'<b>{prop_name}: {getattr(props[index], prop_name):.2f}</b><br>'
+        hoverinfo += (
+            f'<b>{prop_name}: {getattr(props[index], prop_name):.2f}</b><br>'
+        )
     fig.add_trace(
         go.Scatter(
             x=x,

@@ -5,7 +5,12 @@ __all__ = ['adapted_rand_error']
 
 
 def adapted_rand_error(
-    image_true=None, image_test=None, *, table=None, ignore_labels=(0,), alpha=0.5
+    image_true=None,
+    image_test=None,
+    *,
+    table=None,
+    ignore_labels=(0,),
+    alpha=0.5,
 ):
     r"""Compute Adapted Rand error as defined by the SNEMI3D contest. [1]_
 
@@ -70,7 +75,10 @@ def adapted_rand_error(
 
     if table is None:
         p_ij = contingency_table(
-            image_true, image_test, ignore_labels=ignore_labels, normalize=False
+            image_true,
+            image_test,
+            ignore_labels=ignore_labels,
+            normalize=False,
         )
     else:
         p_ij = table

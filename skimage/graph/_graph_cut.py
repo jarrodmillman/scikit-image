@@ -51,7 +51,9 @@ def cut_threshold(labels, rag, thresh, in_place=True):
         rag = rag.copy()
 
     # Because deleting edges while iterating through them produces an error.
-    to_remove = [(x, y) for x, y, d in rag.edges(data=True) if d['weight'] >= thresh]
+    to_remove = [
+        (x, y) for x, y, d in rag.edges(data=True) if d['weight'] >= thresh
+    ]
     rag.remove_edges_from(to_remove)
 
     comps = nx.connected_components(rag)

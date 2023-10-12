@@ -67,7 +67,8 @@ for ind, im in enumerate(blurred_images):
     B.loc[ind, 'h_size = 30'] = measure.blur_effect(im, h_size=30)
 
 B.plot().set(
-    xlabel='blur strength (half the size of uniform filter)', ylabel='blur metric'
+    xlabel='blur strength (half the size of uniform filter)',
+    ylabel='blur metric',
 )
 
 plt.show()

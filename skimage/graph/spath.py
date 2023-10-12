@@ -42,7 +42,9 @@ def shortest_path(arr, reach=1, axis=-1, output_indexlist=False):
         axis += arr.ndim
     offset_ind_shape = (2 * reach + 1,) * (arr.ndim - 1)
     offset_indices = np.indices(offset_ind_shape) - reach
-    offset_indices = np.insert(offset_indices, axis, np.ones(offset_ind_shape), axis=0)
+    offset_indices = np.insert(
+        offset_indices, axis, np.ones(offset_ind_shape), axis=0
+    )
     offset_size = np.multiply.reduce(offset_ind_shape)
     offsets = np.reshape(offset_indices, (arr.ndim, offset_size), order='F').T
 
@@ -52,7 +54,9 @@ def shortest_path(arr, reach=1, axis=-1, output_indexlist=False):
     non_axis_shape = arr.shape[:axis] + arr.shape[axis + 1 :]
     non_axis_indices = np.indices(non_axis_shape)
     non_axis_size = np.multiply.reduce(non_axis_shape)
-    start_indices = np.insert(non_axis_indices, axis, np.zeros(non_axis_shape), axis=0)
+    start_indices = np.insert(
+        non_axis_indices, axis, np.zeros(non_axis_shape), axis=0
+    )
     starts = np.reshape(start_indices, (arr.ndim, non_axis_size), order='F').T
     end_indices = np.insert(
         non_axis_indices,

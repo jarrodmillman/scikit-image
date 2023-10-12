@@ -65,7 +65,9 @@ def test_calibrate_denoiser_extra_output():
     )
 
     all_denoised = [
-        denoise_invariant(noisy_img, _denoise_wavelet, denoiser_kwargs=denoiser_kwargs)
+        denoise_invariant(
+            noisy_img, _denoise_wavelet, denoiser_kwargs=denoiser_kwargs
+        )
         for denoiser_kwargs in parameters_tested
     ]
 
