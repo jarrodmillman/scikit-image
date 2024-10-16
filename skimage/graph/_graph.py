@@ -134,10 +134,9 @@ def pixel_graph(image, *, mask=None, edge_function=None, connectivity=1, spacing
     )
 
     m = nodes_sequential.size
-    mat = sparse.coo_array(
+    graph = sparse.csr_array(
         (data, (indices_sequential, neighbor_indices_sequential)), shape=(m, m)
     )
-    graph = mat.tocsr()
     return graph, nodes
 
 
